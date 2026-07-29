@@ -1,0 +1,109 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import SEOHead from '@/components/SEOHead';
+import Reveal from '@/components/ui/Reveal';
+import Button from '@/components/ui/Button';
+
+const About: React.FC = () => {
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Forside', item: 'https://www.aagesengrowth.dk/' },
+      { '@type': 'ListItem', position: 2, name: 'Om', item: 'https://www.aagesengrowth.dk/om' },
+    ],
+  };
+
+  const values = [
+    { title: 'Ansvar', text: 'Vi tager ejerskab. Opgaverne bliver udført.' },
+    { title: 'Klarhed', text: 'Tydelige mål, leverancer og forventninger.' },
+    { title: 'Kvalitet', text: 'Veludført arbejde frem for overfladisk volume.' },
+    { title: 'Forretningsforståelse', text: 'Marketing er et middel — ikke målet.' },
+  ];
+
+  return (
+    <>
+      <SEOHead
+        title="Om Aagesen Growth"
+        description="Et mindre setup med et større ansvar. Aagesen Growth hjælper virksomheder med professionelle digitale løsninger og fast marketingansvar."
+        canonical="/om"
+        schema={breadcrumbSchema}
+      />
+
+      <section className="bg-navy text-off-white pt-32 pb-16 lg:pt-40 lg:pb-20 relative overflow-hidden">
+        <div className="absolute inset-0 grid-bg" />
+        <div className="relative max-w-content mx-auto px-6 lg:px-10">
+          <Reveal>
+            <p className="text-xs font-sans font-medium uppercase tracking-[0.25em] text-accent mb-6">Om</p>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="font-serif text-display text-off-white mb-6 max-w-3xl text-balance">
+              Et mindre setup med et større ansvar.
+            </h1>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="text-lg text-off-white/50 max-w-2xl leading-relaxed text-pretty">
+              Aagesen Growth hjælper virksomheder, der har brug for professionelle digitale løsninger og fast marketingansvar uden at opbygge en fuld intern afdeling.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-bg-light py-22 lg:py-30">
+        <div className="max-w-content mx-auto px-6 lg:px-10">
+          <div className="max-w-2xl space-y-6">
+            <Reveal>
+              <p className="text-lg text-dark leading-relaxed text-pretty">
+                Samarbejdet er direkte og tæt. Det betyder, at du taler med den person, der faktisk udfører arbejdet — ikke et mellemled.
+              </p>
+            </Reveal>
+            <Reveal delay={80}>
+              <p className="text-lg text-muted leading-relaxed text-pretty">
+                Vi tager få samarbejder ad gangen, så vi kan være til stede og tage ansvar. Målet er at prioritere og udføre det arbejde, der giver bedst mening for din forretning.
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-off-white py-22 lg:py-30">
+        <div className="max-w-content mx-auto px-6 lg:px-10">
+          <Reveal>
+            <h2 className="font-serif text-section text-navy mb-16 text-balance">Værdier</h2>
+          </Reveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {values.map((v, i) => (
+              <Reveal key={i} delay={i * 80}>
+                <div className="bg-bg-light border border-navy/6 p-7 h-full">
+                  <h3 className="font-serif text-xl text-navy mb-3">{v.title}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{v.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-navy text-off-white py-22 lg:py-30 relative overflow-hidden">
+        <div className="absolute inset-0 grid-bg" />
+        <div className="relative max-w-content mx-auto px-6 lg:px-10 text-center">
+          <Reveal>
+            <h2 className="font-serif text-display text-off-white mb-6 max-w-2xl mx-auto text-balance">
+              Lad os tage en kort afklaring.
+            </h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button booking size="lg" variant="light">Book et møde</Button>
+              <Button to="/kontakt" size="lg" variant="ghost" className="text-off-white border-off-white/20 hover:border-off-white/50">
+                Kontakt os
+              </Button>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default About;
