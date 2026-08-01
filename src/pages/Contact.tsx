@@ -78,14 +78,13 @@ const Contact: React.FC = () => {
         schema={breadcrumbSchema}
       />
 
-      <section className="bg-navy text-off-white pt-32 pb-16 lg:pt-40 lg:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg" />
+      <section className="inner-hero grid-bg-light">
         <div className="relative max-w-content mx-auto px-6 lg:px-10">
           <Reveal>
             <p className="text-xs font-sans font-medium uppercase tracking-[0.25em] text-accent mb-6">Kontakt</p>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="font-serif text-display text-off-white mb-6 max-w-2xl text-balance">
+            <h1 className="font-serif text-display text-navy mb-6 max-w-2xl text-balance">
               Lad os tage en snak.
             </h1>
           </Reveal>

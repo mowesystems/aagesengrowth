@@ -11,9 +11,9 @@ const CaseCard: React.FC<CaseCardProps> = ({ item, compact = false }) => {
   const dark = item.theme === 'dark';
 
   return (
-    <article className={`case-card ${dark ? 'case-card-dark' : 'case-card-light'}`}>
-      <div className="case-card-logo" aria-hidden="true">
-        <img src={item.logoPath} alt="" className="h-full w-full object-contain" />
+    <article className={`case-card ${compact ? 'case-card-compact' : ''} ${dark ? 'case-card-dark' : 'case-card-light'}`}>
+      <div className="case-card-logo">
+        <img src={item.logoPath} alt={item.logoAlt} className="h-full w-full object-contain" />
       </div>
       <div className="case-card-content">
         <p className={`text-[0.7rem] font-medium uppercase tracking-[0.18em] ${dark ? 'text-accent' : 'text-muted'}`}>

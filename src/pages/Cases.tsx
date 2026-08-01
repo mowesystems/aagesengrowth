@@ -36,19 +36,18 @@ const Cases: React.FC = () => {
         schema={[breadcrumbSchema, projectSchema]}
       />
 
-      <section className="bg-navy text-off-white pt-32 pb-16 lg:pt-40 lg:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg" />
+      <section className="inner-hero grid-bg-light">
         <div className="relative max-w-content mx-auto px-6 lg:px-10">
           <Reveal>
             <p className="text-xs font-sans font-medium uppercase tracking-[0.25em] text-accent mb-6">Projekter</p>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="font-serif text-display text-off-white mb-6 max-w-3xl text-balance">
+            <h1 className="font-serif text-display text-navy mb-6 max-w-3xl text-balance">
               Udvalgt arbejde.
             </h1>
           </Reveal>
           <Reveal delay={160}>
-            <p className="text-lg text-off-white/50 max-w-xl leading-relaxed text-pretty">
+            <p className="text-lg text-muted max-w-xl leading-relaxed text-pretty">
               To projekter, der viser arbejdet fra digital retning og brand til website, marketing og løbende synlighed.
             </p>
           </Reveal>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import BrandLogo from '@/components/BrandLogo';
 
@@ -47,7 +47,7 @@ const Header: React.FC = () => {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`text-sm font-sans font-medium transition-colors duration-150 relative group ${
+                  className={`relative -mx-3 inline-flex min-h-11 min-w-11 items-center justify-center px-3 text-sm font-sans font-medium transition-colors duration-150 group ${
                     isActive(link.href) ? 'text-navy' : 'text-muted hover:text-navy'
                   }`}
                 >
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
 
             {/* CTA */}
             <div className="hidden lg:block">
-              <Button booking size="sm">Book et møde</Button>
+              <Button booking size="sm">Book et møde <ArrowRight size={14} className="ml-2" aria-hidden="true" /></Button>
             </div>
 
             {/* Mobile toggle */}
@@ -96,7 +96,7 @@ const Header: React.FC = () => {
           </nav>
           <div className="mt-10">
             <Button booking size="lg" variant="light" className="w-full">
-              Book et møde
+              Book et møde <ArrowRight size={15} className="ml-2" aria-hidden="true" />
             </Button>
           </div>
         </div>

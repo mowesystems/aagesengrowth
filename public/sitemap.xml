@@ -7,4 +7,6 @@
   <url><loc>https://www.aagesengrowth.dk/kontakt</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.aagesengrowth.dk/book-moede</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.aagesengrowth.dk/faq</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.aagesengrowth.dk/privatlivspolitik</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.aagesengrowth.dk/cookiepolitik</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
