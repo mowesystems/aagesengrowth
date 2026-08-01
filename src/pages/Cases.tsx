@@ -31,7 +31,7 @@ const Cases: React.FC = () => {
     <>
       <SEOHead
         title="Projekter"
-        description="Udvalgt arbejde fra Aagesen Growth — websites, webshops, branding og marketingcases."
+        description="Udvalgt arbejde fra Aagesen Growth ApS — websites, webshops, branding og marketingcases."
         canonical="/projekter"
         schema={[breadcrumbSchema, projectSchema]}
       />

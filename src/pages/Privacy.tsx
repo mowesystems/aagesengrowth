@@ -7,7 +7,7 @@ const Privacy: React.FC = () => (
   <>
     <SEOHead
       title="Privatlivspolitik"
-      description="Privatlivspolitik for Aagesen Growth — behandling af personoplysninger i overensstemmelse med GDPR."
+      description="Privatlivspolitik for Aagesen Growth ApS — behandling af personoplysninger i overensstemmelse med GDPR."
       canonical="/privatlivspolitik"
     />
     <section className="bg-navy text-off-white pt-32 pb-16 lg:pt-40 lg:pb-20 relative overflow-hidden">

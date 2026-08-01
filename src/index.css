@@ -38,7 +38,19 @@
 
 @layer components {
   .eyebrow {
-    @apply text-[0.68rem] font-medium uppercase tracking-[0.2em] text-accent;
+    @apply text-[0.72rem] font-medium uppercase tracking-[0.17em] text-accent;
+  }
+
+  .brand-logo-fallback {
+    @apply inline-flex flex-col justify-center font-sans font-semibold uppercase leading-none tracking-[0.18em];
+  }
+
+  .brand-logo-fallback > span:first-child {
+    @apply text-[1.18rem] lg:text-[1.35rem];
+  }
+
+  .brand-logo-fallback > span:last-child {
+    @apply mt-1.5 text-[0.56rem] tracking-[0.29em] text-accent lg:text-[0.62rem];
   }
 
   .hero-light {
@@ -50,11 +62,11 @@
   }
 
   .growth-dashboard {
-    @apply border border-navy/15 bg-bg-light p-3 shadow-[0_18px_60px_rgba(16,28,41,0.08)] sm:p-4;
+    @apply border border-navy/15 bg-bg-light p-3 shadow-[0_18px_55px_rgba(16,28,41,0.07)] sm:p-4;
   }
 
   .growth-dashboard-note {
-    @apply mb-3 flex items-center gap-2 px-1 text-[0.62rem] uppercase tracking-[0.14em] text-muted;
+    @apply mb-3 flex items-center gap-2 px-1 text-[0.68rem] uppercase tracking-[0.12em] text-muted;
   }
 
   .growth-dashboard-grid {
@@ -66,7 +78,7 @@
   }
 
   .dashboard-label {
-    @apply text-[0.62rem] font-medium uppercase tracking-[0.12em] text-muted;
+    @apply text-[0.68rem] font-medium uppercase tracking-[0.1em] text-muted;
   }
 
   .dashboard-value {
@@ -142,8 +154,45 @@
     @apply bg-off-white p-4;
   }
 
-  .service-tile {
-    @apply flex min-h-[19rem] flex-col border border-off-white/10 bg-navy p-6 transition-colors duration-200 hover:bg-navy-2 lg:p-7;
+  .service-card {
+    @apply flex min-h-[20rem] flex-col border border-off-white/10 bg-navy p-6 text-off-white transition-[background-color,border-color,transform] duration-200 lg:p-7;
+  }
+
+  .service-card:hover {
+    @apply -translate-y-0.5 border-accent/45 bg-navy-2;
+  }
+
+  .service-card > svg {
+    @apply text-off-white;
+  }
+
+  .service-card-number {
+    @apply text-xs text-off-white/40;
+  }
+
+  .service-card h3 {
+    @apply mt-9 font-serif text-2xl leading-tight text-off-white;
+  }
+
+  .service-card > p {
+    @apply mt-4 text-sm leading-relaxed text-off-white/65;
+  }
+
+  .service-card ul {
+    @apply mt-5 space-y-2 border-t border-off-white/10 pt-5;
+  }
+
+  .service-card li {
+    @apply relative pl-3 text-xs leading-relaxed text-off-white/55;
+  }
+
+  .service-card li::before {
+    content: '';
+    @apply absolute left-0 top-[0.5rem] h-1 w-1 bg-accent;
+  }
+
+  .service-card-link {
+    @apply mt-auto inline-flex min-h-11 items-end gap-2 pt-6 text-sm font-medium text-off-white transition-colors hover:text-accent;
   }
 
   .value-band {
@@ -199,23 +248,29 @@
   }
 
   .case-card {
-    @apply flex h-full min-w-0 flex-col overflow-hidden border border-navy/10;
+    @apply flex h-full min-w-0 flex-col overflow-hidden border border-off-white/10 bg-navy transition-[border-color,transform] duration-200;
   }
 
-  .case-card-light {
-    @apply bg-off-white;
-  }
-
-  .case-card-dark {
-    @apply bg-navy-2;
+  .case-card:hover {
+    @apply -translate-y-0.5 border-accent/45;
   }
 
   .case-card-logo {
-    @apply flex h-56 items-center justify-center border-b border-navy/10 bg-white p-10 sm:h-64 sm:p-12;
+    @apply flex h-56 items-center justify-center border-b border-off-white/10 bg-navy p-10 sm:h-64 sm:p-12;
   }
 
-  .case-card-dark .case-card-logo {
-    @apply border-off-white/10 bg-black;
+  .case-card-logo img {
+    @apply h-auto w-auto max-w-full object-contain;
+  }
+
+  .case-card-plus-eins .case-card-logo img {
+    @apply max-h-36 max-w-36;
+    filter: brightness(0) invert(1);
+  }
+
+  .case-card-mowe-systems .case-card-logo img {
+    @apply max-h-64 max-w-64;
+    transform: scale(1.35);
   }
 
   .case-card-content {
@@ -229,11 +284,7 @@
     }
 
     .case-card-compact .case-card-logo {
-      @apply h-full min-h-64 border-b-0 border-r p-8;
-    }
-
-    .case-card-compact.case-card-dark .case-card-logo {
-      @apply border-r border-off-white/10;
+      @apply h-full min-h-72 border-b-0 border-r border-off-white/10 p-8;
     }
 
     .case-card-compact .case-card-content {

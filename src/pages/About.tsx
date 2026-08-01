@@ -23,8 +23,8 @@ const About: React.FC = () => {
   return (
     <>
       <SEOHead
-        title="Om Aagesen Growth"
-        description="Et mindre setup med et større ansvar. Aagesen Growth hjælper virksomheder med professionelle digitale løsninger og fast marketingansvar."
+        title="Om Aagesen Growth ApS"
+        description="Et mindre setup med et større ansvar. Aagesen Growth ApS hjælper virksomheder med professionelle digitale løsninger og fast marketingansvar."
         canonical="/om"
         schema={breadcrumbSchema}
       />

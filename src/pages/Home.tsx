@@ -2,11 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  BarChart3,
-  Megaphone,
   Monitor,
   RefreshCw,
-  Search,
   Target,
   TextSearch,
   TrendingUp,
@@ -16,6 +13,7 @@ import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
 import CaseCard from '@/components/CaseCard';
 import GrowthDashboard from '@/components/GrowthDashboard';
+import ServiceGrid from '@/components/ServiceGrid';
 import services from '@/data/services';
 import cases from '@/data/cases';
 import { packages, pricingNote } from '@/data/pricing';
@@ -23,27 +21,18 @@ import { packages, pricingNote } from '@/data/pricing';
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Aagesen Growth',
+  name: 'Aagesen Growth ApS',
   url: 'https://www.aagesengrowth.dk',
 };
 
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'Aagesen Growth',
+  name: 'Aagesen Growth ApS',
+  legalName: 'Aagesen Growth ApS',
   description: 'Websites, marketing, SEO, GEO og AI-synlighed samlet hos én ansvarlig partner.',
   url: 'https://www.aagesengrowth.dk',
-  parentOrganization: { '@type': 'Organization', name: 'MOWE Systems ApS' },
 };
-
-const serviceIcons = [Monitor, Megaphone, Search, BarChart3];
-
-const serviceCards = [
-  { ...services[0], title: 'Websites & webshops', description: 'Strategiske websites med stærk UX, visuel retning og fokus på konvertering.' },
-  { ...services[2], title: 'Google Ads & Meta Ads', description: 'Målrettede kampagner, tydelig tracking og løbende optimering.' },
-  { ...services[3], title: 'SEO, GEO & AI-synlighed', description: 'Teknisk SEO, indhold og struktur, der gør jer lettere at finde og forstå.' },
-  { ...services[1], title: 'Analyse & vækststrategi', description: 'Prioritering, marketingplan og en klar retning for den digitale indsats.' },
-];
 
 const valueStatements = [
   ['01', 'Stærkere digitalt fundament'],
@@ -63,20 +52,20 @@ const process = [
 const Home: React.FC = () => (
   <>
     <SEOHead
-      title="Aagesen Growth — Websites, marketing og AI-synlighed"
-      description="Aagesen Growth hjælper virksomheder med websites, annoncering, SEO, GEO og AI-synlighed — samlet hos én ansvarlig partner."
+      title="Aagesen Growth ApS — Websites, marketing og AI-synlighed"
+      description="Aagesen Growth ApS hjælper virksomheder med websites, annoncering, SEO, GEO og AI-synlighed — samlet hos én ansvarlig partner."
       canonical="/"
       schema={[websiteSchema, orgSchema]}
     />
 
     <section className="hero-light grid-bg-light">
-      <div className="max-w-content mx-auto grid grid-cols-1 items-center gap-12 px-6 pb-14 pt-28 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:pb-14 lg:pt-32">
+      <div className="max-w-content mx-auto grid grid-cols-1 items-center gap-11 px-6 pb-16 pt-32 lg:grid-cols-12 lg:gap-14 lg:px-10 lg:pb-16 lg:pt-36">
         <div className="lg:col-span-6">
           <Reveal>
             <p className="eyebrow">Websites · Marketing · AI-synlighed</p>
           </Reveal>
           <Reveal delay={70}>
-            <h1 className="mt-5 max-w-3xl font-serif text-[clamp(2.7rem,4.4vw,4rem)] leading-[1.04] tracking-[-0.02em] text-navy">
+            <h1 className="mt-5 max-w-[11.5ch] font-serif text-[clamp(2.75rem,4.4vw,4.15rem)] leading-[1.02] tracking-[-0.025em] text-navy">
               <span className="block">Websites, marketing</span>
               <span className="block">og AI-synlighed der</span>
               <em className="block font-normal">skaber målbare resultater.</em>
@@ -111,28 +100,16 @@ const Home: React.FC = () => (
       </div>
     </section>
 
-    <section className="bg-bg-light pb-16 lg:pb-20">
+    <section className="bg-bg-light py-16 lg:py-20" aria-labelledby="services-heading">
       <div className="max-w-content mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {serviceCards.map((service, index) => {
-            const Icon = serviceIcons[index];
-            return (
-              <Reveal key={service.id} delay={index * 60}>
-                <Link to={service.href} className="service-tile group">
-                  <div className="flex items-start justify-between">
-                    <Icon size={28} strokeWidth={1.35} className="text-off-white" aria-hidden="true" />
-                    <span className="text-xs text-off-white/40">{String(index + 1).padStart(2, '0')}</span>
-                  </div>
-                  <h2 className="mt-10 font-serif text-2xl leading-tight text-off-white">{service.title}</h2>
-                  <p className="mt-4 text-sm leading-relaxed text-off-white/60">{service.description}</p>
-                  <span className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-off-white transition-colors group-hover:text-accent">
-                    Læs mere <ArrowRight size={14} aria-hidden="true" />
-                  </span>
-                </Link>
-              </Reveal>
-            );
-          })}
+        <div className="mb-10 max-w-2xl">
+          <p className="eyebrow">Ydelser</p>
+          <h2 id="services-heading" className="mt-3 font-serif text-section text-navy">Et samlet digitalt fundament.</h2>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+            Otte konkrete discipliner, der kan stå alene eller samles omkring ét fælles mål.
+          </p>
         </div>
+        <ServiceGrid services={services} />
       </div>
     </section>
 

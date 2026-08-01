@@ -31,14 +31,14 @@ const Header: React.FC = () => {
         className="fixed top-0 left-0 right-0 z-40 border-b border-navy/10 bg-bg-light/95 backdrop-blur-md"
       >
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="flex items-center justify-between h-20 lg:h-[5.5rem]">
+          <div className="flex h-[5.5rem] items-center justify-between lg:h-24">
             {/* Logo — prominent */}
             <Link
               to="/"
               className="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
-              aria-label="Aagesen Growth — forsiden"
+              aria-label="Aagesen Growth ApS — forsiden"
             >
-              <BrandLogo className="h-11 w-auto max-w-[12rem] lg:h-14 lg:max-w-[13.5rem]" />
+              <BrandLogo className="h-auto w-[8.5rem] lg:w-[10.5rem]" />
             </Link>
 
             {/* Desktop nav */}

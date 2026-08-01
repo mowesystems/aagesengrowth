@@ -7,7 +7,7 @@ const CookiePolicy: React.FC = () => (
   <>
     <SEOHead
       title="Cookiepolitik"
-      description="Cookiepolitik for Aagesen Growth — hvilke cookies vi bruger og hvordan du ændrer indstillinger."
+      description="Cookiepolitik for Aagesen Growth ApS — hvilke cookies vi bruger og hvordan du ændrer indstillinger."
       canonical="/cookiepolitik"
     />
     <section className="bg-navy text-off-white pt-32 pb-16 lg:pt-40 lg:pb-20 relative overflow-hidden">

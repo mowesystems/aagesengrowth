@@ -10,7 +10,6 @@ export interface CaseItem {
   url: string;
   cta: string;
   projectNote?: string;
-  theme: 'light' | 'dark';
 }
 
 export const cases: CaseItem[] = [
@@ -32,8 +31,7 @@ export const cases: CaseItem[] = [
     logoPath: '/plus-eins.png',
     logoAlt: 'Plus Eins',
     url: 'https://www.pluseins.dk',
-    cta: 'Se Plus Eins',
-    theme: 'light',
+    cta: 'Se case',
   },
   {
     id: 'mowe-systems',
@@ -53,9 +51,8 @@ export const cases: CaseItem[] = [
     logoPath: '/mowe-systems.png',
     logoAlt: 'MOWE Systems',
     url: 'https://mowesystems.com',
-    cta: 'Se MOWE Systems',
+    cta: 'Se case',
     projectNote: 'Et projekt skabt og udviklet af samme founder som Aagesen Growth.',
-    theme: 'dark',
   },
 ];
 

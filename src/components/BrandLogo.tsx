@@ -11,9 +11,9 @@ const BrandLogo: React.FC<BrandLogoProps> = ({ light = false, className = '' }) 
 
   if (failed) {
     return (
-      <span className={`inline-flex flex-col font-sans font-semibold uppercase leading-none tracking-[0.16em] ${light ? 'text-off-white' : 'text-navy'} ${className}`}>
-        <span className="text-base">Aagesen</span>
-        <span className="mt-1 text-[0.62rem] tracking-[0.32em] text-accent">Growth</span>
+      <span className={`brand-logo-fallback ${light ? 'text-off-white' : 'text-navy'} ${className}`}>
+        <span>Aagesen</span>
+        <span>Growth ApS</span>
       </span>
     );
   }
@@ -21,7 +21,7 @@ const BrandLogo: React.FC<BrandLogoProps> = ({ light = false, className = '' }) 
   return (
     <img
       src={company.logoPath}
-      alt="Aagesen Growth"
+      alt="Aagesen Growth ApS"
       className={`${light ? 'brightness-0 invert' : ''} object-contain ${className}`}
       onError={() => setFailed(true)}
     />
