@@ -1,13 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import {
+  ArrowRight,
+  BarChart3,
+  Megaphone,
+  Monitor,
+  RefreshCw,
+  Search,
+  Target,
+  TextSearch,
+  TrendingUp,
+} from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
-import services from '@/data/services';
-import { packages, pricingNote } from '@/data/pricing';
-import cases from '@/data/cases';
 import CaseCard from '@/components/CaseCard';
+import GrowthDashboard from '@/components/GrowthDashboard';
+import services from '@/data/services';
+import cases from '@/data/cases';
+import { packages, pricingNote } from '@/data/pricing';
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -20,378 +31,216 @@ const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: 'Aagesen Growth',
-  description: 'Websites, marketing og digital vækst. Samlet ét sted.',
+  description: 'Websites, marketing, SEO, GEO og AI-synlighed samlet hos én ansvarlig partner.',
   url: 'https://www.aagesengrowth.dk',
   parentOrganization: { '@type': 'Organization', name: 'MOWE Systems ApS' },
 };
 
-const Home: React.FC = () => {
-  const process = [
-    { num: '01', title: 'Forståelse', text: 'Vi sætter os ind i virksomheden, kunderne og de vigtigste mål.' },
-    { num: '02', title: 'Retning', text: 'Vi definerer prioriteter, struktur og en klar plan.' },
-    { num: '03', title: 'Produktion', text: 'Vi designer, udvikler og udfører det aftalte arbejde.' },
-    { num: '04', title: 'Optimering', text: 'Vi følger resultaterne og forbedrer løbende.' },
-  ];
+const serviceIcons = [Monitor, Megaphone, Search, BarChart3];
 
-  const positioningPoints = [
-    'Strategi og eksekvering samlet',
-    'Én fast ansvarlig',
-    'Løbende forbedringer frem for enkeltstående leverancer',
-  ];
+const serviceCards = [
+  { ...services[0], title: 'Websites & webshops', description: 'Strategiske websites med stærk UX, visuel retning og fokus på konvertering.' },
+  { ...services[2], title: 'Google Ads & Meta Ads', description: 'Målrettede kampagner, tydelig tracking og løbende optimering.' },
+  { ...services[3], title: 'SEO, GEO & AI-synlighed', description: 'Teknisk SEO, indhold og struktur, der gør jer lettere at finde og forstå.' },
+  { ...services[1], title: 'Analyse & vækststrategi', description: 'Prioritering, marketingplan og en klar retning for den digitale indsats.' },
+];
 
-  return (
-    <>
-      <SEOHead
-        title="Aagesen Growth — Websites, marketing og digital vækst"
-        description="Aagesen Growth designer og udvikler hjemmesider og webshops og driver den marketing, der skaber synlighed, henvendelser og salg. Én ansvarlig partner."
-        canonical="/"
-        schema={[websiteSchema, orgSchema]}
-      />
+const valueStatements = [
+  ['01', 'Stærkere digitalt fundament'],
+  ['02', 'Bedre synlighed'],
+  ['03', 'Klarere kunderejse'],
+  ['04', 'Løbende optimering'],
+];
 
-      {/* ── 1. HERO ── */}
-      <section className="bg-navy text-off-white relative overflow-hidden min-h-[680px] lg:min-h-[760px] flex items-center">
-        <div className="absolute inset-0 grid-bg" />
-        {/* Accent line */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+const process = [
+  { num: '01', title: 'Indsigt & analyse', text: 'Vi forstår forretningen, kunderne og den vigtigste opgave.', icon: TextSearch },
+  { num: '02', title: 'Strategi & plan', text: 'Vi prioriterer indsatsen og samler den i en klar plan.', icon: Target },
+  { num: '03', title: 'Eksekvering', text: 'Vi designer, udvikler og producerer det aftalte.', icon: Monitor },
+  { num: '04', title: 'Optimering', text: 'Vi tester, måler og forbedrer det, der er sat i gang.', icon: TrendingUp },
+  { num: '05', title: 'Vækst & resultater', text: 'Vi skaber fremdrift gennem vedholdende forbedringer.', icon: RefreshCw },
+];
 
-        <div className="relative max-w-content mx-auto px-6 lg:px-10 pt-32 pb-20 lg:pt-36 lg:pb-24 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            {/* Text — 55% */}
-            <div className="lg:col-span-7">
-              <Reveal>
-                <p className="text-xs font-sans font-medium uppercase tracking-[0.25em] text-accent mb-8">
-                  Websites · Marketing · Digital vækst
-                </p>
-              </Reveal>
-              <Reveal delay={80}>
-                <h1 className="font-serif text-hero text-off-white text-balance mb-8">
-                  Vi bygger det digitale fundament — og skaber væksten omkring det.
-                </h1>
-              </Reveal>
-              <Reveal delay={160}>
-                <p className="text-lg text-off-white/60 leading-relaxed max-w-xl mb-5 text-pretty">
-                  Aagesen Growth udvikler websites og webshops og samler den marketing, der skal skabe synlighed, henvendelser og salg.
-                </p>
-              </Reveal>
-              <Reveal delay={220}>
-                <p className="text-base text-off-white/40 leading-relaxed max-w-lg mb-10">
-                  Én fast partner på tværs af strategi, design, indhold, annoncering, SEO, GEO og løbende optimering.
-                </p>
-              </Reveal>
-              <Reveal delay={300}>
-                <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                  <Button booking size="lg" variant="light">Book et møde</Button>
-                  <Button to="/projekter" size="lg" variant="ghost" className="text-off-white border-off-white/20 hover:border-off-white/50">
-                    Se vores arbejde
-                  </Button>
-                </div>
-              </Reveal>
-              <Reveal delay={380}>
-                <p className="text-sm text-off-white/30">
-                  Faste samarbejder fra 10.000 kr. ekskl. moms pr. måned.
-                </p>
-              </Reveal>
+const Home: React.FC = () => (
+  <>
+    <SEOHead
+      title="Aagesen Growth — Websites, marketing og AI-synlighed"
+      description="Aagesen Growth hjælper virksomheder med websites, annoncering, SEO, GEO og AI-synlighed — samlet hos én ansvarlig partner."
+      canonical="/"
+      schema={[websiteSchema, orgSchema]}
+    />
+
+    <section className="hero-light grid-bg-light">
+      <div className="max-w-content mx-auto grid grid-cols-1 items-center gap-12 px-6 pb-14 pt-28 lg:grid-cols-12 lg:gap-16 lg:px-10 lg:pb-14 lg:pt-32">
+        <div className="lg:col-span-6">
+          <Reveal>
+            <p className="eyebrow">Websites · Marketing · AI-synlighed</p>
+          </Reveal>
+          <Reveal delay={70}>
+            <h1 className="mt-5 max-w-3xl font-serif text-[clamp(2.7rem,4.4vw,4rem)] leading-[1.04] tracking-[-0.02em] text-navy">
+              <span className="block">Websites, marketing</span>
+              <span className="block">og AI-synlighed der</span>
+              <em className="block font-normal">skaber målbare resultater.</em>
+            </h1>
+          </Reveal>
+          <Reveal delay={130}>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+              Aagesen Growth hjælper virksomheder med at blive fundet, valgt og anbefalet gennem stærke websites, skarpe kampagner og bedre synlighed i Google og AI-søgninger.
+            </p>
+          </Reveal>
+          <Reveal delay={190}>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button booking size="lg">Book et møde <ArrowRight size={16} className="ml-2" aria-hidden="true" /></Button>
+              <Link to="/projekter" className="inline-flex min-h-11 items-center justify-center gap-2 px-4 text-sm font-medium text-navy transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                Se cases <ArrowRight size={15} aria-hidden="true" />
+              </Link>
             </div>
-
-            {/* Visual — 45% */}
-            <div className="lg:col-span-5 hidden lg:block">
-              <Reveal delay={200}>
-                <HeroVisual />
-              </Reveal>
-            </div>
-          </div>
+          </Reveal>
+          <Reveal delay={240}>
+            <p className="mt-7 flex items-center gap-2 text-xs leading-relaxed text-muted">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+              Direkte samarbejde · ét samlet ansvar · løbende prioritering
+            </p>
+          </Reveal>
         </div>
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-navy to-transparent pointer-events-none" />
-      </section>
+        <div className="lg:col-span-6">
+          <Reveal delay={120}>
+            <GrowthDashboard />
+          </Reveal>
+        </div>
+      </div>
+    </section>
 
-      {/* ── 2. KERNEYDELSER ── */}
-      <section className="bg-bg-light py-18 lg:py-24">
-        <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="mb-16 max-w-2xl">
-            <Reveal>
-              <h2 className="font-serif text-section text-navy mb-4 text-balance">
-                Fra digitalt fundament til løbende vækst.
-              </h2>
-            </Reveal>
-            <Reveal delay={80}>
-              <p className="text-muted leading-relaxed text-pretty">
-                Vi samler de vigtigste digitale discipliner, så strategi, udtryk og eksekvering arbejder i samme retning.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-navy/10 border border-navy/10">
-            {services.map((s, i) => (
-              <Reveal key={s.id} delay={i * 80}>
-                <Link
-                  to={s.href}
-                  className="group block bg-off-white p-7 lg:p-9 h-full hover:bg-white transition-colors duration-300"
-                >
-                  <div className="flex items-start justify-between gap-5">
-                    <div>
-                      <span className="text-xs font-sans font-medium text-accent mb-4 block">{s.index}</span>
-                      <h3 className="font-serif text-2xl lg:text-3xl text-navy mb-3">{s.title}</h3>
-                    </div>
-                    <ArrowRight size={17} className="mt-1 text-muted transition-all group-hover:translate-x-1 group-hover:text-accent" />
+    <section className="bg-bg-light pb-16 lg:pb-20">
+      <div className="max-w-content mx-auto px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {serviceCards.map((service, index) => {
+            const Icon = serviceIcons[index];
+            return (
+              <Reveal key={service.id} delay={index * 60}>
+                <Link to={service.href} className="service-tile group">
+                  <div className="flex items-start justify-between">
+                    <Icon size={28} strokeWidth={1.35} className="text-off-white" aria-hidden="true" />
+                    <span className="text-xs text-off-white/40">{String(index + 1).padStart(2, '0')}</span>
                   </div>
-                  <p className="text-muted text-sm leading-relaxed mb-6 max-w-lg">{s.description}</p>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2">
-                    {s.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2 text-xs leading-relaxed text-dark/75">
-                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <span className="inline-flex items-center gap-2 text-sm font-sans font-medium text-navy group-hover:text-accent transition-colors">
-                    <span className="sr-only">Læs mere om {s.title}</span>
+                  <h2 className="mt-10 font-serif text-2xl leading-tight text-off-white">{service.title}</h2>
+                  <p className="mt-4 text-sm leading-relaxed text-off-white/60">{service.description}</p>
+                  <span className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-off-white transition-colors group-hover:text-accent">
+                    Læs mere <ArrowRight size={14} aria-hidden="true" />
                   </span>
                 </Link>
               </Reveal>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* ── 3. POSITIONERING ── */}
-      <section className="bg-navy text-off-white py-22 lg:py-30 relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-50" />
-        <div className="relative max-w-content mx-auto px-6 lg:px-10">
-          <div className="max-w-3xl">
-            <Reveal>
-              <h2 className="font-serif text-display text-off-white mb-8 text-balance">
-                Én partner. Et samlet digitalt ansvar.
-              </h2>
+    <section className="value-band grid-bg">
+      <div className="max-w-content mx-auto grid grid-cols-1 px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
+        {valueStatements.map(([num, statement]) => (
+          <div key={num} className="value-band-item">
+            <span>{num}</span>
+            <p>{statement}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section className="bg-bg-light py-16 lg:py-20">
+      <div className="max-w-content mx-auto px-6 lg:px-10">
+        <div className="mb-9 flex items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow">Udvalgte projekter</p>
+            <h2 className="mt-3 font-serif text-section text-navy">Resultater, der gør en forskel.</h2>
+          </div>
+          <Link to="/projekter" className="hidden min-h-11 items-center gap-2 text-sm font-medium text-navy transition-colors hover:text-accent sm:inline-flex">
+            Se alle projekter <ArrowRight size={14} aria-hidden="true" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+          {cases.map((item, index) => (
+            <Reveal key={item.id} delay={index * 80}>
+              <CaseCard item={item} compact />
             </Reveal>
-            <Reveal delay={100}>
-              <p className="text-lg text-off-white/50 leading-relaxed mb-12 max-w-2xl text-pretty">
-                De bedste resultater opstår, når hjemmeside, brand, indhold, annoncering og synlighed ikke behandles som separate projekter. Aagesen Growth samler arbejdet, prioriterer indsatsen og sørger for, at det bliver udført.
-              </p>
-            </Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {positioningPoints.map((p, i) => (
-                <Reveal key={i} delay={i * 100}>
-                  <div className="border-l border-accent/40 pl-5">
-                    <p className="text-off-white/80 text-base leading-relaxed">{p}</p>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="border-y border-navy/10 bg-off-white py-16 lg:py-20">
+      <div className="max-w-content mx-auto px-6 lg:px-10">
+        <p className="eyebrow">Sådan arbejder vi</p>
+        <h2 className="mt-3 font-serif text-section text-navy">En struktureret proces.</h2>
+        <div className="mt-9 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {process.map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <Reveal key={step.num} delay={index * 50}>
+                <div className="process-card">
+                  <div className="flex items-center justify-between">
+                    <span className="process-number">{step.num}</span>
+                    <Icon size={22} strokeWidth={1.4} className="text-navy" aria-hidden="true" />
                   </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
+                  <h3 className="mt-7 font-serif text-xl text-navy">{step.title}</h3>
+                  <p className="mt-3 text-xs leading-relaxed text-muted">{step.text}</p>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* ── 4. UDVALGTE PROJEKTER ── */}
-      <section className="bg-bg-light py-18 lg:py-24">
-        <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <Reveal>
-                <h2 className="font-serif text-section text-navy text-balance">Udvalgt arbejde.</h2>
-              </Reveal>
-            </div>
-            <Reveal delay={100}>
-              <Link to="/projekter" className="hidden sm:inline-flex items-center gap-2 text-sm font-sans font-medium text-navy hover:text-accent transition-colors">
-                Alle projekter <ArrowRight size={14} />
+    <section className="bg-bg-light py-14 lg:py-16">
+      <div className="max-w-content mx-auto px-6 lg:px-10">
+        <div className="mb-8 max-w-2xl">
+          <p className="eyebrow">Samarbejdsformer</p>
+          <h2 className="mt-3 font-serif text-section text-navy">Tydelige rammer. Tilpasset opgaven.</h2>
+        </div>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          {packages.map((pkg) => (
+            <div key={pkg.id} className="pricing-compact">
+              <h3 className="font-serif text-xl text-navy">{pkg.name}</h3>
+              <p className="mt-3 text-lg font-medium text-navy">{pkg.price}</p>
+              <p className="mt-1 text-xs text-muted">{pkg.priceNote}</p>
+              <p className="mt-4 text-sm leading-relaxed text-muted">{pkg.description}</p>
+              <Link to={pkg.ctaType === 'contact' ? '/kontakt' : '/book-moede'} className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-navy hover:text-accent">
+                {pkg.ctaLabel} <ArrowRight size={14} aria-hidden="true" />
               </Link>
-            </Reveal>
-          </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-5 text-xs leading-relaxed text-muted">{pricingNote}</p>
+      </div>
+    </section>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            {cases.map((c, i) => (
-              <Reveal key={c.id} delay={i * 100}>
-                <CaseCard item={c} compact />
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="mt-8 sm:hidden">
-            <Link to="/projekter" className="inline-flex min-h-11 items-center gap-2 text-sm font-sans font-medium text-navy hover:text-accent transition-colors">
-              Alle projekter <ArrowRight size={14} />
+    <section className="bg-navy text-off-white">
+      <div className="max-w-content mx-auto grid grid-cols-1 gap-10 px-6 py-14 lg:grid-cols-12 lg:px-10 lg:py-16">
+        <div className="lg:col-span-7">
+          <h2 className="font-serif text-section text-off-white">Klar til at skabe en stærkere digital retning?</h2>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-off-white/60">
+            Book en uforpligtende samtale om jeres website, marketing og den indsats, der skal prioriteres først.
+          </p>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <Button booking variant="light">Book et møde <ArrowRight size={15} className="ml-2" aria-hidden="true" /></Button>
+            <Link to="/kontakt" className="inline-flex min-h-11 items-center justify-center gap-2 px-5 text-sm font-medium text-off-white hover:text-accent">
+              Skriv til os <ArrowRight size={14} aria-hidden="true" />
             </Link>
           </div>
         </div>
-      </section>
-
-      {/* ── 5. PROCES ── */}
-      <section className="bg-off-white py-18 lg:py-24">
-        <div className="max-w-content mx-auto px-6 lg:px-10">
-          <Reveal>
-            <h2 className="font-serif text-section text-navy mb-10 max-w-xl text-balance">
-              Fra første afklaring til løbende udvikling.
-            </h2>
-          </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-navy/8">
-            {process.map((step, i) => (
-              <Reveal key={i} delay={i * 80}>
-                <div className="bg-off-white p-8 h-full">
-                  <span className="font-serif text-4xl text-accent/50 block mb-4">{step.num}</span>
-                  <h3 className="font-serif text-xl text-navy mb-2">{step.title}</h3>
-                  <p className="text-muted text-sm leading-relaxed">{step.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. PRISER ── */}
-      <section className="bg-bg-light py-16 lg:py-20">
-        <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="mb-10 max-w-2xl">
-            <Reveal>
-              <h2 className="font-serif text-section text-navy mb-4 text-balance">
-                Fleksible samarbejder. Tydelige rammer.
-              </h2>
-            </Reveal>
-            <Reveal delay={80}>
-              <p className="text-muted leading-relaxed text-pretty">
-                Tre udgangspunkter, der tilpasses opgaven og det ansvar, vi skal tage.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-            {packages.map((pkg, i) => (
-              <Reveal key={pkg.id} delay={i * 80}>
-                <div
-                  className={`relative h-full p-7 flex flex-col ${
-                    pkg.recommended
-                      ? 'bg-navy text-off-white border border-navy'
-                      : 'bg-off-white text-dark border border-navy/8'
-                  }`}
-                >
-                  {pkg.recommended && (
-                    <span className="absolute top-0 right-6 bg-accent text-navy text-[10px] font-sans font-medium uppercase tracking-wider px-3 py-1 transform -translate-y-1/2">
-                      Anbefalet
-                    </span>
-                  )}
-                  <h3 className={`font-serif text-2xl mb-2 ${pkg.recommended ? 'text-off-white' : 'text-navy'}`}>
-                    {pkg.name}
-                  </h3>
-                  <p className={`text-2xl font-serif mb-1 ${pkg.recommended ? 'text-off-white' : 'text-navy'}`}>
-                    {pkg.price}
-                  </p>
-                  <p className={`text-xs mb-6 ${pkg.recommended ? 'text-off-white/40' : 'text-muted'}`}>
-                    {pkg.priceNote}
-                  </p>
-                  <p className={`text-sm leading-relaxed mb-6 ${pkg.recommended ? 'text-off-white/60' : 'text-muted'}`}>
-                    {pkg.description}
-                  </p>
-                  <ul className={`space-y-2 mb-8 flex-1 ${pkg.recommended ? 'text-off-white/70' : 'text-dark'}`}>
-                    {pkg.features.map((f, j) => (
-                      <li key={j} className="flex items-start gap-2.5 text-sm leading-relaxed">
-                        <span className="w-1 h-1 rounded-full bg-accent mt-1.5 flex-shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  {pkg.ctaType === 'booking' ? (
-                    <Button booking size="md" variant={pkg.recommended ? 'light' : 'primary'} className="w-full">
-                      {pkg.ctaLabel}
-                    </Button>
-                  ) : (
-                    <Button to="/kontakt" size="md" variant={pkg.recommended ? 'light' : 'primary'} className="w-full">
-                      {pkg.ctaLabel}
-                    </Button>
-                  )}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={200}>
-            <p className="text-sm text-muted leading-relaxed">{pricingNote}</p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── 7. CTA ── */}
-      <section className="bg-navy text-off-white py-22 lg:py-30 relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-        <div className="relative max-w-content mx-auto px-6 lg:px-10 text-center">
-          <Reveal>
-            <h2 className="font-serif text-display text-off-white mb-6 max-w-3xl mx-auto text-balance">
-              Har virksomheden brug for en stærkere digital retning?
-            </h2>
-          </Reveal>
-          <Reveal delay={100}>
-            <p className="text-lg text-off-white/50 leading-relaxed mb-12 max-w-xl mx-auto text-pretty">
-              Book en uforpligtende samtale om jeres hjemmeside, marketing og mulighederne for et fast samarbejde.
+        <div className="grid gap-3 border-l border-off-white/15 pl-0 sm:grid-cols-3 lg:col-span-5 lg:grid-cols-1 lg:pl-8">
+          {['Strategisk sparring', 'Konkrete prioriteringer', 'Én ansvarlig partner'].map((item) => (
+            <p key={item} className="flex items-center gap-3 text-sm text-off-white/70">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full border border-accent/60 text-xs text-accent">✓</span>
+              {item}
             </p>
-          </Reveal>
-          <Reveal delay={200}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button booking size="lg" variant="light">Book et møde</Button>
-              <Button to="/kontakt" size="lg" variant="ghost" className="text-off-white border-off-white/20 hover:border-off-white/50">
-                Kontakt os
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-    </>
-  );
-};
-
-/* ── Hero Visual: abstract browser/mobile frame composition ── */
-const HeroVisual: React.FC = () => (
-  <div className="relative">
-    {/* Browser frame */}
-    <div className="bg-navy-2 border border-off-white/10 rounded-lg overflow-hidden shadow-2xl">
-      {/* Browser bar */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-off-white/8">
-        <div className="flex gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-off-white/15" />
-          <span className="w-2.5 h-2.5 rounded-full bg-off-white/15" />
-          <span className="w-2.5 h-2.5 rounded-full bg-off-white/15" />
-        </div>
-        <div className="flex-1 ml-3 h-5 bg-off-white/5 rounded-sm" />
-      </div>
-      {/* Content */}
-      <div className="p-6 space-y-4">
-        <div className="h-8 w-2/3 bg-off-white/10 rounded-sm" />
-        <div className="h-3 w-full bg-off-white/5 rounded-sm" />
-        <div className="h-3 w-5/6 bg-off-white/5 rounded-sm" />
-        <div className="grid grid-cols-3 gap-3 pt-2">
-          <div className="aspect-square bg-off-white/5 rounded-sm flex items-center justify-center">
-            <div className="w-6 h-6 border border-accent/30 rounded-sm" />
-          </div>
-          <div className="aspect-square bg-off-white/5 rounded-sm flex items-center justify-center">
-            <div className="w-6 h-6 border border-accent/30 rounded-full" />
-          </div>
-          <div className="aspect-square bg-off-white/5 rounded-sm flex items-center justify-center">
-            <div className="w-6 h-6 border border-accent/30 rotate-45" />
-          </div>
-        </div>
-        <div className="flex gap-2 pt-2">
-          <div className="h-8 w-24 bg-accent/20 rounded-sm" />
-          <div className="h-8 w-20 bg-off-white/8 rounded-sm border border-off-white/10" />
+          ))}
         </div>
       </div>
-    </div>
-
-    {/* Mobile frame overlay */}
-    <div className="absolute -bottom-6 -left-6 w-28 bg-navy-2 border border-off-white/10 rounded-xl overflow-hidden shadow-2xl">
-      <div className="px-3 py-2 border-b border-off-white/8">
-        <div className="w-10 h-1 bg-off-white/10 rounded-full mx-auto" />
-      </div>
-      <div className="p-3 space-y-2">
-        <div className="h-4 w-3/4 bg-off-white/10 rounded-sm" />
-        <div className="h-2 w-full bg-off-white/5 rounded-sm" />
-        <div className="h-2 w-5/6 bg-off-white/5 rounded-sm" />
-        <div className="h-10 bg-off-white/5 rounded-sm mt-2" />
-        <div className="h-6 w-16 bg-accent/20 rounded-sm" />
-      </div>
-    </div>
-
-    {/* Floating accent dot */}
-    <div className="absolute -top-3 -right-3 w-16 h-16 border border-accent/20 rounded-full flex items-center justify-center">
-      <span className="text-xs font-sans font-medium text-accent/60 tracking-wider">AG</span>
-    </div>
-  </div>
+    </section>
+  </>
 );
 
 export default Home;

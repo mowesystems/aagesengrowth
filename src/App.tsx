@@ -10,6 +10,8 @@ import About from '@/pages/About';
 import Contact from '@/pages/Contact';
 import Book from '@/pages/Book';
 import FAQPage from '@/pages/FAQPage';
+import Privacy from '@/pages/Privacy';
+import CookiePolicy from '@/pages/CookiePolicy';
 
 const App: React.FC = () => (
   <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -24,6 +26,8 @@ const App: React.FC = () => (
         <Route path="/kontakt" element={<Contact />} />
         <Route path="/book-moede" element={<Book />} />
         <Route path="/faq" element={<FAQPage />} />
+        <Route path="/privatlivspolitik" element={<Privacy />} />
+        <Route path="/cookiepolitik" element={<CookiePolicy />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </main>
