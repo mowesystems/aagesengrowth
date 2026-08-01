@@ -12,10 +12,12 @@
     <meta property="og:url" content="https://www.aagesengrowth.dk/" />
     <meta property="og:title" content="Aagesen Growth — Websites, marketing og digital vækst" />
     <meta property="og:description" content="Websites, marketing og digital vækst. Samlet ét sted. Én ansvarlig partner." />
-    <meta property="og:image" content="https://www.aagesengrowth.dk/2f98b2e8-e158-4b57-8bc7-f1c08c16936f.png" />
+    <meta property="og:image" content="https://www.aagesengrowth.dk/og.png" />
+    <meta property="og:image:alt" content="Aagesen Growth — websites, marketing og digital vækst" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Aagesen Growth — Websites, marketing og digital vækst" />
     <meta name="twitter:description" content="Websites, marketing og digital vækst. Samlet ét sted." />
+    <meta name="twitter:image" content="https://www.aagesengrowth.dk/og.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -27,12 +29,31 @@
       "description": "Websites, marketing og digital vækst. Samlet ét sted.",
       "url": "https://www.aagesengrowth.dk",
       "logo": "https://www.aagesengrowth.dk/2f98b2e8-e158-4b57-8bc7-f1c08c16936f.png",
-      "sameAs": ["https://www.linkedin.com", "https://www.instagram.com"],
-      "parentOrganization": { "@type": "Organization", "name": "MOWE Systems ApS" }
+      "parentOrganization": { "@type": "Organization", "name": "MOWE Systems ApS" },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Digitale ydelser",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Websites og webshops" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Marketing og content" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Google Ads og Meta Ads" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO, GEO og synlighed" } }
+        ]
+      }
     }
     </script>
   </head>
   <body>
+    <form name="contact" method="POST" action="/kontakt" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="company" />
+      <input name="email" />
+      <input name="website" />
+      <select name="help"><option value=""></option></select>
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

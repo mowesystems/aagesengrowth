@@ -13,7 +13,7 @@ export const services: Service[] = [
   {
     id: "websites",
     index: "01",
-    title: "Hjemmesider & webshops",
+    title: "Websites & webshops",
     tagline: "Design og udvikling af professionelle websites",
     description:
       "Design og udvikling af professionelle hjemmesider og webshops med stærk struktur, visuel identitet og fokus på konvertering.",
@@ -37,11 +37,11 @@ export const services: Service[] = [
     description:
       "Strategi, planlægning og produktion af indhold, der skaber en sammenhængende tilstedeværelse på tværs af relevante kanaler.",
     features: [
-      "Marketingstrategi",
-      "Indholdsplanlægning",
-      "Tekst og redigering",
-      "Publicering",
+      "Marketingplan",
       "Sociale medier",
+      "Contentproduktion",
+      "Kampagner og lanceringer",
+      "E-mail og kunderejser",
     ],
     href: "/ydelser#marketing",
   },
@@ -53,11 +53,12 @@ export const services: Service[] = [
     description:
       "Opsætning, tracking, test og løbende optimering med fokus på relevante handlinger og bedre udnyttelse af annoncebudgettet.",
     features: [
-      "Google Search Ads",
-      "Meta Ads",
-      "Tracking og konvertering",
-      "A/B-test",
+      "Kampagnestruktur",
+      "Målgrupper",
+      "Annonceindhold",
+      "Tracking",
       "Løbende optimering",
+      "Rapportering",
     ],
     href: "/ydelser#ads",
   },
@@ -70,10 +71,11 @@ export const services: Service[] = [
       "Tekniske, strukturelle og indholdsmæssige forbedringer, der gør virksomheden nemmere at finde og forstå i Google og AI-søgninger.",
     features: [
       "Teknisk SEO",
-      "Indhold og struktur",
+      "Indholdsstruktur og metadata",
+      "Interne links",
       "Lokal synlighed",
-      "GEO og AI visibility",
-      "Strukturerede data",
+      "AI-retrieval og GEO-optimering",
+      "Løbende synlighedsforbedringer",
     ],
     href: "/ydelser#seo",
   },
