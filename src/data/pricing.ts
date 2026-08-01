@@ -53,9 +53,9 @@ export const packages: PricingPackage[] = [
     description: "Afgrænsede projekter med fast leverance.",
     features: [
       "Hjemmesider fra 15.000 kr.",
-      "Webshops fra 15.000 kr.",
+      "Webshops efter omfang",
       "Digital identitet fra 7.500 kr.",
-      "Analyse fra 5.000 kr.",
+      "Analyse og strategi fra 5.000 kr.",
     ],
     ctaLabel: "Få en vurdering",
     ctaType: "contact",
@@ -63,4 +63,4 @@ export const packages: PricingPackage[] = [
 ];
 
 export const pricingNote =
-  "Alle priser er ekskl. moms. Annoncebudget, hosting, licenser og eksterne omkostninger betales separat.";
+  "Pakkerne er udgangspunkter og tilpasses den konkrete opgave. Software, annoncebudgetter, hosting, apps og øvrige tredjepartsudgifter afregnes separat.";

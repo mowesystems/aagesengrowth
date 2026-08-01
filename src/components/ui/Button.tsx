@@ -40,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
 }) => {
   const base =
-    'inline-flex items-center justify-center font-sans font-medium tracking-wide transition-all duration-200 ease-smooth focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
+    'inline-flex min-h-11 items-center justify-center font-sans font-medium tracking-wide transition-all duration-200 ease-smooth focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
   const classes = `${base} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
 
   if (booking) {

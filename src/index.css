@@ -10,6 +10,7 @@
   body {
     @apply bg-bg-light text-dark font-sans antialiased;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   h1, h2, h3 {
@@ -20,6 +21,11 @@
     @apply bg-accent/20 text-navy;
   }
 
+  :focus-visible {
+    outline: 2px solid #B7A184;
+    outline-offset: 3px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
       animation-duration: 0.01ms !important;
@@ -27,6 +33,48 @@
       transition-duration: 0.01ms !important;
     }
     html { scroll-behavior: auto; }
+  }
+}
+
+@layer components {
+  .form-field {
+    @apply w-full min-h-12 border border-navy/20 bg-off-white px-4 py-3 text-dark transition-colors placeholder:text-muted/60;
+  }
+
+  .form-field:hover {
+    @apply border-navy/35;
+  }
+
+  .form-field:focus-visible {
+    @apply border-navy outline-none ring-2 ring-accent/45 ring-offset-2 ring-offset-bg-light;
+  }
+
+  .form-field[aria-invalid="true"] {
+    @apply border-red-700;
+  }
+
+  .case-card {
+    @apply flex h-full min-w-0 flex-col overflow-hidden border border-navy/10;
+  }
+
+  .case-card-light {
+    @apply bg-off-white;
+  }
+
+  .case-card-dark {
+    @apply bg-navy-2;
+  }
+
+  .case-card-logo {
+    @apply flex h-56 items-center justify-center border-b border-navy/10 bg-white p-10 sm:h-64 sm:p-12;
+  }
+
+  .case-card-dark .case-card-logo {
+    @apply border-off-white/10 bg-black;
+  }
+
+  .case-card-content {
+    @apply flex flex-1 flex-col p-7 sm:p-9;
   }
 }
 
@@ -52,6 +100,13 @@
       linear-gradient(to right, rgba(243,239,231,0.04) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(243,239,231,0.04) 1px, transparent 1px);
     background-size: 64px 64px;
+  }
+
+  @media (max-width: 640px) {
+    .grid-bg,
+    .grid-bg-light {
+      background-size: 40px 40px;
+    }
   }
 
   .grid-bg-light {

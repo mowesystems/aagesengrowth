@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
-import company from '@/config/company';
 import services from '@/data/services';
 import { packages, pricingNote } from '@/data/pricing';
 import cases from '@/data/cases';
+import CaseCard from '@/components/CaseCard';
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -49,7 +49,7 @@ const Home: React.FC = () => {
       />
 
       {/* ── 1. HERO ── */}
-      <section className="bg-navy text-off-white relative overflow-hidden min-h-screen flex items-center">
+      <section className="bg-navy text-off-white relative overflow-hidden min-h-[680px] lg:min-h-[760px] flex items-center">
         <div className="absolute inset-0 grid-bg" />
         {/* Accent line */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
             <div className="lg:col-span-7">
               <Reveal>
                 <p className="text-xs font-sans font-medium uppercase tracking-[0.25em] text-accent mb-8">
-                  Websites · Marketing · Digital Growth
+                  Websites · Marketing · Digital vækst
                 </p>
               </Reveal>
               <Reveal delay={80}>
@@ -70,12 +70,12 @@ const Home: React.FC = () => {
               </Reveal>
               <Reveal delay={160}>
                 <p className="text-lg text-off-white/60 leading-relaxed max-w-xl mb-5 text-pretty">
-                  Aagesen Growth designer og udvikler hjemmesider og webshops og driver den marketing, der skal skabe synlighed, henvendelser og salg.
+                  Aagesen Growth udvikler websites og webshops og samler den marketing, der skal skabe synlighed, henvendelser og salg.
                 </p>
               </Reveal>
               <Reveal delay={220}>
                 <p className="text-base text-off-white/40 leading-relaxed max-w-lg mb-10">
-                  Én ansvarlig partner på tværs af strategi, design, content, annoncering, SEO og løbende optimering.
+                  Én fast partner på tværs af strategi, design, indhold, annoncering, SEO, GEO og løbende optimering.
                 </p>
               </Reveal>
               <Reveal delay={300}>
@@ -107,7 +107,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* ── 2. KERNEYDELSER ── */}
-      <section className="bg-bg-light py-22 lg:py-30">
+      <section className="bg-bg-light py-18 lg:py-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
           <div className="mb-16 max-w-2xl">
             <Reveal>
@@ -122,50 +122,31 @@ const Home: React.FC = () => {
             </Reveal>
           </div>
 
-          {/* Featured — Websites */}
-          <Reveal delay={120}>
-            <Link
-              to="/ydelser#websites"
-              className="group block bg-navy text-off-white p-8 lg:p-12 mb-4 hover:bg-navy-2 transition-colors duration-300"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                <div className="lg:col-span-7">
-                  <span className="text-xs font-sans font-medium text-accent mb-4 block">{services[0].index}</span>
-                  <h3 className="font-serif text-3xl lg:text-4xl mb-4">{services[0].title}</h3>
-                  <p className="text-off-white/60 leading-relaxed max-w-md mb-6">{services[0].description}</p>
-                  <span className="inline-flex items-center gap-2 text-sm font-sans font-medium text-off-white group-hover:text-accent transition-colors">
-                    Se hjemmesider og webshops
-                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </div>
-                <div className="lg:col-span-5">
-                  <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5">
-                    {services[0].features.map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-off-white/50">
-                        <span className="w-1 h-1 rounded-full bg-accent mt-1.5 flex-shrink-0" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </Link>
-          </Reveal>
-
-          {/* Three smaller services */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {services.slice(1).map((s, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-navy/10 border border-navy/10">
+            {services.map((s, i) => (
               <Reveal key={s.id} delay={i * 80}>
                 <Link
                   to={s.href}
-                  className="group block bg-off-white p-7 h-full hover:bg-white transition-colors duration-300 border border-navy/6"
+                  className="group block bg-off-white p-7 lg:p-9 h-full hover:bg-white transition-colors duration-300"
                 >
-                  <span className="text-xs font-sans font-medium text-muted mb-4 block">{s.index}</span>
-                  <h3 className="font-serif text-2xl text-navy mb-3">{s.title}</h3>
-                  <p className="text-muted text-sm leading-relaxed mb-5">{s.description}</p>
+                  <div className="flex items-start justify-between gap-5">
+                    <div>
+                      <span className="text-xs font-sans font-medium text-accent mb-4 block">{s.index}</span>
+                      <h3 className="font-serif text-2xl lg:text-3xl text-navy mb-3">{s.title}</h3>
+                    </div>
+                    <ArrowRight size={17} className="mt-1 text-muted transition-all group-hover:translate-x-1 group-hover:text-accent" />
+                  </div>
+                  <p className="text-muted text-sm leading-relaxed mb-6 max-w-lg">{s.description}</p>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-2">
+                    {s.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2 text-xs leading-relaxed text-dark/75">
+                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                   <span className="inline-flex items-center gap-2 text-sm font-sans font-medium text-navy group-hover:text-accent transition-colors">
-                    Læs mere
-                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    <span className="sr-only">Læs mere om {s.title}</span>
                   </span>
                 </Link>
               </Reveal>
@@ -186,7 +167,7 @@ const Home: React.FC = () => {
             </Reveal>
             <Reveal delay={100}>
               <p className="text-lg text-off-white/50 leading-relaxed mb-12 max-w-2xl text-pretty">
-                De bedste resultater opstår, når hjemmeside, identitet, indhold, annoncering og synlighed ikke bliver behandlet som separate projekter. Aagesen Growth samler arbejdet og sørger for, at det bliver udført.
+                De bedste resultater opstår, når hjemmeside, brand, indhold, annoncering og synlighed ikke behandles som separate projekter. Aagesen Growth samler arbejdet, prioriterer indsatsen og sørger for, at det bliver udført.
               </p>
             </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -203,7 +184,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* ── 4. UDVALGTE PROJEKTER ── */}
-      <section className="bg-bg-light py-22 lg:py-30">
+      <section className="bg-bg-light py-18 lg:py-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
           <div className="flex items-end justify-between mb-12">
             <div>
@@ -218,21 +199,16 @@ const Home: React.FC = () => {
             </Reveal>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {cases.map((c, i) => (
               <Reveal key={c.id} delay={i * 100}>
-                <div className="aspect-[4/3] bg-navy-2 border border-navy/8 flex items-center justify-center p-8 group hover:bg-navy transition-colors duration-300">
-                  <div className="text-center">
-                    <p className="font-serif text-2xl text-off-white/30 italic mb-2">Case under udarbejdelse</p>
-                    <p className="text-sm text-off-white/20">Tilføjes snart</p>
-                  </div>
-                </div>
+                <CaseCard item={c} compact />
               </Reveal>
             ))}
           </div>
 
           <div className="mt-8 sm:hidden">
-            <Link to="/projekter" className="inline-flex items-center gap-2 text-sm font-sans font-medium text-navy hover:text-accent transition-colors">
+            <Link to="/projekter" className="inline-flex min-h-11 items-center gap-2 text-sm font-sans font-medium text-navy hover:text-accent transition-colors">
               Alle projekter <ArrowRight size={14} />
             </Link>
           </div>
@@ -240,10 +216,10 @@ const Home: React.FC = () => {
       </section>
 
       {/* ── 5. PROCES ── */}
-      <section className="bg-off-white py-22 lg:py-30">
+      <section className="bg-off-white py-18 lg:py-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
           <Reveal>
-            <h2 className="font-serif text-section text-navy mb-16 max-w-xl text-balance">
+            <h2 className="font-serif text-section text-navy mb-10 max-w-xl text-balance">
               Fra første afklaring til løbende udvikling.
             </h2>
           </Reveal>
@@ -262,9 +238,9 @@ const Home: React.FC = () => {
       </section>
 
       {/* ── 6. PRISER ── */}
-      <section className="bg-bg-light py-22 lg:py-30">
+      <section className="bg-bg-light py-16 lg:py-20">
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="mb-16 max-w-2xl">
+          <div className="mb-10 max-w-2xl">
             <Reveal>
               <h2 className="font-serif text-section text-navy mb-4 text-balance">
                 Fleksible samarbejder. Tydelige rammer.
@@ -272,7 +248,7 @@ const Home: React.FC = () => {
             </Reveal>
             <Reveal delay={80}>
               <p className="text-muted leading-relaxed text-pretty">
-                Tre veje til samarbejde — løbende pakker eller fastprisede projekter.
+                Tre udgangspunkter, der tilpasses opgaven og det ansvar, vi skal tage.
               </p>
             </Reveal>
           </div>
@@ -281,7 +257,7 @@ const Home: React.FC = () => {
             {packages.map((pkg, i) => (
               <Reveal key={pkg.id} delay={i * 80}>
                 <div
-                  className={`relative h-full p-8 flex flex-col ${
+                  className={`relative h-full p-7 flex flex-col ${
                     pkg.recommended
                       ? 'bg-navy text-off-white border border-navy'
                       : 'bg-off-white text-dark border border-navy/8'

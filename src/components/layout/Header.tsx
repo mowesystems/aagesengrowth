@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import company from '@/config/company';
 import Button from '@/components/ui/Button';
+import BrandLogo from '@/components/BrandLogo';
 
 const navLinks = [
   { label: 'Ydelser', href: '/ydelser' },
@@ -13,14 +13,7 @@ const navLinks = [
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
@@ -35,27 +28,17 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled || menuOpen
-            ? 'bg-bg-light/95 backdrop-blur-md border-b border-navy/8'
-            : 'bg-transparent'
-        }`}
+        className="fixed top-0 left-0 right-0 z-40 border-b border-navy/10 bg-bg-light/95 backdrop-blur-md"
       >
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="flex items-center justify-between h-20 lg:h-24">
+          <div className="flex items-center justify-between h-20 lg:h-[5.5rem]">
             {/* Logo — prominent */}
             <Link
               to="/"
               className="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               aria-label="Aagesen Growth — forsiden"
             >
-              <img
-                src={company.logoPath}
-                alt="Aagesen Growth"
-                className="h-9 lg:h-11 w-auto"
-                width="150"
-                height="44"
-              />
+              <BrandLogo className="h-11 w-auto max-w-[12rem] lg:h-14 lg:max-w-[13.5rem]" />
             </Link>
 
             {/* Desktop nav */}
@@ -85,7 +68,7 @@ const Header: React.FC = () => {
 
             {/* Mobile toggle */}
             <button
-              className="lg:hidden p-2 text-navy"
+              className="lg:hidden inline-flex min-h-11 min-w-11 items-center justify-center text-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? 'Luk menu' : 'Åbn menu'}
               aria-expanded={menuOpen}
@@ -104,7 +87,7 @@ const Header: React.FC = () => {
               <Link
                 key={link.href}
                 to={link.href}
-                className="block font-serif text-4xl text-off-white py-3 border-b border-off-white/10 hover:text-accent transition-colors"
+                className={`block font-serif text-4xl py-3 border-b border-off-white/10 hover:text-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${isActive(link.href) ? 'text-accent' : 'text-off-white'}`}
                 style={{ animationDelay: `${i * 60}ms` }}
               >
                 {link.label}

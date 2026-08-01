@@ -3,6 +3,7 @@ import SEOHead from '@/components/SEOHead';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
 import cases from '@/data/cases';
+import CaseCard from '@/components/CaseCard';
 
 const Cases: React.FC = () => {
   const breadcrumbSchema = {
@@ -14,13 +15,25 @@ const Cases: React.FC = () => {
     ],
   };
 
+  const projectSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: cases.map((item, index) => ({
+      '@type': 'CreativeWork',
+      position: index + 1,
+      name: item.client,
+      description: item.introduction,
+      url: item.url,
+    })),
+  };
+
   return (
     <>
       <SEOHead
         title="Projekter"
         description="Udvalgt arbejde fra Aagesen Growth — websites, webshops, branding og marketingcases."
         canonical="/projekter"
-        schema={breadcrumbSchema}
+        schema={[breadcrumbSchema, projectSchema]}
       />
 
       <section className="bg-navy text-off-white pt-32 pb-16 lg:pt-40 lg:pb-20 relative overflow-hidden">
@@ -36,23 +49,18 @@ const Cases: React.FC = () => {
           </Reveal>
           <Reveal delay={160}>
             <p className="text-lg text-off-white/50 max-w-xl leading-relaxed text-pretty">
-              Websites, webshops, branding og marketingcases — tilføjes løbende.
+              To projekter, der viser arbejdet fra digital retning og brand til website, marketing og løbende synlighed.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="bg-bg-light py-22 lg:py-30">
+      <section className="bg-bg-light py-18 lg:py-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {cases.map((c, i) => (
               <Reveal key={c.id} delay={i * 100}>
-                <div className="aspect-[4/3] bg-navy-2 border border-navy/8 flex items-center justify-center p-8 group hover:bg-navy transition-colors duration-300">
-                  <div className="text-center">
-                    <p className="font-serif text-2xl text-off-white/30 italic mb-2">Case under udarbejdelse</p>
-                    <p className="text-sm text-off-white/20">Tilføjes snart</p>
-                  </div>
-                </div>
+                <CaseCard item={c} />
               </Reveal>
             ))}
           </div>
@@ -60,7 +68,7 @@ const Cases: React.FC = () => {
           <Reveal delay={200}>
             <div className="mt-16 text-center">
               <p className="text-muted leading-relaxed mb-8 max-w-lg mx-auto text-pretty">
-                Har du et projekt, der skal vises her? Lad os tage en samtale om dit website eller din marketing.
+                Har du brug for en partner, der kan samle website, marketing og den løbende udvikling?
               </p>
               <Button booking size="lg">Book et møde</Button>
             </div>

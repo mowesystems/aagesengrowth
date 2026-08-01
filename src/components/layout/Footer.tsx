@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Linkedin, Instagram } from 'lucide-react';
 import company from '@/config/company';
 import Button from '@/components/ui/Button';
+import BrandLogo from '@/components/BrandLogo';
 
 const Footer: React.FC = () => {
   return (
@@ -12,25 +13,23 @@ const Footer: React.FC = () => {
           {/* Brand */}
           <div className="md:col-span-5">
             <Link to="/" aria-label="Aagesen Growth — forsiden">
-              <img
-                src={company.logoPath}
-                alt="Aagesen Growth"
-                className="h-10 w-auto mb-5 brightness-0 invert"
-                width="160"
-                height="40"
-              />
+              <BrandLogo light className="h-12 w-auto max-w-[13rem] mb-5" />
             </Link>
             <p className="text-sm text-off-white/50 leading-relaxed max-w-xs mb-6">
               {company.footerDescription}
             </p>
             <Button booking size="sm" variant="light">Book et møde</Button>
             <div className="flex gap-4 mt-6">
-              <a href={company.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-off-white/40 hover:text-off-white transition-colors">
-                <Linkedin size={18} />
-              </a>
-              <a href={company.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-off-white/40 hover:text-off-white transition-colors">
-                <Instagram size={18} />
-              </a>
+              {company.linkedinUrl && (
+                <a href={company.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="inline-flex min-h-11 min-w-11 items-center justify-center border border-off-white/15 text-off-white/60 hover:text-off-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                  <Linkedin size={18} />
+                </a>
+              )}
+              {company.instagramUrl && (
+                <a href={company.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="inline-flex min-h-11 min-w-11 items-center justify-center border border-off-white/15 text-off-white/60 hover:text-off-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                  <Instagram size={18} />
+                </a>
+              )}
             </div>
           </div>
 
@@ -79,13 +78,9 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom bar */}
         <div className="border-t border-off-white/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="flex gap-5">
-            <Link to="/privatlivspolitik" className="text-xs text-off-white/30 hover:text-off-white/60 transition-colors">Privatlivspolitik</Link>
-            <Link to="/cookiepolitik" className="text-xs text-off-white/30 hover:text-off-white/60 transition-colors">Cookiepolitik</Link>
-          </div>
-          <p className="text-xs text-off-white/30">{company.legalFootnote}</p>
+          <p className="text-xs text-off-white/50">© {new Date().getFullYear()} Aagesen Growth</p>
+          <p className="text-xs text-off-white/50 whitespace-normal sm:text-right">{company.legalFootnote}</p>
         </div>
       </div>
     </footer>

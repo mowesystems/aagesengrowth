@@ -58,7 +58,7 @@ const Services: React.FC = () => {
       </section>
 
       {/* 01 — Websites */}
-      <section id="websites" className="bg-bg-light py-22 lg:py-30 scroll-mt-24">
+      <section id="websites" className="bg-bg-light py-18 lg:py-24 scroll-mt-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
             <div className="lg:col-span-7">
@@ -109,7 +109,7 @@ const Services: React.FC = () => {
       </section>
 
       {/* 02 — Marketing */}
-      <section id="marketing" className="bg-off-white py-22 lg:py-30 scroll-mt-24">
+      <section id="marketing" className="bg-off-white py-18 lg:py-24 scroll-mt-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
             <div className="lg:col-span-5 lg:order-2">
@@ -158,7 +158,7 @@ const Services: React.FC = () => {
       </section>
 
       {/* 03 — Ads */}
-      <section id="ads" className="bg-bg-light py-22 lg:py-30 scroll-mt-24">
+      <section id="ads" className="bg-bg-light py-18 lg:py-24 scroll-mt-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
             <div className="lg:col-span-5">
@@ -208,7 +208,7 @@ const Services: React.FC = () => {
       </section>
 
       {/* 04 — SEO */}
-      <section id="seo" className="bg-off-white py-22 lg:py-30 scroll-mt-24">
+      <section id="seo" className="bg-off-white py-18 lg:py-24 scroll-mt-24">
         <div className="max-w-content mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
             <div className="lg:col-span-5 lg:order-2">
@@ -269,8 +269,8 @@ const Services: React.FC = () => {
           <Reveal delay={100}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button booking size="lg" variant="light">Book et møde</Button>
-              <Button to="/priser" size="lg" variant="ghost" className="text-off-white border-off-white/20 hover:border-off-white/50">
-                Se priser
+              <Button to="/kontakt" size="lg" variant="ghost" className="text-off-white border-off-white/20 hover:border-off-white/50">
+                Skriv til os
               </Button>
             </div>
           </Reveal>

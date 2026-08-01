@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import SEOHead from '@/components/SEOHead';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
@@ -15,10 +14,10 @@ const About: React.FC = () => {
   };
 
   const values = [
-    { title: 'Ansvar', text: 'Vi tager ejerskab. Opgaverne bliver udført.' },
-    { title: 'Klarhed', text: 'Tydelige mål, leverancer og forventninger.' },
-    { title: 'Kvalitet', text: 'Veludført arbejde frem for overfladisk volume.' },
-    { title: 'Forretningsforståelse', text: 'Marketing er et middel — ikke målet.' },
+    { title: 'Ansvar', text: 'Vi tager ejerskab og følger opgaverne til dørs.' },
+    { title: 'Klarhed', text: 'Tydelige prioriteringer, leverancer og forventninger.' },
+    { title: 'Kvalitet', text: 'Grundigt arbejde frem for overfladisk volumen.' },
+    { title: 'Forretningsforståelse', text: 'Marketing er et middel til vækst — ikke målet i sig selv.' },
   ];
 
   return (
@@ -54,12 +53,12 @@ const About: React.FC = () => {
           <div className="max-w-2xl space-y-6">
             <Reveal>
               <p className="text-lg text-dark leading-relaxed text-pretty">
-                Samarbejdet er direkte og tæt. Det betyder, at du taler med den person, der faktisk udfører arbejdet — ikke et mellemled.
+                Samarbejdet er direkte og tæt. Du taler med den person, der udvikler løsningen, prioriterer arbejdet og følger det til dørs.
               </p>
             </Reveal>
             <Reveal delay={80}>
               <p className="text-lg text-muted leading-relaxed text-pretty">
-                Vi tager få samarbejder ad gangen, så vi kan være til stede og tage ansvar. Målet er at prioritere og udføre det arbejde, der giver bedst mening for din forretning.
+                Et mindre setup giver korte beslutningsveje og et tydeligt ansvar. Indsatsen prioriteres efter, hvad der giver bedst mening for din forretning.
               </p>
             </Reveal>
           </div>
