@@ -22,7 +22,7 @@ const FAQPage: React.FC = () => {
     <>
       <SEOHead
         title="FAQ"
-        description="Ofte stillede spørgsmål om Aagesen Growth — faste samarbejder, hjemmesider, annoncering, SEO og GEO."
+        description="Ofte stillede spørgsmål om Aagesen Growth ApS — faste samarbejder, hjemmesider, annoncering, SEO og GEO."
         canonical="/faq"
         schema={faqSchema}
       />

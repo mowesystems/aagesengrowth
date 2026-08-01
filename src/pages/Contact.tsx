@@ -3,13 +3,17 @@ import { CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
+import company from '@/config/company';
 
 const helpOptions = [
-  'Hjemmeside eller webshop',
-  'Marketing & content',
-  'Google Ads / Meta Ads',
-  'SEO / GEO',
-  'Løbende marketingansvar',
+  'Websites',
+  'SEO og AI-synlighed',
+  'Google Ads',
+  'Meta Ads',
+  'Indhold og sociale medier',
+  'Tracking og analyse',
+  'Hosting og drift',
+  'Rådgivning og strategi',
   'Andet',
 ];
 
@@ -73,7 +77,7 @@ const Contact: React.FC = () => {
     <>
       <SEOHead
         title="Kontakt"
-        description="Kontakt Aagesen Growth — skriv eller book et møde. Vi vender tilbage hurtigst muligt."
+        description="Kontakt Aagesen Growth ApS — skriv eller book et møde. Vi vender tilbage hurtigst muligt."
         canonical="/kontakt"
         schema={breadcrumbSchema}
       />
@@ -172,11 +176,18 @@ const Contact: React.FC = () => {
             <div className="lg:col-span-4 lg:col-start-9">
               <Reveal delay={120}>
                 <div className="bg-navy text-off-white p-8">
-                  <h3 className="font-serif text-xl text-off-white mb-4">Book direkte</h3>
+                  <p className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-accent">{company.legalName}</p>
+                  <h3 className="mb-4 mt-3 font-serif text-xl text-off-white">Book direkte</h3>
                   <p className="text-off-white/50 text-sm leading-relaxed mb-6">
                     Foretrækker du at booke direkte? Vælg en tid, der passer dig.
                   </p>
                   <Button booking size="md" variant="light" className="w-full">Book et møde</Button>
+                  {(company.address || company.cvr) && (
+                    <div className="mt-7 border-t border-off-white/10 pt-5 text-xs leading-relaxed text-off-white/50">
+                      {company.address && <p>{company.address}</p>}
+                      {company.cvr && <p>CVR {company.cvr}</p>}
+                    </div>
+                  )}
                 </div>
               </Reveal>
             </div>

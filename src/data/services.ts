@@ -13,71 +13,115 @@ export const services: Service[] = [
   {
     id: "websites",
     index: "01",
-    title: "Websites & webshops",
-    tagline: "Design og udvikling af professionelle websites",
+    title: "Websites",
+    tagline: "Et stærkt digitalt fundament",
     description:
-      "Design og udvikling af professionelle hjemmesider og webshops med stærk struktur, visuel identitet og fokus på konvertering.",
+      "Hurtige, konverteringsstærke hjemmesider, der bygger tillid og skaber kunder.",
     features: [
-      "UX og sidestruktur",
-      "Visuelt design",
-      "Udvikling",
-      "Responsive layouts",
-      "Webshopopsætning",
-      "Løbende vedligeholdelse",
+      "UX og struktur",
+      "Design og udvikling",
       "Konverteringsoptimering",
     ],
     href: "/ydelser#websites",
     featured: true,
   },
   {
-    id: "marketing",
-    index: "02",
-    title: "Marketing & content",
-    tagline: "Indhold der skaber sammenhæng",
-    description:
-      "Strategi, planlægning og produktion af indhold, der skaber en sammenhængende tilstedeværelse på tværs af relevante kanaler.",
-    features: [
-      "Marketingplan",
-      "Sociale medier",
-      "Contentproduktion",
-      "Kampagner og lanceringer",
-      "E-mail og kunderejser",
-    ],
-    href: "/ydelser#marketing",
-  },
-  {
-    id: "ads",
-    index: "03",
-    title: "Google Ads & Meta Ads",
-    tagline: "Annoncering der virker",
-    description:
-      "Opsætning, tracking, test og løbende optimering med fokus på relevante handlinger og bedre udnyttelse af annoncebudgettet.",
-    features: [
-      "Kampagnestruktur",
-      "Målgrupper",
-      "Annonceindhold",
-      "Tracking",
-      "Løbende optimering",
-      "Rapportering",
-    ],
-    href: "/ydelser#ads",
-  },
-  {
     id: "seo",
-    index: "04",
-    title: "SEO, GEO & synlighed",
+    index: "02",
+    title: "SEO og AI-synlighed",
     tagline: "Bliv fundet og forstået",
     description:
-      "Tekniske, strukturelle og indholdsmæssige forbedringer, der gør virksomheden nemmere at finde og forstå i Google og AI-søgninger.",
+      "Bliv fundet i Google og i AI-søgninger gennem SEO, GEO og struktureret indhold.",
     features: [
       "Teknisk SEO",
-      "Indholdsstruktur og metadata",
-      "Interne links",
-      "Lokal synlighed",
-      "AI-retrieval og GEO-optimering",
-      "Løbende synlighedsforbedringer",
+      "GEO og AI-retrieval",
+      "Indholdsstruktur",
     ],
     href: "/ydelser#seo",
+  },
+  {
+    id: "google-ads",
+    index: "03",
+    title: "Google Ads",
+    tagline: "Fang den aktive efterspørgsel",
+    description:
+      "Målrettede kampagner, der skaber kvalificerede leads og dokumenterbare resultater.",
+    features: [
+      "Search og Performance Max",
+      "Konverteringssporing",
+      "Løbende optimering",
+    ],
+    href: "/ydelser#google-ads",
+  },
+  {
+    id: "meta-ads",
+    index: "04",
+    title: "Meta Ads",
+    tagline: "Skab opmærksomhed og handling",
+    description:
+      "Kampagner på Facebook og Instagram, der skaber opmærksomhed, efterspørgsel og salg.",
+    features: [
+      "Kampagnestruktur",
+      "Målgrupper og budskaber",
+      "Test og optimering",
+    ],
+    href: "/ydelser#meta-ads",
+  },
+  {
+    id: "content",
+    index: "05",
+    title: "Indhold og sociale medier",
+    tagline: "Indhold med retning",
+    description:
+      "Strategisk indhold, der engagerer, styrker brandet og skaber handling.",
+    features: [
+      "Indholdsplan",
+      "Sociale medier",
+      "Kampagner og lanceringer",
+    ],
+    href: "/ydelser#content",
+  },
+  {
+    id: "tracking",
+    index: "06",
+    title: "Tracking og analyse",
+    tagline: "Et tydeligt beslutningsgrundlag",
+    description:
+      "Et klart datagrundlag, så indsatsen kan prioriteres og forbedres løbende.",
+    features: [
+      "Måleplan og events",
+      "Dashboard og rapportering",
+      "Analyse og prioritering",
+    ],
+    href: "/ydelser#tracking",
+  },
+  {
+    id: "hosting",
+    index: "07",
+    title: "Hosting og drift",
+    tagline: "Stabil teknik i hverdagen",
+    description:
+      "Sikker hosting, vedligeholdelse og teknisk drift uden unødvendige problemer.",
+    features: [
+      "Sikker hosting",
+      "Opdateringer og backup",
+      "Løbende teknisk support",
+    ],
+    href: "/ydelser#hosting",
+  },
+  {
+    id: "strategy",
+    index: "08",
+    title: "Rådgivning og strategi",
+    tagline: "Klar retning og prioritering",
+    description:
+      "Klar retning, skarpe prioriteringer og en strategi, der samler den digitale indsats.",
+    features: [
+      "Strategisk sparring",
+      "Marketingplan",
+      "Prioritering og roadmap",
+    ],
+    href: "/ydelser#strategy",
   },
 ];
 

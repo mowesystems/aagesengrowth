@@ -8,31 +8,29 @@ interface CaseCardProps {
 }
 
 const CaseCard: React.FC<CaseCardProps> = ({ item, compact = false }) => {
-  const dark = item.theme === 'dark';
-
   return (
-    <article className={`case-card ${compact ? 'case-card-compact' : ''} ${dark ? 'case-card-dark' : 'case-card-light'}`}>
+    <article className={`case-card case-card-dark case-card-${item.id} ${compact ? 'case-card-compact' : ''}`}>
       <div className="case-card-logo">
         <img src={item.logoPath} alt={item.logoAlt} className="h-full w-full object-contain" />
       </div>
       <div className="case-card-content">
-        <p className={`text-[0.7rem] font-medium uppercase tracking-[0.18em] ${dark ? 'text-accent' : 'text-muted'}`}>
+        <p className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-accent">
           {item.category}
         </p>
-        <h3 className={`mt-4 font-serif text-3xl leading-tight ${dark ? 'text-off-white' : 'text-navy'}`}>
+        <h3 className="mt-4 font-serif text-3xl leading-tight text-off-white">
           {item.client}
         </h3>
-        <p className={`mt-4 text-base leading-relaxed ${dark ? 'text-off-white/75' : 'text-dark'}`}>
+        <p className="mt-4 text-base leading-relaxed text-off-white/75">
           {item.introduction}
         </p>
         {!compact && (
           <>
-            <p className={`mt-5 text-sm leading-relaxed ${dark ? 'text-off-white/60' : 'text-muted'}`}>
+            <p className="mt-5 text-sm leading-relaxed text-off-white/60">
               {item.description}
             </p>
             <ul className="mt-6 grid gap-x-6 gap-y-2 sm:grid-cols-2">
               {item.responsibilities.map((responsibility) => (
-                <li key={responsibility} className={`flex items-start gap-2 text-sm ${dark ? 'text-off-white/70' : 'text-dark/80'}`}>
+                <li key={responsibility} className="flex items-start gap-2 text-sm text-off-white/70">
                   <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
                   {responsibility}
                 </li>
@@ -45,8 +43,8 @@ const CaseCard: React.FC<CaseCardProps> = ({ item, compact = false }) => {
           href={item.url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${dark ? 'text-off-white hover:text-accent' : 'text-navy hover:text-accent'}`}
-          aria-label={`${item.cta} (åbner i ny fane)`}
+          className="mt-auto inline-flex min-h-11 items-center gap-2 pt-7 text-sm font-medium text-off-white transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          aria-label={`${item.cta}: ${item.client} (åbner i ny fane)`}
         >
           {item.cta} <ArrowUpRight size={15} aria-hidden="true" />
         </a>

@@ -8,9 +8,9 @@ const Footer: React.FC = () => (
   <footer className="border-t border-navy/10 bg-off-white text-navy">
     <div className="max-w-content mx-auto px-6 pb-7 pt-12 lg:px-10 lg:pt-14">
       <div className="grid grid-cols-1 gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-12">
-        <div className="lg:col-span-5">
-          <Link to="/" aria-label="Aagesen Growth — forsiden" className="inline-flex">
-            <BrandLogo className="h-11 w-auto max-w-[12rem]" />
+        <div className="lg:col-span-4">
+          <Link to="/" aria-label="Aagesen Growth ApS — forsiden" className="inline-flex">
+            <BrandLogo className="h-auto w-[9.5rem]" />
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">{company.footerDescription}</p>
           <Link to="/book-moede" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-navy hover:text-accent">
@@ -32,13 +32,17 @@ const Footer: React.FC = () => (
           )}
         </div>
 
-        <div className="lg:col-span-3">
+        <div className="lg:col-span-4">
           <h2 className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted">Ydelser</h2>
-          <ul className="mt-2 text-sm">
-            <li><Link to="/ydelser#websites" className="inline-flex min-h-11 items-center hover:text-accent">Websites & webshops</Link></li>
-            <li><Link to="/ydelser#ads" className="inline-flex min-h-11 items-center hover:text-accent">Google Ads & Meta Ads</Link></li>
-            <li><Link to="/ydelser#seo" className="inline-flex min-h-11 items-center hover:text-accent">SEO, GEO & AI-synlighed</Link></li>
-            <li><Link to="/ydelser#marketing" className="inline-flex min-h-11 items-center hover:text-accent">Analyse & vækststrategi</Link></li>
+          <ul className="mt-2 grid text-sm sm:grid-cols-2">
+            <li><Link to="/ydelser#websites" className="inline-flex min-h-11 items-center hover:text-accent">Websites</Link></li>
+            <li><Link to="/ydelser#seo" className="inline-flex min-h-11 items-center hover:text-accent">SEO & AI-synlighed</Link></li>
+            <li><Link to="/ydelser#google-ads" className="inline-flex min-h-11 items-center hover:text-accent">Google Ads</Link></li>
+            <li><Link to="/ydelser#meta-ads" className="inline-flex min-h-11 items-center hover:text-accent">Meta Ads</Link></li>
+            <li><Link to="/ydelser#content" className="inline-flex min-h-11 items-center hover:text-accent">Indhold & sociale medier</Link></li>
+            <li><Link to="/ydelser#tracking" className="inline-flex min-h-11 items-center hover:text-accent">Tracking & analyse</Link></li>
+            <li><Link to="/ydelser#hosting" className="inline-flex min-h-11 items-center hover:text-accent">Hosting & drift</Link></li>
+            <li><Link to="/ydelser#strategy" className="inline-flex min-h-11 items-center hover:text-accent">Rådgivning & strategi</Link></li>
           </ul>
         </div>
 
@@ -62,7 +66,7 @@ const Footer: React.FC = () => (
       </div>
 
       <div className="flex flex-col gap-4 border-t border-navy/10 pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-        <p>© {new Date().getFullYear()} Aagesen Growth · {company.legalName}</p>
+        <p>© {new Date().getFullYear()} {company.legalName}</p>
         <div className="flex flex-wrap gap-x-5 gap-y-2">
           <Link to="/privatlivspolitik" className="inline-flex min-h-11 items-center hover:text-navy">Privatlivspolitik</Link>
           <Link to="/cookiepolitik" className="inline-flex min-h-11 items-center hover:text-navy">Cookiepolitik</Link>

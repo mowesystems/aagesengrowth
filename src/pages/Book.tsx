@@ -21,7 +21,7 @@ const Book: React.FC = () => {
     <>
       <SEOHead
         title="Book et møde"
-        description="Book et uforpligtende 30-minutters online møde med Aagesen Growth."
+        description="Book et uforpligtende 30-minutters online møde med Aagesen Growth ApS."
         canonical="/book-moede"
         schema={breadcrumbSchema}
       />

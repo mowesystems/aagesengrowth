@@ -1,6 +1,6 @@
 const company = {
   brandName: "Aagesen Growth",
-  legalName: "MOWE Systems ApS",
+  legalName: "Aagesen Growth ApS",
   tagline: "Din eksterne marketingafdeling.",
   email: "",
   phone: "",
@@ -13,7 +13,7 @@ const company = {
   logoPath: "/2f98b2e8-e158-4b57-8bc7-f1c08c16936f.png",
   footerDescription:
     "Websites, marketing og digital vækst — samlet hos én ansvarlig partner.",
-  legalFootnote: "Aagesen Growth · MOWE Systems ApS",
+  legalFootnote: "Aagesen Growth ApS",
 };
 
 export default company;
