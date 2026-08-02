@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import Home from '@/pages/Home';
 import Services from '@/pages/Services';
+import Pricing from '@/pages/Pricing';
 import Cases from '@/pages/Cases';
 import About from '@/pages/About';
 import Contact from '@/pages/Contact';
@@ -21,6 +22,7 @@ const App: React.FC = () => (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/ydelser" element={<Services />} />
+        <Route path="/priser" element={<Pricing />} />
         <Route path="/projekter" element={<Cases />} />
         <Route path="/om" element={<About />} />
         <Route path="/kontakt" element={<Contact />} />

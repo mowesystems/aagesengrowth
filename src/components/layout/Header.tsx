@@ -6,6 +6,7 @@ import BrandLogo from '@/components/BrandLogo';
 
 const navLinks = [
   { label: 'Ydelser', href: '/ydelser' },
+  { label: 'Priser', href: '/priser' },
   { label: 'Projekter', href: '/projekter' },
   { label: 'Om', href: '/om' },
   { label: 'Kontakt', href: '/kontakt' },
@@ -35,7 +36,7 @@ const Header: React.FC = () => {
             {/* Logo — prominent */}
             <Link
               to="/"
-              className="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="flex min-h-11 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               aria-label="Aagesen Growth ApS — forsiden"
             >
               <BrandLogo className="h-auto w-[8.5rem] lg:w-[10.5rem]" />

@@ -6,6 +6,7 @@ export interface Service {
   description: string;
   features: string[];
   href: string;
+  pricingHref: string;
   featured?: boolean;
 }
 
@@ -23,6 +24,7 @@ export const services: Service[] = [
       "Konverteringsoptimering",
     ],
     href: "/ydelser#websites",
+    pricingHref: "/priser#hjemmesider",
     featured: true,
   },
   {
@@ -38,6 +40,7 @@ export const services: Service[] = [
       "Indholdsstruktur",
     ],
     href: "/ydelser#seo",
+    pricingHref: "/priser#marketing",
   },
   {
     id: "google-ads",
@@ -47,11 +50,12 @@ export const services: Service[] = [
     description:
       "Målrettede kampagner, der skaber kvalificerede leads og dokumenterbare resultater.",
     features: [
-      "Search og Performance Max",
+      "Opsætning og kampagnestruktur",
       "Konverteringssporing",
-      "Løbende optimering",
+      "Optimering og rapportering",
     ],
     href: "/ydelser#google-ads",
+    pricingHref: "/priser#marketing",
   },
   {
     id: "meta-ads",
@@ -62,57 +66,61 @@ export const services: Service[] = [
       "Kampagner på Facebook og Instagram, der skaber opmærksomhed, efterspørgsel og salg.",
     features: [
       "Kampagnestruktur",
-      "Målgrupper og budskaber",
-      "Test og optimering",
+      "Målgrupper og tracking",
+      "Optimering og rapportering",
     ],
     href: "/ydelser#meta-ads",
-  },
-  {
-    id: "content",
-    index: "05",
-    title: "Indhold og sociale medier",
-    tagline: "Indhold med retning",
-    description:
-      "Strategisk indhold, der engagerer, styrker brandet og skaber handling.",
-    features: [
-      "Indholdsplan",
-      "Sociale medier",
-      "Kampagner og lanceringer",
-    ],
-    href: "/ydelser#content",
+    pricingHref: "/priser#marketing",
   },
   {
     id: "tracking",
-    index: "06",
+    index: "05",
     title: "Tracking og analyse",
     tagline: "Et tydeligt beslutningsgrundlag",
     description:
       "Et klart datagrundlag, så indsatsen kan prioriteres og forbedres løbende.",
     features: [
       "Måleplan og events",
-      "Dashboard og rapportering",
+      "Konverteringssporing",
       "Analyse og prioritering",
     ],
     href: "/ydelser#tracking",
+    pricingHref: "/priser#marketing",
   },
   {
     id: "hosting",
-    index: "07",
-    title: "Hosting og drift",
+    index: "06",
+    title: "Hosting og vedligeholdelse",
     tagline: "Stabil teknik i hverdagen",
     description:
-      "Sikker hosting, vedligeholdelse og teknisk drift uden unødvendige problemer.",
+      "Sikker hosting, opdateringer og teknisk vedligeholdelse med et tydeligt serviceniveau.",
     features: [
-      "Sikker hosting",
-      "Opdateringer og backup",
-      "Løbende teknisk support",
+      "Sikker hosting og SSL",
+      "Backup og overvågning",
+      "Care og teknisk support",
     ],
     href: "/ydelser#hosting",
+    pricingHref: "/priser#hosting",
+  },
+  {
+    id: "woocommerce",
+    index: "07",
+    title: "WooCommerce-optimering",
+    tagline: "En bedre eksisterende webshop",
+    description:
+      "Målrettede forbedringer af design, mobiloplevelse, kurv og checkout i eksisterende WooCommerce-løsninger.",
+    features: [
+      "Produkt- og kategorisider",
+      "Kurv og checkout",
+      "Mobil- og konverteringsoptimering",
+    ],
+    href: "/ydelser#woocommerce",
+    pricingHref: "/priser#woocommerce",
   },
   {
     id: "strategy",
     index: "08",
-    title: "Rådgivning og strategi",
+    title: "Strategisk rådgivning",
     tagline: "Klar retning og prioritering",
     description:
       "Klar retning, skarpe prioriteringer og en strategi, der samler den digitale indsats.",
@@ -122,6 +130,7 @@ export const services: Service[] = [
       "Prioritering og roadmap",
     ],
     href: "/ydelser#strategy",
+    pricingHref: "/priser#growth-partner",
   },
 ];
 
