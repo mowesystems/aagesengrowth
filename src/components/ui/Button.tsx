@@ -2,31 +2,32 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import company from '@/config/company';
 
-type Variant = 'primary' | 'light' | 'outline' | 'ghost';
-type Size = 'sm' | 'md' | 'lg';
+type Variant = 'primary' | 'light' | 'outline' | 'outline-light';
+type Size = 'md' | 'lg';
 
 interface ButtonProps {
   variant?: Variant;
   size?: Size;
   href?: string;
+  /**
+   * Points at the configured booking calendar. When none is configured it
+   * falls back to the contact page rather than to an empty booking page —
+   * previously this sent every primary CTA on the site to a dead end.
+   */
   booking?: boolean;
   to?: string;
   children: React.ReactNode;
   className?: string;
+  type?: 'button' | 'submit';
+  disabled?: boolean;
   onClick?: () => void;
 }
 
-const variantClasses: Record<Variant, string> = {
-  primary: 'bg-navy text-off-white hover:bg-navy-2 border border-navy hover:border-navy-2',
-  light: 'bg-off-white text-navy hover:bg-white border border-off-white',
-  outline: 'bg-transparent text-current border border-current/20 hover:border-current/50',
-  ghost: 'bg-transparent text-current border border-transparent hover:bg-current/5',
-};
-
-const sizeClasses: Record<Size, string> = {
-  sm: 'px-5 py-2.5 text-sm',
-  md: 'px-7 py-3.5 text-sm',
-  lg: 'px-9 py-4 text-base',
+const variantClass: Record<Variant, string> = {
+  primary: 'btn-primary',
+  light: 'btn-invert',
+  outline: 'btn-outline',
+  'outline-light': 'btn-outline-invert',
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -37,24 +38,30 @@ const Button: React.FC<ButtonProps> = ({
   to,
   children,
   className = '',
+  type = 'button',
+  disabled,
   onClick,
 }) => {
-  const base =
-    'inline-flex min-h-11 items-center justify-center font-sans font-medium tracking-wide transition-all duration-200 ease-smooth focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent';
-  const classes = `${base} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+  const classes = `btn ${variantClass[variant]} ${size === 'lg' ? 'btn-lg' : ''} ${className}`;
 
   if (booking) {
-    const target = company.bookingUrl || '/book-moede';
-    const isExternal = Boolean(company.bookingUrl);
+    const external = Boolean(company.bookingUrl);
+    if (external) {
+      return (
+        <a
+          href={company.bookingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={classes}
+        >
+          {children}
+        </a>
+      );
+    }
     return (
-      <a
-        href={target}
-        target={isExternal ? '_blank' : undefined}
-        rel={isExternal ? 'noopener noreferrer' : undefined}
-        className={classes}
-      >
+      <Link to="/kontakt" className={classes} onClick={onClick}>
         {children}
-      </a>
+      </Link>
     );
   }
 
@@ -67,15 +74,20 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   if (href) {
+    const external = /^https?:/.test(href);
     return (
-      <a href={href} className={classes}>
+      <a
+        href={href}
+        className={classes}
+        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
         {children}
       </a>
     );
   }
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button type={type} className={classes} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

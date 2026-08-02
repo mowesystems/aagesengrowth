@@ -1,21 +1,24 @@
 import React from 'react';
-import { AlertCircle, ArrowDown, ArrowRight, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Check, Minus } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import PageHero from '@/components/PageHero';
 import PricingCard from '@/components/PricingCard';
-import PricingFAQ from '@/components/PricingFAQ';
+import Accordion from '@/components/Accordion';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
 import company from '@/config/company';
+import { pricingFaq } from '@/data/faq';
 import {
   allPricingItems,
   carePackages,
   formatAmount,
-  formatPrice,
   growthPartner,
   growthPartnerBundle,
   marketingServices,
-  pricingFaq,
+  priceParts,
   pricingNote,
+  toOfferSchema,
   websitePackages,
 } from '@/data/pricing';
 
@@ -28,221 +31,350 @@ const breadcrumbSchema = {
   ],
 };
 
-const serviceSchema = {
+/**
+ * One catalogue of offers.
+ *
+ * "Fra"-priced items are emitted with a minPrice PriceSpecification rather than
+ * a flat price, so the structured data cannot claim a fixed price the page does
+ * not promise. FAQPage schema deliberately lives only on /faq — these same
+ * questions appearing as FAQPage on two URLs is duplicate markup.
+ */
+const offerCatalogSchema = {
   '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  itemListElement: allPricingItems.map((item, index) => ({
-    '@type': 'ListItem',
-    position: index + 1,
-    item: {
-      '@type': 'Service',
-      name: item.name,
-      description: item.description,
-      provider: { '@type': 'ProfessionalService', name: company.legalName, url: company.domain },
-      offers: {
-        '@type': 'Offer',
-        price: item.price,
-        priceCurrency: 'DKK',
-        url: `${company.domain}/priser`,
-      },
-    },
+  '@type': 'OfferCatalog',
+  name: 'Priser — Aagesen Growth ApS',
+  url: `${company.domain}/priser`,
+  itemListElement: allPricingItems.map((item) => ({
+    ...toOfferSchema(item, `${company.domain}/priser`),
+    itemOffered: { '@type': 'Service', name: item.name, description: item.description },
   })),
 };
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: pricingFaq.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: { '@type': 'Answer', text: item.answer },
-  })),
-};
+const jumpLinks = [
+  ['Hjemmesider', '#hjemmesider'],
+  ['Hosting og Care', '#hosting'],
+  ['Marketing', '#marketing'],
+  ['Growth Partner', '#growth-partner'],
+  ['Spørgsmål', '#pris-faq'],
+];
 
 const Pricing: React.FC = () => (
   <>
     <SEOHead
-      title="Priser | Websites, SEO og annoncering | Aagesen Growth ApS"
-      description="Se priser på hjemmesider, hosting, vedligeholdelse, SEO, Google Ads, Meta Ads, tracking og WooCommerce-optimering hos Aagesen Growth ApS."
+      title="Priser — websites, SEO og annoncering"
+      description="Faste priser på hjemmesider fra 9.995 kr., hosting fra 299 kr./md. og marketing fra 2.495 kr./md. Alle priser ekskl. moms, med tydelige undtagelser."
       canonical="/priser"
-      schema={[breadcrumbSchema, serviceSchema, faqSchema]}
+      schema={[breadcrumbSchema, offerCatalogSchema]}
     />
 
-    <section className="inner-hero grid-bg-light">
-      <div className="relative max-w-content mx-auto grid grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:px-10">
-        <div className="lg:col-span-8">
-          <Reveal><p className="eyebrow">Priser og samarbejdsformer</p></Reveal>
-          <Reveal delay={70}>
-            <h1 className="mt-5 max-w-4xl font-serif text-display text-navy text-balance">
-              Tydelige rammer for jeres næste digitale skridt.
-            </h1>
-          </Reveal>
-          <Reveal delay={130}>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-              Vælg et klart udgangspunkt, og tilpas løsningen efter jeres behov. Alle leverancer afgrænses skriftligt, før arbejdet starter.
-            </p>
-          </Reveal>
-          <Reveal delay={190}>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button booking size="lg">Book en afklaring <ArrowRight size={15} className="ml-2" aria-hidden="true" /></Button>
-              <Button to="/kontakt" size="lg" variant="outline">Få et tilbud</Button>
-            </div>
-          </Reveal>
+    <PageHero
+      eyebrow="Priser"
+      title="Priserne står på siden. Også dem, der ikke er pæne."
+      lead="Alle beløb er ekskl. moms og vejledende, indtil omfanget er afklaret skriftligt. Hvad der ikke er inkluderet, står ved hver enkelt."
+      aside={
+        <nav aria-label="Indhold på siden" className="w-full lg:max-w-xs">
+          <p className="meta-muted">Gå til</p>
+          <ul className="ledger mt-3">
+            {jumpLinks.map(([label, href]) => (
+              <li key={href} className="ledger-row">
+                <a
+                  href={href}
+                  className="flex min-h-12 items-center justify-between gap-4 text-sm text-cream transition-colors hover:text-gold"
+                >
+                  {label}
+                  <ArrowRight size={13} aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      }
+    />
+
+    {/* ----------------------------------------------------- websites */}
+    <section id="hjemmesider" className="scroll-mt-24 bg-ink py-16 lg:py-22">
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-5 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="meta">Hjemmesider</p>
+            <h2 className="mt-4 max-w-xl font-serif text-section text-cream text-balance">
+              Tre udgangspunkter. Ét skriftligt tilbud.
+            </h2>
+          </div>
+          <p className="max-w-md self-end text-sm leading-relaxed text-dim lg:col-span-5">
+            Alle tre starter med en afklaring af sider, funktioner, materiale og tidsplan — så I ved,
+            hvad I får, før noget går i gang.
+          </p>
         </div>
-        <Reveal delay={150} className="lg:col-span-4">
-          <nav aria-label="Indhold på prissiden" className="border border-navy/10 bg-bg-light p-6">
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-muted">Gå direkte til</p>
-            <ul className="mt-3">
-              {[
-                ['Hjemmesider', '#hjemmesider'],
-                ['Hosting og Care', '#hosting'],
-                ['Marketing og tilvalg', '#marketing'],
-                ['Growth Partner', '#growth-partner'],
-                ['FAQ', '#pris-faq'],
-              ].map(([label, href]) => (
-                <li key={href}>
-                  <a href={href} className="flex min-h-11 items-center justify-between border-b border-navy/10 text-sm text-navy transition-colors last:border-b-0 hover:text-accent">
-                    {label} <ArrowDown size={13} aria-hidden="true" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </Reveal>
+
+        <div className="mt-10 grid grid-cols-1 items-stretch gap-5 lg:grid-cols-3">
+          {websitePackages.map((item, index) => (
+            <Reveal className="h-full" key={item.id} delay={index * 60}>
+              <PricingCard item={item} />
+            </Reveal>
+          ))}
+        </div>
+
+        <p className="mt-7 max-w-3xl border-l-2 border-gold/60 pl-5 text-sm leading-relaxed text-dim">
+          Tekster, billeder, logo og virksomhedsoplysninger leveres som udgangspunkt af jer. Skal vi
+          producere indhold, aftales det særskilt.
+        </p>
       </div>
     </section>
 
-    <section id="hjemmesider" className="scroll-mt-28 bg-bg-light py-16 lg:py-24" aria-labelledby="website-pricing-heading">
-      <div className="max-w-content mx-auto px-6 lg:px-10">
-        <div className="mb-10 max-w-3xl">
-          <p className="eyebrow">Hjemmesidepakker</p>
-          <h2 id="website-pricing-heading" className="mt-3 font-serif text-section text-navy">Fra solid lancering til en løsning med særlige krav.</h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">Alle tre pakker starter med en klar afgrænsning af sider, funktioner, materiale og tidsplan.</p>
+    {/* ------------------------------------------------------- hosting */}
+    <section
+      id="hosting"
+      className="scroll-mt-24 border-y border-cream/12 bg-ink-2 py-16 lg:py-22"
+    >
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-5 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="meta">Hosting og vedligeholdelse</p>
+            <h2 className="mt-4 max-w-xl font-serif text-section text-cream text-balance">
+              Drift med et serviceniveau, der står skrevet ned.
+            </h2>
+          </div>
+          <p className="max-w-md self-end text-sm leading-relaxed text-dim lg:col-span-5">
+            Ubrugt tid overføres ikke til næste måned. Det er en serviceaftale, ikke en timebank.
+          </p>
         </div>
-        <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-3">
-          {websitePackages.map((item, index) => <Reveal key={item.id} delay={index * 60}><PricingCard item={item} /></Reveal>)}
-        </div>
-      </div>
-    </section>
 
-    <section id="hosting" className="scroll-mt-28 border-y border-navy/10 bg-off-white py-16 lg:py-24" aria-labelledby="hosting-pricing-heading">
-      <div className="max-w-content mx-auto px-6 lg:px-10">
-        <div className="mb-10 max-w-3xl">
-          <p className="eyebrow">Hosting og vedligeholdelse</p>
-          <h2 id="hosting-pricing-heading" className="mt-3 font-serif text-section text-navy">Stabil drift med et tydeligt serviceniveau.</h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">Vælg ren hosting eller en Care-aftale, når der også skal være plads til teknisk vedligeholdelse og mindre ændringer.</p>
-        </div>
-        <div className="grid grid-cols-1 items-stretch gap-5 lg:grid-cols-3">
-          {carePackages.map((item, index) => <Reveal key={item.id} delay={index * 60}><PricingCard item={item} /></Reveal>)}
-        </div>
-      </div>
-    </section>
-
-    <section id="marketing" className="scroll-mt-28 bg-bg-light py-16 lg:py-24" aria-labelledby="marketing-pricing-heading">
-      <div className="max-w-content mx-auto px-6 lg:px-10">
-        <div className="mb-10 max-w-3xl">
-          <p className="eyebrow">Marketing og tilvalg</p>
-          <h2 id="marketing-pricing-heading" className="mt-3 font-serif text-section text-navy">Specialister, når opgaven kræver det.</h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted sm:text-base">Fra-priserne afspejler et afgrænset udgangspunkt. Omfanget afhænger blandt andet af løsning, markeder, kampagner og eksisterende opsætning.</p>
-        </div>
-        <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2">
-          {marketingServices.map((item, index) => (
-            <Reveal key={item.id} delay={(index % 2) * 50}>
-              <div id={item.id === 'woocommerce' ? 'woocommerce' : undefined} className="h-full scroll-mt-28">
-                <PricingCard item={item} />
-              </div>
+        <div className="mt-10 grid grid-cols-1 items-stretch gap-5 lg:grid-cols-3">
+          {carePackages.map((item, index) => (
+            <Reveal className="h-full" key={item.id} delay={index * 60}>
+              <PricingCard item={item} />
             </Reveal>
           ))}
         </div>
       </div>
     </section>
 
-    <section id="growth-partner" className="scroll-mt-28 bg-navy py-16 text-off-white lg:py-24" aria-labelledby="growth-partner-heading">
-      <div className="max-w-content mx-auto grid grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:gap-16 lg:px-10">
-        <div className="lg:col-span-5">
-          <p className="eyebrow">Samlet samarbejde</p>
-          <h2 id="growth-partner-heading" className="mt-3 font-serif text-section text-off-white">{growthPartner.name}</h2>
-          <p className="mt-5 font-serif text-[clamp(2rem,4vw,3.1rem)] leading-none text-off-white">
-            {formatPrice(growthPartner)}
+    {/* ----------------------------------------------------- marketing */}
+    <section id="marketing" className="scroll-mt-24 bg-ink py-16 lg:py-22">
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-5 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="meta">Marketing og tilvalg</p>
+            <h2 className="mt-4 max-w-xl font-serif text-section text-cream text-balance">
+              Løbende arbejde og afgrænsede opgaver.
+            </h2>
+          </div>
+          <p className="max-w-md self-end text-sm leading-relaxed text-dim lg:col-span-5">
+            Fra-priserne dækker et afgrænset udgangspunkt. Antal kanaler, markeder og kampagner
+            flytter prisen — i begge retninger.
           </p>
-          <p className="mt-5 max-w-lg text-sm leading-relaxed text-off-white/65 sm:text-base">{growthPartner.description}</p>
-          <Button to={growthPartner.ctaHref} variant="light" size="lg" className="mt-8">
-            {growthPartner.ctaLabel} <ArrowRight size={15} className="ml-2" aria-hidden="true" />
-          </Button>
         </div>
-        <div className="lg:col-span-7">
-          <div className="grid grid-cols-1 gap-8 border border-off-white/15 p-6 sm:p-8 md:grid-cols-2">
-            <div>
-              <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-accent">{growthPartner.featureLabel}</p>
-              <ul className="mt-5 space-y-3">
-                {growthPartner.features.map((feature) => (
-                  <li key={feature} className="flex gap-3 text-sm text-off-white/80"><Check size={15} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />{feature}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-accent">Rammer for aftalen</p>
-              <ul className="mt-5 space-y-3">
-                {growthPartner.exclusions?.map((item) => (
-                  <li key={item} className="flex gap-3 text-sm leading-relaxed text-off-white/65"><AlertCircle size={15} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className="border-x border-b border-accent/35 bg-accent/10 p-6 sm:p-8">
-            <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-accent">Bundlefordel</p>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-off-white/75">
-              {growthPartnerBundle.description} <strong className="text-off-white">{formatAmount(growthPartnerBundle.price)} kr./md.</strong>
+
+        {/* A ruled table reads faster than eight cards, and stays comparable
+            on a narrow screen where cards force horizontal comparison. */}
+        <div className="ledger mt-10">
+          {marketingServices.map((item) => {
+            const price = priceParts(item);
+            return (
+              <div key={item.id} id={item.id} className="ledger-row scroll-mt-24">
+                <div className="grid grid-cols-1 items-start gap-x-10 gap-y-5 py-8 lg:grid-cols-12">
+                  <div className="lg:col-span-4">
+                    <h3 className="font-serif text-2xl leading-tight text-cream">{item.name}</h3>
+                    <p className="mt-3 flex flex-wrap items-baseline gap-x-1.5">
+                      {price.prefix && (
+                        <span className="font-mono text-xs text-dim">{price.prefix}</span>
+                      )}
+                      <span className="font-serif text-3xl leading-none text-cream">
+                        {price.amount}
+                      </span>
+                      {price.period && (
+                        <span className="font-mono text-xs text-dim">{price.period}</span>
+                      )}
+                    </p>
+                    {price.suffix && (
+                      <p className="mt-1.5 font-mono text-xs text-dim">{price.suffix}</p>
+                    )}
+                    <p className="mt-4 max-w-sm text-sm leading-relaxed text-dim">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <div className="lg:col-span-4">
+                    <p className="meta-muted">{item.featureLabel || 'Inkluderer'}</p>
+                    <ul className="mt-3.5 space-y-2">
+                      {item.features.map((feature) => (
+                        <li key={feature} className="flex gap-2.5 text-sm leading-relaxed text-cream">
+                          <Check
+                            size={13}
+                            className="mt-1 shrink-0 text-gold"
+                            aria-hidden="true"
+                          />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="lg:col-span-4">
+                    {item.exclusions && (
+                      <>
+                        <p className="meta-muted">Ikke inkluderet</p>
+                        <ul className="mt-3.5 space-y-2">
+                          {item.exclusions.map((exclusion) => (
+                            <li
+                              key={exclusion}
+                              className="flex gap-2.5 text-xs leading-relaxed text-dim"
+                            >
+                              <Minus size={12} className="mt-0.5 shrink-0" aria-hidden="true" />
+                              {exclusion}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    {item.note && (
+                      <p className="mt-4 text-xs leading-relaxed text-dim">{item.note}</p>
+                    )}
+                    {item.ctaLabel && item.ctaHref && (
+                      <Link to={item.ctaHref} className="link-quiet mt-4">
+                        {item.ctaLabel}
+                        <ArrowRight size={13} aria-hidden="true" />
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    {/* ------------------------------------------------- growth partner */}
+    <section
+      id="growth-partner"
+      className="on-light relative scroll-mt-24 overflow-hidden bg-cream py-16 text-ink lg:py-22"
+    >
+      <div className="grid-lines-dark absolute inset-0" aria-hidden="true" />
+      <div className="shell relative">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="meta-on-light">Samlet aftale</p>
+            <h2 className="mt-4 font-serif text-section text-ink">{growthPartner.name}</h2>
+            <p className="mt-6 flex flex-wrap items-baseline gap-x-2">
+              <span className="font-mono text-xs text-dim-ink">
+                {priceParts(growthPartner).prefix}
+              </span>
+              <span className="font-serif text-[3.2rem] leading-none text-ink">
+                {priceParts(growthPartner).amount}
+              </span>
+              <span className="font-mono text-xs text-dim-ink">
+                {priceParts(growthPartner).period}
+              </span>
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-off-white/50">Det er en bundlepris og ændrer ikke Care-pakkens normale pris.</p>
+            <p className="mt-6 max-w-md text-base leading-relaxed text-dim-ink">
+              {growthPartner.description}
+            </p>
+            <Button to={growthPartner.ctaHref} variant="light" size="lg" className="mt-8">
+              {growthPartner.ctaLabel}
+              <ArrowRight size={16} aria-hidden="true" />
+            </Button>
+          </div>
+
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
+              <div>
+                <p className="meta-on-light">{growthPartner.featureLabel}</p>
+                <ul className="mt-4 space-y-2.5">
+                  {growthPartner.features.map((feature) => (
+                    <li key={feature} className="flex gap-3 text-sm text-ink/85">
+                      <Check size={14} className="mt-1 shrink-0 text-gold-ink" aria-hidden="true" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="meta-on-light">Rammer for aftalen</p>
+                <ul className="mt-4 space-y-2.5">
+                  {growthPartner.exclusions?.map((entry) => (
+                    <li key={entry} className="flex gap-3 text-sm leading-relaxed text-dim-ink">
+                      <Minus size={13} className="mt-1 shrink-0 text-gold-ink" aria-hidden="true" />
+                      {entry}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="marked mt-10 border border-gold/40 p-6 text-gold-ink sm:p-7">
+              <p className="meta-on-light">Bundlefordel</p>
+              <p className="mt-3.5 max-w-2xl text-sm leading-relaxed text-ink/85">
+                {growthPartnerBundle.description}{' '}
+                <strong className="font-semibold text-ink">
+                  {formatAmount(growthPartnerBundle.price)} kr./md.
+                </strong>
+              </p>
+              <p className="mt-2.5 text-xs leading-relaxed text-ink/50">
+                Det er en bundlepris, der forudsætter mindst to løbende marketingydelser. Den ændrer
+                ikke Care-pakkens normale pris på {formatAmount(999)} kr./md.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section className="border-b border-navy/10 bg-off-white py-16 lg:py-20" aria-labelledby="pricing-terms-heading">
-      <div className="max-w-content mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+    {/* ----------------------------------------------------------- terms */}
+    <section className="bg-ink py-16 lg:py-20">
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <p className="eyebrow">Klare forventninger</p>
-            <h2 id="pricing-terms-heading" className="mt-3 font-serif text-section text-navy">Det aftaler vi, før vi går i gang.</h2>
+            <p className="meta">Før vi går i gang</p>
+            <h2 className="mt-4 font-serif text-section text-cream text-balance">
+              Hvad der aftales skriftligt.
+            </h2>
           </div>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:col-span-8">
-            <div className="border border-navy/10 bg-bg-light p-6 sm:p-8">
-              <h3 className="font-serif text-2xl text-navy">Det konkrete tilbud</h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted">Beskriver leverancer, ansvar, korrekturrunder, tidsplan og betalingsplan. Ændringer uden for det aftalte scope vurderes og prissættes separat.</p>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-8">
+            <div className="border border-cream/15 bg-ink-2 p-6 sm:p-7">
+              <h3 className="font-serif text-xl text-cream">Tilbuddet</h3>
+              <p className="mt-4 text-sm leading-relaxed text-dim">
+                Leverancer, ansvar, korrekturrunder, tidsplan og betalingsplan. Ændringer uden for
+                det aftalte vurderes og prissættes, før de sættes i gang.
+              </p>
             </div>
-            <div className="border border-navy/10 bg-bg-light p-6 sm:p-8">
-              <h3 className="font-serif text-2xl text-navy">Materiale og annoncebudget</h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted">Annoncebudget afregnes separat. Annoncemateriale leveres af kunden eller aftales som et særskilt tilkøb.</p>
+            <div className="border border-cream/15 bg-ink-2 p-6 sm:p-7">
+              <h3 className="font-serif text-xl text-cream">Binding og opsigelse</h3>
+              <p className="mt-4 text-sm leading-relaxed text-dim">
+                Bindingsperiode og opsigelsesvilkår fremgår af det konkrete tilbud og
+                aftalegrundlag. De aftales, før noget går i gang.
+              </p>
             </div>
           </div>
         </div>
-        <p className="mt-10 border-l-2 border-accent pl-5 text-sm leading-relaxed text-muted">{pricingNote}</p>
+
+        <p className="mt-10 max-w-4xl border-l-2 border-gold/60 pl-5 text-sm leading-relaxed text-dim">
+          {pricingNote}
+        </p>
       </div>
     </section>
 
-    <section id="pris-faq" className="scroll-mt-28 bg-bg-light py-16 lg:py-24" aria-labelledby="pricing-faq-heading">
-      <div className="max-w-content mx-auto grid grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:gap-16 lg:px-10">
-        <div className="lg:col-span-4">
-          <p className="eyebrow">FAQ om priser</p>
-          <h2 id="pricing-faq-heading" className="mt-3 font-serif text-section text-navy">Spørgsmål før samarbejdet starter.</h2>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">Få styr på betaling, materiale, rettelser og de månedlige aftalers rammer.</p>
-        </div>
-        <div className="lg:col-span-8"><PricingFAQ items={pricingFaq} /></div>
-      </div>
-    </section>
-
-    <section className="relative overflow-hidden bg-navy py-16 text-off-white lg:py-20">
-      <div className="absolute inset-0 grid-bg" />
-      <div className="relative max-w-content mx-auto flex flex-col items-start justify-between gap-8 px-6 md:flex-row md:items-end lg:px-10">
-        <div>
-          <h2 className="max-w-2xl font-serif text-section text-off-white">Er du i tvivl om, hvilken løsning der passer?</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-off-white/65 sm:text-base">Book en kort og uforpligtende afklaring. Så gennemgår vi behov, ambitionsniveau og det mest realistiske næste skridt.</p>
-        </div>
-        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-          <Button booking size="lg" variant="light">Book et møde</Button>
-          <Button to="/kontakt" size="lg" variant="outline">Send en forespørgsel</Button>
+    {/* ------------------------------------------------------------- faq */}
+    <section
+      id="pris-faq"
+      className="scroll-mt-24 border-t border-cream/12 bg-ink-2 py-16 lg:py-22"
+    >
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <p className="meta">Om pris og betaling</p>
+            <h2 className="mt-4 font-serif text-section text-cream text-balance">
+              Spørgsmål, før I beslutter jer.
+            </h2>
+            <Link to="/faq" className="link-quiet mt-5">
+              Alle spørgsmål
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="lg:col-span-8">
+            <Accordion items={pricingFaq} openFirst />
+          </div>
         </div>
       </div>
     </section>

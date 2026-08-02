@@ -1,107 +1,158 @@
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import PageHero from '@/components/PageHero';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
+import company from '@/config/company';
 
-const About: React.FC = () => {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Forside', item: 'https://www.aagesengrowth.dk/' },
-      { '@type': 'ListItem', position: 2, name: 'Om', item: 'https://www.aagesengrowth.dk/om' },
-    ],
-  };
-
-  const values = [
-    { title: 'Ansvar', text: 'Vi tager ejerskab og følger opgaverne til dørs.' },
-    { title: 'Klarhed', text: 'Tydelige prioriteringer, leverancer og forventninger.' },
-    { title: 'Kvalitet', text: 'Grundigt arbejde frem for overfladisk volumen.' },
-    { title: 'Forretningsforståelse', text: 'Marketing er et middel til vækst — ikke målet i sig selv.' },
-  ];
-
-  return (
-    <>
-      <SEOHead
-        title="Om Aagesen Growth ApS"
-        description="Et mindre setup med et større ansvar. Aagesen Growth ApS hjælper virksomheder med professionelle digitale løsninger og fast marketingansvar."
-        canonical="/om"
-        schema={breadcrumbSchema}
-      />
-
-      <section className="inner-hero grid-bg-light">
-        <div className="relative max-w-content mx-auto px-6 lg:px-10">
-          <Reveal>
-            <p className="text-xs font-sans font-medium uppercase tracking-[0.25em] text-accent mb-6">Om</p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="font-serif text-display text-navy mb-6 max-w-3xl text-balance">
-              Et mindre setup med et større ansvar.
-            </h1>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="text-lg text-muted max-w-2xl leading-relaxed text-pretty">
-              Aagesen Growth hjælper virksomheder, der har brug for professionelle digitale løsninger og fast marketingansvar uden at opbygge en fuld intern afdeling.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="bg-bg-light py-22 lg:py-30">
-        <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="max-w-2xl space-y-6">
-            <Reveal>
-              <p className="text-lg text-dark leading-relaxed text-pretty">
-                Samarbejdet er direkte og tæt. Du taler med den person, der udvikler løsningen, prioriterer arbejdet og følger det til dørs.
-              </p>
-            </Reveal>
-            <Reveal delay={80}>
-              <p className="text-lg text-muted leading-relaxed text-pretty">
-                Et mindre setup giver korte beslutningsveje og et tydeligt ansvar. Indsatsen prioriteres efter, hvad der giver bedst mening for din forretning.
-              </p>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-off-white py-22 lg:py-30">
-        <div className="max-w-content mx-auto px-6 lg:px-10">
-          <Reveal>
-            <h2 className="font-serif text-section text-navy mb-16 text-balance">Værdier</h2>
-          </Reveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {values.map((v, i) => (
-              <Reveal key={i} delay={i * 80}>
-                <div className="bg-bg-light border border-navy/6 p-7 h-full">
-                  <h3 className="font-serif text-xl text-navy mb-3">{v.title}</h3>
-                  <p className="text-muted text-sm leading-relaxed">{v.text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-navy text-off-white py-22 lg:py-30 relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg" />
-        <div className="relative max-w-content mx-auto px-6 lg:px-10 text-center">
-          <Reveal>
-            <h2 className="font-serif text-display text-off-white mb-6 max-w-2xl mx-auto text-balance">
-              Lad os tage en kort afklaring.
-            </h2>
-          </Reveal>
-          <Reveal delay={100}>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button booking size="lg" variant="light">Book et møde</Button>
-              <Button to="/kontakt" size="lg" variant="ghost" className="text-off-white border-off-white/20 hover:border-off-white/50">
-                Kontakt os
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-    </>
-  );
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Forside', item: `${company.domain}/` },
+    { '@type': 'ListItem', position: 2, name: 'Om', item: `${company.domain}/om` },
+  ],
 };
+
+const fitFor = [
+  'I har et website, der ikke længere matcher forretningen',
+  'I får for få henvendelser, og ved ikke helt hvorfor',
+  'Markedsføringen ligger spredt hos flere leverandører',
+  'I vil have ét sted at gå hen, når noget skal ændres',
+  'I vil hellere have noget gjort ordentligt end hurtigt',
+];
+
+const notFitFor = [
+  'I leder efter den billigste løsning på markedet',
+  'I har brug for et stort team og faste ugentlige møder',
+  'I vil have løbende produktion af content og opslag',
+  'I forventer garanterede placeringer eller et bestemt antal leads',
+];
+
+const About: React.FC = () => (
+  <>
+    <SEOHead
+      title="Om Aagesen Growth ApS"
+      description="Et lille setup med et stort ansvar. Aagesen Growth arbejder med få kunder ad gangen, så den, der laver arbejdet, også er den, I taler med."
+      canonical="/om"
+      schema={breadcrumbSchema}
+    />
+
+    <PageHero
+      eyebrow="Om"
+      title="Et lille setup. Og hele ansvaret."
+      lead="Aagesen Growth er en dansk digital vækstpartner for små og mellemstore virksomheder — bygget som et bevidst lille setup, fordi det er forudsætningen for at kunne stå inde for arbejdet."
+    />
+
+    {/* ---------------------------------------------------------- essay */}
+    <section className="bg-ink py-16 lg:py-22">
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <p className="meta">Baggrunden</p>
+          </div>
+          <div className="max-w-prose space-y-6 lg:col-span-8">
+            <Reveal>
+              <p className="font-serif text-[1.6rem] leading-snug text-cream text-pretty sm:text-[1.9rem]">
+                De fleste virksomheder, vi taler med, har ikke et markedsføringsproblem. De har et
+                rækkefølgeproblem.
+              </p>
+            </Reveal>
+            <Reveal delay={60}>
+              <p className="text-base leading-relaxed text-dim text-pretty">
+                Der er sat annoncer op, før tracking virkede. Der er skrevet indhold, før nogen
+                havde besluttet, hvem det skulle overbevise. Der er brugt penge på trafik til en
+                side, der ikke gav den besøgende noget at gøre. Hver enkelt beslutning gav mening i
+                situationen — samlet set arbejder de mod hinanden.
+              </p>
+            </Reveal>
+            <Reveal delay={90}>
+              <p className="text-base leading-relaxed text-dim text-pretty">
+                Aagesen Growth er bygget op om at løse det. Website, synlighed, annoncering og
+                måling hører sammen, og de bliver bedst, når én person kan se dem samlet og har
+                mandat til at sige, hvad der skal ske først — også når svaret er &laquo;ikke
+                endnu&raquo;.
+              </p>
+            </Reveal>
+            <Reveal delay={120}>
+              <p className="text-base leading-relaxed text-dim text-pretty">
+                Derfor er der et begrænset antal kunder ad gangen. Det er ikke en
+                knaphedsstrategi — det er den eneste måde, den samme person kan udvikle løsningen,
+                prioritere arbejdet og tage telefonen.
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ------------------------------------------------------------- fit */}
+    <section className="border-y border-cream/12 bg-ink-2 py-16 lg:py-22">
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-5 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="meta">Er vi det rigtige match?</p>
+            <h2 className="mt-4 max-w-xl font-serif text-section text-cream text-balance">
+              Det er billigere at finde ud af nu end om tre måneder.
+            </h2>
+          </div>
+          <p className="max-w-md self-end text-sm leading-relaxed text-dim lg:col-span-5">
+            Vi siger fra, hvis opgaven ikke passer. Det koster os en ordre og sparer os begge for et
+            samarbejde, der ikke ville have fungeret.
+          </p>
+        </div>
+
+        <div className="mt-10 grid grid-cols-1 gap-px bg-cream/12 md:grid-cols-2">
+          <div className="bg-ink p-7 sm:p-9">
+            <p className="meta">Godt match, hvis</p>
+            <ul className="ledger mt-6">
+              {fitFor.map((entry) => (
+                <li key={entry} className="ledger-row py-4 text-[0.95rem] leading-relaxed text-cream">
+                  {entry}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="bg-ink p-7 sm:p-9">
+            <p className="meta-muted">Dårligt match, hvis</p>
+            <ul className="ledger mt-6">
+              {notFitFor.map((entry) => (
+                <li
+                  key={entry}
+                  className="ledger-row py-4 text-[0.95rem] leading-relaxed text-dim"
+                >
+                  {entry}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ------------------------------------------------------------ cta */}
+    <section className="bg-ink py-16 lg:py-20">
+      <div className="shell">
+        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <p className="meta">Næste skridt</p>
+            <h2 className="mt-4 max-w-2xl font-serif text-display text-cream text-balance">
+              Skriv, hvad der ikke virker.
+            </h2>
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-dim">
+              Så får I et ærligt svar på, hvad vi ville gøre først — også hvis svaret er, at I ikke
+              har brug for os lige nu.
+            </p>
+          </div>
+          <Button to="/kontakt" size="lg" className="shrink-0">
+            Kontakt os
+            <ArrowRight size={16} aria-hidden="true" />
+          </Button>
+        </div>
+      </div>
+    </section>
+  </>
+);
 
 export default About;
