@@ -14,9 +14,10 @@ import Button from '@/components/ui/Button';
 import CaseCard from '@/components/CaseCard';
 import GrowthDashboard from '@/components/GrowthDashboard';
 import ServiceGrid from '@/components/ServiceGrid';
+import PricingCard from '@/components/PricingCard';
 import services from '@/data/services';
 import cases from '@/data/cases';
-import { packages, pricingNote } from '@/data/pricing';
+import { websitePackages, pricingNote } from '@/data/pricing';
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -177,19 +178,14 @@ const Home: React.FC = () => (
           <h2 className="mt-3 font-serif text-section text-navy">Tydelige rammer. Tilpasset opgaven.</h2>
         </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-          {packages.map((pkg) => (
-            <div key={pkg.id} className="pricing-compact">
-              <h3 className="font-serif text-xl text-navy">{pkg.name}</h3>
-              <p className="mt-3 text-lg font-medium text-navy">{pkg.price}</p>
-              <p className="mt-1 text-xs text-muted">{pkg.priceNote}</p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">{pkg.description}</p>
-              <Link to={pkg.ctaType === 'contact' ? '/kontakt' : '/book-moede'} className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-navy hover:text-accent">
-                {pkg.ctaLabel} <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </div>
-          ))}
+          {websitePackages.map((item) => <PricingCard key={item.id} item={item} compact />)}
         </div>
-        <p className="mt-5 text-xs leading-relaxed text-muted">{pricingNote}</p>
+        <div className="mt-5 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+          <p className="max-w-3xl text-xs leading-relaxed text-muted">{pricingNote}</p>
+          <Link to="/priser" className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-medium text-navy hover:text-accent">
+            Se alle priser <ArrowRight size={14} aria-hidden="true" />
+          </Link>
+        </div>
       </div>
     </section>
 

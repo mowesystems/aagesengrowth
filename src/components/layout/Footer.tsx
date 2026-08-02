@@ -9,7 +9,7 @@ const Footer: React.FC = () => (
     <div className="max-w-content mx-auto px-6 pb-7 pt-12 lg:px-10 lg:pt-14">
       <div className="grid grid-cols-1 gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <Link to="/" aria-label="Aagesen Growth ApS — forsiden" className="inline-flex">
+          <Link to="/" aria-label="Aagesen Growth ApS — forsiden" className="inline-flex min-h-11 items-center">
             <BrandLogo className="h-auto w-[9.5rem]" />
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">{company.footerDescription}</p>
@@ -39,10 +39,10 @@ const Footer: React.FC = () => (
             <li><Link to="/ydelser#seo" className="inline-flex min-h-11 items-center hover:text-accent">SEO & AI-synlighed</Link></li>
             <li><Link to="/ydelser#google-ads" className="inline-flex min-h-11 items-center hover:text-accent">Google Ads</Link></li>
             <li><Link to="/ydelser#meta-ads" className="inline-flex min-h-11 items-center hover:text-accent">Meta Ads</Link></li>
-            <li><Link to="/ydelser#content" className="inline-flex min-h-11 items-center hover:text-accent">Indhold & sociale medier</Link></li>
             <li><Link to="/ydelser#tracking" className="inline-flex min-h-11 items-center hover:text-accent">Tracking & analyse</Link></li>
-            <li><Link to="/ydelser#hosting" className="inline-flex min-h-11 items-center hover:text-accent">Hosting & drift</Link></li>
-            <li><Link to="/ydelser#strategy" className="inline-flex min-h-11 items-center hover:text-accent">Rådgivning & strategi</Link></li>
+            <li><Link to="/ydelser#hosting" className="inline-flex min-h-11 items-center hover:text-accent">Hosting & vedligeholdelse</Link></li>
+            <li><Link to="/ydelser#woocommerce" className="inline-flex min-h-11 items-center hover:text-accent">WooCommerce</Link></li>
+            <li><Link to="/ydelser#strategy" className="inline-flex min-h-11 items-center hover:text-accent">Strategisk rådgivning</Link></li>
           </ul>
         </div>
 
@@ -50,6 +50,7 @@ const Footer: React.FC = () => (
           <h2 className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-muted">Virksomhed</h2>
           <ul className="mt-2 text-sm">
             <li><Link to="/projekter" className="inline-flex min-h-11 min-w-11 items-center hover:text-accent">Projekter</Link></li>
+            <li><Link to="/priser" className="inline-flex min-h-11 min-w-11 items-center hover:text-accent">Priser</Link></li>
             <li><Link to="/om" className="inline-flex min-h-11 min-w-11 items-center hover:text-accent">Om</Link></li>
             <li><Link to="/kontakt" className="inline-flex min-h-11 min-w-11 items-center hover:text-accent">Kontakt</Link></li>
           </ul>

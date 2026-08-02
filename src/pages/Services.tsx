@@ -5,6 +5,7 @@ import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
 import ServiceGrid from '@/components/ServiceGrid';
 import services from '@/data/services';
+import { adMaterialDisclaimer } from '@/data/pricing';
 
 const Services: React.FC = () => {
   const breadcrumbSchema = {
@@ -37,7 +38,7 @@ const Services: React.FC = () => {
     <>
       <SEOHead
         title="Ydelser"
-        description="Websites, SEO, AI-synlighed, Google Ads, Meta Ads, indhold, tracking, hosting og strategi fra Aagesen Growth ApS."
+        description="Websites, SEO, AI-synlighed, Google Ads, Meta Ads, tracking, hosting, WooCommerce-optimering og strategi fra Aagesen Growth ApS."
         canonical="/ydelser"
         schema={[breadcrumbSchema, serviceSchema]}
       />
@@ -65,6 +66,10 @@ const Services: React.FC = () => {
             <h2 id="service-overview" className="mt-3 font-serif text-section text-navy">Det vi hjælper med.</h2>
           </div>
           <ServiceGrid services={services} showFeatures />
+          <div className="mt-8 flex flex-col items-start justify-between gap-5 border border-navy/10 bg-off-white p-6 sm:flex-row sm:items-center">
+            <p className="max-w-3xl text-sm leading-relaxed text-muted">{adMaterialDisclaimer}</p>
+            <Button to="/priser" variant="outline" className="shrink-0">Se alle priser <ArrowRight size={14} className="ml-2" aria-hidden="true" /></Button>
+          </div>
         </div>
       </section>
 

@@ -10,10 +10,10 @@ const helpOptions = [
   'SEO og AI-synlighed',
   'Google Ads',
   'Meta Ads',
-  'Indhold og sociale medier',
   'Tracking og analyse',
-  'Hosting og drift',
-  'Rådgivning og strategi',
+  'Hosting og vedligeholdelse',
+  'WooCommerce-optimering',
+  'Strategisk rådgivning',
   'Andet',
 ];
 
