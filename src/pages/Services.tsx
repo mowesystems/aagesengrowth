@@ -1,130 +1,166 @@
 import React from 'react';
-import { ArrowRight, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
-import ServiceGrid from '@/components/ServiceGrid';
+import ServiceLedger from '@/components/ServiceLedger';
+import PageHero from '@/components/PageHero';
+import company from '@/config/company';
 import services from '@/data/services';
 import { adMaterialDisclaimer } from '@/data/pricing';
 
-const Services: React.FC = () => {
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Forside', item: 'https://www.aagesengrowth.dk/' },
-      { '@type': 'ListItem', position: 2, name: 'Ydelser', item: 'https://www.aagesengrowth.dk/ydelser' },
-    ],
-  };
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Forside', item: `${company.domain}/` },
+    { '@type': 'ListItem', position: 2, name: 'Ydelser', item: `${company.domain}/ydelser` },
+  ],
+};
 
-  const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    itemListElement: services.map((service, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'Service',
-        name: service.title,
-        description: service.description,
-        provider: { '@type': 'ProfessionalService', name: 'Aagesen Growth ApS' },
-      },
-    })),
-  };
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: services.map((service, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: {
+      '@type': 'Service',
+      name: service.title,
+      description: service.description,
+      provider: { '@type': 'ProfessionalService', name: company.legalName, url: company.domain },
+    },
+  })),
+};
 
-  const process = ['Afklaring', 'Prioritering', 'Eksekvering', 'Måling', 'Løbende forbedring'];
+const combinations = [
+  {
+    title: 'Nyt website',
+    body: 'Website + tracking. Så er fundamentet på plads, og alt det efterfølgende kan måles fra dag ét.',
+    ids: ['websites', 'tracking'],
+  },
+  {
+    title: 'Vi bliver ikke fundet',
+    body: 'SEO og AI-synlighed + de nødvendige rettelser på selve siden. Synlighed uden et sted at lande er spildt.',
+    ids: ['seo', 'websites'],
+  },
+  {
+    title: 'Vi vil have gang i salget nu',
+    body: 'Tracking + annoncering. Målingen først, ellers optimerer man i blinde på klikpriser.',
+    ids: ['tracking', 'google-ads'],
+  },
+];
 
-  return (
-    <>
-      <SEOHead
-        title="Ydelser"
-        description="Websites, SEO, AI-synlighed, Google Ads, Meta Ads, tracking, hosting, WooCommerce-optimering og strategi fra Aagesen Growth ApS."
-        canonical="/ydelser"
-        schema={[breadcrumbSchema, serviceSchema]}
-      />
+const Services: React.FC = () => (
+  <>
+    <SEOHead
+      title="Ydelser — hvad der er med, og hvad der ikke er"
+      description="Websites, SEO og AI-synlighed, Google Ads, Meta Ads, tracking, hosting, WooCommerce-optimering og strategisk rådgivning. Med tydeligt omfang og tydelige undtagelser."
+      canonical="/ydelser"
+      schema={[breadcrumbSchema, serviceSchema]}
+    />
 
-      <section className="inner-hero grid-bg-light">
-        <div className="relative max-w-content mx-auto px-6 lg:px-10">
-          <Reveal><p className="eyebrow">Ydelser</p></Reveal>
-          <Reveal delay={80}>
-            <h1 className="mt-5 max-w-3xl font-serif text-display text-navy text-balance">
-              Fra digitalt fundament til løbende vækst.
-            </h1>
-          </Reveal>
-          <Reveal delay={150}>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted text-pretty">
-              Otte konkrete ydelser, der kan stå alene eller samles i et tæt samarbejde med én klar retning.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+    <PageHero
+      eyebrow="Ydelser"
+      title="Otte ydelser, og et tydeligt svar på, hvad der ikke er med."
+      lead="De fleste kan købes alene. Nogle giver kun mening sammen med noget andet — det står ved hver enkelt, også når det koster os salget."
+    />
 
-      <section className="bg-bg-light py-16 lg:py-24" aria-labelledby="service-overview">
-        <div className="max-w-content mx-auto px-6 lg:px-10">
-          <div className="mb-10 max-w-2xl">
-            <p className="eyebrow">Kompetencer</p>
-            <h2 id="service-overview" className="mt-3 font-serif text-section text-navy">Det vi hjælper med.</h2>
+    <section className="bg-ink py-14 lg:py-20">
+      <div className="shell">
+        <ServiceLedger services={services} detailed />
+
+        <Reveal>
+          <div className="marked mt-12 border border-cream/20 bg-ink-2 p-6 text-cream/25 sm:p-8">
+            <div className="flex flex-col gap-6 text-cream sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="meta">Om annoncering</p>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-dim">
+                  {adMaterialDisclaimer}
+                </p>
+              </div>
+              <Button to="/priser" variant="outline" className="shrink-0">
+                Se alle priser
+                <ArrowRight size={14} aria-hidden="true" />
+              </Button>
+            </div>
           </div>
-          <ServiceGrid services={services} showFeatures />
-          <div className="mt-8 flex flex-col items-start justify-between gap-5 border border-navy/10 bg-off-white p-6 sm:flex-row sm:items-center">
-            <p className="max-w-3xl text-sm leading-relaxed text-muted">{adMaterialDisclaimer}</p>
-            <Button to="/priser" variant="outline" className="shrink-0">Se alle priser <ArrowRight size={14} className="ml-2" aria-hidden="true" /></Button>
-          </div>
-        </div>
-      </section>
+        </Reveal>
+      </div>
+    </section>
 
-      <section className="value-band grid-bg">
-        <div className="max-w-content mx-auto grid grid-cols-1 px-6 md:grid-cols-3 lg:px-10">
-          {[
-            ['01', 'Klar retning', 'Vi prioriterer det, der skaber størst værdi først.'],
-            ['02', 'Samlet eksekvering', 'Website, marketing og data arbejder i samme retning.'],
-            ['03', 'Løbende forbedring', 'Indsatsen måles, justeres og udvikles over tid.'],
-          ].map(([number, title, text]) => (
-            <div key={number} className="border-b border-off-white/10 py-9 last:border-b-0 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-r-0 md:last:pr-0">
-              <span className="text-xs text-accent">{number}</span>
-              <h2 className="mt-4 font-serif text-2xl text-off-white">{title}</h2>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-off-white/60">{text}</p>
+    {/* ---------------------------------------------------- combinations */}
+    <section className="border-y border-cream/12 bg-ink-2 py-16 lg:py-22">
+      <div className="shell">
+        <div className="grid grid-cols-1 gap-x-16 gap-y-5 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <p className="meta">Kombinationer</p>
+            <h2 className="mt-4 max-w-xl font-serif text-section text-cream text-balance">
+              Hvad folk typisk starter med.
+            </h2>
+          </div>
+          <p className="max-w-md self-end text-sm leading-relaxed text-dim lg:col-span-5">
+            Ikke pakker, og ikke noget der skal købes samlet. Bare de kombinationer, der oftest giver
+            mening — og hvorfor rækkefølgen er, som den er.
+          </p>
+        </div>
+
+        <div className="ledger mt-10">
+          {combinations.map((combination, index) => (
+            <div key={combination.title} className="ledger-row">
+              <div className="grid grid-cols-1 items-start gap-x-10 gap-y-3 py-7 md:grid-cols-12">
+                <div className="flex items-baseline gap-4 md:col-span-4">
+                  <span className="meta-muted opacity-70">{String(index + 1).padStart(2, '0')}</span>
+                  <h3 className="font-serif text-xl leading-snug text-cream">{combination.title}</h3>
+                </div>
+                <p className="text-sm leading-relaxed text-dim md:col-span-5">
+                  {combination.body}
+                </p>
+                <ul className="flex flex-wrap gap-1.5 md:col-span-3 md:justify-end">
+                  {combination.ids.map((id) => {
+                    const service = services.find((entry) => entry.id === id);
+                    if (!service) return null;
+                    return (
+                      <li key={id}>
+                        <Link
+                          to={service.href}
+                          className="inline-flex min-h-9 items-center border border-cream/20 px-3 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-dim transition-colors hover:border-cream hover:text-cream"
+                        >
+                          {service.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section className="border-b border-navy/10 bg-off-white py-16 lg:py-20">
-        <div className="max-w-content mx-auto grid grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:px-10">
-          <div className="lg:col-span-5">
-            <p className="eyebrow">Arbejdsform</p>
-            <h2 className="mt-3 max-w-md font-serif text-section text-navy">Fra afklaring til stabil drift.</h2>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-muted sm:text-base">
-              En enkel proces skaber fremdrift, tydeligt ansvar og plads til at forbedre undervejs.
-            </p>
-          </div>
-          <ol className="border-t border-navy/10 lg:col-span-7">
-            {process.map((step, index) => (
-              <li key={step} className="flex min-h-16 items-center gap-5 border-b border-navy/10 py-4">
-                <span className="text-xs text-accent">{String(index + 1).padStart(2, '0')}</span>
-                <span className="font-serif text-xl text-navy">{step}</span>
-                <Check size={16} className="ml-auto text-muted" aria-hidden="true" />
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden bg-navy py-16 text-off-white lg:py-20">
-        <div className="absolute inset-0 grid-bg" />
-        <div className="relative max-w-content mx-auto flex flex-col items-start justify-between gap-8 px-6 md:flex-row md:items-end lg:px-10">
+    <section className="bg-ink py-16 lg:py-20">
+      <div className="shell">
+        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div>
-            <p className="eyebrow">Næste skridt</p>
-            <h2 className="mt-3 max-w-2xl font-serif text-display text-off-white text-balance">Lad os finde den rette kombination.</h2>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-off-white/60">
-              En kort, uforpligtende samtale er nok til at afklare behov, retning og første prioritet.
+            <p className="meta">Ikke sikker på hvad I har brug for?</p>
+            <h2 className="mt-4 max-w-2xl font-serif text-display text-cream text-balance">
+              Prøv website-tjekket. Det tager under et minut.
+            </h2>
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-dim">
+              Vælg det, I genkender, og få den rækkefølge vi ville arbejde i. Ingen mailadresse
+              påkrævet.
             </p>
           </div>
-          <Button booking size="lg" variant="light">Book et møde <ArrowRight size={15} className="ml-2" aria-hidden="true" /></Button>
+          <Button to="/#website-tjek" size="lg" className="shrink-0">
+            Til website-tjekket
+            <ArrowRight size={16} aria-hidden="true" />
+          </Button>
         </div>
-      </section>
-    </>
-  );
-};
+      </div>
+    </section>
+  </>
+);
 
 export default Services;

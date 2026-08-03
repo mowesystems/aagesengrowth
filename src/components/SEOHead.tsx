@@ -6,59 +6,95 @@ interface SEOHeadProps {
   description: string;
   canonical?: string;
   schema?: object | object[];
+  /** Set on pages that should not be indexed (404s, thin utility pages). */
+  noindex?: boolean;
 }
 
-const SEOHead: React.FC<SEOHeadProps> = ({ title, description, canonical, schema }) => {
+/**
+ * The brand image used for link previews.
+ *
+ * This is the 1536x1024 logo render that used to be wired up as the site's
+ * header logo, where it was illegible and cost 2 MB on every page load. As a
+ * social card it is actually the right asset and costs the page nothing.
+ */
+const OG_IMAGE = '/2f98b2e8-e158-4b57-8bc7-f1c08c16936f.png';
+
+const upsertMeta = (key: string, content: string, asProperty = false) => {
+  const attr = asProperty ? 'property' : 'name';
+  let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+};
+
+const removeMeta = (selector: string) => {
+  document.head.querySelectorAll(selector).forEach((el) => el.remove());
+};
+
+const SEOHead: React.FC<SEOHeadProps> = ({ title, description, canonical, schema, noindex }) => {
   const fullTitle = title.includes(company.legalName) ? title : `${title} — ${company.legalName}`;
   const canonicalUrl = canonical ? `${company.domain}${canonical}` : company.domain;
+  const imageUrl = `${company.domain}${OG_IMAGE}`;
+
+  // Serialise so a fresh object literal on every render does not re-run the effect.
+  const schemaKey = React.useMemo(() => (schema ? JSON.stringify(schema) : ''), [schema]);
 
   React.useEffect(() => {
     document.title = fullTitle;
 
-    const setMeta = (name: string, content: string, property = false) => {
-      const attr = property ? 'property' : 'name';
-      let el = document.querySelector(`meta[${attr}="${name}"]`);
-      if (!el) {
-        el = document.createElement('meta');
-        el.setAttribute(attr, name);
-        document.head.appendChild(el);
-      }
-      el.setAttribute('content', content);
-    };
+    upsertMeta('description', description);
 
-    setMeta('description', description);
-    setMeta('og:title', fullTitle, true);
-    setMeta('og:description', description, true);
-    setMeta('og:url', canonicalUrl, true);
-    setMeta('twitter:card', 'summary');
-    setMeta('twitter:title', fullTitle);
-    setMeta('twitter:description', description);
-    document.querySelectorAll('meta[property="og:image"], meta[property="og:image:alt"], meta[name="twitter:image"]').forEach((element) => element.remove());
+    upsertMeta('og:type', 'website', true);
+    upsertMeta('og:site_name', company.legalName, true);
+    upsertMeta('og:locale', 'da_DK', true);
+    upsertMeta('og:title', fullTitle, true);
+    upsertMeta('og:description', description, true);
+    upsertMeta('og:url', canonicalUrl, true);
+    upsertMeta('og:image', imageUrl, true);
+    upsertMeta('og:image:alt', `${company.legalName} — logo`, true);
 
-    let linkEl = document.querySelector('link[rel="canonical"]');
-    if (!linkEl) {
-      linkEl = document.createElement('link');
-      linkEl.setAttribute('rel', 'canonical');
-      document.head.appendChild(linkEl);
+    upsertMeta('twitter:card', 'summary_large_image');
+    upsertMeta('twitter:title', fullTitle);
+    upsertMeta('twitter:description', description);
+    upsertMeta('twitter:image', imageUrl);
+
+    if (noindex) {
+      upsertMeta('robots', 'noindex, follow');
+    } else {
+      removeMeta('meta[name="robots"]');
     }
-    linkEl.setAttribute('href', canonicalUrl);
 
-    document.querySelectorAll('[id^="schema-dynamic-"]').forEach((element) => element.remove());
-    if (schema) {
-      const schemas = Array.isArray(schema) ? schema : [schema];
-      schemas.forEach((s, i) => {
-        const id = `schema-dynamic-${i}`;
-        let el = document.getElementById(id);
-        if (!el) {
-          el = document.createElement('script');
-          el.id = id;
-          el.setAttribute('type', 'application/ld+json');
-          document.head.appendChild(el);
-        }
-        el.textContent = JSON.stringify(s);
+    // A noindex page (e.g. the 404) should not claim a canonical URL — pointing
+    // it at the homepage would tell crawlers the two are the same page.
+    if (noindex) {
+      removeMeta('link[rel="canonical"]');
+    } else {
+      let link = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+      if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        document.head.appendChild(link);
+      }
+      link.setAttribute('href', canonicalUrl);
+    }
+
+    // Replace any structured data from a previous route.
+    removeMeta('script[data-seo-schema="true"]');
+    if (schemaKey) {
+      const parsed = JSON.parse(schemaKey) as object | object[];
+      const list = Array.isArray(parsed) ? parsed : [parsed];
+      list.forEach((entry) => {
+        const el = document.createElement('script');
+        el.setAttribute('type', 'application/ld+json');
+        el.setAttribute('data-seo-schema', 'true');
+        el.textContent = JSON.stringify(entry);
+        document.head.appendChild(el);
       });
     }
-  }, [fullTitle, description, canonicalUrl, schema]);
+  }, [fullTitle, description, canonicalUrl, imageUrl, schemaKey, noindex]);
 
   return null;
 };

@@ -17,12 +17,6 @@ export interface PricingItem {
   ctaHref?: string;
 }
 
-export interface PricingFaqItem {
-  id: string;
-  question: string;
-  answer: string;
-}
-
 export const formatAmount = (amount: number) =>
   new Intl.NumberFormat('da-DK', { maximumFractionDigits: 0 }).format(amount);
 
@@ -31,6 +25,50 @@ export const formatPrice = ({ price, pricePrefix, billingPeriod, priceSuffix }: 
   const period = billingPeriod === 'monthly' ? '/md.' : billingPeriod === 'hourly' ? '/time' : '';
   const suffix = priceSuffix ? ` ${priceSuffix}` : '';
   return `${prefix}${formatAmount(price)} kr.${period}${suffix}`;
+};
+
+/** The price split into parts, so it can be typeset rather than printed as one string. */
+export const priceParts = (item: PricingItem) => ({
+  prefix: item.pricePrefix ?? '',
+  amount: `${formatAmount(item.price)} kr.`,
+  period:
+    item.billingPeriod === 'monthly' ? '/md.' : item.billingPeriod === 'hourly' ? '/time' : '',
+  suffix: item.priceSuffix ?? '',
+});
+
+/**
+ * Structured-data offer for a pricing item.
+ *
+ * "Fra"-priced items are emitted as a PriceSpecification with minPrice rather
+ * than a flat `price`, so the markup does not claim a fixed price the site
+ * never promises. Everything here matches what is rendered on screen.
+ */
+export const toOfferSchema = (item: PricingItem, url: string) => {
+  const isFrom = item.pricePrefix === 'Fra';
+  return {
+    '@type': 'Offer',
+    name: item.name,
+    priceCurrency: 'DKK',
+    url,
+    ...(isFrom
+      ? {
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            minPrice: item.price,
+            priceCurrency: 'DKK',
+            valueAddedTaxIncluded: false,
+          },
+        }
+      : {
+          price: item.price,
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            price: item.price,
+            priceCurrency: 'DKK',
+            valueAddedTaxIncluded: false,
+          },
+        }),
+  };
 };
 
 export const websitePackages: PricingItem[] = [
@@ -289,21 +327,19 @@ export const adMaterialDisclaimer =
 export const pricingNote =
   'Alle priser er vejledende og eksklusive moms. Endelig pris afhænger af opgavens omfang, eksisterende materiale, funktioner og tekniske krav. Den konkrete leverance, tidsplan og betalingsplan fremgår af det skriftlige tilbud.';
 
-export const pricingFaq: PricingFaqItem[] = [
-  { id: 'moms', question: 'Er priserne inklusive moms?', answer: 'Alle priser vises eksklusive moms, medmindre andet fremgår. Den endelige pris og betalingsplan fremgår altid af tilbuddet.' },
-  { id: 'betaling', question: 'Skal hele hjemmesiden betales på én gang?', answer: 'Betalingsplanen aftales før projektstart. Større projekter kan opdeles i rater, eksempelvis ved opstart, designgodkendelse og lancering.' },
-  { id: 'materiale', question: 'Hvad skal vi selv levere?', answer: 'Som udgangspunkt leverer kunden logo, billeder, tekster og nødvendige virksomhedsoplysninger. Aagesen Growth kan hjælpe med struktur, redigering og koordinering. Produktion af større mængder indhold aftales separat.' },
-  { id: 'rettelser', question: 'Hvor mange rettelser er inkluderet?', answer: 'Launch inkluderer 2 korrekturrunder, mens Growth inkluderer 3. Rettelser samles pr. runde. Ny funktionalitet eller ændringer i det godkendte scope kan medføre en merpris.' },
-  { id: 'hosting', question: 'Er hosting obligatorisk?', answer: 'Nej, medmindre det følger af den valgte tekniske løsning. Aagesen Growth kan stå for hosting og drift, eller løsningen kan overdrages efter nærmere aftale.' },
-  { id: 'annoncebudget', question: 'Er annoncebudget inkluderet i Google Ads og Meta Ads?', answer: 'Nej. Annoncebudgettet betales direkte af kunden til den relevante annonceplatform. Aagesen Growths pris dækker opsætning, administration, optimering og rapportering.' },
-  { id: 'annoncemateriale', question: 'Producerer Aagesen Growth billeder og videoer til annoncer?', answer: 'Annoncemateriale leveres som udgangspunkt af kunden. Produktion eller tilpasning af særligt materiale kan aftales som et separat tilkøb.' },
-  { id: 'binding', question: 'Er der binding på månedlige aftaler?', answer: 'Bindingsperiode og opsigelsesvilkår fremgår af det konkrete tilbud og aftalegrundlag.' },
-  { id: 'tilpasning', question: 'Kan pakkerne tilpasses?', answer: 'Ja. Pakkerne er et tydeligt udgangspunkt, men den endelige løsning tilpasses virksomhedens behov, mål og tekniske udgangspunkt.' },
-];
-
 export const allPricingItems = [
   ...websitePackages,
   ...carePackages,
   ...marketingServices,
   growthPartner,
 ];
+
+/** Look up a price by id so a service section can quote it without hardcoding. */
+export const getPricingItem = (id?: string) =>
+  id ? allPricingItems.find((item) => item.id === id) : undefined;
+
+/** Short "from" line for a service, derived from the single pricing source. */
+export const priceLabelFor = (id?: string) => {
+  const item = getPricingItem(id);
+  return item ? formatPrice(item) : undefined;
+};

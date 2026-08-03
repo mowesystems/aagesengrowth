@@ -1,78 +1,101 @@
-import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
-import Reveal from '@/components/ui/Reveal';
+import PageHero from '@/components/PageHero';
+import Accordion from '@/components/Accordion';
 import Button from '@/components/ui/Button';
-import faqItems from '@/data/faq';
+import company from '@/config/company';
+import faqItems, { faqTopics, topicLabels } from '@/data/faq';
 
-const FAQPage: React.FC = () => {
-  const [open, setOpen] = useState<number | null>(0);
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Forside', item: `${company.domain}/` },
+    { '@type': 'ListItem', position: 2, name: 'FAQ', item: `${company.domain}/faq` },
+  ],
+};
 
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqItems.map((item) => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: { '@type': 'Answer', text: item.answer },
-    })),
-  };
+/**
+ * The site's only FAQPage schema.
+ *
+ * Previously /faq and /priser each emitted their own FAQPage from two separate
+ * data sets that gave different answers to the same question. Both now read
+ * from one source, and only this page marks it up.
+ */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
 
-  return (
-    <>
-      <SEOHead
-        title="FAQ"
-        description="Ofte stillede spørgsmål om Aagesen Growth ApS — faste samarbejder, hjemmesider, annoncering, SEO og GEO."
-        canonical="/faq"
-        schema={faqSchema}
-      />
+const FAQPage: React.FC = () => (
+  <>
+    <SEOHead
+      title="FAQ — spørgsmål og ærlige svar"
+      description="Priser, materiale, rettelser, tidsplan, annoncebudget, binding og hvad der sker efter en henvendelse. Svarene på det, folk spørger om."
+      canonical="/faq"
+      schema={[breadcrumbSchema, faqSchema]}
+    />
 
-      <section className="bg-navy text-off-white pt-32 pb-16 lg:pt-40 lg:pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 grid-bg" />
-        <div className="relative max-w-content mx-auto px-6 lg:px-10">
-          <Reveal>
-            <p className="text-xs font-sans font-medium uppercase tracking-[0.25em] text-accent mb-6">FAQ</p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="font-serif text-display text-off-white max-w-2xl text-balance">
-              Ofte stillede spørgsmål.
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+    <PageHero
+      eyebrow="FAQ"
+      title="Spørgsmål, og svar der ikke går uden om."
+      lead="Inklusive dem, hvor svaret er nej."
+    />
 
-      <section className="bg-bg-light py-22 lg:py-30">
-        <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <div className="space-y-2">
-            {faqItems.map((item, i) => (
-              <Reveal key={i} delay={i * 40}>
-                <div className="border-b border-navy/10">
-                  <button
-                    onClick={() => setOpen(open === i ? null : i)}
-                    className="w-full flex items-center justify-between py-5 text-left group"
-                    aria-expanded={open === i}
-                  >
-                    <span className="font-sans font-medium text-dark pr-4 group-hover:text-navy transition-colors">{item.question}</span>
-                    <ChevronDown size={18} className={`flex-shrink-0 text-muted transition-transform duration-200 ${open === i ? 'rotate-180' : ''}`} />
-                  </button>
-                  <div className={`overflow-hidden transition-all duration-300 ease-out ${open === i ? 'max-h-60 pb-5' : 'max-h-0'}`}>
-                    <p className="text-muted leading-relaxed text-[15px]">{item.answer}</p>
+    <section className="bg-ink py-14 lg:py-20">
+      <div className="shell">
+        <div className="space-y-14 lg:space-y-18">
+          {faqTopics.map((topic) => {
+            const items = faqItems.filter((item) => item.topic === topic);
+            if (items.length === 0) return null;
+
+            return (
+              <div key={topic} id={topic} className="scroll-mt-24">
+                <div className="grid grid-cols-1 gap-x-16 gap-y-6 lg:grid-cols-12">
+                  <div className="lg:col-span-4">
+                    <p className="meta">{topicLabels[topic]}</p>
+                    <p className="mt-3 font-mono text-xs text-dim">
+                      {items.length} spørgsmål
+                    </p>
+                  </div>
+                  <div className="lg:col-span-8">
+                    <Accordion items={items} headingLevel="h3" />
                   </div>
                 </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={200}>
-            <div className="mt-16 text-center">
-              <p className="text-muted leading-relaxed mb-8 text-pretty">Har du andre spørgsmål?</p>
-              <Button booking size="lg">Book et møde</Button>
-            </div>
-          </Reveal>
+              </div>
+            );
+          })}
         </div>
-      </section>
-    </>
-  );
-};
+      </div>
+    </section>
+
+    <section className="border-t border-cream/12 bg-ink-2 py-16 lg:py-20">
+      <div className="shell">
+        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <p className="meta">Ikke besvaret?</p>
+            <h2 className="mt-4 max-w-2xl font-serif text-display text-cream text-balance">
+              Så spørg om det direkte.
+            </h2>
+            <p className="mt-5 max-w-lg text-sm leading-relaxed text-dim">
+              I får et konkret svar fra den, der ville lave arbejdet — ikke et standardsvar fra en
+              indbakke.
+            </p>
+          </div>
+          <Button to="/kontakt" size="lg" className="shrink-0">
+            Stil dit spørgsmål
+            <ArrowRight size={16} aria-hidden="true" />
+          </Button>
+        </div>
+      </div>
+    </section>
+  </>
+);
 
 export default FAQPage;

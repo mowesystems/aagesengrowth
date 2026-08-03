@@ -2,13 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==========================================================================
+   Aagesen Growth — visual system
+   Concept: "Redline" — the language of a professional marking up work.
+
+   Ground is ink, not paper. Cream is a contrast event, used sparingly enough
+   that it lands. Serif carries the claim at display scale, mono carries the
+   evidence, hairlines carry structure. The load-bearing noun gets underlined
+   the way a reviewer marks up a page (.annotate), and anything meant to read
+   as examined gets registration marks (.marked).
+
+   Motion is part of the argument: this is a company selling craft, so the
+   craft has to be visible in how things arrive. Every entrance is short,
+   interruptible, and fully disabled under prefers-reduced-motion.
+   ========================================================================== */
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-bg-light text-dark font-sans antialiased;
+    @apply bg-ink text-cream font-sans antialiased;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -18,13 +34,24 @@
   }
 
   ::selection {
-    @apply bg-accent/20 text-navy;
+    @apply bg-gold/30 text-cream;
   }
 
   :focus-visible {
-    outline: 2px solid #B7A184;
+    outline: 2px solid #D4B478;
     outline-offset: 3px;
+    border-radius: 1px;
   }
+
+  /* Cream sections need a dark focus ring to stay visible */
+  .on-light :focus-visible {
+    outline-color: #7A5C38;
+  }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #080D13; }
+  ::-webkit-scrollbar-thumb { background: #24303E; }
+  ::-webkit-scrollbar-thumb:hover { background: #33414F; }
 
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
@@ -37,259 +64,188 @@
 }
 
 @layer components {
-  .eyebrow {
-    @apply text-[0.72rem] font-medium uppercase tracking-[0.17em] text-accent;
+  .shell {
+    @apply mx-auto w-full max-w-content px-5 sm:px-6 lg:px-10;
   }
 
-  .brand-logo-fallback {
-    @apply inline-flex flex-col justify-center font-sans font-semibold uppercase leading-none tracking-[0.18em];
+  /* ------------------------------------------------------------- metadata */
+  .meta {
+    @apply font-mono text-[0.68rem] font-medium uppercase leading-[1.45] tracking-[0.16em] text-gold;
   }
 
-  .brand-logo-fallback > span:first-child {
-    @apply text-[1.18rem] lg:text-[1.35rem];
+  .meta-muted {
+    @apply font-mono text-[0.68rem] font-medium uppercase leading-[1.45] tracking-[0.16em] text-dim;
   }
 
-  .brand-logo-fallback > span:last-child {
-    @apply mt-1.5 text-[0.56rem] tracking-[0.29em] text-accent lg:text-[0.62rem];
+  /* For cream sections */
+  .meta-on-light {
+    @apply font-mono text-[0.68rem] font-medium uppercase leading-[1.45] tracking-[0.16em] text-gold-ink;
   }
 
-  .hero-light {
-    @apply relative overflow-hidden border-b border-navy/10 bg-off-white;
-  }
+  /* ------------------------------------------- registration / crop marks */
+  .marked { position: relative; }
 
-  .inner-hero {
-    @apply relative overflow-hidden border-b border-navy/10 bg-off-white pb-14 pt-32 lg:pb-16 lg:pt-36;
-  }
-
-  .growth-dashboard {
-    @apply border border-navy/15 bg-bg-light p-3 shadow-[0_18px_55px_rgba(16,28,41,0.07)] sm:p-4;
-  }
-
-  .growth-dashboard-note {
-    @apply mb-3 flex items-center gap-2 px-1 text-[0.68rem] uppercase tracking-[0.12em] text-muted;
-  }
-
-  .growth-dashboard-grid {
-    @apply grid grid-cols-1 gap-3 sm:grid-cols-2;
-  }
-
-  .dashboard-panel {
-    @apply flex min-h-36 items-end justify-between gap-4 border border-navy/10 bg-off-white p-4;
-  }
-
-  .dashboard-label {
-    @apply text-[0.68rem] font-medium uppercase tracking-[0.1em] text-muted;
-  }
-
-  .dashboard-value {
-    @apply mt-2 max-w-36 font-serif text-lg leading-tight text-navy;
-  }
-
-  .line-chart {
-    @apply flex h-20 w-28 items-end gap-1 border-b border-l border-navy/15 p-1;
-  }
-
-  .line-chart span {
-    @apply block flex-1 bg-navy;
-  }
-
-  .line-chart span:nth-child(1) { height: 22%; }
-  .line-chart span:nth-child(2) { height: 28%; }
-  .line-chart span:nth-child(3) { height: 26%; }
-  .line-chart span:nth-child(4) { height: 42%; }
-  .line-chart span:nth-child(5) { height: 52%; }
-  .line-chart span:nth-child(6) { height: 69%; }
-  .line-chart span:nth-child(7) { height: 88%; }
-
-  .score-ring {
-    @apply flex h-16 w-16 shrink-0 items-center justify-center rounded-full;
-    background: conic-gradient(#101C29 0 72%, #D9D1C5 72% 100%);
-    position: relative;
-  }
-
-  .score-ring::before {
+  .marked::before,
+  .marked::after {
     content: '';
-    @apply absolute h-11 w-11 rounded-full bg-off-white;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    opacity: 0.9;
   }
 
-  .score-ring span {
-    @apply relative z-10 text-[0.65rem] font-semibold text-navy;
+  .marked::before {
+    top: -1px; left: -1px;
+    border-top: 1px solid currentColor;
+    border-left: 1px solid currentColor;
   }
 
-  .bar-chart {
-    @apply flex h-20 w-28 items-end gap-1;
+  .marked::after {
+    right: -1px; bottom: -1px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
   }
 
-  .bar-chart span {
-    @apply block flex-1 bg-navy/70;
+  /* ----------------------------------------------------------- annotation */
+  .annotate {
+    text-decoration-line: underline;
+    text-decoration-color: rgba(212, 180, 120, 0.9);
+    text-decoration-thickness: 0.045em;
+    text-underline-offset: 0.07em;
+    text-decoration-skip-ink: none;
   }
 
-  .bar-chart span:nth-child(1) { height: 28%; }
-  .bar-chart span:nth-child(2) { height: 43%; }
-  .bar-chart span:nth-child(3) { height: 55%; }
-  .bar-chart span:nth-child(4) { height: 48%; }
-  .bar-chart span:nth-child(5) { height: 69%; }
-  .bar-chart span:nth-child(6) { height: 88%; }
-  .bar-chart span:nth-child(7) { height: 58%; }
-
-  .mini-trend {
-    @apply flex h-16 w-24 items-end gap-1;
+  /* --------------------------------------------------------------- buttons */
+  .btn {
+    @apply relative inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden border px-7
+           font-sans text-sm font-medium tracking-[0.01em] transition-[color,border-color] duration-300 ease-smooth;
   }
 
-  .mini-trend span {
-    @apply block h-px flex-1 bg-navy;
-    transform-origin: left;
-  }
+  .btn-lg { @apply min-h-[3.4rem] px-9 text-[0.95rem]; }
 
-  .mini-trend span:nth-child(1) { transform: translateY(-8px) rotate(-12deg); }
-  .mini-trend span:nth-child(2) { transform: translateY(-18px) rotate(-25deg); }
-  .mini-trend span:nth-child(3) { transform: translateY(-28px) rotate(18deg); }
-  .mini-trend span:nth-child(4) { transform: translateY(-23px) rotate(-8deg); }
-
-  .growth-dashboard-summary {
-    @apply mt-3 grid grid-cols-1 gap-px border border-navy/10 bg-navy/10 sm:grid-cols-3;
-  }
-
-  .growth-dashboard-summary > div {
-    @apply bg-off-white p-4;
-  }
-
-  .service-card {
-    @apply flex min-h-[20rem] flex-col border border-off-white/10 bg-navy p-6 text-off-white transition-[background-color,border-color,transform] duration-200 lg:p-7;
-  }
-
-  .service-card:hover {
-    @apply -translate-y-0.5 border-accent/45 bg-navy-2;
-  }
-
-  .service-card > svg {
-    @apply text-off-white;
-  }
-
-  .service-card-number {
-    @apply text-xs text-off-white/40;
-  }
-
-  .service-card h3 {
-    @apply mt-9 font-serif text-2xl leading-tight text-off-white;
-  }
-
-  .service-card > p {
-    @apply mt-4 text-sm leading-relaxed text-off-white/65;
-  }
-
-  .service-card ul {
-    @apply mt-5 space-y-2 border-t border-off-white/10 pt-5;
-  }
-
-  .service-card li {
-    @apply relative pl-3 text-xs leading-relaxed text-off-white/55;
-  }
-
-  .service-card li::before {
+  /* The fill sweeps in from the bottom rather than cross-fading. */
+  .btn::before {
     content: '';
-    @apply absolute left-0 top-[0.5rem] h-1 w-1 bg-accent;
+    @apply absolute inset-0 -z-10 origin-bottom scale-y-0 transition-transform duration-300;
+    transition-timing-function: cubic-bezier(0.16, 0.84, 0.44, 1);
   }
 
-  .service-card-link {
-    @apply mt-auto inline-flex min-h-11 items-end gap-2 pt-6 text-sm font-medium text-off-white transition-colors hover:text-accent;
+  .btn:hover::before { @apply scale-y-100; }
+
+  .btn > * { @apply relative z-10; }
+
+  .btn-primary {
+    @apply border-cream bg-cream text-ink;
+  }
+  .btn-primary::before { @apply bg-gold; }
+  .btn-primary:hover { @apply border-gold text-ink; }
+
+  /* For cream grounds */
+  .btn-invert {
+    @apply border-ink bg-ink text-cream;
+  }
+  .btn-invert::before { @apply bg-gold-ink; }
+  .btn-invert:hover { @apply border-gold-ink text-cream; }
+
+  .btn-outline {
+    @apply border-cream/30 bg-transparent text-cream;
+  }
+  .btn-outline::before { @apply bg-cream; }
+  .btn-outline:hover { @apply border-cream text-ink; }
+
+  .btn-outline-invert {
+    @apply border-ink/30 bg-transparent text-ink;
+  }
+  .btn-outline-invert::before { @apply bg-ink; }
+  .btn-outline-invert:hover { @apply border-ink text-cream; }
+
+  /* Quiet link with a rule that draws in */
+  .link-quiet {
+    @apply relative inline-flex min-h-11 items-center gap-2 font-sans text-sm font-medium text-cream transition-colors hover:text-gold;
   }
 
-  .value-band {
-    @apply bg-navy text-off-white;
+  .link-quiet::after {
+    content: '';
+    @apply absolute bottom-2.5 left-0 h-px w-0 bg-gold transition-[width] duration-300 ease-smooth;
   }
 
-  .value-band-item {
-    @apply flex min-h-28 items-center gap-4 border-b border-off-white/10 py-5 sm:border-r lg:border-b-0 lg:px-6;
+  .link-quiet:hover::after { @apply w-[calc(100%-1.4rem)]; }
+
+  .link-quiet-invert {
+    @apply text-ink hover:text-gold-ink;
+  }
+  .link-quiet-invert::after { @apply bg-gold-ink; }
+
+  /* ------------------------------------------------------------ ruled index */
+  .ledger { @apply border-t border-cream/15; }
+  .ledger-row { @apply border-b border-cream/15; }
+  .ledger-light { @apply border-t border-ink/20; }
+  .ledger-light .ledger-row { @apply border-b border-ink/20; }
+
+  /* ----------------------------------------------------------------- fields */
+  .field {
+    @apply min-h-12 w-full border border-cream/25 bg-ink-2 px-4 py-3 font-sans text-[0.95rem] text-cream
+           transition-colors placeholder:text-dim/60;
   }
 
-  .value-band-item:first-child {
-    @apply lg:pl-0;
+  .field:hover { @apply border-cream/45; }
+
+  .field:focus-visible {
+    @apply border-gold outline-none ring-2 ring-gold/35 ring-offset-2 ring-offset-ink;
   }
 
-  .value-band-item:last-child {
-    @apply border-r-0 lg:pr-0;
+  .field[aria-invalid='true'] { @apply border-red-400; }
+
+  .field-label { @apply mb-2 block font-sans text-sm font-medium text-cream; }
+
+  .field-error {
+    @apply mt-1.5 flex items-center gap-1.5 font-sans text-xs font-medium text-red-400;
   }
 
-  .value-band-item span {
-    @apply text-xs text-accent;
+  /* On cream grounds */
+  .on-light .field {
+    @apply border-ink/25 bg-cream-2 text-ink placeholder:text-dim-ink/60;
+  }
+  .on-light .field-label { @apply text-ink; }
+
+  /* ----------------------------------------------------------------- reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 0.84, 0.44, 1),
+      transform 0.8s cubic-bezier(0.16, 0.84, 0.44, 1);
   }
 
-  .value-band-item p {
-    @apply font-serif text-xl leading-tight text-off-white;
+  .reveal.is-visible { opacity: 1; transform: none; }
+
+  .reveal-static { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
   }
 
-  .process-card {
-    @apply h-full min-h-56 border border-navy/10 bg-bg-light p-5;
+  /* --------------------------------------------------- headline mask reveal */
+  /* Each line is clipped and slides up from behind its own mask, so the
+     headline assembles rather than fading. */
+  .line-mask {
+    display: block;
+    overflow: hidden;
   }
 
-  .process-number {
-    @apply flex h-8 w-8 items-center justify-center rounded-full border border-navy/20 text-[0.65rem] font-medium text-navy;
+  .line-mask > span {
+    display: block;
+    transform: translateY(105%);
+    animation: lineUp 1.05s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
   }
 
-  .pricing-compact {
-    @apply border border-navy/10 bg-off-white p-6;
+  @keyframes lineUp {
+    to { transform: translateY(0); }
   }
 
-  .form-field {
-    @apply w-full min-h-12 border border-navy/20 bg-off-white px-4 py-3 text-dark transition-colors placeholder:text-muted/60;
-  }
-
-  .form-field:hover {
-    @apply border-navy/35;
-  }
-
-  .form-field:focus-visible {
-    @apply border-navy outline-none ring-2 ring-accent/45 ring-offset-2 ring-offset-bg-light;
-  }
-
-  .form-field[aria-invalid="true"] {
-    @apply border-red-700;
-  }
-
-  .case-card {
-    @apply flex h-full min-w-0 flex-col overflow-hidden border border-off-white/10 bg-navy transition-[border-color,transform] duration-200;
-  }
-
-  .case-card:hover {
-    @apply -translate-y-0.5 border-accent/45;
-  }
-
-  .case-card-logo {
-    @apply flex h-56 items-center justify-center border-b border-off-white/10 bg-navy p-10 sm:h-64 sm:p-12;
-  }
-
-  .case-card-logo img {
-    @apply h-auto w-auto max-w-full object-contain;
-  }
-
-  .case-card-plus-eins .case-card-logo img {
-    @apply max-h-36 max-w-36;
-    filter: brightness(0) invert(1);
-  }
-
-  .case-card-mowe-systems .case-card-logo img {
-    @apply max-h-64 max-w-64;
-    transform: scale(1.35);
-  }
-
-  .case-card-content {
-    @apply flex flex-1 flex-col p-7 sm:p-9;
-  }
-
-  @media (min-width: 640px) {
-    .case-card-compact {
-      display: grid;
-      grid-template-columns: minmax(10rem, 36%) 1fr;
-    }
-
-    .case-card-compact .case-card-logo {
-      @apply h-full min-h-72 border-b-0 border-r border-off-white/10 p-8;
-    }
-
-    .case-card-compact .case-card-content {
-      @apply p-7;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .line-mask > span { transform: none; animation: none; }
   }
 }
 
@@ -300,42 +256,85 @@
   .text-balance { text-wrap: balance; }
   .text-pretty { text-wrap: pretty; }
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
-  }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+  /* Hairline grids ------------------------------------------------------- */
+  .grid-lines-light {
+    background-image:
+      linear-gradient(to right, rgba(244, 241, 234, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(244, 241, 234, 0.045) 1px, transparent 1px);
+    background-size: 76px 76px;
   }
 
-  .grid-bg {
+  .grid-lines-dark {
     background-image:
-      linear-gradient(to right, rgba(243,239,231,0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(243,239,231,0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
+      linear-gradient(to right, rgba(8, 13, 19, 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(8, 13, 19, 0.07) 1px, transparent 1px);
+    background-size: 76px 76px;
   }
 
   @media (max-width: 640px) {
-    .grid-bg,
-    .grid-bg-light {
-      background-size: 40px 40px;
-    }
+    .grid-lines-light, .grid-lines-dark { background-size: 46px 46px; }
   }
 
-  .grid-bg-light {
-    background-image:
-      linear-gradient(to right, rgba(16,28,41,0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(16,28,41,0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
+  /* Ambient light ---------------------------------------------------------- */
+  /* A slow, very low-contrast wash. Not a "gradient blob": it is anchored to
+     the type it sits behind and never moves more than a few percent. */
+  .aurora {
+    background:
+      radial-gradient(60rem 40rem at 12% 8%, rgba(212, 180, 120, 0.10), transparent 60%),
+      radial-gradient(48rem 34rem at 88% 34%, rgba(90, 130, 180, 0.09), transparent 62%);
+    animation: drift 26s ease-in-out infinite alternate;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  @keyframes drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(-2.5%, 1.5%, 0) scale(1.06); }
   }
-  .animate-fade-in {
-    animation: fadeIn 0.3s ease forwards;
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora { animation: none; }
+  }
+
+  /* Fine top highlight on raised surfaces */
+  .edge-light {
+    box-shadow: inset 0 1px 0 0 rgba(244, 241, 234, 0.07);
+  }
+
+  /* Vertical drawn rule used to connect sequential steps */
+  .draw-rule {
+    transform-origin: top;
+    animation: drawDown 0.6s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+  }
+
+  @keyframes drawDown {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+
+  /* Seamless marquee: the track holds two identical copies, so translating by
+     exactly -50% lands on the start of the second copy. */
+  .ticker {
+    animation: tickerScroll 48s linear infinite;
+  }
+
+  @keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker { animation: none; }
+  }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .animate-fade-in { animation: fadeIn 0.25s ease forwards; }
+
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .animate-rise { animation: riseIn 0.5s cubic-bezier(0.16, 0.84, 0.44, 1) both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .draw-rule { animation: none; }
   }
 }

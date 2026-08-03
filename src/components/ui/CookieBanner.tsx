@@ -1,45 +1,79 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  CONSENT_CHANGE_EVENT,
+  readConsent,
+  writeConsent,
+  type Consent,
+} from '@/lib/cookieConsent';
 
-type Consent = 'accepted' | 'rejected' | null;
-const STORAGE_KEY = 'ag_cookie_consent';
-
+/**
+ * Cookie consent banner.
+ *
+ * This component already existed but was never mounted anywhere, so the site
+ * shipped a cookie policy describing a banner that did not exist — while the
+ * Launch package sold "cookiebanner" as a deliverable. It is now rendered from
+ * App, and consent can be withdrawn again from the cookie policy page.
+ */
 const CookieBanner: React.FC = () => {
-  const [consent, setConsent] = useState<Consent>(null);
+  const [consent, setConsent] = useState<Consent | null>(() => readConsent());
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as Consent;
-    if (stored) setConsent(stored);
-    else setTimeout(() => setVisible(true), 600);
+    if (consent) return;
+    const timer = window.setTimeout(() => setVisible(true), 500);
+    return () => window.clearTimeout(timer);
+  }, [consent]);
+
+  useEffect(() => {
+    const onChange = () => {
+      const next = readConsent();
+      setConsent(next);
+      setVisible(next === null);
+    };
+    window.addEventListener(CONSENT_CHANGE_EVENT, onChange);
+    return () => window.removeEventListener(CONSENT_CHANGE_EVENT, onChange);
   }, []);
 
-  const save = (value: Consent) => {
-    localStorage.setItem(STORAGE_KEY, value || '');
+  const save = useCallback((value: Consent) => {
+    writeConsent(value);
     setConsent(value);
     setVisible(false);
-  };
+  }, []);
 
   if (consent || !visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 md:bottom-6 md:left-6 md:right-auto md:max-w-md">
-      <div className="bg-navy text-off-white rounded-lg shadow-2xl p-6">
-        <h2 className="font-serif text-lg font-medium mb-2">Cookies</h2>
-        <p className="text-sm text-off-white/60 leading-relaxed mb-5">
-          Vi bruger nødvendige cookies til at sikre, at siden fungerer. Med samtykke bruger vi også analysecookies.
+    <div
+      role="dialog"
+      aria-labelledby="cookie-title"
+      className="on-light fixed inset-x-0 bottom-0 z-50 p-4 sm:p-5 md:bottom-6 md:left-6 md:right-auto md:max-w-sm md:p-0 animate-rise"
+    >
+      <div className="border border-ink/15 bg-cream p-6 text-ink shadow-[0_20px_60px_rgba(16,28,41,0.35)]">
+        <h2 id="cookie-title" className="meta-on-light">
+          Cookies
+        </h2>
+        <p className="mt-4 text-sm leading-relaxed text-dim-ink">
+          Nødvendige cookies sikrer, at siden fungerer. Analysecookies bruges kun, hvis I siger ja.
         </p>
-        <div className="flex flex-wrap gap-2">
-          <button onClick={() => save('accepted')} className="bg-off-white text-navy text-sm font-medium px-4 py-2 hover:bg-white transition-colors rounded-sm">
+        <div className="mt-6 flex flex-wrap gap-2">
+          <button type="button" onClick={() => save('accepted')} className="btn btn-invert flex-1">
             Accepter
           </button>
-          <button onClick={() => save('rejected')} className="text-off-white/60 text-sm font-medium px-4 py-2 border border-off-white/20 hover:border-off-white/50 transition-colors rounded-sm">
-            Afvis
+          <button
+            type="button"
+            onClick={() => save('rejected')}
+            className="btn btn-outline-invert flex-1"
+          >
+            Kun nødvendige
           </button>
-          <Link to="/cookiepolitik" className="text-off-white/40 text-xs px-3 py-2 hover:text-off-white/70 transition-colors underline underline-offset-2 self-center">
-            Cookiepolitik
-          </Link>
         </div>
+        <Link
+          to="/cookiepolitik"
+          className="mt-4 inline-flex min-h-9 items-center text-xs text-ink/50 underline underline-offset-2 transition-colors hover:text-ink"
+        >
+          Læs cookiepolitikken
+        </Link>
       </div>
     </div>
   );

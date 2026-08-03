@@ -4,10 +4,13 @@
   <url><loc>https://www.aagesengrowth.dk/ydelser</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.aagesengrowth.dk/priser</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.aagesengrowth.dk/projekter</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.aagesengrowth.dk/projekter/plus-eins</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.aagesengrowth.dk/projekter/plus-eins-deli</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.aagesengrowth.dk/projekter/mowe-systems</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.aagesengrowth.dk/om</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.aagesengrowth.dk/kontakt</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.aagesengrowth.dk/book-moede</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.aagesengrowth.dk/faq</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.aagesengrowth.dk/book-moede</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.aagesengrowth.dk/faq</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.aagesengrowth.dk/privatlivspolitik</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://www.aagesengrowth.dk/cookiepolitik</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
