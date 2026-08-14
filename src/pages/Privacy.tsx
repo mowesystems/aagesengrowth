@@ -5,11 +5,11 @@ import LegalPage from '@/components/LegalPage';
 import company from '@/config/company';
 
 const contactLine = company.email ? (
-  <a href={`mailto:${company.email}`} className="underline underline-offset-2 hover:text-cream">
+  <a href={`mailto:${company.email}`} className="underline underline-offset-4 hover:text-paper">
     {company.email}
   </a>
 ) : (
-  <Link to="/kontakt" className="underline underline-offset-2 hover:text-cream">
+  <Link to="/kontakt" className="underline underline-offset-4 hover:text-paper">
     kontaktformularen
   </Link>
 );

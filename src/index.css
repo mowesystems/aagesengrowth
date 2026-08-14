@@ -4,337 +4,569 @@
 
 /* ==========================================================================
    Aagesen Growth — visual system
-   Concept: "Redline" — the language of a professional marking up work.
+   Concept: "Prism" — a near-black editorial ground with one source of light.
 
-   Ground is ink, not paper. Cream is a contrast event, used sparingly enough
-   that it lands. Serif carries the claim at display scale, mono carries the
-   evidence, hairlines carry structure. The load-bearing noun gets underlined
-   the way a reviewer marks up a page (.annotate), and anything meant to read
-   as examined gets registration marks (.marked).
+   The site sits at the bottom of the value range. Everything is structure:
+   hairlines, an editorial grid, oversized display type. Colour appears only
+   where light would fall — the hero object, a handful of large words,
+   selected rules, hover states and verified numbers. Photography is the only
+   thing allowed to be loud, and it is always real client work.
 
-   Motion is part of the argument: this is a company selling craft, so the
-   craft has to be visible in how things arrive. Every entrance is short,
-   interruptible, and fully disabled under prefers-reduced-motion.
+   Motion is an enhancement, never a gate. Content renders visible; the
+   `motion-ready` class is added by JavaScript after boot, and a settle timer
+   guarantees every reveal ends visible even if an observer never fires.
    ========================================================================== */
 
+/* --------------------------------------------------------------- typefaces */
+/* Self-hosted, latin subset, woff2 only. Instrument Serif carries display,
+   Inter Tight carries body and UI, IBM Plex Mono carries indices and evidence. */
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/inter-tight-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/inter-tight-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-500.woff2') format('woff2');
+}
+
 @layer base {
+  :root {
+    --ease: cubic-bezier(0.16, 0.84, 0.44, 1);
+    --hairline: rgba(242, 239, 232, 0.13);
+    --hairline-strong: rgba(242, 239, 232, 0.22);
+    --hairline-ink: rgba(5, 6, 8, 0.16);
+    --iris: linear-gradient(100deg, #b8ff45 0%, #5eebff 34%, #7657ff 68%, #ff4fd8 100%);
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-ink text-cream font-sans antialiased;
+    @apply bg-ink font-sans text-paper antialiased;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
+    font-size: 1rem;
+    line-height: 1.65;
   }
 
-  h1, h2, h3 {
-    @apply font-serif;
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-normal;
   }
 
   ::selection {
-    @apply bg-gold/30 text-cream;
+    background: rgba(94, 235, 255, 0.28);
+    color: #f2efe8;
   }
 
   :focus-visible {
-    outline: 2px solid #D4B478;
+    outline: 2px solid #5eebff;
     outline-offset: 3px;
-    border-radius: 1px;
+    border-radius: 2px;
   }
 
-  /* Cream sections need a dark focus ring to stay visible */
+  /* Paper sections need a dark ring to stay visible. */
   .on-light :focus-visible {
-    outline-color: #7A5C38;
+    outline-color: #4b2ed6;
   }
 
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #080D13; }
-  ::-webkit-scrollbar-thumb { background: #24303E; }
-  ::-webkit-scrollbar-thumb:hover { background: #33414F; }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050608;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1c2130;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2a3143;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
+    *,
+    ::before,
+    ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
-    html { scroll-behavior: auto; }
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 
 @layer components {
-  .shell {
-    @apply mx-auto w-full max-w-content px-5 sm:px-6 lg:px-10;
+  /* ------------------------------------------------------------------ frame */
+  /* 1440px editorial frame with 24px gutters on phones and 40–64px above. */
+  .frame {
+    @apply mx-auto w-full max-w-frame px-6 sm:px-8 lg:px-10 2xl:px-16;
   }
 
-  /* ------------------------------------------------------------- metadata */
+  /* Full-bleed media escapes the frame without breaking the page's own scroll. */
+  .bleed {
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    max-width: 100vw;
+  }
+
+  /* ------------------------------------------------------------------ meta */
   .meta {
-    @apply font-mono text-[0.68rem] font-medium uppercase leading-[1.45] tracking-[0.16em] text-gold;
+    @apply font-mono text-[0.66rem] font-medium uppercase leading-[1.5] tracking-[0.2em] text-muted;
   }
 
-  .meta-muted {
-    @apply font-mono text-[0.68rem] font-medium uppercase leading-[1.45] tracking-[0.16em] text-dim;
+  .meta-lit {
+    @apply font-mono text-[0.66rem] font-medium uppercase leading-[1.5] tracking-[0.2em] text-cyan;
   }
 
-  /* For cream sections */
-  .meta-on-light {
-    @apply font-mono text-[0.68rem] font-medium uppercase leading-[1.45] tracking-[0.16em] text-gold-ink;
+  .meta-ink {
+    @apply font-mono text-[0.66rem] font-medium uppercase leading-[1.5] tracking-[0.2em] text-muted-ink;
   }
 
-  /* ------------------------------------------- registration / crop marks */
-  .marked { position: relative; }
-
-  .marked::before,
-  .marked::after {
-    content: '';
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    pointer-events: none;
-    opacity: 0.9;
+  .index-mark {
+    @apply font-mono text-[0.66rem] font-medium tracking-[0.14em] text-muted;
   }
 
-  .marked::before {
-    top: -1px; left: -1px;
-    border-top: 1px solid currentColor;
-    border-left: 1px solid currentColor;
+  /* ------------------------------------------------------------ iridescence */
+  /* Light moving across glass. Reserved for a few large words. */
+  .iris-text {
+    background: var(--iris);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: irisDrift 18s ease-in-out infinite alternate;
   }
 
-  .marked::after {
-    right: -1px; bottom: -1px;
-    border-right: 1px solid currentColor;
-    border-bottom: 1px solid currentColor;
+  /* A one-pixel spectrum, used on a section edge or a recommended plate. */
+  .iris-rule {
+    background: var(--iris);
+    background-size: 220% 100%;
+    animation: irisDrift 18s ease-in-out infinite alternate;
   }
 
-  /* ----------------------------------------------------------- annotation */
-  .annotate {
-    text-decoration-line: underline;
-    text-decoration-color: rgba(212, 180, 120, 0.9);
-    text-decoration-thickness: 0.045em;
-    text-underline-offset: 0.07em;
-    text-decoration-skip-ink: none;
+  @keyframes irisDrift {
+    from {
+      background-position: 0% 50%;
+    }
+    to {
+      background-position: 100% 50%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .iris-text,
+    .iris-rule {
+      animation: none;
+    }
+  }
+
+  /* --------------------------------------------------------------- surfaces */
+  .hairline {
+    border-color: var(--hairline);
+  }
+
+  .panel {
+    @apply border bg-ink-2;
+    border-color: var(--hairline);
+  }
+
+  /* Fine top highlight, as if a light source sits above the surface. */
+  .edge-lit {
+    box-shadow: inset 0 1px 0 0 rgba(242, 239, 232, 0.08);
   }
 
   /* --------------------------------------------------------------- buttons */
   .btn {
-    @apply relative inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden border px-7
-           font-sans text-sm font-medium tracking-[0.01em] transition-[color,border-color] duration-300 ease-smooth;
+    @apply relative inline-flex min-h-[3rem] items-center justify-center gap-2.5 overflow-hidden
+           border px-7 font-sans text-[0.9rem] font-medium tracking-[0.01em]
+           transition-[color,border-color] duration-300;
+    transition-timing-function: var(--ease);
   }
 
-  .btn-lg { @apply min-h-[3.4rem] px-9 text-[0.95rem]; }
+  .btn-lg {
+    @apply min-h-[3.5rem] px-9 text-[0.95rem];
+  }
 
-  /* The fill sweeps in from the bottom rather than cross-fading. */
+  /* The fill draws up from the bottom edge rather than cross-fading. */
   .btn::before {
     content: '';
     @apply absolute inset-0 -z-10 origin-bottom scale-y-0 transition-transform duration-300;
-    transition-timing-function: cubic-bezier(0.16, 0.84, 0.44, 1);
+    transition-timing-function: var(--ease);
   }
 
-  .btn:hover::before { @apply scale-y-100; }
+  .btn:hover::before {
+    @apply scale-y-100;
+  }
 
-  .btn > * { @apply relative z-10; }
+  .btn > * {
+    @apply relative z-10;
+  }
 
   .btn-primary {
-    @apply border-cream bg-cream text-ink;
+    @apply border-paper bg-paper text-ink;
   }
-  .btn-primary::before { @apply bg-gold; }
-  .btn-primary:hover { @apply border-gold text-ink; }
-
-  /* For cream grounds */
-  .btn-invert {
-    @apply border-ink bg-ink text-cream;
+  .btn-primary::before {
+    background: var(--iris);
   }
-  .btn-invert::before { @apply bg-gold-ink; }
-  .btn-invert:hover { @apply border-gold-ink text-cream; }
+  .btn-primary:hover {
+    @apply border-cyan text-ink;
+  }
 
   .btn-outline {
-    @apply border-cream/30 bg-transparent text-cream;
+    @apply border-paper/30 bg-transparent text-paper;
   }
-  .btn-outline::before { @apply bg-cream; }
-  .btn-outline:hover { @apply border-cream text-ink; }
+  .btn-outline::before {
+    @apply bg-paper;
+  }
+  .btn-outline:hover {
+    @apply border-paper text-ink;
+  }
+
+  /* On paper grounds */
+  .btn-invert {
+    @apply border-ink bg-ink text-paper;
+  }
+  .btn-invert::before {
+    background: var(--iris);
+  }
+  .btn-invert:hover {
+    @apply border-ink text-ink;
+  }
 
   .btn-outline-invert {
     @apply border-ink/30 bg-transparent text-ink;
   }
-  .btn-outline-invert::before { @apply bg-ink; }
-  .btn-outline-invert:hover { @apply border-ink text-cream; }
-
-  /* Quiet link with a rule that draws in */
-  .link-quiet {
-    @apply relative inline-flex min-h-11 items-center gap-2 font-sans text-sm font-medium text-cream transition-colors hover:text-gold;
+  .btn-outline-invert::before {
+    @apply bg-ink;
+  }
+  .btn-outline-invert:hover {
+    @apply border-ink text-paper;
   }
 
-  .link-quiet::after {
+  /* ------------------------------------------------------------------ links */
+  .link-line {
+    @apply relative inline-flex min-h-11 items-center gap-2 font-sans text-[0.9rem] font-medium
+           text-paper transition-colors hover:text-cyan;
+  }
+
+  .link-line::after {
     content: '';
-    @apply absolute bottom-2.5 left-0 h-px w-0 bg-gold transition-[width] duration-300 ease-smooth;
+    @apply absolute bottom-[0.6rem] left-0 h-px w-0 bg-cyan transition-[width] duration-300;
+    transition-timing-function: var(--ease);
   }
 
-  .link-quiet:hover::after { @apply w-[calc(100%-1.4rem)]; }
-
-  .link-quiet-invert {
-    @apply text-ink hover:text-gold-ink;
+  .link-line:hover::after {
+    width: calc(100% - 1.5rem);
   }
-  .link-quiet-invert::after { @apply bg-gold-ink; }
 
-  /* ------------------------------------------------------------ ruled index */
-  .ledger { @apply border-t border-cream/15; }
-  .ledger-row { @apply border-b border-cream/15; }
-  .ledger-light { @apply border-t border-ink/20; }
-  .ledger-light .ledger-row { @apply border-b border-ink/20; }
+  .link-line-ink {
+    @apply text-ink hover:text-accent-ink;
+  }
+  .link-line-ink::after {
+    @apply bg-accent-ink;
+  }
+
+  /* ------------------------------------------------------------------ rules */
+  .rule {
+    @apply border-t;
+    border-color: var(--hairline);
+  }
+
+  .rule-row {
+    @apply border-b;
+    border-color: var(--hairline);
+  }
+
+  .rule-ink {
+    @apply border-t;
+    border-color: var(--hairline-ink);
+  }
+
+  .rule-ink .rule-row,
+  .rule-row-ink {
+    @apply border-b;
+    border-color: var(--hairline-ink);
+  }
 
   /* ----------------------------------------------------------------- fields */
   .field {
-    @apply min-h-12 w-full border border-cream/25 bg-ink-2 px-4 py-3 font-sans text-[0.95rem] text-cream
-           transition-colors placeholder:text-dim/60;
+    @apply min-h-[3rem] w-full border bg-ink-2 px-4 py-3 font-sans text-[0.95rem] text-paper
+           transition-colors placeholder:text-muted/75;
+    border-color: var(--hairline-strong);
   }
 
-  .field:hover { @apply border-cream/45; }
+  .field:hover {
+    border-color: rgba(242, 239, 232, 0.38);
+  }
 
   .field:focus-visible {
-    @apply border-gold outline-none ring-2 ring-gold/35 ring-offset-2 ring-offset-ink;
+    @apply border-cyan outline-none ring-2 ring-cyan/30 ring-offset-2 ring-offset-ink;
   }
 
-  .field[aria-invalid='true'] { @apply border-red-400; }
+  .field[aria-invalid='true'] {
+    @apply border-magenta;
+  }
 
-  .field-label { @apply mb-2 block font-sans text-sm font-medium text-cream; }
+  .field-label {
+    @apply mb-2 block font-sans text-[0.85rem] font-medium text-paper;
+  }
 
   .field-error {
-    @apply mt-1.5 flex items-center gap-1.5 font-sans text-xs font-medium text-red-400;
+    @apply mt-1.5 flex items-center gap-1.5 font-sans text-xs font-medium text-magenta;
   }
 
-  /* On cream grounds */
   .on-light .field {
-    @apply border-ink/25 bg-cream-2 text-ink placeholder:text-dim-ink/60;
+    @apply bg-paper-2 text-ink placeholder:text-muted-ink/80;
+    border-color: rgba(5, 6, 8, 0.22);
   }
-  .on-light .field-label { @apply text-ink; }
+  .on-light .field-label {
+    @apply text-ink;
+  }
+  .on-light .field:focus-visible {
+    @apply border-accent-ink ring-accent-ink/25 ring-offset-paper;
+  }
 
   /* ----------------------------------------------------------------- reveal */
+  /*
+   * Content is visible by default. The hidden start state applies only while
+   * JavaScript has declared itself ready AND has not yet settled, so a failed
+   * observer, a headless render or a thrown error can never leave a section
+   * blank. `motion-settled` is set by a boot timer as a hard backstop.
+   */
   .reveal {
-    opacity: 0;
-    transform: translateY(22px);
     transition:
-      opacity 0.8s cubic-bezier(0.16, 0.84, 0.44, 1),
-      transform 0.8s cubic-bezier(0.16, 0.84, 0.44, 1);
+      opacity 0.7s var(--ease),
+      transform 0.7s var(--ease);
   }
 
-  .reveal.is-visible { opacity: 1; transform: none; }
-
-  .reveal-static { opacity: 1; transform: none; }
+  .motion-ready:not(.motion-settled) .reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(18px);
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; }
+    .motion-ready:not(.motion-settled) .reveal:not(.is-visible) {
+      opacity: 1;
+      transform: none;
+    }
   }
 
-  /* --------------------------------------------------- headline mask reveal */
+  /* ------------------------------------------------- headline mask reveal */
   /* Each line is clipped and slides up from behind its own mask, so the
-     headline assembles rather than fading. */
+     headline assembles rather than fading. Pure CSS: it cannot strand text. */
   .line-mask {
     display: block;
     overflow: hidden;
+    padding-bottom: 0.06em;
   }
 
   .line-mask > span {
     display: block;
-    transform: translateY(105%);
-    animation: lineUp 1.05s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+    transform: translateY(104%);
+    animation: lineUp 1s var(--ease) forwards;
   }
 
   @keyframes lineUp {
-    to { transform: translateY(0); }
+    to {
+      transform: translateY(0);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .line-mask > span { transform: none; animation: none; }
+    .line-mask > span {
+      transform: none;
+      animation: none;
+    }
   }
 }
 
 @layer utilities {
-  .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; }
-  .font-sans { font-family: 'Inter', system-ui, sans-serif; }
-
-  .text-balance { text-wrap: balance; }
-  .text-pretty { text-wrap: pretty; }
-
-  /* Hairline grids ------------------------------------------------------- */
-  .grid-lines-light {
-    background-image:
-      linear-gradient(to right, rgba(244, 241, 234, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(244, 241, 234, 0.045) 1px, transparent 1px);
-    background-size: 76px 76px;
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
   }
 
-  .grid-lines-dark {
+  /* Hairline grid ---------------------------------------------------------- */
+  .grid-lines {
     background-image:
-      linear-gradient(to right, rgba(8, 13, 19, 0.07) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(8, 13, 19, 0.07) 1px, transparent 1px);
-    background-size: 76px 76px;
+      linear-gradient(to right, rgba(242, 239, 232, 0.038) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(242, 239, 232, 0.038) 1px, transparent 1px);
+    background-size: 84px 84px;
+  }
+
+  .grid-lines-ink {
+    background-image:
+      linear-gradient(to right, rgba(5, 6, 8, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(5, 6, 8, 0.055) 1px, transparent 1px);
+    background-size: 84px 84px;
   }
 
   @media (max-width: 640px) {
-    .grid-lines-light, .grid-lines-dark { background-size: 46px 46px; }
+    .grid-lines,
+    .grid-lines-ink {
+      background-size: 48px 48px;
+    }
+  }
+
+  /* Grain ------------------------------------------------------------------ */
+  /* An SVG feTurbulence tile as a data URI: no network request, a few hundred
+     bytes, and it keeps large flat blacks from banding. */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   }
 
   /* Ambient light ---------------------------------------------------------- */
-  /* A slow, very low-contrast wash. Not a "gradient blob": it is anchored to
-     the type it sits behind and never moves more than a few percent. */
-  .aurora {
+  /* Anchored behind the type it belongs to, and never moving more than a few
+     percent. Not a floating gradient blob. */
+  .ambient {
     background:
-      radial-gradient(60rem 40rem at 12% 8%, rgba(212, 180, 120, 0.10), transparent 60%),
-      radial-gradient(48rem 34rem at 88% 34%, rgba(90, 130, 180, 0.09), transparent 62%);
-    animation: drift 26s ease-in-out infinite alternate;
+      radial-gradient(58rem 40rem at 78% 6%, rgba(118, 87, 255, 0.16), transparent 62%),
+      radial-gradient(42rem 32rem at 96% 34%, rgba(94, 235, 255, 0.1), transparent 64%),
+      radial-gradient(38rem 30rem at 4% 88%, rgba(184, 255, 69, 0.055), transparent 66%);
   }
 
-  @keyframes drift {
-    from { transform: translate3d(0, 0, 0) scale(1); }
-    to   { transform: translate3d(-2.5%, 1.5%, 0) scale(1.06); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .aurora { animation: none; }
-  }
-
-  /* Fine top highlight on raised surfaces */
-  .edge-light {
-    box-shadow: inset 0 1px 0 0 rgba(244, 241, 234, 0.07);
-  }
-
-  /* Vertical drawn rule used to connect sequential steps */
-  .draw-rule {
-    transform-origin: top;
-    animation: drawDown 0.6s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
-  }
-
-  @keyframes drawDown {
-    from { transform: scaleY(0); }
-    to   { transform: scaleY(1); }
-  }
-
-  /* Seamless marquee: the track holds two identical copies, so translating by
-     exactly -50% lands on the start of the second copy. */
+  /* Marquee ---------------------------------------------------------------- */
+  /* Two identical copies, translated by exactly -50% for a seamless loop. */
   .ticker {
-    animation: tickerScroll 48s linear infinite;
+    animation: tickerScroll 54s linear infinite;
   }
 
   @keyframes tickerScroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .ticker { animation: none; }
+    .ticker {
+      animation: none;
+    }
   }
 
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .animate-fade-in { animation: fadeIn 0.25s ease forwards; }
+  /* Small entrances -------------------------------------------------------- */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.28s ease forwards;
+  }
 
   @keyframes riseIn {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: none; }
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
-  .animate-rise { animation: riseIn 0.5s cubic-bezier(0.16, 0.84, 0.44, 1) both; }
+  .animate-rise {
+    animation: riseIn 0.5s var(--ease) both;
+  }
+
+  @keyframes drawDown {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  .draw-rule {
+    transform-origin: top;
+    animation: drawDown 0.6s var(--ease) forwards;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .draw-rule { animation: none; }
+    .draw-rule {
+      animation: none;
+    }
+  }
+
+  /* Media ------------------------------------------------------------------ */
+  /* A slow crop-in on hover. Applied to the image inside a clipped frame. */
+  .media-zoom {
+    transition: transform 0.9s var(--ease);
+  }
+
+  .group:hover .media-zoom,
+  .group:focus-within .media-zoom {
+    transform: scale(1.04);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .media-zoom {
+      transition: none;
+    }
+    .group:hover .media-zoom,
+    .group:focus-within .media-zoom {
+      transform: none;
+    }
   }
 }

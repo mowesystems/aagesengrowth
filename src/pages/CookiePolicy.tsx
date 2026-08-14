@@ -6,11 +6,11 @@ import { resetCookieConsent } from '@/lib/cookieConsent';
 import company from '@/config/company';
 
 const contactLine = company.email ? (
-  <a href={`mailto:${company.email}`} className="underline underline-offset-2 hover:text-cream">
+  <a href={`mailto:${company.email}`} className="underline underline-offset-4 hover:text-paper">
     {company.email}
   </a>
 ) : (
-  <Link to="/kontakt" className="underline underline-offset-2 hover:text-cream">
+  <Link to="/kontakt" className="underline underline-offset-4 hover:text-paper">
     kontaktformularen
   </Link>
 );
@@ -19,9 +19,10 @@ const ConsentReset: React.FC = () => {
   const [done, setDone] = useState(false);
 
   return (
-    <div className="marked border border-cream/20 bg-ink-2 p-6 text-cream/25 sm:p-7">
-      <p className="meta text-cream">Ændr dit valg</p>
-      <p className="mt-3 max-w-xl text-sm leading-relaxed text-dim">
+    <div className="relative border border-paper/15 bg-ink-2 p-6 sm:p-7">
+      <span aria-hidden="true" className="iris-rule absolute inset-x-0 top-0 h-px" />
+      <p className="meta-lit">Ændr dit valg</p>
+      <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted">
         Dit samtykke er gemt lokalt i din browser. Du kan trække det tilbage her, hvorefter banneret
         vises igen.
       </p>
@@ -35,7 +36,7 @@ const ConsentReset: React.FC = () => {
       >
         Nulstil cookievalg
       </button>
-      <p aria-live="polite" className="mt-3 text-xs text-dim">
+      <p aria-live="polite" className="mt-3 text-xs text-muted">
         {done ? 'Dit valg er nulstillet. Banneret vises igen nederst på siden.' : ''}
       </p>
     </div>

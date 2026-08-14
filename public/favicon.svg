@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Aagesen Growth">
+  <defs>
+    <linearGradient id="ag-spectrum" x1="8%" y1="92%" x2="92%" y2="8%">
+      <stop offset="0%" stop-color="#B8FF45"/>
+      <stop offset="34%" stop-color="#5EEBFF"/>
+      <stop offset="68%" stop-color="#7657FF"/>
+      <stop offset="100%" stop-color="#FF4FD8"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" fill="#050608"/>
+  <ellipse cx="32" cy="32" rx="24" ry="13" fill="none" stroke="url(#ag-spectrum)" stroke-width="5"
+           transform="rotate(-30 32 32)"/>
+  <ellipse cx="32" cy="32" rx="20" ry="10.5" fill="none" stroke="#F2EFE8" stroke-opacity="0.28" stroke-width="1.6"
+           transform="rotate(32 32 32)"/>
+</svg>

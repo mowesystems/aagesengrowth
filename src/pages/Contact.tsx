@@ -1,6 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AlertCircle, ArrowRight, ArrowUpRight, CheckCircle, Loader, Mail, Phone } from 'lucide-react';
+import {
+  AlertCircle,
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle,
+  Loader,
+  Mail,
+  Phone,
+  X,
+} from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/ui/Reveal';
@@ -23,6 +32,12 @@ const nextSteps = [
   'I får et konkret svar — enten et par opklarende spørgsmål eller et forslag til en kort samtale.',
 ];
 
+const noneOfThis = [
+  'Ingen automatiske mailsekvenser',
+  'Ingen opfølgende salgsopkald',
+  'Oplysningerne bruges kun til at svare jer',
+];
+
 const Contact: React.FC = () => {
   const [status, setStatus] = useState<Status>('idle');
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -30,8 +45,8 @@ const Contact: React.FC = () => {
   const feedbackRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
-  // Carried over from the website check on the homepage, so nobody has to
-  // retype what they already told us.
+  // Carried over from the website check, so nobody has to retype what they
+  // already told us.
   const handoff = (location.state ?? {}) as ReviewHandoff;
   const [message, setMessage] = useState(handoff.message ?? '');
   const [website, setWebsite] = useState(handoff.website ?? '');
@@ -50,7 +65,8 @@ const Contact: React.FC = () => {
 
     if (!name) found.name = 'Skriv dit navn';
     if (!email) found.email = 'Skriv din e-mail, så vi kan svare';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) found.email = 'E-mailadressen ser ikke rigtig ud';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      found.email = 'E-mailadressen ser ikke rigtig ud';
     if (!body) found.message = 'Skriv kort, hvad I gerne vil have hjælp til';
 
     setErrors(found);
@@ -119,23 +135,23 @@ const Contact: React.FC = () => {
         lead="Jo mere konkret, jo bedre svar. I behøver ikke have en færdig opgave — det er ofte det, samtalen handler om."
       />
 
-      <section className="bg-ink py-14 lg:py-20">
-        <div className="shell">
-          <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
-            {/* ------------------------------------------------------ form */}
-            <div className="lg:col-span-7">
-              <div
-                ref={feedbackRef}
-                tabIndex={-1}
-                aria-live="polite"
-                className="outline-none"
-              >
+      <section className="bg-ink py-18 lg:py-26">
+        <div className="frame">
+          <div className="grid grid-cols-4 gap-x-6 gap-y-14 lg:grid-cols-12 lg:gap-x-10">
+            {/* ---------------------------------------------------- form */}
+            <div className="col-span-4 lg:col-span-7">
+              <div ref={feedbackRef} tabIndex={-1} aria-live="polite" className="outline-none">
                 {status === 'success' && (
-                  <div className="marked mb-8 flex items-start gap-4 border border-gold/40 bg-ink-2 p-6 text-gold">
-                    <CheckCircle size={20} className="mt-0.5 shrink-0" aria-hidden="true" />
-                    <div className="text-cream">
-                      <p className="font-sans font-medium">Tak — beskeden er sendt.</p>
-                      <p className="mt-1.5 text-sm leading-relaxed text-dim">
+                  <div className="relative mb-9 flex items-start gap-4 border border-cyan/40 bg-ink-2 p-6">
+                    <span aria-hidden="true" className="iris-rule absolute inset-x-0 top-0 h-px" />
+                    <CheckCircle
+                      size={20}
+                      className="mt-0.5 shrink-0 text-cyan"
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <p className="font-sans font-medium text-paper">Tak — beskeden er sendt.</p>
+                      <p className="mt-2 text-sm leading-relaxed text-muted">
                         Vi kigger på den og vender tilbage med et konkret svar. Der kommer ingen
                         automatiske mails i mellemtiden.
                       </p>
@@ -146,12 +162,16 @@ const Contact: React.FC = () => {
                 {status === 'error' && (
                   <div
                     role="alert"
-                    className="mb-8 flex items-start gap-4 border border-red-700/40 bg-ink-2 p-6"
+                    className="mb-9 flex items-start gap-4 border border-magenta/50 bg-ink-2 p-6"
                   >
-                    <AlertCircle size={20} className="mt-0.5 shrink-0 text-red-700" aria-hidden="true" />
+                    <AlertCircle
+                      size={20}
+                      className="mt-0.5 shrink-0 text-magenta"
+                      aria-hidden="true"
+                    />
                     <div>
-                      <p className="font-sans font-medium text-cream">Beskeden blev ikke sendt</p>
-                      <p className="mt-1.5 text-sm leading-relaxed text-dim">
+                      <p className="font-sans font-medium text-paper">Beskeden blev ikke sendt</p>
+                      <p className="mt-2 text-sm leading-relaxed text-muted">
                         Prøv igen om et øjeblik.
                         {company.email && (
                           <>
@@ -159,7 +179,7 @@ const Contact: React.FC = () => {
                             Virker det stadig ikke, så skriv direkte til{' '}
                             <a
                               href={`mailto:${company.email}`}
-                              className="underline underline-offset-2 hover:text-cream"
+                              className="underline underline-offset-4 hover:text-paper"
                             >
                               {company.email}
                             </a>
@@ -173,12 +193,18 @@ const Contact: React.FC = () => {
               </div>
 
               {handoff.source === 'website-tjek' && status === 'idle' && (
-                <p className="mb-7 border-l-2 border-gold pl-5 text-sm leading-relaxed text-dim">
+                <p className="mb-8 border-l border-cyan/50 pl-5 text-sm leading-relaxed text-muted">
                   Jeres website-tjek er skrevet ind i beskeden herunder. Ret gerne i det, eller
                   tilføj det, der mangler.
                 </p>
               )}
 
+              {/*
+                The field names here must stay exactly in step with the static
+                form declaration in index.html — that is what Netlify's build
+                crawler reads. Renaming one without the other silently drops
+                submissions.
+              */}
               <form
                 ref={formRef}
                 name="contact"
@@ -198,7 +224,7 @@ const Contact: React.FC = () => {
                   </label>
                 </p>
 
-                <p className="font-mono text-xs text-dim">
+                <p className="font-mono text-xs text-muted">
                   Felter markeret med <span aria-hidden="true">*</span> er påkrævede.
                 </p>
 
@@ -228,7 +254,7 @@ const Contact: React.FC = () => {
 
                   <div>
                     <label htmlFor="company" className="field-label">
-                      Virksomhed <span className="font-normal text-dim">(valgfrit)</span>
+                      Virksomhed <span className="font-normal text-muted">(valgfrit)</span>
                     </label>
                     <input
                       type="text"
@@ -266,7 +292,7 @@ const Contact: React.FC = () => {
 
                   <div>
                     <label htmlFor="website" className="field-label">
-                      Jeres website <span className="font-normal text-dim">(valgfrit)</span>
+                      Jeres website <span className="font-normal text-muted">(valgfrit)</span>
                     </label>
                     <input
                       type="text"
@@ -284,8 +310,7 @@ const Contact: React.FC = () => {
 
                 <div>
                   <label htmlFor="help" className="field-label">
-                    Hvad handler det om?{' '}
-                    <span className="font-normal text-dim">(valgfrit)</span>
+                    Hvad handler det om? <span className="font-normal text-muted">(valgfrit)</span>
                   </label>
                   <select id="help" name="help" className="field" defaultValue="">
                     <option value="">Vælg…</option>
@@ -304,13 +329,11 @@ const Contact: React.FC = () => {
                   <textarea
                     id="message"
                     name="message"
-                    rows={7}
+                    rows={8}
                     required
                     aria-required="true"
                     aria-invalid={Boolean(errors.message)}
-                    aria-describedby={
-                      errors.message ? 'message-error message-help' : 'message-help'
-                    }
+                    aria-describedby={errors.message ? 'message-error message-help' : 'message-help'}
                     value={message}
                     onChange={(event) => setMessage(event.target.value)}
                     className="field resize-y"
@@ -321,9 +344,9 @@ const Contact: React.FC = () => {
                       {errors.message}
                     </p>
                   )}
-                  <p id="message-help" className="mt-2 text-xs leading-relaxed text-dim">
-                    Skriv gerne hvad der driller, og hvad I gerne vil opnå. Det behøver ikke være
-                    en færdig opgavebeskrivelse.
+                  <p id="message-help" className="mt-2 text-xs leading-relaxed text-muted">
+                    Skriv gerne hvad der driller, og hvad I gerne vil opnå. Det behøver ikke være en
+                    færdig opgavebeskrivelse.
                   </p>
                 </div>
 
@@ -345,11 +368,11 @@ const Contact: React.FC = () => {
                       </>
                     )}
                   </button>
-                  <p className="mt-4 text-xs leading-relaxed text-dim">
+                  <p className="mt-5 text-xs leading-relaxed text-muted">
                     Ved at sende accepterer I, at vi behandler oplysningerne for at kunne svare. Se{' '}
                     <Link
                       to="/privatlivspolitik"
-                      className="underline underline-offset-2 hover:text-cream"
+                      className="underline underline-offset-4 hover:text-paper"
                     >
                       privatlivspolitikken
                     </Link>
@@ -359,33 +382,35 @@ const Contact: React.FC = () => {
               </form>
             </div>
 
-            {/* --------------------------------------------------- sidebar */}
-            <div className="lg:col-span-5">
-              <Reveal delay={80}>
-                <div className="on-light bg-cream p-7 text-ink sm:p-9">
-                  <p className="meta-on-light">Sådan foregår det</p>
-                  <ol className="ledger ledger-light mt-6">
+            {/* ------------------------------------------------- sidebar */}
+            <div className="col-span-4 lg:col-span-4 lg:col-start-9">
+              <Reveal delay={80} className="lg:sticky lg:top-28">
+                <div className="relative border border-paper/15 bg-ink-2 p-7 sm:p-8">
+                  <span aria-hidden="true" className="iris-rule absolute inset-x-0 top-0 h-px" />
+
+                  <h2 className="meta-lit">Sådan foregår det</h2>
+                  <ol className="rule mt-7">
                     {nextSteps.map((step, index) => (
-                      <li key={step} className="ledger-row flex gap-4 py-4">
-                        <span className="meta-on-light mt-1 shrink-0 opacity-70">
+                      <li key={step} className="rule-row flex gap-5 py-5">
+                        <span className="index-mark mt-0.5 shrink-0 text-cyan/80">
                           {String(index + 1).padStart(2, '0')}
                         </span>
-                        <span className="text-sm leading-relaxed text-dim-ink">{step}</span>
+                        <span className="text-sm leading-relaxed text-muted">{step}</span>
                       </li>
                     ))}
                   </ol>
 
                   {hasBooking && (
-                    <div className="mt-8 border-t border-ink/15 pt-7">
-                      <p className="meta-on-light">Hellere tale sammen?</p>
-                      <p className="mt-3 text-sm leading-relaxed text-dim-ink">
+                    <div className="mt-9 border-t border-paper/12 pt-8">
+                      <h2 className="meta">Hellere tale sammen?</h2>
+                      <p className="mt-3 text-sm leading-relaxed text-muted">
                         Book et uforpligtende møde på 30 minutter direkte i kalenderen.
                       </p>
                       <a
                         href={company.bookingUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-invert mt-5 w-full"
+                        className="btn btn-outline mt-5 w-full"
                       >
                         Se ledige tider
                         <ArrowUpRight size={15} aria-hidden="true" />
@@ -394,12 +419,12 @@ const Contact: React.FC = () => {
                   )}
 
                   {(company.email || company.phone) && (
-                    <div className="mt-8 space-y-1 border-t border-ink/15 pt-7">
-                      <p className="meta-on-light mb-3">Direkte</p>
+                    <div className="mt-9 border-t border-paper/12 pt-8">
+                      <h2 className="meta mb-3">Direkte</h2>
                       {company.email && (
                         <a
                           href={`mailto:${company.email}`}
-                          className="flex min-h-11 items-center gap-2.5 text-sm text-ink transition-colors hover:text-gold-ink"
+                          className="flex min-h-11 items-center gap-3 text-sm text-paper transition-colors hover:text-cyan"
                         >
                           <Mail size={15} aria-hidden="true" />
                           {company.email}
@@ -408,7 +433,7 @@ const Contact: React.FC = () => {
                       {company.phone && (
                         <a
                           href={`tel:${company.phone.replace(/\s/g, '')}`}
-                          className="flex min-h-11 items-center gap-2.5 text-sm text-ink transition-colors hover:text-gold-ink"
+                          className="flex min-h-11 items-center gap-3 text-sm text-paper transition-colors hover:text-cyan"
                         >
                           <Phone size={15} aria-hidden="true" />
                           {company.phone}
@@ -417,8 +442,25 @@ const Contact: React.FC = () => {
                     </div>
                   )}
 
+                  {/* Always present, because it is the part of the answer people
+                      are actually worried about before they write. */}
+                  <div className="mt-9 border-t border-paper/12 pt-8">
+                    <h2 className="meta">Hvad der ikke sker</h2>
+                    <ul className="mt-4 space-y-3">
+                      {noneOfThis.map((entry) => (
+                        <li
+                          key={entry}
+                          className="flex gap-3 text-sm leading-relaxed text-muted"
+                        >
+                          <X size={14} className="mt-1 shrink-0 opacity-60" aria-hidden="true" />
+                          {entry}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
                   {(company.address || company.cvr) && (
-                    <address className="mt-7 border-t border-ink/15 pt-6 not-italic text-xs leading-relaxed text-ink/45">
+                    <address className="mt-8 border-t border-paper/12 pt-7 not-italic text-xs leading-relaxed text-muted">
                       <span className="block">{company.legalName}</span>
                       {company.address && <span className="block">{company.address}</span>}
                       {company.cvr && <span className="block">CVR {company.cvr}</span>}

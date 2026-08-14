@@ -9,47 +9,57 @@ interface PricingCardProps {
   compact?: boolean;
 }
 
+/**
+ * A price.
+ *
+ * Square corners, hairline edges and one spectrum rule on the recommended
+ * package — the hierarchy is carried by scale and space rather than by a
+ * shadowed, rounded plate. The amount is set at display size because it is the
+ * single thing a visitor came to this section to read.
+ */
 const PricingCard: React.FC<PricingCardProps> = ({ item, compact = false }) => {
   const price = priceParts(item);
 
   return (
     <article
-      className={`relative flex h-full flex-col border bg-ink ${
-        item.recommended ? 'border-cream' : 'border-cream/15'
+      className={`relative flex h-full flex-col border bg-ink transition-colors duration-300 ${
+        item.recommended ? 'border-paper/45' : 'border-paper/12 hover:border-paper/30'
       }`}
     >
       {item.recommended && (
-        <p className="meta absolute -top-px left-0 bg-cream px-3 py-1.5 text-ink">
-          Mest valgte
-        </p>
+        <>
+          <span aria-hidden="true" className="iris-rule absolute inset-x-0 top-0 h-[2px]" />
+          <p className="meta absolute right-0 top-0 -translate-y-1/2 bg-ink px-3 text-cyan">
+            Mest valgte
+          </p>
+        </>
       )}
 
-      {/* Uniform top padding on every card so the titles align across the row,
-          whether or not a card carries the badge. */}
-      <div className="px-6 pt-12 sm:px-7">
-        <h3 className="font-serif text-2xl leading-none text-cream">{item.name}</h3>
+      {/* Uniform top padding so titles align across a row whether or not a card
+          carries the badge. */}
+      <div className="px-6 pt-11 sm:px-7">
+        <h3 className="font-display text-title uppercase text-paper">{item.name}</h3>
+        {item.nameNote && <p className="meta mt-2">{item.nameNote}</p>}
 
-        <p className="mt-5 flex flex-wrap items-baseline gap-x-1.5">
-          {price.prefix && <span className="font-mono text-xs text-dim">{price.prefix}</span>}
-          <span className="font-serif text-[2.6rem] leading-none tracking-tight text-cream">
+        <p className="mt-6 flex flex-wrap items-baseline gap-x-2">
+          {price.prefix && <span className="font-mono text-xs text-muted">{price.prefix}</span>}
+          <span className="font-display text-[2.9rem] leading-none tracking-[-0.02em] text-paper">
             {price.amount}
           </span>
-          {price.period && <span className="font-mono text-xs text-dim">{price.period}</span>}
+          {price.period && <span className="font-mono text-xs text-muted">{price.period}</span>}
         </p>
-        {price.suffix && <p className="mt-1.5 font-mono text-xs text-dim">{price.suffix}</p>}
+        {price.suffix && <p className="mt-2 font-mono text-xs text-muted">{price.suffix}</p>}
 
-        <p className="mt-5 text-sm leading-relaxed text-dim">{item.description}</p>
+        <p className="mt-5 text-sm leading-relaxed text-muted">{item.description}</p>
       </div>
 
       {!compact && (
-        <div className="mt-7 px-6 sm:px-7">
-          <p className="meta-muted border-t border-cream/15 pt-6">
-            {item.featureLabel || 'Inkluderer'}
-          </p>
+        <div className="mt-8 px-6 sm:px-7">
+          <p className="meta border-t border-paper/12 pt-6">{item.featureLabel || 'Inkluderer'}</p>
           <ul className="mt-4 space-y-2.5">
             {item.features.map((feature) => (
-              <li key={feature} className="flex gap-3 text-sm leading-relaxed text-cream">
-                <Check size={14} className="mt-1 shrink-0 text-gold" aria-hidden="true" />
+              <li key={feature} className="flex gap-3 text-sm leading-relaxed text-paper">
+                <Check size={14} className="mt-1 shrink-0 text-cyan" aria-hidden="true" />
                 <span>{feature}</span>
               </li>
             ))}
@@ -57,10 +67,10 @@ const PricingCard: React.FC<PricingCardProps> = ({ item, compact = false }) => {
 
           {item.exclusions && (
             <>
-              <p className="meta-muted mt-7">Ikke inkluderet</p>
+              <p className="meta mt-7">Ikke inkluderet</p>
               <ul className="mt-4 space-y-2.5">
                 {item.exclusions.map((exclusion) => (
-                  <li key={exclusion} className="flex gap-3 text-xs leading-relaxed text-dim">
+                  <li key={exclusion} className="flex gap-3 text-xs leading-relaxed text-muted">
                     <Minus size={13} className="mt-0.5 shrink-0 opacity-70" aria-hidden="true" />
                     <span>{exclusion}</span>
                   </li>
@@ -70,7 +80,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ item, compact = false }) => {
           )}
 
           {item.note && (
-            <p className="mt-6 border-l-2 border-cream/15 pl-4 text-xs leading-relaxed text-dim">
+            <p className="mt-6 border-l border-paper/15 pl-4 text-xs leading-relaxed text-muted">
               {item.note}
             </p>
           )}
@@ -78,7 +88,7 @@ const PricingCard: React.FC<PricingCardProps> = ({ item, compact = false }) => {
       )}
 
       {item.ctaLabel && item.ctaHref && (
-        <div className="mt-auto p-6 pt-8 sm:px-7">
+        <div className="mt-auto p-6 pt-9 sm:px-7">
           <Button
             to={item.ctaHref}
             variant={item.recommended ? 'primary' : 'outline'}

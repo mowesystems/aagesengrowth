@@ -1,19 +1,22 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { ArrowUpRight, Check, Clock, Video } from 'lucide-react';
+import { ArrowUpRight, Check, X } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/ui/Reveal';
 import company, { hasBooking } from '@/config/company';
 
-const facts = [
-  { icon: Clock, title: '30 minutter', body: 'Kort og fokuseret. Ikke en præsentation.' },
-  { icon: Video, title: 'Online', body: 'Videokald. Vi sender linket, når tiden er booket.' },
-  {
-    icon: Check,
-    title: 'Uforpligtende',
-    body: 'Vi siger også til, hvis vi ikke er de rigtige til opgaven.',
-  },
+const isFor = [
+  '30 minutter, kort og fokuseret',
+  'Online videokald — linket kommer, når tiden er booket',
+  'En gennemgang af, hvad der driller, og hvad der ville være det rigtige første skridt',
+  'Uforpligtende: vi siger også til, hvis vi ikke er de rigtige til opgaven',
+];
+
+const isNotFor = [
+  'En salgspræsentation med slides',
+  'Et færdigt tilbud — det kommer skriftligt bagefter, når omfanget er afklaret',
+  'En gratis strategirapport',
 ];
 
 const prepare = [
@@ -25,10 +28,9 @@ const prepare = [
 /**
  * The booking page.
  *
- * When no booking calendar is configured this redirects to the contact page
- * instead of rendering "bookinglinket opdateres snart" — which is what the
- * previous version did, turning the site's single most prominent call to
- * action into a dead end.
+ * With no calendar configured this redirects to the contact page rather than
+ * rendering a "the booking link is coming soon" placeholder, which would turn
+ * one of the site's most prominent calls to action into a dead end.
  */
 const Book: React.FC = () => {
   if (!hasBooking) return <Navigate to="/kontakt" replace />;
@@ -38,7 +40,12 @@ const Book: React.FC = () => {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Forside', item: `${company.domain}/` },
-      { '@type': 'ListItem', position: 2, name: 'Book et møde', item: `${company.domain}/book-moede` },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Book et møde',
+        item: `${company.domain}/book-moede`,
+      },
     ],
   };
 
@@ -57,59 +64,68 @@ const Book: React.FC = () => {
         lead="Tredive minutter om jeres website, hvad der driller, og hvad der ville være det rigtige første skridt."
       />
 
-      <section className="bg-ink py-14 lg:py-20">
-        <div className="shell">
-          <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <ul className="ledger">
-                {facts.map((fact) => {
-                  const Icon = fact.icon;
-                  return (
-                    <li key={fact.title} className="ledger-row flex items-start gap-4 py-5">
-                      <Icon size={18} className="mt-1 shrink-0 text-gold" aria-hidden="true" />
-                      <div>
-                        <p className="font-sans font-medium text-cream">{fact.title}</p>
-                        <p className="mt-1 text-sm leading-relaxed text-dim">{fact.body}</p>
-                      </div>
-                    </li>
-                  );
-                })}
+      <section className="bg-ink py-18 lg:py-26">
+        <div className="frame">
+          <div className="grid grid-cols-4 gap-x-6 gap-y-14 lg:grid-cols-12 lg:gap-x-10">
+            <div className="col-span-4 lg:col-span-6">
+              <h2 className="meta-lit">Hvad mødet er</h2>
+              <ul className="mt-7 space-y-4">
+                {isFor.map((entry) => (
+                  <li key={entry} className="flex gap-3.5 text-[0.95rem] leading-relaxed text-paper">
+                    <Check size={15} className="mt-1 shrink-0 text-cyan" aria-hidden="true" />
+                    {entry}
+                  </li>
+                ))}
               </ul>
 
-              <div className="marked mt-10 border border-cream/20 bg-ink-2 p-6 text-cream/25">
-                <p className="meta text-cream">Forbered gerne</p>
-                <ul className="mt-4 space-y-2.5">
-                  {prepare.map((entry) => (
-                    <li key={entry} className="flex gap-2.5 text-sm leading-relaxed text-dim">
-                      <span className="mt-[0.55rem] h-1 w-1 shrink-0 bg-gold-ink" aria-hidden="true" />
-                      {entry}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <h2 className="meta mt-12">Hvad det ikke er</h2>
+              <ul className="mt-7 space-y-4">
+                {isNotFor.map((entry) => (
+                  <li key={entry} className="flex gap-3.5 text-[0.95rem] leading-relaxed text-muted">
+                    <X size={15} className="mt-1 shrink-0 opacity-60" aria-hidden="true" />
+                    {entry}
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div className="lg:col-span-7">
+            <div className="col-span-4 lg:col-span-5 lg:col-start-8">
               <Reveal delay={80}>
-                <div className="on-light bg-cream p-7 text-ink sm:p-9">
-                  <p className="meta-on-light">Ledige tider</p>
-                  <h2 className="mt-4 font-serif text-2xl leading-tight text-ink sm:text-3xl">
+                <div className="relative border border-paper/15 bg-ink-2 p-7 sm:p-9">
+                  <span aria-hidden="true" className="iris-rule absolute inset-x-0 top-0 h-px" />
+
+                  <h2 className="meta-lit">Ledige tider</h2>
+                  <p className="mt-6 font-display text-display uppercase leading-[0.92] text-paper">
                     Vælg et tidspunkt, der passer.
-                  </h2>
-                  <p className="mt-4 max-w-md text-sm leading-relaxed text-dim-ink">
-                    Kalenderen åbner i et nyt vindue. Du modtager en bekræftelse med det samme.
+                  </p>
+                  <p className="mt-5 max-w-measure text-sm leading-relaxed text-muted">
+                    Kalenderen åbner i et nyt vindue. I modtager en bekræftelse med det samme.
                   </p>
                   <a
                     href={company.bookingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-invert btn-lg mt-7 w-full"
+                    className="btn btn-primary btn-lg mt-8 w-full"
                   >
                     Se ledige tider
                     <ArrowUpRight size={16} aria-hidden="true" />
                   </a>
                 </div>
               </Reveal>
+
+              <div className="mt-10">
+                <h2 className="meta">Forbered gerne</h2>
+                <ol className="rule mt-6">
+                  {prepare.map((entry, index) => (
+                    <li key={entry} className="rule-row flex gap-5 py-4">
+                      <span className="index-mark mt-0.5 shrink-0 text-cyan/80">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="text-sm leading-relaxed text-muted">{entry}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
           </div>
         </div>

@@ -133,7 +133,7 @@ export const recommendations: Record<string, Recommendation> = {
   },
   seo: {
     id: 'seo',
-    title: 'SEO og AI-synlighed',
+    title: 'Search Visibility',
     rationale:
       'Teknisk fundament, indholdsstruktur og GEO, så I både kan findes i søgeresultater og bruges som kilde af AI-assistenter.',
     serviceId: 'seo',

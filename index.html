@@ -3,45 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#101C29" />
-    <title>Aagesen Growth ApS — websites, SEO og annoncering for SMV</title>
+    <meta name="theme-color" content="#050608" />
+    <title>Aagesen Growth ApS — websites, annoncering og Search Visibility</title>
     <meta
       name="description"
-      content="Aagesen Growth bygger og forbedrer websites for små og mellemstore virksomheder — og sørger for, at de bliver fundet og skaber henvendelser. Faste priser fra 9.995 kr."
+      content="Aagesen Growth bygger websites, Google Ads, Meta Ads og Search Visibility (SEO + GEO/AI-synlighed) for små og mellemstore virksomheder. Faste priser fra 9.995 kr."
     />
     <link rel="canonical" href="https://www.aagesengrowth.dk/" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="da_DK" />
     <meta property="og:site_name" content="Aagesen Growth ApS" />
     <meta property="og:url" content="https://www.aagesengrowth.dk/" />
-    <meta property="og:title" content="Aagesen Growth ApS — websites, SEO og annoncering for SMV" />
+    <meta
+      property="og:title"
+      content="Aagesen Growth ApS — websites, annoncering og Search Visibility"
+    />
     <meta
       property="og:description"
-      content="Websites, SEO, AI-synlighed og annoncering hos én ansvarlig partner. Faste priser fra 9.995 kr."
+      content="Websites, Google Ads, Meta Ads og Search Visibility hos én ansvarlig partner. Faste priser fra 9.995 kr."
     />
+    <meta property="og:image" content="https://www.aagesengrowth.dk/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta
-      property="og:image"
-      content="https://www.aagesengrowth.dk/2f98b2e8-e158-4b57-8bc7-f1c08c16936f.png"
+      property="og:image:alt"
+      content="Aagesen Growth — from click to customer. Websites, Google Ads, Meta Ads og Search Visibility."
     />
-    <meta property="og:image:alt" content="Aagesen Growth ApS — logo" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aagesen Growth ApS — websites, SEO og annoncering for SMV" />
+    <meta
+      name="twitter:title"
+      content="Aagesen Growth ApS — websites, annoncering og Search Visibility"
+    />
     <meta
       name="twitter:description"
-      content="Websites, SEO, AI-synlighed og annoncering hos én ansvarlig partner. Faste priser fra 9.995 kr."
+      content="Websites, Google Ads, Meta Ads og Search Visibility hos én ansvarlig partner. Faste priser fra 9.995 kr."
     />
-    <meta
-      name="twitter:image"
-      content="https://www.aagesengrowth.dk/2f98b2e8-e158-4b57-8bc7-f1c08c16936f.png"
-    />
+    <meta name="twitter:image" content="https://www.aagesengrowth.dk/og-image.jpg" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Fonts are self-hosted as latin-subset woff2 (~144 kB for the whole family
+      set) rather than fetched from a third-party origin. Only the two faces the
+      first screen actually needs are preloaded; the rest load on use.
+    -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/instrument-serif-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/inter-tight-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
 
     <script type="application/ld+json">
@@ -51,7 +74,7 @@
         "@id": "https://www.aagesengrowth.dk/#organisation",
         "name": "Aagesen Growth ApS",
         "legalName": "Aagesen Growth ApS",
-        "description": "Digital vækstpartner for små og mellemstore virksomheder. Websites, SEO og AI-synlighed, annoncering, tracking og drift hos én ansvarlig partner.",
+        "description": "Digital vækstpartner for små og mellemstore virksomheder. Websites og konvertering, Google Ads, Meta Ads, Search Visibility (SEO og GEO/AI-synlighed), tracking og drift hos én ansvarlig partner.",
         "url": "https://www.aagesengrowth.dk",
         "areaServed": "DK",
         "knowsLanguage": "da",
@@ -59,14 +82,54 @@
           "@type": "OfferCatalog",
           "name": "Digitale ydelser",
           "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Websites" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO og AI-synlighed" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Google Ads" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Meta Ads" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tracking og analyse" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hosting og vedligeholdelse" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "WooCommerce-optimering" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Strategisk rådgivning" } }
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Websites & Conversion",
+                "description": "Websites bygget til at skabe tillid og henvendelser, med konverteringspunkter, mobil-performance og måleklar opsætning."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Google Ads",
+                "description": "Struktureret annoncering mod den aktive efterspørgsel med konverteringssporing og løbende optimering."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Meta Ads",
+                "description": "Kampagner på Facebook og Instagram med målgrupper, retargeting og løbende justering."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Search Visibility",
+                "description": "SEO og GEO/AI-synlighed: teknisk SEO, søgeintention, struktureret indhold og schema, så virksomheden både findes i søgeresultater og bruges som kilde i AI-assisteret søgning."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Digital Growth",
+                "description": "Tracking og analyse, strategisk prioritering, konverteringsoptimering og løbende vækstsamarbejde."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "Hosting og vedligeholdelse" }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": { "@type": "Service", "name": "WooCommerce-optimering" }
+            }
           ]
         }
       }

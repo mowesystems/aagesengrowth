@@ -3,6 +3,8 @@ export type BillingPeriod = 'one-time' | 'monthly' | 'hourly';
 export interface PricingItem {
   id: string;
   name: string;
+  /** Plain expansion shown under the name, where the name alone is not enough. */
+  nameNote?: string;
   price: number;
   pricePrefix?: 'Fra';
   billingPeriod: BillingPeriod;
@@ -192,15 +194,18 @@ export const carePackages: PricingItem[] = [
 
 export const marketingServices: PricingItem[] = [
   {
+    // The id stays `seo-ai` so existing links, anchors and service mappings
+    // keep resolving; only the visible name changed.
     id: 'seo-ai',
-    name: 'SEO og AI-synlighed',
+    name: 'Search Visibility',
+    nameNote: 'SEO + GEO/AI-synlighed',
     price: 2995,
     pricePrefix: 'Fra',
     billingPeriod: 'monthly',
     description: 'Et løbende arbejde med at gøre virksomheden lettere at finde og forstå i søgemaskiner og AI-søgninger.',
     features: ['Teknisk SEO', 'On-page-prioritering', 'Struktur og intern linking', 'AI-synlighed og GEO', 'Månedlig handlingsplan', 'Rapportering'],
     exclusions: ['Løbende produktion af større mængder tekst og content er ikke inkluderet, medmindre det aftales særskilt.'],
-    ctaLabel: 'Tal om SEO og AI',
+    ctaLabel: 'Tal om Search Visibility',
     ctaHref: '/kontakt',
   },
   {
@@ -261,12 +266,12 @@ export const marketingServices: PricingItem[] = [
   },
   {
     id: 'seo-audit',
-    name: 'SEO Audit',
+    name: 'Search Visibility Audit',
     price: 4995,
     billingPeriod: 'one-time',
     description: 'En samlet analyse, der peger på de vigtigste muligheder og næste handlinger.',
     features: ['Teknisk analyse', 'On-page-analyse', 'Søgeordsanalyse', 'Konkurrentoverblik', 'Prioriteret handlingsplan'],
-    ctaLabel: 'Bestil en SEO Audit',
+    ctaLabel: 'Bestil en Search Visibility Audit',
     ctaHref: '/kontakt',
   },
   {
@@ -304,7 +309,7 @@ export const growthPartner: PricingItem = {
   billingPeriod: 'monthly',
   description: 'En samlet løsning til virksomheder, der ønsker ét sted til digital synlighed, annoncering, tracking og løbende drift.',
   featureLabel: 'Kan sammensættes af',
-  features: ['SEO og AI-synlighed', 'Google Ads eller Meta Ads', 'Tracking', 'Månedlig rapportering', 'Løbende prioritering', 'Hosting og Care'],
+  features: ['Search Visibility (SEO + GEO)', 'Google Ads eller Meta Ads', 'Tracking', 'Månedlig rapportering', 'Løbende prioritering', 'Hosting og Care'],
   exclusions: [
     'Annoncebudget afregnes separat.',
     'Contentproduktion er ikke inkluderet som standard.',

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import company from '@/config/company';
 
-type Variant = 'primary' | 'light' | 'outline' | 'outline-light';
+type Variant = 'primary' | 'invert' | 'outline' | 'outline-invert';
 type Size = 'md' | 'lg';
 
 interface ButtonProps {
@@ -10,9 +10,9 @@ interface ButtonProps {
   size?: Size;
   href?: string;
   /**
-   * Points at the configured booking calendar. When none is configured it
-   * falls back to the contact page rather than to an empty booking page —
-   * previously this sent every primary CTA on the site to a dead end.
+   * Points at the configured booking calendar. When none is configured it falls
+   * back to the contact page rather than to an empty booking page — otherwise
+   * every booking CTA on the site is a dead end until the calendar is set up.
    */
   booking?: boolean;
   to?: string;
@@ -21,13 +21,14 @@ interface ButtonProps {
   type?: 'button' | 'submit';
   disabled?: boolean;
   onClick?: () => void;
+  'aria-label'?: string;
 }
 
 const variantClass: Record<Variant, string> = {
   primary: 'btn-primary',
-  light: 'btn-invert',
+  invert: 'btn-invert',
   outline: 'btn-outline',
-  'outline-light': 'btn-outline-invert',
+  'outline-invert': 'btn-outline-invert',
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -41,25 +42,26 @@ const Button: React.FC<ButtonProps> = ({
   type = 'button',
   disabled,
   onClick,
+  'aria-label': ariaLabel,
 }) => {
   const classes = `btn ${variantClass[variant]} ${size === 'lg' ? 'btn-lg' : ''} ${className}`;
 
   if (booking) {
-    const external = Boolean(company.bookingUrl);
-    if (external) {
+    if (company.bookingUrl) {
       return (
         <a
           href={company.bookingUrl}
           target="_blank"
           rel="noopener noreferrer"
           className={classes}
+          aria-label={ariaLabel}
         >
           {children}
         </a>
       );
     }
     return (
-      <Link to="/kontakt" className={classes} onClick={onClick}>
+      <Link to="/kontakt" className={classes} onClick={onClick} aria-label={ariaLabel}>
         {children}
       </Link>
     );
@@ -67,7 +69,7 @@ const Button: React.FC<ButtonProps> = ({
 
   if (to) {
     return (
-      <Link to={to} className={classes} onClick={onClick}>
+      <Link to={to} className={classes} onClick={onClick} aria-label={ariaLabel}>
         {children}
       </Link>
     );
@@ -79,6 +81,7 @@ const Button: React.FC<ButtonProps> = ({
       <a
         href={href}
         className={classes}
+        aria-label={ariaLabel}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
         {children}
@@ -87,7 +90,13 @@ const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <button type={type} className={classes} onClick={onClick} disabled={disabled}>
+    <button
+      type={type}
+      className={classes}
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={ariaLabel}
+    >
       {children}
     </button>
   );

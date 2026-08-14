@@ -1,28 +1,27 @@
 import React from 'react';
 
 interface BrandLogoProps {
-  /** Render for dark backgrounds */
+  /** Render for paper backgrounds. */
   light?: boolean;
-  /** Visual size of the wordmark */
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
 
 /**
- * The Aagesen Growth wordmark, set in live type rather than an image.
+ * The Aagesen Growth wordmark, set in live type.
  *
- * The previous implementation pointed at a 2 MB, 1536x1024 PNG that was a 3D
- * mockup of the logo photographed on a grey wall. Scaled into a ~136px header
- * slot it rendered as an illegible smudge, shipped 2 MB on every page load, and
- * `brightness-0 invert` turned the entire grey plate white on dark grounds.
+ * Not an image: the alternative in this repository is a 1536x1024 PNG of the
+ * logo photographed on a grey wall, which costs 2 MB and renders as a smudge in
+ * a 140px header slot. As type it stays crisp at any size, inherits
+ * currentColor, and costs nothing beyond fonts the page already loads.
  *
- * Setting it as type keeps it crisp at any size, inherits currentColor, costs
- * nothing to load, and stays selectable and accessible.
+ * The lockup is horizontal — display serif, hairline, mono — so it reads as a
+ * mark rather than as a stacked logotype trying to be one.
  */
 const sizes = {
-  sm: { word: 'text-[0.95rem]', sub: 'text-[0.44rem]', gap: 'gap-[0.3rem]', mono: 'text-[0.5rem]' },
-  md: { word: 'text-[1.2rem]', sub: 'text-[0.53rem]', gap: 'gap-[0.36rem]', mono: 'text-[0.58rem]' },
-  lg: { word: 'text-[1.6rem]', sub: 'text-[0.66rem]', gap: 'gap-[0.45rem]', mono: 'text-[0.72rem]' },
+  sm: { word: 'text-[1.05rem]', sub: 'text-[0.5rem]', rule: 'h-3.5', gap: 'gap-2' },
+  md: { word: 'text-[1.3rem]', sub: 'text-[0.56rem]', rule: 'h-4', gap: 'gap-2.5' },
+  lg: { word: 'text-[1.75rem]', sub: 'text-[0.66rem]', rule: 'h-5', gap: 'gap-3' },
 };
 
 const BrandLogo: React.FC<BrandLogoProps> = ({ light = false, size = 'md', className = '' }) => {
@@ -30,22 +29,20 @@ const BrandLogo: React.FC<BrandLogoProps> = ({ light = false, size = 'md', class
 
   return (
     <span
-      className={`inline-flex flex-col items-center ${s.gap} ${light ? 'text-ink' : 'text-cream'} ${className}`}
+      className={`inline-flex items-center ${s.gap} ${light ? 'text-ink' : 'text-paper'} ${className}`}
       aria-hidden="true"
     >
-      <span className={`font-serif font-semibold uppercase leading-none tracking-[0.2em] ${s.word}`}>
-        Aagesen
-      </span>
-
-      <span className="flex w-full items-center gap-[0.4em]">
-        <span className="h-px flex-1 bg-current opacity-35" />
-        <span className={`font-serif font-semibold uppercase leading-none ${s.mono} opacity-80`}>AG</span>
-        <span className="h-px flex-1 bg-current opacity-35" />
-      </span>
-
+      {/*
+        The trailing space is load-bearing. Without it the lockup's text content
+        reads "AagesenGrowth", which no longer matches the link's accessible
+        name and trips axe's label-content-name-mismatch rule. Trailing
+        whitespace at the end of a line box is dropped, so it costs no width.
+      */}
+      <span className={`font-display leading-none tracking-[-0.01em] ${s.word}`}>{'Aagesen '}</span>
+      <span className={`w-px ${s.rule} bg-current opacity-30`} />
       <span
-        className={`font-serif font-medium uppercase leading-none ${s.sub}`}
-        style={{ letterSpacing: '0.42em', textIndent: '0.42em' }}
+        className={`font-mono font-medium uppercase leading-none ${s.sub}`}
+        style={{ letterSpacing: '0.26em' }}
       >
         Growth
       </span>

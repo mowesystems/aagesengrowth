@@ -8,12 +8,13 @@ import {
 } from '@/lib/cookieConsent';
 
 /**
- * Cookie consent banner.
+ * Cookie consent.
  *
- * This component already existed but was never mounted anywhere, so the site
- * shipped a cookie policy describing a banner that did not exist — while the
- * Launch package sold "cookiebanner" as a deliverable. It is now rendered from
- * App, and consent can be withdrawn again from the cookie policy page.
+ * A compact card pinned to the bottom — not a scrim over the hero, and small
+ * enough on a 320px screen that it never covers more than the last band of the
+ * page. Both choices are equally legible and equally easy to hit; neither is
+ * styled as the obvious one. It sits above the header but below the mobile
+ * menu, so opening the menu is never fought by a consent card.
  */
 const CookieBanner: React.FC = () => {
   const [consent, setConsent] = useState<Consent | null>(() => readConsent());
@@ -21,7 +22,7 @@ const CookieBanner: React.FC = () => {
 
   useEffect(() => {
     if (consent) return;
-    const timer = window.setTimeout(() => setVisible(true), 500);
+    const timer = window.setTimeout(() => setVisible(true), 600);
     return () => window.clearTimeout(timer);
   }, [consent]);
 
@@ -47,30 +48,30 @@ const CookieBanner: React.FC = () => {
     <div
       role="dialog"
       aria-labelledby="cookie-title"
-      className="on-light fixed inset-x-0 bottom-0 z-50 p-4 sm:p-5 md:bottom-6 md:left-6 md:right-auto md:max-w-sm md:p-0 animate-rise"
+      className="animate-rise fixed inset-x-0 bottom-0 z-consent p-3 sm:p-4 md:bottom-6 md:left-6 md:right-auto md:max-w-sm md:p-0"
     >
-      <div className="border border-ink/15 bg-cream p-6 text-ink shadow-[0_20px_60px_rgba(16,28,41,0.35)]">
-        <h2 id="cookie-title" className="meta-on-light">
+      <div className="relative border border-paper/15 bg-ink-2 p-5 sm:p-6">
+        <span aria-hidden="true" className="iris-rule absolute inset-x-0 top-0 h-px" />
+
+        <h2 id="cookie-title" className="meta">
           Cookies
         </h2>
-        <p className="mt-4 text-sm leading-relaxed text-dim-ink">
+        <p className="mt-3.5 text-sm leading-relaxed text-muted">
           Nødvendige cookies sikrer, at siden fungerer. Analysecookies bruges kun, hvis I siger ja.
         </p>
-        <div className="mt-6 flex flex-wrap gap-2">
-          <button type="button" onClick={() => save('accepted')} className="btn btn-invert flex-1">
-            Accepter
+
+        <div className="mt-5 flex flex-wrap gap-2">
+          <button type="button" onClick={() => save('accepted')} className="btn btn-outline flex-1">
+            Accepter alle
           </button>
-          <button
-            type="button"
-            onClick={() => save('rejected')}
-            className="btn btn-outline-invert flex-1"
-          >
+          <button type="button" onClick={() => save('rejected')} className="btn btn-outline flex-1">
             Kun nødvendige
           </button>
         </div>
+
         <Link
           to="/cookiepolitik"
-          className="mt-4 inline-flex min-h-9 items-center text-xs text-ink/50 underline underline-offset-2 transition-colors hover:text-ink"
+          className="mt-4 inline-flex min-h-9 items-center text-xs text-muted underline underline-offset-4 transition-colors hover:text-paper"
         >
           Læs cookiepolitikken
         </Link>

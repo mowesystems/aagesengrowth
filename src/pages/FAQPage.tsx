@@ -4,6 +4,7 @@ import SEOHead from '@/components/SEOHead';
 import PageHero from '@/components/PageHero';
 import Accordion from '@/components/Accordion';
 import Button from '@/components/ui/Button';
+import SectionIndex, { type SectionLink } from '@/components/SectionIndex';
 import company from '@/config/company';
 import faqItems, { faqTopics, topicLabels } from '@/data/faq';
 
@@ -19,9 +20,8 @@ const breadcrumbSchema = {
 /**
  * The site's only FAQPage schema.
  *
- * Previously /faq and /priser each emitted their own FAQPage from two separate
- * data sets that gave different answers to the same question. Both now read
- * from one source, and only this page marks it up.
+ * /faq and /priser read from one source; only this page marks it up, so the
+ * same questions cannot appear as two competing FAQPage graphs on two URLs.
  */
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -32,6 +32,11 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: item.answer },
   })),
 };
+
+const sections: SectionLink[] = faqTopics.map((topic) => ({
+  id: topic,
+  label: topicLabels[topic],
+}));
 
 const FAQPage: React.FC = () => (
   <>
@@ -48,23 +53,27 @@ const FAQPage: React.FC = () => (
       lead="Inklusive dem, hvor svaret er nej."
     />
 
-    <section className="bg-ink py-14 lg:py-20">
-      <div className="shell">
-        <div className="space-y-14 lg:space-y-18">
+    <SectionIndex links={sections} aria-label="Emner i FAQ" />
+
+    <section className="bg-ink py-18 lg:py-26">
+      <div className="frame">
+        <div className="space-y-16 lg:space-y-22">
           {faqTopics.map((topic) => {
             const items = faqItems.filter((item) => item.topic === topic);
             if (items.length === 0) return null;
 
             return (
-              <div key={topic} id={topic} className="scroll-mt-24">
-                <div className="grid grid-cols-1 gap-x-16 gap-y-6 lg:grid-cols-12">
-                  <div className="lg:col-span-4">
-                    <p className="meta">{topicLabels[topic]}</p>
-                    <p className="mt-3 font-mono text-xs text-dim">
-                      {items.length} spørgsmål
+              <div key={topic} id={topic} className="scroll-mt-32">
+                <div className="grid grid-cols-4 gap-x-6 gap-y-6 lg:grid-cols-12 lg:gap-x-10">
+                  <div className="col-span-4 lg:col-span-4">
+                    <h2 className="font-display text-display uppercase leading-[0.92] text-paper">
+                      {topicLabels[topic]}
+                    </h2>
+                    <p className="index-mark mt-4">
+                      {items.length} {items.length === 1 ? 'spørgsmål' : 'spørgsmål'}
                     </p>
                   </div>
-                  <div className="lg:col-span-8">
+                  <div className="col-span-4 lg:col-span-7 lg:col-start-6">
                     <Accordion items={items} headingLevel="h3" />
                   </div>
                 </div>
@@ -75,15 +84,15 @@ const FAQPage: React.FC = () => (
       </div>
     </section>
 
-    <section className="border-t border-cream/12 bg-ink-2 py-16 lg:py-20">
-      <div className="shell">
+    <section className="border-t border-paper/10 bg-ink-2 py-18 lg:py-24">
+      <div className="frame">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div>
             <p className="meta">Ikke besvaret?</p>
-            <h2 className="mt-4 max-w-2xl font-serif text-display text-cream text-balance">
+            <h2 className="mt-6 max-w-[18ch] font-display text-display uppercase text-paper text-balance">
               Så spørg om det direkte.
             </h2>
-            <p className="mt-5 max-w-lg text-sm leading-relaxed text-dim">
+            <p className="mt-5 max-w-measure text-[0.95rem] leading-relaxed text-muted">
               I får et konkret svar fra den, der ville lave arbejdet — ikke et standardsvar fra en
               indbakke.
             </p>

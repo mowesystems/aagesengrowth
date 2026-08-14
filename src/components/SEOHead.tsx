@@ -11,13 +11,15 @@ interface SEOHeadProps {
 }
 
 /**
- * The brand image used for link previews.
+ * The image used for link previews.
  *
- * This is the 1536x1024 logo render that used to be wired up as the site's
- * header logo, where it was illegible and cost 2 MB on every page load. As a
- * social card it is actually the right asset and costs the page nothing.
+ * A purpose-built 1200x630 card in the site's own identity, replacing the
+ * 2 MB logo-on-a-wall render that used to be wired up here. Social scrapers
+ * are inconsistent about AVIF and WebP, so this one stays a JPEG.
  */
-const OG_IMAGE = '/2f98b2e8-e158-4b57-8bc7-f1c08c16936f.png';
+const OG_IMAGE = '/og-image.jpg';
+const OG_IMAGE_ALT =
+  'Aagesen Growth — from click to customer. Websites, Google Ads, Meta Ads og Search Visibility.';
 
 const upsertMeta = (key: string, content: string, asProperty = false) => {
   const attr = asProperty ? 'property' : 'name';
@@ -54,7 +56,9 @@ const SEOHead: React.FC<SEOHeadProps> = ({ title, description, canonical, schema
     upsertMeta('og:description', description, true);
     upsertMeta('og:url', canonicalUrl, true);
     upsertMeta('og:image', imageUrl, true);
-    upsertMeta('og:image:alt', `${company.legalName} — logo`, true);
+    upsertMeta('og:image:width', '1200', true);
+    upsertMeta('og:image:height', '630', true);
+    upsertMeta('og:image:alt', OG_IMAGE_ALT, true);
 
     upsertMeta('twitter:card', 'summary_large_image');
     upsertMeta('twitter:title', fullTitle);

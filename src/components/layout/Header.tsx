@@ -1,16 +1,27 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import BrandLogo from '@/components/BrandLogo';
+import company, { hasBooking } from '@/config/company';
 
-const navLinks = [
+/** Desktop: four. FAQ stays reachable from the menu and the footer. */
+const primaryNav = [
+  { label: 'Cases', href: '/projekter' },
   { label: 'Ydelser', href: '/ydelser' },
   { label: 'Priser', href: '/priser' },
-  { label: 'Cases', href: '/projekter' },
   { label: 'Om', href: '/om' },
-  { label: 'FAQ', href: '/faq' },
 ];
+
+/** Mobile: everything, because there is room for it. */
+const menuNav = [
+  ...primaryNav,
+  { label: 'FAQ', href: '/faq' },
+  { label: 'Kontakt', href: '/kontakt' },
+];
+
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,9 +34,9 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     close();
-  }, [location.pathname, close]);
+  }, [location.pathname, location.hash, close]);
 
-  // Lock scroll behind the mobile panel
+  // Lock scroll behind the panel.
   useEffect(() => {
     if (!menuOpen) return;
     const previous = document.body.style.overflow;
@@ -35,20 +46,43 @@ const Header: React.FC = () => {
     };
   }, [menuOpen]);
 
-  // Escape closes the panel and returns focus to the trigger
+  // Escape closes, and Tab is trapped inside the panel while it is open.
   useEffect(() => {
     if (!menuOpen) return;
+
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         close();
         toggleRef.current?.focus();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const panel = panelRef.current;
+      if (!panel) return;
+      const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+        (el) => el.offsetParent !== null
+      );
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey && (active === first || !panel.contains(active))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
+
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [menuOpen, close]);
 
-  // Move focus into the panel when it opens
+  // Move focus into the panel when it opens.
   useEffect(() => {
     if (!menuOpen) return;
     panelRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
@@ -68,43 +102,43 @@ const Header: React.FC = () => {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:border focus:border-cream focus:bg-ink-2 focus:px-4 focus:py-3 focus:text-sm focus:font-medium focus:text-cream"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[90] focus:border focus:border-paper focus:bg-ink-2 focus:px-4 focus:py-3 focus:text-sm focus:font-medium focus:text-paper"
       >
         Spring til indhold
       </a>
 
       <header
-        className={`fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300 ${
-          scrolled
-            ? 'border-cream/12 bg-ink/92 backdrop-blur-md'
-            : 'border-transparent bg-ink'
+        className={`fixed inset-x-0 top-0 z-header border-b transition-colors duration-300 ${
+          scrolled ? 'border-paper/10 bg-ink/90 backdrop-blur-xl' : 'border-transparent bg-transparent'
         }`}
       >
-        <div className="shell">
-          <div className="flex h-[4.6rem] items-center justify-between gap-6 lg:h-[5.25rem]">
+        <div className="frame">
+          <div className="flex h-[4.4rem] items-center justify-between gap-6 lg:h-[5.25rem]">
             <Link
               to="/"
               className="-ml-1 flex min-h-11 items-center px-1"
-              aria-label="Aagesen Growth ApS — til forsiden"
+              aria-label="Aagesen Growth — til forsiden"
             >
-              <BrandLogo size="md" />
+              <BrandLogo size="md" className="lg:hidden" />
+              <BrandLogo size="lg" className="hidden lg:inline-flex" />
             </Link>
 
             <nav className="hidden items-center gap-1 lg:flex" aria-label="Primær navigation">
-              {navLinks.map((link) => {
+              {primaryNav.map((link) => {
                 const active = isActive(link.href);
                 return (
                   <Link
                     key={link.href}
                     to={link.href}
                     aria-current={active ? 'page' : undefined}
-                    className={`group relative inline-flex min-h-11 items-center px-4 font-sans text-sm font-medium transition-colors ${
-                      active ? 'text-cream' : 'text-dim hover:text-cream'
+                    className={`group relative inline-flex min-h-11 items-center px-4 font-sans text-[0.88rem] font-medium transition-colors ${
+                      active ? 'text-paper' : 'text-muted hover:text-paper'
                     }`}
                   >
                     {link.label}
                     <span
-                      className={`absolute bottom-2 left-4 h-px bg-gold-ink transition-all duration-300 ease-smooth ${
+                      aria-hidden="true"
+                      className={`iris-rule absolute bottom-[0.65rem] left-4 h-px transition-[width] duration-300 ease-entrance ${
                         active ? 'w-[calc(100%-2rem)]' : 'w-0 group-hover:w-[calc(100%-2rem)]'
                       }`}
                     />
@@ -114,7 +148,7 @@ const Header: React.FC = () => {
             </nav>
 
             <div className="hidden lg:block">
-              <Button to="/kontakt" className="px-6">
+              <Button to="/#website-tjek" className="px-6">
                 Få et website-tjek
                 <ArrowRight size={15} aria-hidden="true" />
               </Button>
@@ -123,13 +157,31 @@ const Header: React.FC = () => {
             <button
               ref={toggleRef}
               type="button"
-              className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center text-cream lg:hidden"
+              className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center gap-2.5 px-2 text-paper lg:hidden"
               onClick={() => setMenuOpen((open) => !open)}
-              aria-label={menuOpen ? 'Luk menu' : 'Åbn menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
             >
-              {menuOpen ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+              <span className="font-mono text-[0.62rem] uppercase tracking-[0.2em]">
+                {menuOpen ? 'Luk' : 'Menu'}
+              </span>
+              <span aria-hidden="true" className="flex w-5 flex-col gap-[0.3rem]">
+                <span
+                  className={`h-px w-full bg-current transition-transform duration-300 ${
+                    menuOpen ? 'translate-y-[0.35rem] rotate-45' : ''
+                  }`}
+                />
+                <span
+                  className={`h-px w-full bg-current transition-opacity duration-200 ${
+                    menuOpen ? 'opacity-0' : ''
+                  }`}
+                />
+                <span
+                  className={`h-px w-full bg-current transition-transform duration-300 ${
+                    menuOpen ? '-translate-y-[0.35rem] -rotate-45' : ''
+                  }`}
+                />
+              </span>
             </button>
           </div>
         </div>
@@ -139,37 +191,54 @@ const Header: React.FC = () => {
         <div
           id="mobile-menu"
           ref={panelRef}
-          className="on-light fixed inset-0 z-30 flex flex-col overflow-y-auto bg-cream pb-8 pt-[4.6rem] lg:hidden animate-fade-in"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+          className="animate-fade-in fixed inset-0 z-menu flex flex-col overflow-y-auto bg-ink pb-10 pt-[4.4rem] lg:hidden"
         >
-          <nav aria-label="Mobil navigation" className="shell flex-1 pt-6">
-            <ul className="ledger ledger-light">
-              {navLinks.map((link, index) => (
-                <li key={link.href} className="ledger-row">
-                  <Link
-                    to={link.href}
-                    aria-current={isActive(link.href) ? 'page' : undefined}
-                    className={`flex min-h-14 items-baseline gap-4 py-1 font-serif text-[2rem] leading-none transition-colors ${
-                      isActive(link.href) ? 'text-gold-ink' : 'text-ink hover:text-gold-ink'
-                    }`}
-                  >
-                    <span className="meta-on-light opacity-60">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+          <div className="grid-lines pointer-events-none absolute inset-0" aria-hidden="true" />
+
+          <nav aria-label="Mobil navigation" className="frame relative flex-1 pt-8">
+            <ul className="rule">
+              {menuNav.map((link, index) => {
+                const active = isActive(link.href);
+                return (
+                  <li key={link.href} className="rule-row">
+                    <Link
+                      to={link.href}
+                      aria-current={active ? 'page' : undefined}
+                      className={`flex min-h-[3.6rem] items-baseline gap-5 py-2 font-display text-[2.35rem] leading-none transition-colors ${
+                        active ? 'text-cyan' : 'text-paper'
+                      }`}
+                    >
+                      <span className="index-mark opacity-60">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
-          <div className="shell mt-8 space-y-3">
-            <Button to="/kontakt" variant="light" size="lg" className="w-full">
+          <div className="frame relative mt-10 space-y-4">
+            <Button to="/#website-tjek" size="lg" className="w-full">
               Få et website-tjek
               <ArrowRight size={16} aria-hidden="true" />
             </Button>
-            <Button booking variant="outline-light" size="lg" className="w-full">
-              Book et møde
-            </Button>
+
+            {hasBooking && (
+              <a
+                href={company.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-line"
+              >
+                Book en afklaring
+                <ArrowUpRight size={14} aria-hidden="true" />
+              </a>
+            )}
           </div>
         </div>
       )}
