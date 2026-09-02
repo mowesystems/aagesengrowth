@@ -1,24 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import BrandLogo from '@/components/BrandLogo';
-import company, { hasBooking } from '@/config/company';
-
-/** Desktop: four. FAQ stays reachable from the menu and the footer. */
-const primaryNav = [
-  { label: 'Cases', href: '/projekter' },
-  { label: 'Ydelser', href: '/ydelser' },
-  { label: 'Priser', href: '/priser' },
-  { label: 'Om', href: '/om' },
-];
-
-/** Mobile: everything, because there is room for it. */
-const menuNav = [
-  ...primaryNav,
-  { label: 'FAQ', href: '/faq' },
-  { label: 'Kontakt', href: '/kontakt' },
-];
+import LanguageSwitcher from '@/components/layout/LanguageSwitcher';
+import { useLocale } from '@/i18n/useLocale';
+import type { RouteKey } from '@/i18n/config';
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
@@ -29,8 +16,23 @@ const Header: React.FC = () => {
   const location = useLocation();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const { t, path } = useLocale();
 
   const close = useCallback(() => setMenuOpen(false), []);
+
+  /**
+   * Desktop keeps three destinations plus the CTA. The rest of the site is
+   * reachable from the homepage's own sections and from the footer, which is
+   * the point of putting the selling on one page.
+   */
+  const primaryNav: { label: string; key: RouteKey }[] = [
+    { label: t.nav.work, key: 'work' },
+    { label: t.nav.pricing, key: 'pricing' },
+    { label: t.nav.faq, key: 'faq' },
+  ];
+
+  /** Mobile gets everything, because there is room for it. */
+  const menuNav = [...primaryNav, { label: t.nav.contact, key: 'contact' as RouteKey }];
 
   useEffect(() => {
     close();
@@ -95,50 +97,54 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const isActive = (href: string) =>
-    location.pathname === href || location.pathname.startsWith(`${href}/`);
+  const isActive = (key: RouteKey) => {
+    const target = path(key);
+    return location.pathname === target || location.pathname.startsWith(`${target}/`);
+  };
 
   return (
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[90] focus:border focus:border-paper focus:bg-ink-2 focus:px-4 focus:py-3 focus:text-sm focus:font-medium focus:text-paper"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[90] focus:border focus:border-ink focus:bg-paper-2 focus:px-4 focus:py-3 focus:text-sm focus:font-medium focus:text-ink"
       >
-        Spring til indhold
+        {t.header.skip}
       </a>
 
       <header
         className={`fixed inset-x-0 top-0 z-header border-b transition-colors duration-300 ${
-          scrolled ? 'border-paper/10 bg-ink/90 backdrop-blur-xl' : 'border-transparent bg-transparent'
+          scrolled
+            ? 'border-ink/10 bg-paper/85 backdrop-blur-xl'
+            : 'border-transparent bg-transparent'
         }`}
       >
         <div className="frame">
-          <div className="flex h-[4.4rem] items-center justify-between gap-6 lg:h-[5.25rem]">
+          <div className="flex h-[4.4rem] items-center justify-between gap-6 lg:h-[5.5rem]">
             <Link
-              to="/"
+              to={path('home')}
               className="-ml-1 flex min-h-11 items-center px-1"
-              aria-label="Aagesen Growth — til forsiden"
+              aria-label={t.header.home}
             >
-              <BrandLogo size="md" className="lg:hidden" />
-              <BrandLogo size="lg" className="hidden lg:inline-flex" />
+              <BrandLogo size="sm" className="lg:hidden" />
+              <BrandLogo size="md" className="hidden lg:block" />
             </Link>
 
-            <nav className="hidden items-center gap-1 lg:flex" aria-label="Primær navigation">
+            <nav className="hidden items-center gap-1 lg:flex" aria-label={t.nav.services}>
               {primaryNav.map((link) => {
-                const active = isActive(link.href);
+                const active = isActive(link.key);
                 return (
                   <Link
-                    key={link.href}
-                    to={link.href}
+                    key={link.key}
+                    to={path(link.key)}
                     aria-current={active ? 'page' : undefined}
                     className={`group relative inline-flex min-h-11 items-center px-4 font-sans text-[0.88rem] font-medium transition-colors ${
-                      active ? 'text-paper' : 'text-muted hover:text-paper'
+                      active ? 'text-ink' : 'text-muted hover:text-ink'
                     }`}
                   >
                     {link.label}
                     <span
                       aria-hidden="true"
-                      className={`iris-rule absolute bottom-[0.65rem] left-4 h-px transition-[width] duration-300 ease-entrance ${
+                      className={`absolute bottom-[0.7rem] left-4 h-px bg-brand transition-[width] duration-300 ease-entrance ${
                         active ? 'w-[calc(100%-2rem)]' : 'w-0 group-hover:w-[calc(100%-2rem)]'
                       }`}
                     />
@@ -147,42 +153,47 @@ const Header: React.FC = () => {
               })}
             </nav>
 
-            <div className="hidden lg:block">
-              <Button to="/#website-tjek" className="px-6">
-                Få et website-tjek
+            <div className="hidden items-center gap-4 lg:flex">
+              <LanguageSwitcher />
+              <span aria-hidden="true" className="h-4 w-px bg-ink/15" />
+              <Button to={path('contact')} className="px-6">
+                {t.cta.startProject}
                 <ArrowRight size={15} aria-hidden="true" />
               </Button>
             </div>
 
-            <button
-              ref={toggleRef}
-              type="button"
-              className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center gap-2.5 px-2 text-paper lg:hidden"
-              onClick={() => setMenuOpen((open) => !open)}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-            >
-              <span className="font-mono text-[0.62rem] uppercase tracking-[0.2em]">
-                {menuOpen ? 'Luk' : 'Menu'}
-              </span>
-              <span aria-hidden="true" className="flex w-5 flex-col gap-[0.3rem]">
-                <span
-                  className={`h-px w-full bg-current transition-transform duration-300 ${
-                    menuOpen ? 'translate-y-[0.35rem] rotate-45' : ''
-                  }`}
-                />
-                <span
-                  className={`h-px w-full bg-current transition-opacity duration-200 ${
-                    menuOpen ? 'opacity-0' : ''
-                  }`}
-                />
-                <span
-                  className={`h-px w-full bg-current transition-transform duration-300 ${
-                    menuOpen ? '-translate-y-[0.35rem] -rotate-45' : ''
-                  }`}
-                />
-              </span>
-            </button>
+            <div className="flex items-center gap-2 lg:hidden">
+              <LanguageSwitcher />
+              <button
+                ref={toggleRef}
+                type="button"
+                className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center gap-2.5 px-2 text-ink"
+                onClick={() => setMenuOpen((open) => !open)}
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
+              >
+                <span className="font-mono text-[0.62rem] uppercase tracking-[0.2em]">
+                  {menuOpen ? t.header.close : t.header.menu}
+                </span>
+                <span aria-hidden="true" className="flex w-5 flex-col gap-[0.3rem]">
+                  <span
+                    className={`h-px w-full bg-current transition-transform duration-300 ${
+                      menuOpen ? 'translate-y-[0.35rem] rotate-45' : ''
+                    }`}
+                  />
+                  <span
+                    className={`h-px w-full bg-current transition-opacity duration-200 ${
+                      menuOpen ? 'opacity-0' : ''
+                    }`}
+                  />
+                  <span
+                    className={`h-px w-full bg-current transition-transform duration-300 ${
+                      menuOpen ? '-translate-y-[0.35rem] -rotate-45' : ''
+                    }`}
+                  />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -193,22 +204,22 @@ const Header: React.FC = () => {
           ref={panelRef}
           role="dialog"
           aria-modal="true"
-          aria-label="Menu"
-          className="animate-fade-in fixed inset-0 z-menu flex flex-col overflow-y-auto bg-ink pb-10 pt-[4.4rem] lg:hidden"
+          aria-label={t.header.menu}
+          className="animate-fade-in fixed inset-0 z-menu flex flex-col overflow-y-auto bg-paper pb-10 pt-[4.4rem] lg:hidden"
         >
           <div className="grid-lines pointer-events-none absolute inset-0" aria-hidden="true" />
 
-          <nav aria-label="Mobil navigation" className="frame relative flex-1 pt-8">
+          <nav aria-label={t.header.menu} className="frame relative flex-1 pt-8">
             <ul className="rule">
               {menuNav.map((link, index) => {
-                const active = isActive(link.href);
+                const active = isActive(link.key);
                 return (
-                  <li key={link.href} className="rule-row">
+                  <li key={link.key} className="rule-row">
                     <Link
-                      to={link.href}
+                      to={path(link.key)}
                       aria-current={active ? 'page' : undefined}
-                      className={`flex min-h-[3.6rem] items-baseline gap-5 py-2 font-display text-[2.35rem] leading-none transition-colors ${
-                        active ? 'text-cyan' : 'text-paper'
+                      className={`flex min-h-[3.8rem] items-baseline gap-5 py-2 font-sans text-[2.3rem] font-semibold leading-none tracking-[-0.03em] transition-colors ${
+                        active ? 'text-brand' : 'text-ink'
                       }`}
                     >
                       <span className="index-mark opacity-60">
@@ -222,23 +233,11 @@ const Header: React.FC = () => {
             </ul>
           </nav>
 
-          <div className="frame relative mt-10 space-y-4">
-            <Button to="/#website-tjek" size="lg" className="w-full">
-              Få et website-tjek
+          <div className="frame relative mt-10">
+            <Button to={path('contact')} size="lg" className="w-full">
+              {t.cta.startProject}
               <ArrowRight size={16} aria-hidden="true" />
             </Button>
-
-            {hasBooking && (
-              <a
-                href={company.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-line"
-              >
-                Book en afklaring
-                <ArrowUpRight size={14} aria-hidden="true" />
-              </a>
-            )}
           </div>
         </div>
       )}

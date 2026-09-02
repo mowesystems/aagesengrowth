@@ -3,6 +3,12 @@ import type { CaseImage } from '@/data/cases';
 
 interface ResponsiveImageProps {
   image: CaseImage;
+  /**
+   * Required. Alt text lives in the dictionary rather than beside the asset,
+   * because it has to be written in the language the page is being read in.
+   * Pass an empty string only for an image a caption already describes.
+   */
+  alt: string;
   /** The `sizes` attribute. Get this right or the srcset is decoration. */
   sizes: string;
   /**
@@ -12,8 +18,6 @@ interface ResponsiveImageProps {
    */
   priority?: boolean;
   className?: string;
-  /** Overrides the alt text, e.g. when the same asset is used decoratively. */
-  alt?: string;
 }
 
 /**
@@ -25,10 +29,10 @@ interface ResponsiveImageProps {
  */
 const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   image,
+  alt,
   sizes,
   priority = false,
   className = '',
-  alt,
 }) => {
   const { base, widths, ratio } = image;
   const largest = widths[widths.length - 1];
@@ -40,7 +44,7 @@ const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
       <source type="image/webp" srcSet={srcSet('webp')} sizes={sizes} />
       <img
         src={`${base}-${largest}.webp`}
-        alt={alt ?? image.alt}
+        alt={alt}
         width={largest}
         height={Math.round(largest / ratio)}
         loading={priority ? 'eager' : 'lazy'}

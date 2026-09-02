@@ -13,36 +13,34 @@ interface PageHeroProps {
  * Shared hero for inner pages.
  *
  * One component so no two pages start with a different rhythm. The title is
- * always the page's single h1, set at display scale on the 12-column grid.
+ * always the page's single h1, set at statement scale on the 12-column grid.
+ * Paper ground with the ambient blue behind it — inner pages are quieter than
+ * the homepage by design, and the ink grounds are saved for the two sections
+ * that earn them.
  */
 const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, lead, aside }) => (
-  <section className="grain relative overflow-hidden border-b border-paper/10 bg-ink">
-    <div className="ambient pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
-    <div className="grid-lines pointer-events-none absolute inset-0" aria-hidden="true" />
+  <section className="relative overflow-hidden rule-row">
+    <div className="ambient pointer-events-none absolute inset-0" aria-hidden="true" />
+    <div className="grid-lines pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
 
-    <div className="frame relative pb-14 pt-28 lg:pb-20 lg:pt-38">
-      <div className="grid grid-cols-4 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-x-10">
-        <div className={`col-span-4 ${aside ? 'lg:col-span-7' : 'lg:col-span-9'}`}>
+    <div className="frame relative pb-16 pt-30 lg:pb-22 lg:pt-42">
+      <div className="grid gap-x-10 gap-y-10 lg:grid-cols-12">
+        <div className={aside ? 'lg:col-span-7' : 'lg:col-span-9'}>
           <Reveal>
-            <p className="meta-lit">{eyebrow}</p>
+            <p className="meta-brand">{eyebrow}</p>
           </Reveal>
           <Reveal delay={70}>
-            <h1 className="mt-7 max-w-[16ch] font-display text-statement uppercase text-paper text-balance">
-              {title}
-            </h1>
+            <h1 className="h-statement mt-7 max-w-[15ch] text-balance">{title}</h1>
           </Reveal>
           {lead && (
             <Reveal delay={130}>
-              <p className="mt-7 max-w-measure text-lead text-muted text-pretty">{lead}</p>
+              <p className="mt-8 max-w-measure text-lead text-muted text-pretty">{lead}</p>
             </Reveal>
           )}
         </div>
 
         {aside && (
-          <Reveal
-            delay={150}
-            className="col-span-4 lg:col-span-4 lg:col-start-9 lg:flex lg:items-end lg:justify-end"
-          >
+          <Reveal delay={150} className="lg:col-span-4 lg:col-start-9 lg:flex lg:items-end lg:justify-end">
             {aside}
           </Reveal>
         )}

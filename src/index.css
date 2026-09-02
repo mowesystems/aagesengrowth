@@ -4,13 +4,12 @@
 
 /* ==========================================================================
    Aagesen Growth — visual system
-   Concept: "Prism" — a near-black editorial ground with one source of light.
 
-   The site sits at the bottom of the value range. Everything is structure:
-   hairlines, an editorial grid, oversized display type. Colour appears only
-   where light would fall — the hero object, a handful of large words,
-   selected rules, hover states and verified numbers. Photography is the only
-   thing allowed to be loud, and it is always real client work.
+   Ground: warm paper. Structure: hairlines, an editorial grid, oversized
+   type set tight. Colour is one blue, taken from the two rules in the
+   wordmark, and it is spent — on a CTA, a live rule, a hovered row, a
+   number that matters. Dark sections are used as punctuation, not as the
+   default, so that arriving at one reads as a change of register.
 
    Motion is an enhancement, never a gate. Content renders visible; the
    `motion-ready` class is added by JavaScript after boot, and a settle timer
@@ -18,8 +17,9 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------- typefaces */
-/* Self-hosted, latin subset, woff2 only. Instrument Serif carries display,
-   Inter Tight carries body and UI, IBM Plex Mono carries indices and evidence. */
+/* Self-hosted, latin subset, woff2 only. Inter Tight ships as a single
+   variable file covering 100–900 — the four static weights this repository
+   used to carry were byte-identical copies of it. */
 
 @font-face {
   font-family: 'Instrument Serif';
@@ -40,17 +40,9 @@
 @font-face {
   font-family: 'Inter Tight';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('/fonts/inter-tight-400.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Inter Tight';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/inter-tight-500.woff2') format('woff2');
+  src: url('/fonts/inter-tight-var.woff2') format('woff2-variations');
 }
 
 @font-face {
@@ -72,60 +64,45 @@
 @layer base {
   :root {
     --ease: cubic-bezier(0.16, 0.84, 0.44, 1);
-    --hairline: rgba(242, 239, 232, 0.13);
-    --hairline-strong: rgba(242, 239, 232, 0.22);
-    --hairline-ink: rgba(5, 6, 8, 0.16);
-    --iris: linear-gradient(100deg, #b8ff45 0%, #5eebff 34%, #7657ff 68%, #ff4fd8 100%);
+    /* Hairlines on paper and on ink. Both are the ink/paper colour at low
+       alpha rather than a grey, so rules stay in the same family as the type
+       they separate. */
+    --line: rgba(11, 18, 32, 0.12);
+    --line-strong: rgba(11, 18, 32, 0.24);
+    --line-lit: rgba(247, 246, 242, 0.14);
+    --line-lit-strong: rgba(247, 246, 242, 0.26);
   }
 
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* Anchored sections must not land under the fixed header. */
+    scroll-padding-top: 5.5rem;
   }
 
   body {
-    @apply bg-ink font-sans text-paper antialiased;
+    @apply bg-paper font-sans text-ink antialiased;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
     font-size: 1rem;
-    line-height: 1.65;
-  }
-
-  h1,
-  h2,
-  h3 {
-    @apply font-display font-normal;
+    line-height: 1.62;
   }
 
   ::selection {
-    background: rgba(94, 235, 255, 0.28);
-    color: #f2efe8;
+    background: rgba(27, 79, 232, 0.22);
+    color: #0b1220;
   }
 
   :focus-visible {
-    outline: 2px solid #5eebff;
+    outline: 2px solid #1b4fe8;
     outline-offset: 3px;
     border-radius: 2px;
   }
 
-  /* Paper sections need a dark ring to stay visible. */
-  .on-light :focus-visible {
-    outline-color: #4b2ed6;
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #050608;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #1c2130;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #2a3143;
+  /* Dark sections need a ring that survives the ground. */
+  .on-dark :focus-visible {
+    outline-color: #5b8cff;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -144,9 +121,9 @@
 
 @layer components {
   /* ------------------------------------------------------------------ frame */
-  /* 1440px editorial frame with 24px gutters on phones and 40–64px above. */
+  /* A 1472px editorial frame with 24px gutters on phones and 40–72px above. */
   .frame {
-    @apply mx-auto w-full max-w-frame px-6 sm:px-8 lg:px-10 2xl:px-16;
+    @apply mx-auto w-full max-w-frame px-6 sm:px-8 lg:px-12 2xl:px-18;
   }
 
   /* Full-bleed media escapes the frame without breaking the page's own scroll. */
@@ -157,77 +134,51 @@
     max-width: 100vw;
   }
 
-  /* ------------------------------------------------------------------ meta */
+  /* ------------------------------------------------------------------- meta */
   .meta {
     @apply font-mono text-[0.66rem] font-medium uppercase leading-[1.5] tracking-[0.2em] text-muted;
   }
 
-  .meta-lit {
-    @apply font-mono text-[0.66rem] font-medium uppercase leading-[1.5] tracking-[0.2em] text-cyan;
+  .meta-brand {
+    @apply font-mono text-[0.66rem] font-medium uppercase leading-[1.5] tracking-[0.2em] text-brand;
   }
 
-  .meta-ink {
-    @apply font-mono text-[0.66rem] font-medium uppercase leading-[1.5] tracking-[0.2em] text-muted-ink;
+  .meta-lit {
+    @apply font-mono text-[0.66rem] font-medium uppercase leading-[1.5] tracking-[0.2em] text-muted-lit;
   }
 
   .index-mark {
     @apply font-mono text-[0.66rem] font-medium tracking-[0.14em] text-muted;
   }
 
-  /* ------------------------------------------------------------ iridescence */
-  /* Light moving across glass. Reserved for a few large words. */
-  .iris-text {
-    background: var(--iris);
-    background-size: 220% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: irisDrift 18s ease-in-out infinite alternate;
+  /* --------------------------------------------------------------- headings */
+  /* The oversized statements are Inter Tight, set heavy and tight. The serif
+     is reserved for editorial asides, so the two never compete. */
+  .h-hero {
+    @apply font-sans text-hero font-semibold;
   }
 
-  /* A one-pixel spectrum, used on a section edge or a recommended plate. */
-  .iris-rule {
-    background: var(--iris);
-    background-size: 220% 100%;
-    animation: irisDrift 18s ease-in-out infinite alternate;
+  .h-statement {
+    @apply font-sans text-statement font-semibold;
   }
 
-  @keyframes irisDrift {
-    from {
-      background-position: 0% 50%;
-    }
-    to {
-      background-position: 100% 50%;
-    }
+  .h-display {
+    @apply font-sans text-display font-semibold;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .iris-text,
-    .iris-rule {
-      animation: none;
-    }
+  .h-section {
+    @apply font-sans text-section font-semibold;
   }
 
-  /* --------------------------------------------------------------- surfaces */
-  .hairline {
-    border-color: var(--hairline);
+  .h-serif {
+    @apply font-display font-normal italic;
+    letter-spacing: -0.01em;
   }
 
-  .panel {
-    @apply border bg-ink-2;
-    border-color: var(--hairline);
-  }
-
-  /* Fine top highlight, as if a light source sits above the surface. */
-  .edge-lit {
-    box-shadow: inset 0 1px 0 0 rgba(242, 239, 232, 0.08);
-  }
-
-  /* --------------------------------------------------------------- buttons */
+  /* ---------------------------------------------------------------- buttons */
   .btn {
     @apply relative inline-flex min-h-[3rem] items-center justify-center gap-2.5 overflow-hidden
-           border px-7 font-sans text-[0.9rem] font-medium tracking-[0.01em]
+           border px-7 font-sans text-[0.9rem] font-medium tracking-[0.005em]
            transition-[color,border-color] duration-300;
     transition-timing-function: var(--ease);
   }
@@ -236,7 +187,7 @@
     @apply min-h-[3.5rem] px-9 text-[0.95rem];
   }
 
-  /* The fill draws up from the bottom edge rather than cross-fading. */
+  /* The fill wipes up from the bottom edge rather than cross-fading. */
   .btn::before {
     content: '';
     @apply absolute inset-0 -z-10 origin-bottom scale-y-0 transition-transform duration-300;
@@ -251,56 +202,57 @@
     @apply relative z-10;
   }
 
+  /* On paper */
   .btn-primary {
-    @apply border-paper bg-paper text-ink;
+    @apply border-brand bg-brand text-paper-2;
   }
   .btn-primary::before {
-    background: var(--iris);
+    @apply bg-ink;
   }
   .btn-primary:hover {
-    @apply border-cyan text-ink;
+    @apply border-ink text-paper-2;
   }
 
   .btn-outline {
-    @apply border-paper/30 bg-transparent text-paper;
+    @apply border-ink/25 bg-transparent text-ink;
   }
   .btn-outline::before {
-    @apply bg-paper;
-  }
-  .btn-outline:hover {
-    @apply border-paper text-ink;
-  }
-
-  /* On paper grounds */
-  .btn-invert {
-    @apply border-ink bg-ink text-paper;
-  }
-  .btn-invert::before {
-    background: var(--iris);
-  }
-  .btn-invert:hover {
-    @apply border-ink text-ink;
-  }
-
-  .btn-outline-invert {
-    @apply border-ink/30 bg-transparent text-ink;
-  }
-  .btn-outline-invert::before {
     @apply bg-ink;
   }
-  .btn-outline-invert:hover {
+  .btn-outline:hover {
     @apply border-ink text-paper;
+  }
+
+  /* On ink */
+  .btn-lit {
+    @apply border-paper bg-paper text-ink;
+  }
+  .btn-lit::before {
+    @apply bg-brand-lit;
+  }
+  .btn-lit:hover {
+    @apply border-brand-lit text-ink;
+  }
+
+  .btn-outline-lit {
+    @apply border-paper/30 bg-transparent text-paper;
+  }
+  .btn-outline-lit::before {
+    @apply bg-paper;
+  }
+  .btn-outline-lit:hover {
+    @apply border-paper text-ink;
   }
 
   /* ------------------------------------------------------------------ links */
   .link-line {
     @apply relative inline-flex min-h-11 items-center gap-2 font-sans text-[0.9rem] font-medium
-           text-paper transition-colors hover:text-cyan;
+           text-ink transition-colors hover:text-brand;
   }
 
   .link-line::after {
     content: '';
-    @apply absolute bottom-[0.6rem] left-0 h-px w-0 bg-cyan transition-[width] duration-300;
+    @apply absolute bottom-[0.6rem] left-0 h-px w-0 bg-brand transition-[width] duration-300;
     transition-timing-function: var(--ease);
   }
 
@@ -308,71 +260,97 @@
     width: calc(100% - 1.5rem);
   }
 
-  .link-line-ink {
-    @apply text-ink hover:text-accent-ink;
+  .link-line-lit {
+    @apply text-paper hover:text-brand-lit;
   }
-  .link-line-ink::after {
-    @apply bg-accent-ink;
+  .link-line-lit::after {
+    @apply bg-brand-lit;
+  }
+
+  /* Inline prose link. */
+  .link-inline {
+    @apply text-brand underline decoration-brand/30 underline-offset-4
+           transition-colors hover:decoration-brand;
   }
 
   /* ------------------------------------------------------------------ rules */
   .rule {
     @apply border-t;
-    border-color: var(--hairline);
+    border-color: var(--line);
   }
 
   .rule-row {
     @apply border-b;
-    border-color: var(--hairline);
+    border-color: var(--line);
   }
 
-  .rule-ink {
+  .on-dark .rule,
+  .rule-lit {
     @apply border-t;
-    border-color: var(--hairline-ink);
+    border-color: var(--line-lit);
   }
 
-  .rule-ink .rule-row,
-  .rule-row-ink {
+  .on-dark .rule-row,
+  .rule-row-lit {
     @apply border-b;
-    border-color: var(--hairline-ink);
+    border-color: var(--line-lit);
+  }
+
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .on-dark .hairline {
+    border-color: var(--line-lit);
+  }
+
+  /* --------------------------------------------------------------- surfaces */
+  .panel {
+    @apply border bg-paper-2;
+    border-color: var(--line);
+  }
+
+  .on-dark .panel {
+    @apply bg-ink-2;
+    border-color: var(--line-lit);
   }
 
   /* ----------------------------------------------------------------- fields */
   .field {
-    @apply min-h-[3rem] w-full border bg-ink-2 px-4 py-3 font-sans text-[0.95rem] text-paper
-           transition-colors placeholder:text-muted/75;
-    border-color: var(--hairline-strong);
+    @apply min-h-[3rem] w-full border bg-paper-2 px-4 py-3 font-sans text-[0.95rem] text-ink
+           transition-colors placeholder:text-muted/70;
+    border-color: var(--line-strong);
   }
 
   .field:hover {
-    border-color: rgba(242, 239, 232, 0.38);
+    border-color: rgba(11, 18, 32, 0.38);
   }
 
   .field:focus-visible {
-    @apply border-cyan outline-none ring-2 ring-cyan/30 ring-offset-2 ring-offset-ink;
+    @apply border-brand outline-none ring-2 ring-brand/25 ring-offset-2 ring-offset-paper;
   }
 
   .field[aria-invalid='true'] {
-    @apply border-magenta;
+    @apply border-[#B3261E];
   }
 
   .field-label {
-    @apply mb-2 block font-sans text-[0.85rem] font-medium text-paper;
+    @apply mb-2 block font-sans text-[0.85rem] font-medium text-ink;
   }
 
   .field-error {
-    @apply mt-1.5 flex items-center gap-1.5 font-sans text-xs font-medium text-magenta;
+    @apply mt-1.5 flex items-center gap-1.5 font-sans text-xs font-medium text-[#B3261E];
   }
 
-  .on-light .field {
-    @apply bg-paper-2 text-ink placeholder:text-muted-ink/80;
-    border-color: rgba(5, 6, 8, 0.22);
+  .on-dark .field {
+    @apply bg-ink-2 text-paper placeholder:text-muted-lit/70;
+    border-color: var(--line-lit-strong);
   }
-  .on-light .field-label {
-    @apply text-ink;
+  .on-dark .field-label {
+    @apply text-paper;
   }
-  .on-light .field:focus-visible {
-    @apply border-accent-ink ring-accent-ink/25 ring-offset-paper;
+  .on-dark .field:focus-visible {
+    @apply border-brand-lit ring-brand-lit/30 ring-offset-ink;
   }
 
   /* ----------------------------------------------------------------- reveal */
@@ -406,7 +384,7 @@
   .line-mask {
     display: block;
     overflow: hidden;
-    padding-bottom: 0.06em;
+    padding-bottom: 0.08em;
   }
 
   .line-mask > span {
@@ -437,55 +415,53 @@
     text-wrap: pretty;
   }
 
+  /* Dark sections ---------------------------------------------------------- */
+  .on-dark {
+    @apply bg-ink text-paper;
+  }
+
   /* Hairline grid ---------------------------------------------------------- */
   .grid-lines {
     background-image:
-      linear-gradient(to right, rgba(242, 239, 232, 0.038) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(242, 239, 232, 0.038) 1px, transparent 1px);
-    background-size: 84px 84px;
+      linear-gradient(to right, rgba(11, 18, 32, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(11, 18, 32, 0.05) 1px, transparent 1px);
+    background-size: 88px 88px;
   }
 
-  .grid-lines-ink {
+  .grid-lines-lit {
     background-image:
-      linear-gradient(to right, rgba(5, 6, 8, 0.055) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(5, 6, 8, 0.055) 1px, transparent 1px);
-    background-size: 84px 84px;
+      linear-gradient(to right, rgba(247, 246, 232, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(247, 246, 232, 0.045) 1px, transparent 1px);
+    background-size: 88px 88px;
   }
 
   @media (max-width: 640px) {
     .grid-lines,
-    .grid-lines-ink {
+    .grid-lines-lit {
       background-size: 48px 48px;
     }
   }
 
-  /* Grain ------------------------------------------------------------------ */
-  /* An SVG feTurbulence tile as a data URI: no network request, a few hundred
-     bytes, and it keeps large flat blacks from banding. */
-  .grain::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.4;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  }
-
-  /* Ambient light ---------------------------------------------------------- */
-  /* Anchored behind the type it belongs to, and never moving more than a few
-     percent. Not a floating gradient blob. */
+  /* Ambient blue ----------------------------------------------------------- */
+  /* Anchored behind the type it belongs to and never animated. Not a floating
+     blob: it is the page's one soft light source, and it is blue because the
+     brand is. */
   .ambient {
     background:
-      radial-gradient(58rem 40rem at 78% 6%, rgba(118, 87, 255, 0.16), transparent 62%),
-      radial-gradient(42rem 32rem at 96% 34%, rgba(94, 235, 255, 0.1), transparent 64%),
-      radial-gradient(38rem 30rem at 4% 88%, rgba(184, 255, 69, 0.055), transparent 66%);
+      radial-gradient(58rem 40rem at 82% -6%, rgba(27, 79, 232, 0.09), transparent 62%),
+      radial-gradient(40rem 30rem at 4% 96%, rgba(27, 79, 232, 0.055), transparent 66%);
+  }
+
+  .ambient-lit {
+    background:
+      radial-gradient(56rem 38rem at 84% 0%, rgba(91, 140, 255, 0.16), transparent 64%),
+      radial-gradient(38rem 28rem at 2% 100%, rgba(91, 140, 255, 0.08), transparent 68%);
   }
 
   /* Marquee ---------------------------------------------------------------- */
   /* Two identical copies, translated by exactly -50% for a seamless loop. */
   .ticker {
-    animation: tickerScroll 54s linear infinite;
+    animation: tickerScroll 58s linear infinite;
   }
 
   @keyframes tickerScroll {
@@ -528,25 +504,6 @@
   }
   .animate-rise {
     animation: riseIn 0.5s var(--ease) both;
-  }
-
-  @keyframes drawDown {
-    from {
-      transform: scaleY(0);
-    }
-    to {
-      transform: scaleY(1);
-    }
-  }
-  .draw-rule {
-    transform-origin: top;
-    animation: drawDown 0.6s var(--ease) forwards;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .draw-rule {
-      animation: none;
-    }
   }
 
   /* Media ------------------------------------------------------------------ */

@@ -1,73 +1,60 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import company, { hasBooking } from '@/config/company';
+import { ArrowRight } from 'lucide-react';
+import Button from '@/components/ui/Button';
+import Reveal from '@/components/ui/Reveal';
+import company from '@/config/company';
+import { useLocale } from '@/i18n/useLocale';
 
 /**
- * The closing argument.
+ * The closing call to action, on ink.
  *
- * One statement at the largest type size on the site, one primary action, and
- * two quiet ways in for people who are further along. It is carried by the
- * footer rather than stacked as a near-identical band above it on every page.
+ * Set at hero scale, because this is the second-most-read thing on the page
+ * after the hero itself and there is no reason for it to be quieter. The
+ * secondary action is a real mailto when an address is configured and falls
+ * back to nothing rather than to a dead link when it is not.
  */
-const FinalCTA: React.FC = () => (
-  <section
-    className="grain relative overflow-hidden border-t border-paper/10 bg-ink"
-    aria-labelledby="final-cta-heading"
-  >
-    <div className="ambient pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
-    <div className="grid-lines pointer-events-none absolute inset-0" aria-hidden="true" />
+const FinalCTA: React.FC = () => {
+  const { t, path } = useLocale();
 
-    <div className="frame relative py-20 lg:py-30">
-      <p className="meta-lit">Næste skridt</p>
+  return (
+    <section className="on-dark relative overflow-hidden py-26 lg:py-38">
+      <div className="ambient-lit pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div className="grid-lines-lit pointer-events-none absolute inset-0" aria-hidden="true" />
 
-      <h2
-        id="final-cta-heading"
-        className="mt-7 font-display text-hero uppercase text-paper"
-      >
-        <span className="line-mask">
-          <span style={{ animationDelay: '60ms' }}>Let&rsquo;s grow</span>
-        </span>
-        <span className="line-mask">
-          <span className="iris-text" style={{ animationDelay: '150ms' }}>
-            something.
-          </span>
-        </span>
-      </h2>
+      <div className="frame relative">
+        <Reveal>
+          <h2 className="h-statement max-w-[16ch] text-balance">
+            {t.finalCta.lines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </h2>
+        </Reveal>
 
-      <div className="mt-10 grid grid-cols-1 items-end gap-x-12 gap-y-9 lg:mt-14 lg:grid-cols-12">
-        <p className="max-w-measure text-lead text-paper text-pretty lg:col-span-6">
-          Fortæl hvad der ikke virker — så siger vi, hvad vi ville gøre først. Også hvis svaret er,
-          at I ikke har brug for os lige nu.
-        </p>
+        <Reveal delay={90}>
+          <p className="mt-9 max-w-prose text-lead text-muted-lit text-pretty">
+            {t.finalCta.lead}
+          </p>
+        </Reveal>
 
-        <div className="flex flex-col items-start gap-6 lg:col-span-6 lg:items-end">
-          <Link to="/#website-tjek" className="btn btn-primary btn-lg w-full sm:w-auto">
-            Få et website-tjek
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-1">
-            <Link to="/kontakt" className="link-line text-muted hover:text-paper">
-              Skriv direkte
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-            {hasBooking && (
-              <a
-                href={company.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-line text-muted hover:text-paper"
-              >
-                Book en afklaring
-                <ArrowUpRight size={14} aria-hidden="true" />
-              </a>
+        <Reveal delay={150}>
+          <div className="mt-11 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button to={path('contact')} variant="lit" size="lg">
+              {t.finalCta.primary}
+              <ArrowRight size={16} aria-hidden="true" />
+            </Button>
+            {company.email && (
+              <Button href={`mailto:${company.email}`} variant="outline-lit" size="lg">
+                {t.finalCta.secondary}
+              </Button>
             )}
           </div>
-        </div>
+          <p className="meta-lit mt-6">{t.finalCta.reassure}</p>
+        </Reveal>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default FinalCTA;

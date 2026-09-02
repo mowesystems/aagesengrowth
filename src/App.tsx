@@ -5,19 +5,18 @@ import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import CookieBanner from '@/components/ui/CookieBanner';
 import Home from '@/pages/Home';
+import { LocaleProvider } from '@/i18n/LocaleContext';
+import { localePath, locales, type RouteKey } from '@/i18n/config';
 
 /*
  * The homepage ships in the entry chunk because it is what most first visits
  * land on and it carries the LCP. Everything else is split out, so a visitor
  * who never opens the pricing page never downloads it.
  */
-const Services = lazy(() => import('@/pages/Services'));
 const Pricing = lazy(() => import('@/pages/Pricing'));
-const Cases = lazy(() => import('@/pages/Cases'));
+const Work = lazy(() => import('@/pages/Work'));
 const CaseDetail = lazy(() => import('@/pages/CaseDetail'));
-const About = lazy(() => import('@/pages/About'));
 const Contact = lazy(() => import('@/pages/Contact'));
-const Book = lazy(() => import('@/pages/Book'));
 const FAQPage = lazy(() => import('@/pages/FAQPage'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const CookiePolicy = lazy(() => import('@/pages/CookiePolicy'));
@@ -25,6 +24,40 @@ const NotFound = lazy(() => import('@/pages/NotFound'));
 
 /** Holds roughly a screen open while a route chunk arrives. */
 const RouteFallback = () => <div className="min-h-[80svh]" aria-hidden="true" />;
+
+const pageFor: Record<RouteKey, React.ReactNode> = {
+  home: <Home />,
+  pricing: <Pricing />,
+  work: <Work />,
+  contact: <Contact />,
+  faq: <FAQPage />,
+  privacy: <Privacy />,
+  cookies: <CookiePolicy />,
+};
+
+/**
+ * Every route, in every language.
+ *
+ * Generated from the slug table rather than written out three times, so
+ * adding a page means adding one entry to `routeSlugs` and one component
+ * here — the Danish, English and Swedish addresses then exist by
+ * construction, and none of them can drift apart.
+ */
+const localeRoutes = locales.flatMap((locale) => {
+  const keys = Object.keys(pageFor) as RouteKey[];
+  return keys.flatMap((key) => {
+    const path = localePath(locale, key);
+    const routes = [<Route key={`${locale}-${key}`} path={path} element={pageFor[key]} />];
+
+    // The work index also owns the case detail pages beneath it.
+    if (key === 'work') {
+      routes.push(
+        <Route key={`${locale}-case`} path={`${path}/:slug`} element={<CaseDetail />} />
+      );
+    }
+    return routes;
+  });
+});
 
 /*
  * The footer sits inside the same Suspense boundary as the routes on purpose.
@@ -38,31 +71,23 @@ const RouteFallback = () => <div className="min-h-[80svh]" aria-hidden="true" />
  */
 const App: React.FC = () => (
   <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-    <ScrollToTop />
-    <Header />
-    <div id="main">
-      <Suspense fallback={<RouteFallback />}>
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/ydelser" element={<Services />} />
-            <Route path="/priser" element={<Pricing />} />
-            <Route path="/projekter" element={<Cases />} />
-            <Route path="/projekter/:slug" element={<CaseDetail />} />
-            <Route path="/om" element={<About />} />
-            <Route path="/kontakt" element={<Contact />} />
-            <Route path="/book-moede" element={<Book />} />
-            <Route path="/faq" element={<FAQPage />} />
-            <Route path="/privatlivspolitik" element={<Privacy />} />
-            <Route path="/cookiepolitik" element={<CookiePolicy />} />
-            {/* Renders a real 404 instead of silently serving the homepage. */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </Suspense>
-    </div>
-    <CookieBanner />
+    <LocaleProvider>
+      <ScrollToTop />
+      <Header />
+      <div id="main">
+        <Suspense fallback={<RouteFallback />}>
+          <main>
+            <Routes>
+              {localeRoutes}
+              {/* Renders a real 404 instead of silently serving the homepage. */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </Suspense>
+      </div>
+      <CookieBanner />
+    </LocaleProvider>
   </BrowserRouter>
 );
 

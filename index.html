@@ -3,65 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#050608" />
-    <title>Aagesen Growth ApS — websites, annoncering og Search Visibility</title>
+    <meta name="theme-color" content="#F7F6F2" />
+    <title>Aagesen Growth — websites, SEO, GEO og betalt vækst</title>
     <meta
       name="description"
-      content="Aagesen Growth bygger websites, Google Ads, Meta Ads og Search Visibility (SEO + GEO/AI-synlighed) for små og mellemstore virksomheder. Faste priser fra 9.995 kr."
+      content="Websites, SEO, GEO og betalt annoncering til virksomheder, der vil have bedre digitale resultater uden unødvendigt bureaukompleksitet. Websites fra 12.500 kr."
     />
-    <link rel="canonical" href="https://www.aagesengrowth.dk/" />
+    <link rel="canonical" href="https://aagesengrowth.com/" />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!--
+      The three language versions of the homepage. Every other route emits its
+      own set at runtime from the route table (see components/SEOHead.tsx);
+      these are here so the entry document declares them before any JavaScript
+      has run.
+    -->
+    <link rel="alternate" hreflang="da-DK" href="https://aagesengrowth.com/" />
+    <link rel="alternate" hreflang="en" href="https://aagesengrowth.com/en" />
+    <link rel="alternate" hreflang="sv-SE" href="https://aagesengrowth.com/sv" />
+    <link rel="alternate" hreflang="x-default" href="https://aagesengrowth.com/" />
+
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="da_DK" />
-    <meta property="og:site_name" content="Aagesen Growth ApS" />
-    <meta property="og:url" content="https://www.aagesengrowth.dk/" />
-    <meta
-      property="og:title"
-      content="Aagesen Growth ApS — websites, annoncering og Search Visibility"
-    />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:locale:alternate" content="sv_SE" />
+    <meta property="og:site_name" content="Aagesen Growth" />
+    <meta property="og:url" content="https://aagesengrowth.com/" />
+    <meta property="og:title" content="Aagesen Growth — websites, SEO, GEO og betalt vækst" />
     <meta
       property="og:description"
-      content="Websites, Google Ads, Meta Ads og Search Visibility hos én ansvarlig partner. Faste priser fra 9.995 kr."
+      content="Digital vækst uden det store bureau. Websites, SEO, GEO, Google Ads og Meta Ads hos én ansvarlig partner."
     />
-    <meta property="og:image" content="https://www.aagesengrowth.dk/og-image.jpg" />
+    <meta property="og:image" content="https://aagesengrowth.com/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Aagesen Growth — from click to customer. Websites, Google Ads, Meta Ads og Search Visibility."
+      content="Aagesen Growth — websites, SEO, GEO og betalt vækst. Digital vækst uden det store bureau."
     />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Aagesen Growth ApS — websites, annoncering og Search Visibility"
-    />
+    <meta name="twitter:title" content="Aagesen Growth — websites, SEO, GEO og betalt vækst" />
     <meta
       name="twitter:description"
-      content="Websites, Google Ads, Meta Ads og Search Visibility hos én ansvarlig partner. Faste priser fra 9.995 kr."
+      content="Digital vækst uden det store bureau. Websites, SEO, GEO, Google Ads og Meta Ads hos én ansvarlig partner."
     />
-    <meta name="twitter:image" content="https://www.aagesengrowth.dk/og-image.jpg" />
+    <meta name="twitter:image" content="https://aagesengrowth.com/og-image.jpg" />
 
     <!--
-      Fonts are self-hosted as latin-subset woff2 (~144 kB for the whole family
-      set) rather than fetched from a third-party origin. Only the two faces the
-      first screen actually needs are preloaded; the rest load on use.
+      Fonts are self-hosted as latin-subset woff2 (~96 kB for the whole family
+      set) rather than fetched from a third-party origin. Inter Tight is a
+      single variable file covering 100–900, so every weight the design uses
+      costs one request. Only the two faces the first screen needs are
+      preloaded; the mono loads on use.
     -->
+    <link rel="preload" href="/fonts/inter-tight-var.woff2" as="font" type="font/woff2" crossorigin />
     <link
       rel="preload"
       href="/fonts/instrument-serif-400.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/inter-tight-400.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -71,13 +74,14 @@
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
-        "@id": "https://www.aagesengrowth.dk/#organisation",
-        "name": "Aagesen Growth ApS",
+        "@id": "https://aagesengrowth.com/#organisation",
+        "name": "Aagesen Growth",
         "legalName": "Aagesen Growth ApS",
-        "description": "Digital vækstpartner for små og mellemstore virksomheder. Websites og konvertering, Google Ads, Meta Ads, Search Visibility (SEO og GEO/AI-synlighed), tracking og drift hos én ansvarlig partner.",
-        "url": "https://www.aagesengrowth.dk",
-        "areaServed": "DK",
-        "knowsLanguage": "da",
+        "description": "Digital vækstpartner for små og mellemstore virksomheder. Websites, SEO, GEO/AI-synlighed, Google Ads, Meta Ads, analytics og løbende drift hos én ansvarlig partner.",
+        "url": "https://aagesengrowth.com",
+        "areaServed": ["DK", "SE"],
+        "knowsLanguage": ["da", "en", "sv"],
+        "parentOrganization": { "@type": "Organization", "name": "MOWE Systems ApS" },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
           "name": "Digitale ydelser",
@@ -86,49 +90,71 @@
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Websites & Conversion",
-                "description": "Websites bygget til at skabe tillid og henvendelser, med konverteringspunkter, mobil-performance og måleklar opsætning."
+                "name": "Websites",
+                "description": "Custom design og udvikling bygget omkring kunderejsen — ikke omkring en skabelon."
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "DKK",
+                "minPrice": 12500,
+                "valueAddedTaxIncluded": false
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Google Ads",
-                "description": "Struktureret annoncering mod den aktive efterspørgsel med konverteringssporing og løbende optimering."
+                "name": "SEO + GEO",
+                "description": "Synlighed i Google og i AI-genererede svar: teknisk SEO, indholdsstruktur, struktureret data og AI-synlighed."
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "DKK",
+                "minPrice": 3500,
+                "valueAddedTaxIncluded": false
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Meta Ads",
-                "description": "Kampagner på Facebook og Instagram med målgrupper, retargeting og løbende justering."
+                "name": "Betalt vækst",
+                "description": "Google Ads og Meta Ads: opsætning, drift, tracking og rapportering. Annoncebudget afregnes separat."
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "DKK",
+                "minPrice": 2500,
+                "valueAddedTaxIncluded": false
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Search Visibility",
-                "description": "SEO og GEO/AI-synlighed: teknisk SEO, søgeintention, struktureret indhold og schema, så virksomheden både findes i søgeresultater og bruges som kilde i AI-assisteret søgning."
+                "name": "Growth Partner",
+                "description": "Løbende digital partner på tværs af website, synlighed, annoncering, analytics og strategi."
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "DKK",
+                "minPrice": 7500,
+                "valueAddedTaxIncluded": false
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Digital Growth",
-                "description": "Tracking og analyse, strategisk prioritering, konverteringsoptimering og løbende vækstsamarbejde."
+                "name": "Website-drift",
+                "description": "Opdateringer, backup, sikkerhed, performance og mindre indholdsrettelser."
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "priceCurrency": "DKK",
+                "minPrice": 599,
+                "valueAddedTaxIncluded": false
               }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": { "@type": "Service", "name": "Hosting og vedligeholdelse" }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": { "@type": "Service", "name": "WooCommerce-optimering" }
             }
           ]
         }
@@ -138,8 +164,8 @@
   <body>
     <!--
       Static form declaration for Netlify Forms. The build-time crawler reads
-      the field names from here; the live form is rendered by React on /kontakt
-      and must keep exactly these names.
+      the field names from here; the live form is rendered by React on the
+      contact route and must keep exactly these names.
     -->
     <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="contact" />

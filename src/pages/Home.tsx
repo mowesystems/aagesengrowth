@@ -1,191 +1,106 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
-import Reveal from '@/components/ui/Reveal';
-import Accordion from '@/components/Accordion';
-import DisciplineTicker from '@/components/DisciplineTicker';
-import WebsiteDiagnostic from '@/components/WebsiteDiagnostic';
-import HeroEditorial from '@/components/home/HeroEditorial';
-import GrowthStages from '@/components/home/GrowthStages';
-import ManifestoSection from '@/components/home/ManifestoSection';
-import PricingPreview from '@/components/home/PricingPreview';
-import FeaturedCase from '@/components/case/FeaturedCase';
-import CaseFeature from '@/components/case/CaseFeature';
+import Hero from '@/components/home/Hero';
+import DisciplineTicker from '@/components/home/DisciplineTicker';
+import ServiceLedger from '@/components/home/ServiceLedger';
+import WebsitesSection from '@/components/home/WebsitesSection';
+import FeaturedCase from '@/components/home/FeaturedCase';
+import SearchVisibility from '@/components/home/SearchVisibility';
+import PaidGrowth from '@/components/home/PaidGrowth';
+import PricingSection from '@/components/home/PricingSection';
+import Process from '@/components/home/Process';
+import About from '@/components/home/About';
 import company from '@/config/company';
-import { featuredCase, supportingCases } from '@/data/cases';
-import { featuredFaq } from '@/data/faq';
-
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: company.legalName,
-  url: company.domain,
-};
+import tiers from '@/data/pricing';
+import services from '@/data/services';
+import { useLocale } from '@/i18n/useLocale';
+import { localeMeta } from '@/i18n/config';
 
 /**
  * The homepage.
  *
- * The order is the argument: position, then evidence a visitor can check, then
- * the best piece of work at full width, then the system that produced it, then
- * the rest of the work, then a tool that is useful whether or not anyone gets
- * in touch, then how we work, then what it costs, then the questions people
- * ask before they decide.
+ * The order is a sales argument, not a menu: who we are and what we build
+ * (hero), what everything costs (ledger — second screen, deliberately), the
+ * dominant service with its evidence (websites), proof it is real (case), the
+ * two growth disciplines, the full price list, how the work runs, who we are,
+ * and the close. Nothing here requires a second page to make sense of.
  */
-const Home: React.FC = () => (
-  <>
-    <SEOHead
-      title="Aagesen Growth ApS — websites, annoncering og Search Visibility"
-      description="Aagesen Growth bygger websites, Google Ads, Meta Ads og Search Visibility (SEO + GEO/AI-synlighed) for små og mellemstore virksomheder. Faste priser fra 9.995 kr."
-      canonical="/"
-      schema={websiteSchema}
-    />
+const Home: React.FC = () => {
+  const { t, locale } = useLocale();
 
-    <HeroEditorial />
-    <DisciplineTicker />
+  const schema = React.useMemo(
+    () => [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'ProfessionalService',
+        '@id': `${company.domain}/#organisation`,
+        name: company.brandName,
+        legalName: company.legalName,
+        description: t.meta.homeDescription,
+        url: company.domain,
+        areaServed: ['DK', 'SE'],
+        knowsLanguage: Object.values(localeMeta).map((entry) => entry.htmlLang),
+        inLanguage: localeMeta[locale].htmlLang,
+        ...(company.email ? { email: company.email } : {}),
+        ...(company.phone ? { telephone: company.phone } : {}),
+        parentOrganization: { '@type': 'Organization', name: 'MOWE Systems ApS' },
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: t.ledger.eyebrow,
+          itemListElement: services.map((service) => {
+            const tier = tiers.find((entry) => entry.id === service.tier);
+            return {
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: t.services[service.id].name,
+                description: t.services[service.id].body,
+              },
+              ...(tier
+                ? {
+                    priceSpecification: {
+                      '@type': 'PriceSpecification',
+                      priceCurrency: 'DKK',
+                      minPrice: tier.from,
+                      valueAddedTaxIncluded: false,
+                    },
+                  }
+                : {}),
+            };
+          }),
+        },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: t.faq.slice(0, 6).map((entry) => ({
+          '@type': 'Question',
+          name: entry.q,
+          acceptedAnswer: { '@type': 'Answer', text: entry.a },
+        })),
+      },
+    ],
+    [t, locale]
+  );
 
-    {/* -------------------------------------------------- selected work */}
-    <section className="bg-ink py-20 lg:py-30" aria-labelledby="selected-work-heading">
+  return (
+    <>
+      <SEOHead title={t.meta.homeTitle} description={t.meta.homeDescription} schema={schema} />
+
+      <Hero />
       <div className="frame">
-        <h2 id="selected-work-heading" className="sr-only">
-          Udvalgt arbejde
-        </h2>
-        <FeaturedCase item={featuredCase} index="01" />
-
-        <Reveal>
-          <div className="mt-14 flex flex-col items-start justify-between gap-6 border-t border-paper/10 pt-10 sm:flex-row sm:items-center">
-            <p className="max-w-measure text-sm leading-relaxed text-muted">
-              Vil I have den samme gennemgang af jeres eget setup? Website-tjekket herunder giver
-              rækkefølgen på under et minut — uden en mailadresse.
-            </p>
-            <Link to="/#website-tjek" className="btn btn-primary shrink-0">
-              Få et website-tjek
-              <ArrowRight size={15} aria-hidden="true" />
-            </Link>
-          </div>
-        </Reveal>
+        <DisciplineTicker />
       </div>
-    </section>
-
-    {/* --------------------------------------------------- growth system */}
-    <section
-      className="border-y border-paper/10 bg-ink-2 py-20 lg:py-30"
-      aria-labelledby="growth-system-heading"
-    >
-      <h2 id="growth-system-heading" className="sr-only">
-        Vækstsystemet
-      </h2>
-      <div className="frame">
-        <GrowthStages />
-      </div>
-    </section>
-
-    {/* ------------------------------------------------- remaining cases */}
-    <section className="bg-ink py-20 lg:py-30" aria-labelledby="more-work-heading">
-      <div className="frame">
-        <div className="grid grid-cols-4 gap-x-6 gap-y-6 lg:grid-cols-12 lg:gap-x-10">
-          <div className="col-span-4 lg:col-span-6">
-            <p className="meta-lit">Mere arbejde</p>
-            <h2
-              id="more-work-heading"
-              className="mt-6 max-w-measure font-display text-section text-paper text-balance"
-            >
-              To projekter, der krævede noget helt andet.
-            </h2>
-          </div>
-          <p className="col-span-4 max-w-measure self-end text-[0.95rem] leading-relaxed text-muted lg:col-span-4 lg:col-start-9">
-            Én lancering inde i et eksisterende brand. Ét produkt i en kategori, folk endnu ikke
-            ved findes.
-          </p>
-        </div>
-
-        <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-30">
-          {supportingCases.map((item, index) => (
-            <CaseFeature
-              key={item.id}
-              item={item}
-              index={String(index + 2).padStart(2, '0')}
-              align={index % 2 === 0 ? 'left' : 'right'}
-              showDisclosure={Boolean(item.disclosure)}
-            />
-          ))}
-        </div>
-
-        <Reveal>
-          <div className="mt-16 border-t border-paper/10 pt-10">
-            <Link to="/projekter" className="link-line">
-              Se alle cases
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-
-    {/* ---------------------------------------------- website diagnostic */}
-    <section
-      id="website-tjek"
-      className="scroll-mt-24 border-t border-paper/10 bg-ink-2 py-20 lg:py-30"
-      aria-labelledby="diagnostic-heading"
-    >
-      <div className="frame">
-        <div className="grid grid-cols-4 gap-x-6 gap-y-6 lg:grid-cols-12 lg:gap-x-10">
-          <div className="col-span-4 lg:col-span-7">
-            <p className="meta-lit">Website-tjek</p>
-            <h2
-              id="diagnostic-heading"
-              className="mt-6 max-w-[18ch] font-display text-section text-paper text-balance"
-            >
-              Prøv den del af arbejdet, de fleste springer over.
-            </h2>
-          </div>
-          <p className="col-span-4 max-w-measure self-end text-[0.95rem] leading-relaxed text-muted lg:col-span-4 lg:col-start-9">
-            Vælg det, I genkender fra jeres egen side. Så får I den rækkefølge, vi ville arbejde i —
-            og hvorfor. Det tager under et minut, og der er ingen mailadresse involveret.
-          </p>
-        </div>
-
-        <Reveal delay={80}>
-          <div className="mt-12 lg:mt-16">
-            <WebsiteDiagnostic />
-          </div>
-        </Reveal>
-      </div>
-    </section>
-
-    {/* -------------------------------------------------------- process */}
-    <ManifestoSection />
-
-    {/* -------------------------------------------------------- pricing */}
-    <PricingPreview />
-
-    {/* ------------------------------------------------------------ faq */}
-    <section
-      className="border-t border-paper/10 bg-ink-2 py-20 lg:py-30"
-      aria-labelledby="home-faq-heading"
-    >
-      <div className="frame">
-        <div className="grid grid-cols-4 gap-x-6 gap-y-10 lg:grid-cols-12 lg:gap-x-10">
-          <div className="col-span-4 lg:col-span-4">
-            <p className="meta-lit">Spørgsmål</p>
-            <h2
-              id="home-faq-heading"
-              className="mt-6 font-display text-section text-paper text-balance"
-            >
-              Det, folk spørger om først.
-            </h2>
-            <Link to="/faq" className="link-line mt-7">
-              Alle spørgsmål
-              <ArrowRight size={14} aria-hidden="true" />
-            </Link>
-          </div>
-          <div className="col-span-4 lg:col-span-7 lg:col-start-6">
-            <Accordion items={featuredFaq} openFirst />
-          </div>
-        </div>
-      </div>
-    </section>
-  </>
-);
+      <ServiceLedger />
+      <WebsitesSection />
+      <FeaturedCase />
+      <SearchVisibility />
+      <PaidGrowth />
+      <PricingSection />
+      <Process />
+      <About />
+    </>
+  );
+};
 
 export default Home;

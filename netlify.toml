@@ -2,10 +2,62 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  NODE_VERSION = "20"
+
+# -----------------------------------------------------------------------------
+# Retired URLs.
+#
+# The services, about and booking pages were folded into the homepage, so their
+# addresses now 301 to the section that replaced them rather than 404ing and
+# losing whatever link equity they had. These must stay above the SPA fallback:
+# Netlify takes the first matching rule.
+# -----------------------------------------------------------------------------
+[[redirects]]
+  from = "/ydelser"
+  to = "/#ydelser"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/om"
+  to = "/#om"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/book-moede"
+  to = "/kontakt"
+  status = 301
+  force = true
+
+# The work index was /projekter before and still is; the English and Swedish
+# versions are new, so nothing needs redirecting there.
+
+# -----------------------------------------------------------------------------
+# Long-lived assets. Everything under /assets carries a content hash in its
+# filename, and the fonts and media are replaced by new filenames when they
+# change, so both can be cached for a year.
+# -----------------------------------------------------------------------------
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# -----------------------------------------------------------------------------
+# SPA fallback. Last, so every rule above wins over it.
+# -----------------------------------------------------------------------------
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build.environment]
-  NODE_VERSION = "20"
