@@ -4,8 +4,6 @@ interface BrandLogoProps {
   /** Use the reversed-out mark, for ink grounds. */
   light?: boolean;
   size?: 'sm' | 'md' | 'lg';
-  /** The full lockup with the AG monogram (for the footer); default is the header wordmark. */
-  variant?: 'wordmark' | 'lockup';
   className?: string;
 }
 
@@ -23,15 +21,13 @@ interface BrandLogoProps {
  * heading that already carries the accessible name, so a second copy of
  * "Aagesen Growth" would just be read out twice.
  */
-const RATIOS = { wordmark: 800 / 152, lockup: 676 / 238 };
+const RATIO = 800 / 152;
 
-const heights = { wordmark: { sm: 24, md: 30, lg: 38 }, lockup: { sm: 56, md: 72, lg: 92 } };
+const heights = { sm: 24, md: 30, lg: 38 };
 
-const BrandLogo: React.FC<BrandLogoProps> = ({ light = false, size = 'md', variant = 'wordmark', className = '' }) => {
-  const height = heights[variant][size];
-  const RATIO = RATIOS[variant];
-  const base = variant === 'lockup' ? '/brand/aagesen-growth-lockup' : '/brand/aagesen-growth';
-  const src = light ? `${base}-light` : base;
+const BrandLogo: React.FC<BrandLogoProps> = ({ light = false, size = 'md', className = '' }) => {
+  const height = heights[size];
+  const src = light ? '/brand/aagesen-growth-light' : '/brand/aagesen-growth';
 
   return (
     <picture>
