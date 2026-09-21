@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-2 gap-x-8 gap-y-12 py-14 lg:grid-cols-12 lg:py-18">
           <div className="col-span-2 lg:col-span-5">
             <Link to={home} aria-label={t.header.home} className="inline-flex">
-              <BrandLogo size="lg" light />
+              <BrandLogo size="lg" variant="lockup" light />
             </Link>
             <p className="mt-7 max-w-sm text-sm leading-relaxed text-muted-lit">{t.footer.description}</p>
             <p className="mt-4 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted-lit/80">{t.footer.poweredBy}</p>
