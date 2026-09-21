@@ -286,7 +286,7 @@ const CaseDetail: React.FC = () => {
               </Link>
             </div>
 
-            <Button to={path('contact')} size="lg">
+            <Button to={path('review')} size="lg">
               {t.pages.work.similarCta}
               <ArrowRight size={16} aria-hidden="true" />
             </Button>

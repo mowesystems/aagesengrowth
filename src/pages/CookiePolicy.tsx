@@ -42,7 +42,7 @@ const CookiePolicy: React.FC = () => {
       {company.email}
     </a>
   ) : (
-    <Link to={path('contact')} className="link-inline">
+    <Link to={path('review')} className="link-inline">
       kontaktformularen
     </Link>
   );

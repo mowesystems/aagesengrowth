@@ -1,104 +1,102 @@
 import React from 'react';
 import SEOHead from '@/components/SEOHead';
 import Hero from '@/components/home/Hero';
-import DisciplineTicker from '@/components/home/DisciplineTicker';
-import ServiceLedger from '@/components/home/ServiceLedger';
-import WebsitesSection from '@/components/home/WebsitesSection';
-import FeaturedCase from '@/components/home/FeaturedCase';
-import SearchVisibility from '@/components/home/SearchVisibility';
-import PaidGrowth from '@/components/home/PaidGrowth';
-import PricingSection from '@/components/home/PricingSection';
-import Process from '@/components/home/Process';
-import About from '@/components/home/About';
+import Problem from '@/components/home/Problem';
+import Engine from '@/components/home/Engine';
+import ProductUI from '@/components/home/ProductUI';
+import BeforeAfter from '@/components/home/BeforeAfter';
+import ScanSection from '@/components/home/ScanSection';
+import HowItWorks from '@/components/home/HowItWorks';
+import Pricing from '@/components/home/Pricing';
+import FounderProgram from '@/components/home/FounderProgram';
+import Fit from '@/components/home/Fit';
+import FAQ from '@/components/home/FAQ';
+import FinalScan from '@/components/home/FinalScan';
+import Spine from '@/components/growth/Spine';
 import company from '@/config/company';
-import tiers from '@/data/pricing';
-import services from '@/data/services';
 import { useLocale } from '@/i18n/useLocale';
-import { localeMeta } from '@/i18n/config';
+import { homeAnchors, localeMeta } from '@/i18n/config';
 
 /**
- * The homepage.
- *
- * The order is a sales argument, not a menu: who we are and what we build
- * (hero), what everything costs (ledger — second screen, deliberately), the
- * dominant service with its evidence (websites), proof it is real (case), the
- * two growth disciplines, the full price list, how the work runs, who we are,
- * and the close. Nothing here requires a second page to make sense of.
+ * The homepage is the whole argument: what this is, why it matters, what the
+ * system is, what it looks like, the difference it makes, the scan, how it
+ * runs, what it costs, who it is for, the objections, and the scan again.
  */
 const Home: React.FC = () => {
-  const { t, locale } = useLocale();
+  const { t } = useLocale();
 
   const schema = React.useMemo(
     () => [
       {
         '@context': 'https://schema.org',
-        '@type': 'ProfessionalService',
-        '@id': `${company.domain}/#organisation`,
+        '@type': 'Organization',
+        '@id': `${company.domain}/#organization`,
         name: company.brandName,
         legalName: company.legalName,
-        description: t.meta.homeDescription,
         url: company.domain,
-        areaServed: ['DK', 'SE'],
+        logo: `${company.domain}/brand/aagesen-growth.png`,
+        description: t.meta.homeDescription,
+        areaServed: 'DK',
         knowsLanguage: Object.values(localeMeta).map((entry) => entry.htmlLang),
-        inLanguage: localeMeta[locale].htmlLang,
         ...(company.email ? { email: company.email } : {}),
         ...(company.phone ? { telephone: company.phone } : {}),
         parentOrganization: { '@type': 'Organization', name: 'MOWE Systems ApS' },
-        hasOfferCatalog: {
-          '@type': 'OfferCatalog',
-          name: t.ledger.eyebrow,
-          itemListElement: services.map((service) => {
-            const tier = tiers.find((entry) => entry.id === service.tier);
-            return {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: t.services[service.id].name,
-                description: t.services[service.id].body,
-              },
-              ...(tier
-                ? {
-                    priceSpecification: {
-                      '@type': 'PriceSpecification',
-                      priceCurrency: 'DKK',
-                      minPrice: tier.from,
-                      valueAddedTaxIncluded: false,
-                    },
-                  }
-                : {}),
-            };
-          }),
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${company.domain}/#growth-engine`,
+        name: 'Growth Engine',
+        serviceType: 'Lokal synlighed, AI-synlighed og lead-opfølgning for servicevirksomheder',
+        provider: { '@id': `${company.domain}/#organization` },
+        areaServed: 'DK',
+        audience: { '@type': 'BusinessAudience', name: 'Danske servicevirksomheder (varmepumper, solceller, tag, vinduer, el, VVS, renovering)' },
+        description: t.engine.lead,
+        offers: {
+          '@type': 'Offer',
+          priceCurrency: 'DKK',
+          price: t.pricing.monthly,
+          priceSpecification: {
+            '@type': 'UnitPriceSpecification',
+            priceCurrency: 'DKK',
+            price: t.pricing.monthly,
+            unitText: 'MONTH',
+            valueAddedTaxIncluded: false,
+          },
+          url: `${company.domain}/#${homeAnchors.pricing}`,
         },
       },
       {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: t.faq.slice(0, 6).map((entry) => ({
+        mainEntity: t.faq.items.map((entry) => ({
           '@type': 'Question',
           name: entry.q,
           acceptedAnswer: { '@type': 'Answer', text: entry.a },
         })),
       },
     ],
-    [t, locale]
+    [t]
   );
 
   return (
     <>
       <SEOHead title={t.meta.homeTitle} description={t.meta.homeDescription} schema={schema} />
-
       <Hero />
-      <div className="frame">
-        <DisciplineTicker />
+      <div className="relative">
+        <Spine />
+        <Problem />
+        <Engine />
+        <ProductUI />
+        <BeforeAfter />
+        <ScanSection />
+        <HowItWorks />
+        <Pricing />
+        <FounderProgram />
+        <Fit />
+        <FAQ />
       </div>
-      <ServiceLedger />
-      <WebsitesSection />
-      <FeaturedCase />
-      <SearchVisibility />
-      <PaidGrowth />
-      <PricingSection />
-      <Process />
-      <About />
+      <FinalScan />
     </>
   );
 };

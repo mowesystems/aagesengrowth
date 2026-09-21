@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F7F6F2" />
-    <title>Aagesen Growth — websites, SEO, GEO og betalt vækst</title>
+    <title>Growth Engine — flere kunder, færre tabte leads | Aagesen Growth</title>
     <meta
       name="description"
-      content="Websites, SEO, GEO og betalt annoncering til virksomheder, der vil have bedre digitale resultater uden unødvendigt bureaukompleksitet. Websites fra 12.500 kr."
+      content="Growth Engine hjælper servicevirksomheder med at blive fundet på Google og AI – og følger automatisk op på potentielle kunder. Kør en gratis Growth Scan på 60 sekunder."
     />
     <link rel="canonical" href="https://aagesengrowth.com/" />
 
@@ -16,166 +16,106 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!--
-      The three language versions of the homepage. Every other route emits its
-      own set at runtime from the route table (see components/SEOHead.tsx);
-      these are here so the entry document declares them before any JavaScript
-      has run.
-    -->
     <link rel="alternate" hreflang="da-DK" href="https://aagesengrowth.com/" />
-    <link rel="alternate" hreflang="en" href="https://aagesengrowth.com/en" />
-    <link rel="alternate" hreflang="sv-SE" href="https://aagesengrowth.com/sv" />
     <link rel="alternate" hreflang="x-default" href="https://aagesengrowth.com/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="da_DK" />
-    <meta property="og:locale:alternate" content="en_GB" />
-    <meta property="og:locale:alternate" content="sv_SE" />
     <meta property="og:site_name" content="Aagesen Growth" />
     <meta property="og:url" content="https://aagesengrowth.com/" />
-    <meta property="og:title" content="Aagesen Growth — websites, SEO, GEO og betalt vækst" />
+    <meta property="og:title" content="Growth Engine — flere kunder, færre tabte leads" />
     <meta
       property="og:description"
-      content="Digital vækst uden det store bureau. Websites, SEO, GEO, Google Ads og Meta Ads hos én ansvarlig partner."
+      content="Bliv fundet på Google og AI, og følg automatisk op på potentielle kunder. Kør en gratis Growth Scan på 60 sekunder."
     />
     <meta property="og:image" content="https://aagesengrowth.com/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Aagesen Growth — websites, SEO, GEO og betalt vækst. Digital vækst uden det store bureau."
-    />
+    <meta property="og:image:alt" content="Aagesen Growth — Growth Engine. Flere kunder. Færre tabte leads." />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Aagesen Growth — websites, SEO, GEO og betalt vækst" />
+    <meta name="twitter:title" content="Growth Engine — flere kunder, færre tabte leads" />
     <meta
       name="twitter:description"
-      content="Digital vækst uden det store bureau. Websites, SEO, GEO, Google Ads og Meta Ads hos én ansvarlig partner."
+      content="Bliv fundet på Google og AI, og følg automatisk op på potentielle kunder. Kør en gratis Growth Scan på 60 sekunder."
     />
     <meta name="twitter:image" content="https://aagesengrowth.com/og-image.jpg" />
 
     <!--
-      Fonts are self-hosted as latin-subset woff2 (~96 kB for the whole family
-      set) rather than fetched from a third-party origin. Inter Tight is a
-      single variable file covering 100–900, so every weight the design uses
-      costs one request. Only the two faces the first screen needs are
-      preloaded; the mono loads on use.
+      Fonts are self-hosted as latin-subset woff2. Inter Tight is a single
+      variable file covering 100–900. Only the two faces the first screen
+      needs are preloaded; the mono loads on use.
     -->
     <link rel="preload" href="/fonts/inter-tight-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link
-      rel="preload"
-      href="/fonts/instrument-serif-400.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <link rel="preload" href="/fonts/ibm-plex-mono-500.woff2" as="font" type="font/woff2" crossorigin />
 
+    <!--
+      Organisation + Service structured data for the entry document. The
+      React app re-emits the same entities per route (see SEOHead.tsx); this
+      copy is what a crawler sees before any JavaScript runs.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "@id": "https://aagesengrowth.com/#organisation",
-        "name": "Aagesen Growth",
-        "legalName": "Aagesen Growth ApS",
-        "description": "Digital vækstpartner for små og mellemstore virksomheder. Websites, SEO, GEO/AI-synlighed, Google Ads, Meta Ads, analytics og løbende drift hos én ansvarlig partner.",
-        "url": "https://aagesengrowth.com",
-        "areaServed": ["DK", "SE"],
-        "knowsLanguage": ["da", "en", "sv"],
-        "parentOrganization": { "@type": "Organization", "name": "MOWE Systems ApS" },
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Digitale ydelser",
-          "itemListElement": [
-            {
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://aagesengrowth.com/#organization",
+            "name": "Aagesen Growth",
+            "legalName": "Aagesen Growth ApS",
+            "url": "https://aagesengrowth.com",
+            "logo": "https://aagesengrowth.com/brand/aagesen-growth.png",
+            "description": "Growth Engine: synlighed på Google og AI, hurtigere svar og automatisk opfølgning for danske servicevirksomheder.",
+            "areaServed": "DK",
+            "knowsLanguage": ["da"],
+            "parentOrganization": { "@type": "Organization", "name": "MOWE Systems ApS" }
+          },
+          {
+            "@type": "Service",
+            "@id": "https://aagesengrowth.com/#growth-engine",
+            "name": "Growth Engine",
+            "serviceType": "Lokal synlighed, AI-synlighed og lead-opfølgning for servicevirksomheder",
+            "provider": { "@id": "https://aagesengrowth.com/#organization" },
+            "areaServed": "DK",
+            "offers": {
               "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Websites",
-                "description": "Custom design og udvikling bygget omkring kunderejsen — ikke omkring en skabelon."
-              },
+              "priceCurrency": "DKK",
+              "price": 5995,
               "priceSpecification": {
-                "@type": "PriceSpecification",
+                "@type": "UnitPriceSpecification",
                 "priceCurrency": "DKK",
-                "minPrice": 12500,
+                "price": 5995,
+                "unitText": "MONTH",
                 "valueAddedTaxIncluded": false
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "SEO + GEO",
-                "description": "Synlighed i Google og i AI-genererede svar: teknisk SEO, indholdsstruktur, struktureret data og AI-synlighed."
               },
-              "priceSpecification": {
-                "@type": "PriceSpecification",
-                "priceCurrency": "DKK",
-                "minPrice": 3500,
-                "valueAddedTaxIncluded": false
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Betalt vækst",
-                "description": "Google Ads og Meta Ads: opsætning, drift, tracking og rapportering. Annoncebudget afregnes separat."
-              },
-              "priceSpecification": {
-                "@type": "PriceSpecification",
-                "priceCurrency": "DKK",
-                "minPrice": 2500,
-                "valueAddedTaxIncluded": false
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Growth Partner",
-                "description": "Løbende digital partner på tværs af website, synlighed, annoncering, analytics og strategi."
-              },
-              "priceSpecification": {
-                "@type": "PriceSpecification",
-                "priceCurrency": "DKK",
-                "minPrice": 7500,
-                "valueAddedTaxIncluded": false
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Website-drift",
-                "description": "Opdateringer, backup, sikkerhed, performance og mindre indholdsrettelser."
-              },
-              "priceSpecification": {
-                "@type": "PriceSpecification",
-                "priceCurrency": "DKK",
-                "minPrice": 599,
-                "valueAddedTaxIncluded": false
-              }
+              "url": "https://aagesengrowth.com/#pris"
             }
-          ]
-        }
+          }
+        ]
       }
     </script>
   </head>
   <body>
     <!--
       Static form declaration for Netlify Forms. The build-time crawler reads
-      the field names from here; the live form is rendered by React on the
-      contact route and must keep exactly these names.
+      the field names from here; the live form is rendered by React (see
+      components/scan/LeadForm.tsx) and must keep exactly these names. The
+      scan-* fields carry the Growth Scan context of a lead into the
+      submission.
     -->
-    <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-      <input type="hidden" name="form-name" value="contact" />
+    <form name="growth-review" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="growth-review" />
       <input name="bot-field" />
       <input name="name" />
       <input name="company" />
       <input name="email" />
+      <input name="phone" />
       <input name="website" />
-      <select name="help"><option value=""></option></select>
-      <textarea name="message"></textarea>
+      <input name="source" />
+      <input name="founder" />
+      <input name="scan-id" />
+      <input name="scan-score" />
+      <textarea name="scan-summary"></textarea>
     </form>
 
     <div id="root"></div>

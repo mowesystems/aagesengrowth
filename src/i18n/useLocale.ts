@@ -23,8 +23,6 @@ export interface LocaleValue {
  */
 export const priceFormatters: Record<Locale, (amount: number) => string> = {
   da: (amount) => `${amount.toLocaleString('da-DK')} kr.`,
-  en: (amount) => `DKK ${amount.toLocaleString('en-GB')}`,
-  sv: (amount) => `${amount.toLocaleString('sv-SE')} kr`,
 };
 
 /**

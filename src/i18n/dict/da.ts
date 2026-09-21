@@ -3,20 +3,20 @@ import type { CaseCopy } from '@/i18n/types';
 /**
  * Danish — the source dictionary.
  *
- * This file defines the shape. `Dictionary` is `typeof da`, so the English and
- * Swedish files are type-checked against it and a missing key is a build
- * error rather than a blank space on a live page.
+ * Every word a visitor reads on the Growth Engine site lives here, so copy is
+ * reviewed in one place and the components stay free of prose. Numbers that
+ * describe a price are here too; numbers that describe a result are not —
+ * those come from a scan, never from a dictionary.
  */
 const da = {
   // ------------------------------------------------------------------ chrome
   nav: {
-    work: 'Projekter',
-    services: 'Ydelser',
-    pricing: 'Priser',
-    approach: 'Sådan arbejder vi',
-    about: 'Om',
+    engine: 'Growth Engine',
+    how: 'Sådan virker det',
+    pricing: 'Pris',
     faq: 'FAQ',
-    contact: 'Kontakt',
+    work: 'Projekter',
+    review: 'Growth Review',
   },
 
   header: {
@@ -24,337 +24,441 @@ const da = {
     menu: 'Menu',
     close: 'Luk',
     skip: 'Spring til indhold',
-    language: 'Sprog',
-    languageSwitch: 'Skift sprog',
+    nav: 'Hovedmenu',
   },
 
   cta: {
-    startProject: 'Start et projekt',
-    seeWork: 'Se vores arbejde',
-    seePricing: 'Se priser',
-    allPricing: 'Se alle priser',
-    viewCase: 'Se hele casen',
-    visitSite: 'Besøg websitet',
-    talk: 'Tal med os om projektet',
-    writeDirect: 'Skriv direkte',
-    allQuestions: 'Se alle spørgsmål',
+    scan: 'Kør gratis Growth Scan',
+    scanShort: 'Gratis Growth Scan',
+    scanMobile: 'Growth Scan',
+    how: 'Se hvordan det virker',
+    fullReview: 'Få den fulde gennemgang',
+    bookReview: 'Book en Growth Review',
     back: 'Tilbage',
     backToWork: 'Tilbage til projekter',
+    viewCase: 'Se hele casen',
+    visitSite: 'Besøg websitet',
+    toFront: 'Til forsiden',
   },
 
   // -------------------------------------------------------------------- hero
   hero: {
-    eyebrow: 'Websites · SEO · GEO · Google Ads · Meta Ads',
-    lines: ['Digital vækst.', 'Uden det store', 'bureau.'],
-    lead: 'Websites, SEO, GEO og betalt annoncering til virksomheder, der vil have bedre digitale resultater — uden unødvendigt bureaukompleksitet.',
-    primary: 'Start et projekt',
-    secondary: 'Se vores arbejde',
-    scroll: 'Rul',
-    stack: {
-      label: 'Udvalgt arbejde',
-      desktopAlt: 'Forsiden af pluseins.dk vist i et browservindue.',
-      mobileAlt: 'pluseins.dk vist på en telefon.',
-    },
+    eyebrow: 'Growth Engine · Til servicevirksomheder',
+    lines: ['Flere kunder.', 'Færre tabte leads.'],
+    lead: 'Growth Engine hjælper servicevirksomheder med at blive fundet på Google og AI – og følger automatisk op på potentielle kunder.',
+    /** Labels on the signal visualisation. Short: they sit on a live diagram. */
+    sources: ['Google', 'ChatGPT', 'Google Maps', 'AI-søgning', 'Perplexity'],
+    core: 'Growth Engine',
+    outputs: ['Lead', 'Opfølgning', 'Kunde'],
+    diagramAlt:
+      'Søgesignaler fra Google og AI-platforme løber ind i Growth Engine og kommer ud som leads, opfølgning og kunder.',
   },
 
-  /** The line that runs under the hero. Short, factual, no adjectives. */
-  ticker: [
-    'Website-design & udvikling',
-    'SEO',
-    'GEO / AI-synlighed',
-    'Google Ads',
-    'Meta Ads',
-    'Vækststrategi',
-    'Analytics & tracking',
-    'Løbende drift',
-  ],
-
-  // -------------------------------------------------------- services ledger
-  ledger: {
-    eyebrow: 'Ydelser & priser',
-    heading: 'Otte discipliner. Fem prispunkter.',
-    lead: 'Alt kan stå alene eller samles i ét fast samarbejde. Priserne herunder er startpriser — den endelige pris afhænger af omfang.',
-    fromLabel: 'Fra',
-    perMonth: '/ md.',
-    oneOff: 'engangs',
-    partOf: 'Del af Growth Partner',
-    note: 'Alle priser er ekskl. moms. Annoncebudget, hosting og licenser afregnes separat.',
-  },
-
-  services: {
-    websites: {
-      name: 'Websites',
-      line: 'Design og udvikling',
-      body: 'Custom design og udvikling bygget omkring kunderejsen — ikke omkring en skabelon.',
-    },
-    seo: {
-      name: 'SEO',
-      line: 'Synlighed i Google',
-      body: 'Teknisk fundament, indholdsstruktur og søgehensigt, så I bliver fundet af dem der leder.',
-    },
-    geo: {
-      name: 'GEO',
-      line: 'Synlighed i AI-søgning',
-      body: 'Struktureret information, så I bliver forstået og citeret af ChatGPT, Perplexity og AI Overviews.',
-    },
-    googleAds: {
-      name: 'Google Ads',
-      line: 'Aktiv efterspørgsel',
-      body: 'Kampagnestruktur, konverteringssporing og løbende optimering mod de søgninger der køber.',
-    },
-    metaAds: {
-      name: 'Meta Ads',
-      line: 'Efterspørgsel og retargeting',
-      body: 'Målgrupper, kreativ test og retargeting på Facebook og Instagram.',
-    },
-    strategy: {
-      name: 'Vækststrategi',
-      line: 'Prioritering',
-      body: 'Hvad der skal gøres først, hvorfor, og hvad det realistisk flytter.',
-    },
-    analytics: {
-      name: 'Analytics',
-      line: 'Tracking og måling',
-      body: 'Et målesetup I kan træffe beslutninger på — samtykke, hændelser og rapportering.',
-    },
-    care: {
-      name: 'Website-drift',
-      line: 'Løbende pasning',
-      body: 'Opdateringer, backup, sikkerhed, performance og de små rettelser, der ellers hober sig op.',
-    },
-  },
-
-  // ---------------------------------------------------------------- websites
-  websites: {
-    eyebrow: 'Websites',
-    lines: ['Vi bygger websites,', 'der ikke ligner', 'skabeloner.'],
-    lead: 'Et website er ikke en brochure. Det er det sted, hvor folk beslutter, om de har lyst til at kontakte jer. Vi designer og bygger det selv — struktur, design, kode, måling og drift.',
-    includesLabel: 'Et website-projekt kan indeholde',
-    includes: [
-      'Custom design',
-      'Responsiv udvikling',
-      'SEO-fundament',
-      'GEO / AI-synlighed',
-      'Analytics og tracking',
-      'Konverteringsstruktur',
-      'CMS hvor det giver mening',
-      'Integrationer',
-      'Løbende drift',
-    ],
-    priceLabel: 'Website-projekter fra',
-    priceNote: 'Endelig pris afhænger af omfang, indhold og funktionalitet.',
-    proofLabel: 'Det website, du læser lige nu',
-    proofBody: 'er bygget af os. Samme stak, samme krav til hastighed, tilgængelighed og synlighed som det, vi bygger til kunder.',
-    cta: 'Start et website-projekt',
-  },
-
-  // ------------------------------------------------------------ featured case
-  featured: {
-    eyebrow: 'Udvalgt projekt',
-    kicker: 'Digital platform · website · synlighed',
-    heading: 'Fra fysisk destination til digital brandoplevelse.',
-    body: 'Plus Eins er boutique, salumeria og deli i Rørvig. Vi byggede det digitale fundament — website, struktur og synlighed — og har siden kørt den løbende marketing. Da Deli-konceptet kom til, kunne strukturen bære det uden at blive lavet om.',
-    facts: [
-      { label: 'Ét digitalt univers', body: 'Boutique, Salumeria og Deli under én sammenhængende identitet.' },
-      { label: 'Mobile first', body: 'Designet til den del af kunderejsen, der reelt foregår på telefonen.' },
-      { label: 'Search-ready', body: 'Teknisk struktur bygget til både Google og AI-baseret søgning.' },
-      { label: 'Bygget til at vokse', body: 'Nye koncepter og kampagner kan komme til uden ombygning.' },
-    ],
-    ctaCase: 'Se hele casen',
-    ctaSimilar: 'Start et lignende projekt',
-    moreLabel: 'Flere projekter',
-  },
-
-  // ------------------------------------------------------------------ seo/geo
-  searchVisibility: {
-    eyebrow: 'SEO + GEO',
-    lines: ['Søgning ændrer sig.', 'Jeres synlighed', 'bør gøre det samme.'],
-    lead: 'Folk søger stadig i Google. Men flere og flere spørger en AI-assistent i stedet — og får ét svar med et par kilder, i stedet for ti blå links. Skal I være en af de kilder, skal jeres information kunne læses af begge dele.',
-    seo: {
-      title: 'SEO',
-      body: 'Synlighed i søgeresultaterne.',
-      points: [
-        'Teknisk fundament og indeksering',
-        'Indholdsstruktur og intern linkning',
-        'Søgehensigt og indhold',
-        'Lokal søgning og Google Business',
-      ],
-    },
-    geo: {
-      title: 'GEO',
-      body: 'Synlighed i AI-genererede svar.',
-      points: [
-        'Struktureret data og schema',
-        'Entydige, citerbare formuleringer',
-        'Konsistens på tværs af kilder',
-        'Overvågning af AI-svar',
-      ],
-    },
-    measure: {
-      title: 'Måling',
-      body: 'Vi rapporterer på det, der kan efterprøves: placeringer, klik, henvendelser og hvornår I optræder som kilde. Ikke på synlighedsscorer, ingen kan kontrollere.',
-    },
-    priceLabel: 'SEO + GEO fra',
-    cta: 'Få en synlighedsvurdering',
-  },
-
-  // ------------------------------------------------------------- paid growth
-  paid: {
-    eyebrow: 'Betalt vækst',
-    lines: ['Annoncekroner', 'der kan gøres op.'],
-    lead: 'Google Ads og Meta Ads drevet som et regnestykke, ikke som en kampagnekalender. Vi sætter op, måler, skærer fra og skalerer det, der virker.',
-    points: [
-      { label: 'Opsætning', body: 'Konto, kampagnestruktur og målgrupper bygget fra bunden — eller ryddet op i det, der er.' },
-      { label: 'Drift', body: 'Løbende justering af budskaber, budgetter og målretning ud fra hvad der reelt konverterer.' },
-      { label: 'Tracking', body: 'Konverteringssporing og samtykke sat rigtigt op, så tallene kan bruges til noget.' },
-      { label: 'Rapportering', body: 'Hvad I brugte, hvad I fik, og hvad vi ændrer næste gang. På almindeligt dansk.' },
-    ],
-    priceLabel: 'Annoncedrift fra',
-    adSpendNote: 'Annoncebudgettet betales direkte til Google og Meta og er ikke en del af honoraret.',
-    cta: 'Tal om annoncering',
-  },
-
-  // ----------------------------------------------------------------- pricing
-  pricing: {
-    eyebrow: 'Priser',
-    lines: ['Ingen skjulte', 'bureaupriser.'],
-    lead: 'Startpriser, ikke lokkepriser. Den endelige pris afhænger af omfang — og den får I, før vi går i gang.',
-    fromLabel: 'Fra',
-    perMonth: 'pr. måned',
-    oneOff: 'engangsbeløb',
-    exVat: 'ekskl. moms',
-    recommended: 'Mest valgt',
-    includesLabel: 'Indeholder typisk',
-    tiers: {
-      websites: {
-        name: 'Websites',
-        tagline: 'Design og udvikling af nyt website',
-        body: 'Til virksomheder der har brug for et website, som faktisk skaber henvendelser.',
-        includes: [
-          'Custom design og udvikling',
-          'Responsivt på alle skærme',
-          'SEO- og GEO-fundament',
-          'Analytics og konverteringssporing',
-          'Lancering og overdragelse',
-        ],
-      },
-      searchVisibility: {
-        name: 'SEO + GEO',
-        tagline: 'Synlighed i Google og AI-søgning',
-        body: 'Til virksomheder der vil findes af dem, der leder — uanset hvor de leder.',
-        includes: [
-          'Teknisk SEO og indholdsstruktur',
-          'Søgehensigt og indholdsplan',
-          'Struktureret data og schema',
-          'AI-synlighed og kildeovervågning',
-          'Månedlig rapportering',
-        ],
-      },
-      paid: {
-        name: 'Betalt vækst',
-        tagline: 'Google Ads og Meta Ads',
-        body: 'Til virksomheder der vil købe efterspørgsel og kunne se, hvad det koster at få en kunde.',
-        includes: [
-          'Opsætning og kampagnestruktur',
-          'Løbende drift og optimering',
-          'Kreativ og budskabstest',
-          'Konverteringssporing',
-          'Månedlig rapportering',
-        ],
-      },
-      partner: {
-        name: 'Growth Partner',
-        tagline: 'Løbende digital partner',
-        body: 'Til virksomheder der vil have én fast partner på hele det digitale — og en plan der bliver eksekveret.',
-        includes: [
-          'Løbende website-forbedringer',
-          'SEO, GEO og indhold',
-          'Annoncering efter behov',
-          'Analytics og konverteringsarbejde',
-          'Strategi og prioritering',
-          'Fast kontakt og fast kadence',
-        ],
-      },
-      care: {
-        name: 'Website-drift',
-        tagline: 'Pasning af et website vi har bygget',
-        body: 'Til virksomheder der vil have websitet holdt opdateret, sikkert og hurtigt.',
-        includes: [
-          'Opdateringer og backup',
-          'Sikkerhed og overvågning',
-          'Performance-tjek',
-          'Mindre indholdsrettelser',
-        ],
-      },
-    },
-    disclaimer: 'Alle priser er ekskl. moms og er startpriser. Annoncebudget, hosting, licenser, foto og eksterne omkostninger afregnes separat. Løbende aftaler kan opsiges med en måneds varsel.',
-    cta: 'Få en pris på jeres opgave',
-  },
-
-  // ------------------------------------------------------------------ process
-  process: {
-    eyebrow: 'Sådan arbejder vi',
-    heading: 'Fire trin. Ingen mellemled.',
-    lead: 'I taler med den person, der udfører arbejdet. Hele vejen.',
+  // --------------------------------------------------------------- the scan
+  /** Shared by the hero scanner, the dedicated section and the closing. */
+  scan: {
+    label: 'Din virksomheds website',
+    placeholder: 'https://dinvirksomhed.dk',
+    cta: 'Kør gratis Growth Scan',
+    micro: 'Gratis · Ingen kortoplysninger · Ca. 60 sek.',
+    invalid: 'Skriv en webadresse, fx dinvirksomhed.dk',
+    running: 'Scanner',
+    /** The sequence. Each line is shown while that stage runs. */
     steps: [
-      { label: 'Afklaring', body: 'Vi finder ud af, hvad problemet faktisk er, og hvad der er værd at gøre først. Gratis, og uden en salgstale forklædt som analyse.' },
-      { label: 'Plan og pris', body: 'I får et konkret omfang og en fast pris, før arbejdet begynder. Ingen timer der løber.' },
-      { label: 'Udførelse', body: 'Vi bygger. I ser det undervejs og kan justere, mens det stadig er billigt at justere.' },
-      { label: 'Drift og vækst', body: 'Efter lancering måler vi, retter og forbedrer — eller I overtager selv. Begge dele er i orden.' },
+      { key: 'connect', label: 'Forbinder til website' },
+      { key: 'google', label: 'Analyserer Google-synlighed' },
+      { key: 'ai', label: 'Tjekker AI-synlighed' },
+      { key: 'capture', label: 'Analyserer lead-indfangning' },
+      { key: 'trust', label: 'Tjekker anmeldelser og tillid' },
+      { key: 'competitors', label: 'Sammenligner med konkurrenter' },
+      { key: 'opportunities', label: 'Finder vækstmuligheder' },
+    ],
+    stepStatus: { done: 'Målt', queued: 'Fuld gennemgang', running: 'Kører' },
+
+    result: {
+      eyebrow: 'Growth Scan · Foreløbigt resultat',
+      scoreLabel: 'Growth Score',
+      preliminary: 'Foreløbig',
+      /** {n} is replaced with the number of measured signals. */
+      basis: 'Baseret på {n} målte signaler fra jeres website.',
+      pendingBasis:
+        'Google-synlighed, AI-synlighed og konkurrenter kræver søgedata og måles i den fulde gennemgang.',
+      dimensions: {
+        google: 'Google-synlighed',
+        ai: 'AI-synlighed',
+        capture: 'Lead-indfangning',
+        trust: 'Tillid og anmeldelser',
+        website: 'Teknisk fundament',
+      },
+      clientRendered:
+        'Websitet er bygget med JavaScript, så indhold som telefonnummer, formularer og anmeldelser kan ikke måles fra den rå HTML. De måles i den fulde gennemgang.',
+      pending: 'Fuld gennemgang',
+      measured: 'Målt',
+      findingsHeading: 'Vi fandt {n} vækstmuligheder',
+      severities: { critical: 'Kritisk', opportunity: 'Mulighed', quickwin: 'Quick win' },
+      severityPlural: { critical: 'Kritiske', opportunity: 'Muligheder', quickwin: 'Quick wins' },
+      lockedHeading: '{n} muligheder er låst',
+      lockedBody:
+        'Resten af gennemgangen — søgeord, AI-svar, konkurrenter og en prioriteret handlingsplan — får I i den fulde Growth Review.',
+      unlockCta: 'Få den fulde gennemgang',
+      rescan: 'Scan et andet website',
+      /** Shown when the site could not be reached. The lead path stays open. */
+      unreachableHeading: 'Vi kunne ikke nå websitet automatisk.',
+      unreachableBody:
+        'Det sker fx ved bot-beskyttelse eller en langsom server. Send adressen, så kører vi scanningen manuelt og sender resultatet.',
+      unreachableCta: 'Send til manuel scanning',
+      timestamp: 'Scannet',
+    },
+
+    /** The lead capture that turns a scan into a booked review. */
+    lead: {
+      eyebrow: 'Fuld Growth Review',
+      heading: 'Hvem skal have den fulde gennemgang?',
+      body: 'Vi gennemgår søgeord, AI-svar, konkurrenter og lead-flow manuelt og sender en prioriteret handlingsplan. Ingen salgssekvens.',
+      name: 'Navn',
+      company: 'Virksomhed',
+      email: 'E-mail',
+      phone: 'Telefon',
+      website: 'Website',
+      optional: 'valgfri',
+      submit: 'Book den fulde gennemgang',
+      sending: 'Sender…',
+      privacy: 'Oplysningerne bruges kun til at levere gennemgangen.',
+      successHeading: 'Tak — gennemgangen er bestilt.',
+      successBody:
+        'I hører fra os inden for én arbejdsdag med et tidspunkt til gennemgangen. Den tager cirka 30 minutter og kræver ingen forberedelse.',
+      errorHeading: 'Det gik galt.',
+      errorBody: 'Forespørgslen blev ikke sendt. Prøv igen om et øjeblik.',
+      errors: {
+        name: 'Skriv dit navn',
+        company: 'Skriv virksomhedens navn',
+        email: 'Skriv din e-mail',
+        emailInvalid: 'E-mailadressen ser ikke rigtig ud',
+      },
+    },
+  },
+
+  // ----------------------------------------------------------------- problem
+  problem: {
+    eyebrow: 'Problemet',
+    heading: 'Du kan miste kunden, før du ved, den findes.',
+    lead: 'Vækst lækker to steder. Begge er usynlige i regnskabet, fordi kunden aldrig blev til en henvendelse — eller blev det og forsvandt.',
+    leaks: [
+      {
+        index: '01',
+        title: 'De finder dig ikke',
+        body: 'Kunden søger — på Google, i Maps, i ChatGPT. Hvis svaret er en konkurrent, er valget truffet, før du var med.',
+        items: ['Google', 'ChatGPT', 'AI-søgning', 'Lokal søgning', 'Konkurrenter'],
+      },
+      {
+        index: '02',
+        title: 'Du fanger dem ikke',
+        body: 'Kunden henvender sig — og venter. Et ubesvaret opkald, en formular uden svar, et tilbud uden opfølgning. Leadet er tabt uden at nogen ser det.',
+        items: ['Ubesvarede opkald', 'Langsomt svar', 'Ingen opfølgning', 'Glemte tilbud', 'Gamle leads'],
+      },
+    ],
+    diagram: {
+      without: 'Uden Growth Engine',
+      with: 'Med Growth Engine',
+      search: 'Søgning',
+      lead: 'Lead',
+      customer: 'Kunde',
+      lost: 'Tabt',
+      leakLabels: ['Ikke fundet', 'Ubesvaret opkald', 'Ingen opfølgning'],
+      nodeLabels: ['Fundet', 'Fanget', 'Fulgt op'],
+      alt: 'To forløb. Uden Growth Engine falder leads ud undervejs. Med Growth Engine føres søgningen hele vejen til kunde.',
+    },
+  },
+
+  // ------------------------------------------------------------------ engine
+  engine: {
+    eyebrow: 'Growth Engine',
+    heading: 'Ét system. Fra søgning til kunde.',
+    lead: 'Ikke fire ydelser. Ét sammenhængende system, der finder, fanger og følger op — og måler det hele ét sted.',
+    stages: [
+      { key: 'discover', label: 'Discover', da: 'Bliv fundet' },
+      { key: 'analyze', label: 'Analyze', da: 'Find hullerne' },
+      { key: 'improve', label: 'Improve', da: 'Ret det vigtigste' },
+      { key: 'capture', label: 'Capture', da: 'Fang henvendelsen' },
+      { key: 'followup', label: 'Follow up', da: 'Følg op automatisk' },
+      { key: 'measure', label: 'Measure', da: 'Mål alt ét sted' },
+    ],
+    modules: [
+      {
+        key: 'visibility',
+        index: '01',
+        title: 'Visibility',
+        body: 'Følger de søgninger, der betyder noget for jer — på Google og i AI-svar — og viser, hvor I bliver valgt fra.',
+      },
+      {
+        key: 'optimization',
+        index: '02',
+        title: 'Optimization',
+        body: 'Finder og prioriterer de ændringer, der med størst sandsynlighed flytter synlighed og konvertering. Tre ad gangen.',
+      },
+      {
+        key: 'recovery',
+        index: '03',
+        title: 'Lead Recovery',
+        body: 'Svarer hurtigt, samler ubesvarede henvendelser op og følger op automatisk, indtil der er et svar.',
+      },
+      {
+        key: 'reporting',
+        index: '04',
+        title: 'Reporting',
+        body: 'Synlighed, muligheder og leads i ét overblik. Ingen rapporter, der skal læses — kun tal, der skal handles på.',
+      },
     ],
   },
 
-  // -------------------------------------------------------------------- about
-  about: {
-    eyebrow: 'Om Aagesen Growth',
-    heading: 'Lille setup. Seniorarbejde.',
-    body: [
-      'Aagesen Growth er ikke et bureau med 50 ansatte, og vi lader som ingenting. Vi er et lille, moderne setup, hvor den der sælger opgaven, også er den der løser den.',
-      'Det betyder kortere vej fra beslutning til udførelse, ingen account-lag mellem jer og arbejdet, og ingen overhead I betaler for uden at få noget for. Til gengæld tager vi ikke alting ind — vi siger nej til opgaver, vi ikke er de rigtige til.',
-    ],
-    points: [
-      { label: 'Direkte adgang', body: 'I skriver til den, der bygger. Ikke til en projektkoordinator.' },
-      { label: 'Fast omfang', body: 'I ved hvad der leveres, før vi går i gang.' },
-      { label: 'Hurtig udførelse', body: 'Små beslutningsveje betyder, at ting bliver lavet i denne uge, ikke i næste kvartal.' },
-    ],
-    disclosure: 'Aagesen Growth ApS er en del af MOWE Systems ApS.',
+  // ----------------------------------------------------------------- product
+  product: {
+    eyebrow: 'Growth Engine · Dashboard',
+    heading: 'Alt, der driver vækst. Ét overblik.',
+    lead: 'Sådan ser systemet ud for jer. Tallene her er eksempler på, hvad dashboardet viser — ikke målte resultater.',
+    note: 'Eksempeldata',
+    period: 'Seneste 30 dage',
+    metrics: {
+      score: 'Growth Score',
+      google: 'Google-synlighed',
+      ai: 'AI-synlighed',
+      received: 'Leads modtaget',
+      recovered: 'Leads reddet',
+      appointments: 'Aftaler',
+      opportunities: 'Vækstmuligheder',
+      actions: 'Handlinger udført',
+      response: 'Median svartid',
+    },
+    competitors: {
+      heading: 'Synlighed vs. konkurrenter',
+      you: 'Jer',
+      competitor: 'Konkurrent',
+    },
+    actions: {
+      heading: 'Growth Actions',
+      status: { done: 'Udført', active: 'I gang', next: 'Næste' },
+      items: [
+        'Servicesider for de tre vigtigste ydelser',
+        'Automatisk svar ved ubesvaret opkald',
+        'Anmeldelsesflow efter afsluttet opgave',
+      ],
+    },
+    feed: {
+      heading: 'Lead-flow',
+      items: [
+        { kind: 'lead', text: 'Ny henvendelse via formular', meta: 'svar sendt efter 40 sek.' },
+        { kind: 'recovered', text: 'Ubesvaret opkald', meta: 'SMS-opfølgning sendt' },
+        { kind: 'booked', text: 'Tilbud fulgt op', meta: 'aftale booket' },
+      ],
+    },
   },
 
-  // ---------------------------------------------------------------- final cta
-  finalCta: {
-    lines: ['Lad os finde ud af,', 'hvad der faktisk', 'flytter noget.'],
-    lead: 'Fortæl kort, hvad der ikke virker i dag. Så fortæller vi, hvad vi ville prioritere først — også hvis svaret er, at I ikke har brug for os.',
-    primary: 'Start et projekt',
-    secondary: 'Skriv direkte',
-    reassure: 'Ingen binding. Intet salgsopkald.',
+  // ------------------------------------------------------------ before/after
+  beforeAfter: {
+    eyebrow: 'Driftsforskellen',
+    heading: 'Samme henvendelse. To forløb.',
+    before: {
+      label: 'Før',
+      flows: [
+        ['Lead kommer ind', 'venter', 'intet svar', 'glemt'],
+        ['Kunden søger', 'konkurrent vises', 'kunde tabt'],
+      ],
+    },
+    after: {
+      label: 'Med Growth Engine',
+      flow: [
+        'Søgning',
+        'Virksomhed fundet',
+        'Lead fanget',
+        'Svar med det samme',
+        'Opfølgning',
+        'Aftale',
+        'Målbart resultat',
+      ],
+    },
   },
 
-  // ------------------------------------------------------------------- footer
+  // ------------------------------------------------------------ scan section
+  scanSection: {
+    eyebrow: 'Gratis Growth Scan',
+    heading: 'Find ud af, hvor din virksomhed taber vækst.',
+    lead: 'Skriv jeres webadresse. Scanningen måler det, der kan måles automatisk, og markerer, hvad der kræver den fulde gennemgang.',
+    analyses: [
+      { title: 'Google-synlighed', body: 'Bliver I fundet på de søgninger, der giver kunder?' },
+      { title: 'AI-synlighed', body: 'Anbefaler ChatGPT og AI-søgning jer — eller konkurrenten?' },
+      { title: 'Website-konvertering', body: 'Gør sitet det let at ringe, skrive og bestille?' },
+      { title: 'Lead-indfangning', body: 'Hvad sker der, når nogen henvender sig uden for åbningstid?' },
+      { title: 'Anmeldelser og tillid', body: 'Giver jeres profil kunden grund til at vælge jer?' },
+      { title: 'Konkurrentposition', body: 'Hvem vises, hvor I ikke gør?' },
+    ],
+  },
+
+  // -------------------------------------------------------------------- how
+  how: {
+    eyebrow: 'Sådan virker det',
+    heading: 'I skal ikke blive marketingfolk. Vi driver systemet.',
+    steps: [
+      { index: '01', title: 'Scan', body: 'Vi analyserer jeres nuværende vækstsystem: synlighed, konvertering, lead-flow og konkurrenter.' },
+      { index: '02', title: 'Installér', body: 'Growth Engine kobles på jeres website, telefon og Google Business-profil. Typisk inden for to uger.' },
+      { index: '03', title: 'Forbedr', body: 'De vækstmuligheder med størst værdi bliver udført først. Tre prioriterede handlinger om måneden.' },
+      { index: '04', title: 'Kør', body: 'Synlighed og opfølgning overvåges og forbedres løbende. I ser det hele i ét dashboard.' },
+    ],
+  },
+
+  // ---------------------------------------------------------------- pricing
+  pricing: {
+    eyebrow: 'Pris',
+    heading: 'Én pris. Hele systemet.',
+    name: 'Growth Engine',
+    setup: 7500,
+    monthly: 5995,
+    setupLabel: 'opsætning',
+    monthlyLabel: '/ måned',
+    vat: 'Priser ekskl. moms',
+    binding: 'Ingen binding ud over løbende måned + 30 dage.',
+    includedHeading: 'Det får I',
+    included: [
+      'Overvågning af Google- og AI-synlighed',
+      'Månedlig Growth Scan',
+      '3 prioriterede Growth Actions om måneden',
+      'Automatisk svar på nye henvendelser',
+      'Opsamling af ubesvarede leads',
+      'Opfølgningssekvenser',
+      'Anmeldelsesflow',
+      'Growth-dashboard',
+      'Månedlig rapportering',
+    ],
+    microcopy: 'Bygget til virksomheder, hvor én ekstra kunde kan betale for systemet.',
+    cta: 'Kør gratis Growth Scan',
+  },
+
+  // ------------------------------------------------------- founder program
+  founder: {
+    eyebrow: 'Founder Program',
+    heading: 'Vi udvælger de første tre virksomheder til Growth Engine.',
+    body: 'Tre pladser til virksomheder, der vil være med fra starten og give ærlig feedback, mens systemet bliver bygget færdigt omkring dem.',
+    setup: 2995,
+    monthly: 3995,
+    duration: 'i 3 måneder',
+    seatsLabel: 'pladser',
+    seats: 3,
+    conditions: ['Maks. 3 virksomheder', 'Samme system, samme drift', 'Herefter normal pris'],
+    cta: 'Ansøg via Growth Scan',
+    ariaLabel: 'Founder Program: begrænset lanceringstilbud',
+  },
+
+  // -------------------------------------------------------------------- fit
+  fit: {
+    eyebrow: 'Hvem det er til',
+    heading: 'Growth Engine er bygget til virksomheder, hvor:',
+    forItems: [
+      'kunderne har en reel ordre- eller livstidsværdi',
+      'henvendelser kommer via website og telefon',
+      'lokal søgning betyder noget for salget',
+      'forretningen allerede fungerer og har efterspørgsel',
+      'vækst kan retfærdiggøre en investering',
+    ],
+    industriesLabel: 'Typisk',
+    industries: ['Varmepumper', 'Solceller', 'Tag', 'Vinduer', 'El', 'VVS', 'Renovering'],
+    notHeading: 'Ikke det rigtige match, hvis:',
+    notItems: [
+      'virksomheden er helt ny og uden efterspørgsel',
+      'I kun leder efter opslag til sociale medier',
+      'I forventer garanterede leads uden selv at svare kunderne',
+    ],
+  },
+
+  // -------------------------------------------------------------------- faq
+  faq: {
+    eyebrow: 'FAQ',
+    heading: 'Spørgsmål, vi får.',
+    items: [
+      {
+        q: 'Hvad er Growth Engine helt præcist?',
+        a: 'Et løbende system, der gør jer mere synlige på Google og i AI-svar, fanger henvendelser hurtigere og følger op automatisk — målt i ét dashboard. Vi driver det. I får kunderne.',
+      },
+      {
+        q: 'Er det SEO?',
+        a: 'SEO er en del af det, men ikke hele det. Synlighed på Google er én indgang. AI-svar, lead-indfangning og opfølgning er de tre andre, og de mangler i de fleste SEO-aftaler.',
+      },
+      {
+        q: 'Er Google Ads inkluderet?',
+        a: 'Nej. Growth Engine arbejder med den synlighed og de leads, I har og kan få uden annoncebudget. Annoncering kan lægges ovenpå, hvis tallene viser, at det giver mening.',
+      },
+      {
+        q: 'Virker det med vores nuværende website?',
+        a: 'Ja. Growth Engine kobles på det website, I har. Er der ændringer, der giver stor effekt, indgår de i de månedlige Growth Actions.',
+      },
+      {
+        q: 'Skal vi have et nyt CRM?',
+        a: 'Nej. Lead-opsamling og opfølgning kører i Growth Engine. Bruger I allerede et system, kan leads sendes videre dertil.',
+      },
+      {
+        q: 'Hvad er AI-synlighed?',
+        a: 'Om ChatGPT, Google AI-oversigter og lignende nævner og anbefaler jer, når nogen spørger efter en leverandør i jeres område. Det kræver andet og mere end klassisk SEO.',
+      },
+      {
+        q: 'Hvor hurtigt kan det installeres?',
+        a: 'Typisk inden for to uger fra aftale. Scanningen og den første handlingsplan er klar, før vi kobler noget på.',
+      },
+      {
+        q: 'Kan I garantere flere kunder?',
+        a: 'Nej, og det bør ingen. Vi kan garantere, at synlighed, svartid og opfølgning bliver målt og forbedret hver måned — og at I kan se det i tallene.',
+      },
+      {
+        q: 'Hvad sker der efter Growth Scan?',
+        a: 'I får det foreløbige resultat med det samme. Beder I om den fulde gennemgang, får I en 30 minutters Growth Review med søgeord, AI-svar, konkurrenter og en prioriteret plan — uden forpligtelse.',
+      },
+      {
+        q: 'Er der binding?',
+        a: 'Nej. Opsætningen betales én gang. Abonnementet kan opsiges med løbende måned + 30 dage.',
+      },
+    ],
+  },
+
+  // ------------------------------------------------------------- final cta
+  final: {
+    eyebrow: 'Gratis Growth Scan',
+    heading: 'Se, hvad der holder jeres vækst tilbage.',
+    lead: 'Skriv webadressen. Resten klarer scanningen.',
+  },
+
+  // ----------------------------------------------------------------- footer
   footer: {
-    description: 'Websites, synlighed og annoncering hos én ansvarlig partner — for virksomheder, der vil have det gjort ordentligt.',
-    servicesHeading: 'Ydelser',
+    description:
+      'Growth Engine: synlighed på Google og AI, hurtigere svar og automatisk opfølgning — for servicevirksomheder, der vil have flere kunder og færre tabte leads.',
+    productHeading: 'Growth Engine',
     companyHeading: 'Virksomhed',
-    legalHeading: 'Juridisk',
     privacy: 'Privatlivspolitik',
     cookies: 'Cookiepolitik',
     cvr: 'CVR',
     rights: 'Alle rettigheder forbeholdes.',
-    builtBy: 'Designet og bygget af Aagesen Growth.',
+    poweredBy: 'Growth Engine drives af MOWE — Aagesen Growths egen platform.',
   },
 
-  // -------------------------------------------------------------------- pages
+  // ------------------------------------------------------------------ pages
   pages: {
-    pricing: {
-      title: 'Priser',
-      description: 'Startpriser på websites, SEO + GEO, betalt annoncering, growth partner og website-drift. Ingen skjulte bureaupriser.',
-      heading: 'Priser',
-      lead: 'Startpriser for hver disciplin. Den endelige pris afhænger af omfang, og den får I skriftligt, før vi går i gang.',
+    review: {
+      title: 'Book en Growth Review',
+      description:
+        'Book en gratis Growth Review: 30 minutters gennemgang af jeres Google- og AI-synlighed, lead-flow og konkurrenter — med en prioriteret handlingsplan.',
+      heading: 'Book en Growth Review',
+      lead: 'En 30 minutters gennemgang af, hvor I taber kunder — og hvad der skal rettes først. Gratis og uden forpligtelse.',
+      agendaHeading: 'Det gennemgår vi',
+      agenda: [
+        'Søgninger, hvor konkurrenter vises, og I ikke gør',
+        'Hvad ChatGPT og AI-søgning svarer om jeres marked',
+        'Hvad der sker med en henvendelse i dag — fra formular til svar',
+        'Tre prioriterede handlinger med størst forventet effekt',
+      ],
+      noneHeading: 'Det sker ikke',
+      none: ['Ingen salgssekvens', 'Ingen automatiske opkald', 'Oplysningerne bruges kun til gennemgangen'],
     },
     work: {
       title: 'Projekter',
-      description: 'Udvalgte projekter fra Aagesen Growth — websites, digitale platforme og løbende vækstsamarbejder.',
+      description: 'Udvalgte projekter fra Aagesen Growth — websites og digitale systemer bygget for rigtige virksomheder.',
       heading: 'Projekter',
-      lead: 'Udvalgt arbejde. Websites, digitale platforme og løbende samarbejder.',
+      lead: 'Udvalgt arbejde fra tiden før Growth Engine. Websites og digitale systemer for rigtige virksomheder.',
       allLabel: 'Alle projekter',
       disciplinesLabel: 'Discipliner',
       deliveredLabel: 'Leveret',
@@ -362,56 +466,7 @@ const da = {
       challengeLabel: 'Udgangspunktet',
       periodLabel: 'Periode',
       nextLabel: 'Næste projekt',
-      similarCta: 'Start et lignende projekt',
-    },
-    contact: {
-      title: 'Kontakt',
-      description: 'Skriv til Aagesen Growth om websites, SEO, GEO eller annoncering. I får et konkret svar — ikke en salgssekvens.',
-      heading: 'Start et projekt',
-      lead: 'Fortæl kort hvad I har brug for. I får et konkret svar fra den person, der ville lave arbejdet.',
-      formHeading: 'Skriv til os',
-      name: 'Navn',
-      company: 'Virksomhed',
-      email: 'E-mail',
-      website: 'Website',
-      help: 'Hvad handler det om?',
-      helpPlaceholder: 'Vælg et område',
-      helpOther: 'Ved ikke endnu / andet',
-      message: 'Besked',
-      messagePlaceholder: 'Hvad virker ikke i dag, og hvad kunne I tænke jer i stedet?',
-      submit: 'Send henvendelse',
-      sending: 'Sender…',
-      successHeading: 'Tak — vi har den.',
-      successBody: 'Vi vender tilbage hurtigst muligt, typisk inden for én arbejdsdag.',
-      errorHeading: 'Det gik galt.',
-      errorBody: 'Beskeden blev ikke sendt. Prøv igen, eller skriv direkte til os på e-mail.',
-      required: 'påkrævet',
-      optional: 'valgfri',
-      errors: {
-        name: 'Skriv dit navn',
-        email: 'Skriv din e-mail, så vi kan svare',
-        emailInvalid: 'E-mailadressen ser ikke rigtig ud',
-        message: 'Skriv kort, hvad I gerne vil have hjælp til',
-      },
-      nextHeading: 'Hvad der sker nu',
-      next: [
-        'I får en kvittering på skærmen med det samme.',
-        'Vi læser henvendelsen og kigger selv på jeres side, hvis I har oplyst den.',
-        'I får et konkret svar — enten et par opklarende spørgsmål eller et forslag til en kort samtale.',
-      ],
-      noneHeading: 'Hvad der ikke sker',
-      none: [
-        'Ingen automatiske mailsekvenser',
-        'Ingen opfølgende salgsopkald',
-        'Oplysningerne bruges kun til at svare jer',
-      ],
-      directHeading: 'Eller direkte',
-    },
-    faq: {
-      title: 'Ofte stillede spørgsmål',
-      description: 'Svar på de spørgsmål vi oftest får om priser, tidsplan, websites, SEO, GEO og annoncering.',
-      heading: 'Ofte stillede spørgsmål',
-      lead: 'De spørgsmål vi oftest får. Mangler der et, så spørg.',
+      similarCta: 'Kør en gratis Growth Scan',
     },
     notFound: {
       title: 'Siden findes ikke',
@@ -422,29 +477,20 @@ const da = {
     legalNotice: '',
   },
 
-  // -------------------------------------------------------------------- misc
   cookies: {
     heading: 'Cookies',
     body: 'Vi bruger nødvendige cookies for at siden fungerer. Med dit samtykke bruger vi også statistik- og marketingcookies. Du kan ændre dit valg når som helst.',
     accept: 'Accepter alle',
     reject: 'Afvis',
-    customise: 'Tilpas',
-    save: 'Gem valg',
     policy: 'Cookiepolitik',
-    necessary: 'Nødvendige',
-    necessaryBody: 'Kræves for at siden fungerer. Kan ikke fravælges.',
-    statistics: 'Statistik',
-    statisticsBody: 'Hjælper os med at forstå, hvordan siden bruges.',
-    marketing: 'Marketing',
-    marketingBody: 'Bruges til at måle og målrette annoncering.',
-    always: 'Altid aktiv',
   },
 
-  // --------------------------------------------------------------- work copy
-  /**
-   * Per-project copy. `media` keys match `mediaKey` in data/cases.ts — alt
-   * text has to be in the language the page is read in.
-   */
+  meta: {
+    homeTitle: 'Growth Engine — flere kunder, færre tabte leads | Aagesen Growth',
+    homeDescription:
+      'Growth Engine hjælper servicevirksomheder med at blive fundet på Google og AI – og følger automatisk op på potentielle kunder. Kør en gratis Growth Scan på 60 sekunder.',
+  },
+
   work: {
     cases: {
       'plus-eins': {
@@ -604,47 +650,8 @@ const da = {
       },
     } as Record<string, CaseCopy>,
   },
-
-  // ---------------------------------------------------------------------- faq
-  faq: [
-    {
-      q: 'Hvad koster en hjemmeside?',
-      a: 'Website-projekter starter fra 12.500 kr. ekskl. moms. Prisen afhænger af omfang: antal sider, hvor meget indhold der skal produceres, om der skal CMS eller integrationer på, og hvor meget funktionalitet der skal bygges. I får en fast pris, før arbejdet går i gang.',
-    },
-    {
-      q: 'Hvor lang tid tager et website?',
-      a: 'Et typisk website tager to til seks uger fra opstart til lancering. Det, der oftest forlænger et projekt, er ikke udviklingen — det er indhold, billeder og feedbackrunder. Vi siger på forhånd, hvad vi har brug for fra jer og hvornår.',
-    },
-    {
-      q: 'Hvad er forskellen på SEO og GEO?',
-      a: 'SEO handler om at blive fundet i søgeresultaterne — teknisk fundament, indholdsstruktur og søgehensigt. GEO handler om at blive forstået og citeret i AI-genererede svar, for eksempel i ChatGPT, Perplexity eller Googles AI Overviews. De trækker på mange af de samme ting, men GEO stiller skarpere krav til struktureret data og til, at jeres information er entydig og konsistent på tværs af kilder.',
-    },
-    {
-      q: 'Er annoncebudgettet inkluderet i prisen?',
-      a: 'Nej. Honoraret dækker opsætning, drift, optimering og rapportering. Selve annoncebudgettet betaler I direkte til Google og Meta, så I har fuld indsigt i, hvad der bliver brugt.',
-    },
-    {
-      q: 'Kan I forbedre vores nuværende website i stedet for at bygge et nyt?',
-      a: 'Ofte, ja. Hvis fundamentet er sundt, er det som regel billigere og hurtigere at rette struktur, hastighed, indhold og konverteringspunkter end at starte forfra. Vi siger det ærligt, hvis vi mener, at et nyt website er det rigtige — og lige så ærligt, hvis det ikke er.',
-    },
-    {
-      q: 'Binder vi os til en lang aftale?',
-      a: 'Nej. Løbende aftaler kører måned for måned og kan opsiges med en måneds varsel. Et website-projekt er en engangsopgave med en fast pris.',
-    },
-    {
-      q: 'Hvem laver arbejdet?',
-      a: 'Den person, I taler med. Aagesen Growth er et lille setup — der er ikke et account-lag mellem jer og den, der bygger. Hvis en opgave kræver kompetencer, vi ikke har, siger vi det og henviser videre.',
-    },
-    {
-      q: 'Hvad hvis vi allerede har et bureau?',
-      a: 'Så er der som regel to muligheder: vi tager en afgrænset del, som de ikke dækker, eller vi kigger på tallene sammen med jer og siger, hvad vi ville gøre anderledes. Vi skal ikke bruge tid på at overbevise jer om at skifte, hvis det, I har, virker.',
-    },
-  ],
-
-  meta: {
-    homeTitle: 'Aagesen Growth — websites, SEO, GEO og betalt vækst',
-    homeDescription: 'Websites, SEO, GEO og betalt annoncering til virksomheder, der vil have bedre digitale resultater uden unødvendigt bureaukompleksitet. Websites fra 12.500 kr.',
-  },
 };
+
+export type DictionaryShape = typeof da;
 
 export default da;

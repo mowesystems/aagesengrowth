@@ -5,34 +5,70 @@
 [build.environment]
   NODE_VERSION = "20"
 
+[functions]
+  node_bundler = "esbuild"
+
+# netlify dev must know this is a Vite app, or module scripts get the SPA rewrite.
+[dev]
+  framework = "vite"
+  targetPort = 5173
+
 # -----------------------------------------------------------------------------
 # Retired URLs.
 #
-# The services, about and booking pages were folded into the homepage, so their
-# addresses now 301 to the section that replaced them rather than 404ing and
-# losing whatever link equity they had. These must stay above the SPA fallback:
-# Netlify takes the first matching rule.
+# The site is now one Growth Engine landing page plus a review page. Every
+# address that used to exist 301s to the section or page that replaced it, so
+# no indexed link 404s. These must stay above the SPA fallback: Netlify takes
+# the first matching rule.
 # -----------------------------------------------------------------------------
 [[redirects]]
-  from = "/ydelser"
-  to = "/#ydelser"
+  from = "/priser"
+  to = "/#pris"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/om"
-  to = "/#om"
+  from = "/faq"
+  to = "/#faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/kontakt"
+  to = "/growth-review"
   status = 301
   force = true
 
 [[redirects]]
   from = "/book-moede"
-  to = "/kontakt"
+  to = "/growth-review"
   status = 301
   force = true
 
-# The work index was /projekter before and still is; the English and Swedish
-# versions are new, so nothing needs redirecting there.
+[[redirects]]
+  from = "/ydelser"
+  to = "/#growth-engine"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/om"
+  to = "/"
+  status = 301
+  force = true
+
+# The English and Swedish versions of the old agency site. Danish only now.
+[[redirects]]
+  from = "/en/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sv/*"
+  to = "/"
+  status = 301
+  force = true
 
 # -----------------------------------------------------------------------------
 # Long-lived assets. Everything under /assets carries a content hash in its
@@ -54,8 +90,17 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
 # -----------------------------------------------------------------------------
-# SPA fallback. Last, so every rule above wins over it.
+# SPA fallback. Last, so every rule above wins over it. The Growth Scan
+# function declares its own path (/api/growth-scan) and is matched before this.
 # -----------------------------------------------------------------------------
 [[redirects]]
   from = "/*"

@@ -106,14 +106,14 @@ const SEOHead: React.FC<SEOHeadProps> = ({ title, description, schema, noindex }
         const link = document.createElement('link');
         link.setAttribute('rel', 'alternate');
         link.setAttribute('hreflang', localeMeta[alt].hreflang);
-        link.setAttribute('href', `${company.domain}${translatePath(pathname, alt)}`);
+        link.setAttribute('href', `${company.domain}${translatePath(pathname)}`);
         document.head.appendChild(link);
       });
 
       const fallback = document.createElement('link');
       fallback.setAttribute('rel', 'alternate');
       fallback.setAttribute('hreflang', 'x-default');
-      fallback.setAttribute('href', `${company.domain}${translatePath(pathname, 'da')}`);
+      fallback.setAttribute('href', `${company.domain}${translatePath(pathname)}`);
       document.head.appendChild(fallback);
     }
 

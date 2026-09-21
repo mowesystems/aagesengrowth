@@ -30,6 +30,15 @@ export default {
         // Body copy on paper — 5.5:1. Body copy on ink — 7.7:1.
         muted: '#5A6478',
         'muted-lit': '#9AA6BF',
+
+        // --- Signal states ---------------------------------------------
+        // Used sparingly, on findings and status only. Never as decoration.
+        critical: '#B3261E',
+        'critical-tint': '#FBEDEC',
+        amber: '#B4690E',
+        'amber-tint': '#FBF3E6',
+        good: '#137A4B',
+        'good-tint': '#E9F6EF',
       },
       fontFamily: {
         // Instrument Serif is the wordmark's own species — it carries the
@@ -61,6 +70,11 @@ export default {
       // The consent card sits above the header but below the mobile menu: when
       // someone has just opened the menu, that is the thing they asked for.
       zIndex: { header: '60', consent: '65', menu: '70' },
+      boxShadow: {
+        panel: '0 1px 2px rgba(11, 18, 32, 0.04), 0 24px 60px -36px rgba(11, 18, 32, 0.28)',
+        'panel-lit': '0 1px 0 rgba(247, 246, 242, 0.06) inset, 0 30px 80px -40px rgba(0, 0, 0, 0.7)',
+        glow: '0 0 0 4px rgba(27, 79, 232, 0.14), 0 18px 50px -20px rgba(27, 79, 232, 0.45)',
+      },
     },
   },
   plugins: [],
