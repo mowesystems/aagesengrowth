@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import BrandLogo from '@/components/BrandLogo';
+import LanguageSwitcher from '@/components/layout/LanguageSwitcher';
 import { homeAnchors } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import { track } from '@/lib/analytics';
@@ -134,14 +135,24 @@ const Header: React.FC = () => {
               ))}
             </nav>
 
-            <div className="hidden items-center gap-4 lg:flex">
+            <div className="hidden items-center gap-5 lg:flex">
+              <Link
+                to={path('booking')}
+                onClick={() => track('primary_cta_clicked', { source: 'header:desktop', cta: 'book_afklaring' })}
+                className="link-line text-[0.88rem] text-muted"
+              >
+                {t.cta.bookAfklaring}
+              </Link>
               <a href={scanHref} onClick={() => onScanClick('desktop')} className="btn btn-primary px-6">
                 {t.cta.scanShort}
                 <ArrowRight size={15} aria-hidden="true" />
               </a>
+              <span aria-hidden="true" className="h-4 w-px bg-ink/15" />
+              <LanguageSwitcher />
             </div>
 
             <div className="flex items-center gap-2 lg:hidden">
+              <LanguageSwitcher className="mr-1" />
               <a
                 href={scanHref}
                 onClick={() => onScanClick('mobile')}
@@ -185,7 +196,7 @@ const Header: React.FC = () => {
           <div className="grid-lines pointer-events-none absolute inset-0" aria-hidden="true" />
           <nav aria-label={t.header.menu} className="frame relative flex-1 pt-8">
             <ul className="rule">
-              {[...nav, { label: t.nav.review, href: path('review') }].map((link, index) => (
+              {[...nav, { label: t.nav.booking, href: path('booking') }].map((link, index) => (
                 <li key={link.href} className="rule-row">
                   {link.href.startsWith('/') && !link.href.includes('#') ? (
                     <Link to={link.href} className="flex min-h-[3.8rem] items-baseline gap-5 py-2 font-sans text-[2.1rem] font-semibold leading-none tracking-[-0.03em] text-ink">
@@ -202,11 +213,18 @@ const Header: React.FC = () => {
               ))}
             </ul>
           </nav>
-          <div className="frame relative mt-10">
+          <div className="frame relative mt-10 space-y-3">
             <a href={scanHref} onClick={() => { close(); onScanClick('menu'); }} className="btn btn-primary btn-lg w-full">
               {t.cta.scan}
               <ArrowRight size={16} aria-hidden="true" />
             </a>
+            <Link
+              to={path('booking')}
+              onClick={() => { close(); track('primary_cta_clicked', { source: 'header:menu', cta: 'book_afklaring' }); }}
+              className="btn btn-outline btn-lg w-full"
+            >
+              {t.cta.bookAfklaring}
+            </Link>
           </div>
         </div>
       )}

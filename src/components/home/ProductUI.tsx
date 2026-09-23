@@ -21,10 +21,10 @@ const SAMPLE = {
   actions: 3,
   responseMinutes: 2,
   competitors: [
-    { name: 'Jer', value: 68, you: true },
-    { name: 'Konkurrent A', value: 74 },
-    { name: 'Konkurrent B', value: 52 },
-    { name: 'Konkurrent C', value: 39 },
+    { letter: '', value: 68, you: true },
+    { letter: 'A', value: 74 },
+    { letter: 'B', value: 52 },
+    { letter: 'C', value: 39 },
   ],
   trend: [38, 41, 40, 46, 49, 53, 52, 58, 61, 64, 66, 68],
 };
@@ -125,7 +125,7 @@ const ProductUI: React.FC = () => {
                   <ScoreRing value={SAMPLE.score} active={inView} label={p.metrics.score} size={150} className="text-paper" />
                   <div className="min-w-0 flex-1">
                     <Sparkline points={SAMPLE.trend} active={inView} />
-                    <p className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.16em] text-muted-lit">12 uger</p>
+                    <p className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.16em] text-muted-lit">{p.trendLabel}</p>
                   </div>
                 </div>
                 <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-5">
@@ -174,9 +174,9 @@ const ProductUI: React.FC = () => {
                 <p className="font-mono text-[0.56rem] uppercase tracking-[0.18em] text-muted-lit">{p.competitors.heading}</p>
                 <ul className="mt-4 space-y-3">
                   {SAMPLE.competitors.map((c, i) => (
-                    <li key={c.name}>
+                    <li key={c.letter || 'you'}>
                       <div className="flex items-baseline justify-between">
-                        <span className={`text-[0.82rem] ${c.you ? 'font-semibold text-paper' : 'text-muted-lit'}`}>{c.you ? p.competitors.you : c.name}</span>
+                        <span className={`text-[0.82rem] ${c.you ? 'font-semibold text-paper' : 'text-muted-lit'}`}>{c.you ? p.competitors.you : `${p.competitors.competitor} ${c.letter}`}</span>
                         <span className="font-mono text-[0.62rem] tabular-nums text-muted-lit">{c.value}</span>
                       </div>
                       <div className="meter mt-1.5">

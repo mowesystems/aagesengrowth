@@ -194,54 +194,7 @@ export const cases: CaseItem[] = [
       ],
     },
   },
-  {
-    id: 'mowe-systems',
-    slug: 'mowe-systems',
-    client: 'MOWE Systems',
-    logoPath: '/brand/mowe-systems.png',
-    logoWebp: '/brand/mowe-systems.webp',
-    // The mark occupies roughly the upper 60% of a square canvas with heavy
-    // asymmetric transparent padding; scale up and pull toward the mark.
-    logoScale: 1.5,
-    logoPosition: '50% 38%',
-    url: 'https://mowesystems.com',
-    metrics: [],
-    media: {
-      desktop: {
-        base: '/media/mowe-web-desktop',
-        chrome: 'mowesystems.com',
-        widths: [768, 1200, 1800],
-        ratio: 1.6,
-        kind: 'browser',
-        mediaKey: 'desktop',
-      },
-      mobile: {
-        base: '/media/mowe-web-mobile',
-        widths: [360, 540, 780],
-        ratio: 390 / 844,
-        kind: 'phone',
-        mediaKey: 'mobile',
-      },
-      screens: [
-        {
-          base: '/media/mowe-web-product',
-          chrome: 'mowesystems.com',
-          widths: [768, 1200, 1800],
-          ratio: 1.6,
-          kind: 'browser',
-          mediaKey: 'screenProduct',
-        },
-        {
-          base: '/media/mowe-web-steps',
-          chrome: 'mowesystems.com',
-          widths: [768, 1200, 1800],
-          ratio: 1.6,
-          kind: 'browser',
-          mediaKey: 'screenSteps',
-        },
-      ],
-    },
-  },
+
 ];
 
 export const getCaseBySlug = (slug: string) => cases.find((item) => item.slug === slug);

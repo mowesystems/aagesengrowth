@@ -44,12 +44,12 @@ const LegalPage: React.FC<LegalPageProps> = ({ eyebrow, title, lead, notice, sec
               <div className="space-y-4 lg:sticky lg:top-28">
                 {locale !== 'da' && (
                   <div className="border-l-2 border-brand bg-brand-tint p-5">
-                    <p className="text-sm leading-relaxed text-ink">{t.pages.legalNotice}</p>
+                    <p className="text-sm leading-relaxed text-ink">{t.legal.governingNotice}</p>
                   </div>
                 )}
                 {notice && (
                   <div className="border border-ink/15 p-5">
-                    <p className="meta">Bemærk</p>
+                    <p className="meta">{t.legal.noticeLabel}</p>
                     <p className="mt-3 text-sm leading-relaxed text-muted">{notice}</p>
                   </div>
                 )}

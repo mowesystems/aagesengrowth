@@ -2,6 +2,7 @@ import React from 'react';
 import { track } from '@/lib/analytics';
 import { normaliseUrl, ScanFailure, startScan } from '@/lib/growthScan/client';
 import type { GrowthScanError, GrowthScanResult } from '@/lib/growthScan/types';
+import { useLocale } from '@/i18n/useLocale';
 
 export type ScanSource = 'hero' | 'section' | 'final' | 'header' | 'founder' | 'other';
 
@@ -60,6 +61,7 @@ const ScanContext = React.createContext<ScanApi>({
  * cuts the sequence short and a slow one never shows an empty result.
  */
 export const ScanProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { t } = useLocale();
   const [state, setState] = React.useState<ScanState>(initial);
   const abortRef = React.useRef<AbortController | null>(null);
 
@@ -93,12 +95,12 @@ export const ScanProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const detail: GrowthScanError =
           error instanceof ScanFailure
             ? error.detail
-            : { error: 'server_error', message: 'Scanningen kunne ikke gennemføres.' };
+            : { error: 'server_error', message: t.scan.result.networkError };
         setState((prev) => ({ ...prev, error: detail }));
       });
 
     return true;
-  }, []);
+  }, [t]);
 
   const finishSequence = React.useCallback(() => {
     setState((prev) => ({ ...prev, sequenceDone: true }));

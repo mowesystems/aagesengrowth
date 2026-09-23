@@ -41,7 +41,7 @@ const Engine: React.FC = () => {
               <circle r="4" className="signal fill-brand" style={{ offsetPath: "path('M0 17 L1000 17')", ['--dur' as string]: '7s', ['--delay' as string]: '3.5s' }} />
             </svg>
 
-            <ol className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-4">
+            <ol className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6">
               {stages.map((stage, i) => (
                 <li key={stage.key} className="relative">
                   <div className="flex items-center gap-3 lg:block">
@@ -53,7 +53,7 @@ const Engine: React.FC = () => {
                     </span>
                     <div className="lg:mt-5">
                       <p className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-brand">{stage.label}</p>
-                      <p className="mt-1 text-[0.95rem] font-semibold leading-snug">{stage.da}</p>
+                      <p className="mt-1 text-[0.95rem] font-semibold leading-snug">{stage.description}</p>
                     </div>
                   </div>
                 </li>

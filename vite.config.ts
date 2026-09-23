@@ -62,7 +62,7 @@ const sitemap = (): Plugin => ({
   generateBundle() {
     const priority: Record<string, string> = {
       home: '1.0',
-      review: '0.9',
+      booking: '0.9',
       work: '0.6',
       privacy: '0.3',
       cookies: '0.3',
@@ -88,7 +88,7 @@ const sitemap = (): Plugin => ({
       });
     });
 
-    const hreflangs: Record<string, string> = { da: 'da-DK' };
+    const hreflangs: Record<string, string> = { da: 'da-DK', en: 'en' };
 
     const body = entries
       .map((entry) => {

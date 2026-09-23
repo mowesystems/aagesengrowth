@@ -74,6 +74,15 @@ const SEOHead: React.FC<SEOHeadProps> = ({ title, description, schema, noindex }
     upsertMeta('og:type', 'website', true);
     upsertMeta('og:site_name', 'Aagesen Growth', true);
     upsertMeta('og:locale', localeMeta[locale].ogLocale, true);
+    removeAll('meta[property="og:locale:alternate"]');
+    locales
+      .filter((alt) => alt !== locale)
+      .forEach((alt) => {
+        const meta = document.createElement('meta');
+        meta.setAttribute('property', 'og:locale:alternate');
+        meta.setAttribute('content', localeMeta[alt].ogLocale);
+        document.head.appendChild(meta);
+      });
     upsertMeta('og:title', fullTitle, true);
     upsertMeta('og:description', description, true);
     upsertMeta('og:url', canonicalUrl, true);
@@ -106,14 +115,14 @@ const SEOHead: React.FC<SEOHeadProps> = ({ title, description, schema, noindex }
         const link = document.createElement('link');
         link.setAttribute('rel', 'alternate');
         link.setAttribute('hreflang', localeMeta[alt].hreflang);
-        link.setAttribute('href', `${company.domain}${translatePath(pathname)}`);
+        link.setAttribute('href', `${company.domain}${translatePath(pathname, alt)}`);
         document.head.appendChild(link);
       });
 
       const fallback = document.createElement('link');
       fallback.setAttribute('rel', 'alternate');
       fallback.setAttribute('hreflang', 'x-default');
-      fallback.setAttribute('href', `${company.domain}${translatePath(pathname)}`);
+      fallback.setAttribute('href', `${company.domain}${translatePath(pathname, 'da')}`);
       document.head.appendChild(fallback);
     }
 

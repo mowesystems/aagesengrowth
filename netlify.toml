@@ -35,13 +35,19 @@
 
 [[redirects]]
   from = "/kontakt"
-  to = "/growth-review"
+  to = "/book-en-afklaring"
   status = 301
   force = true
 
 [[redirects]]
   from = "/book-moede"
-  to = "/growth-review"
+  to = "/book-en-afklaring"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/growth-review"
+  to = "/book-en-afklaring"
   status = 301
   force = true
 
@@ -57,13 +63,9 @@
   status = 301
   force = true
 
-# The English and Swedish versions of the old agency site. Danish only now.
-[[redirects]]
-  from = "/en/*"
-  to = "/"
-  status = 301
-  force = true
-
+# The Swedish version of the old agency site never existed as a real
+# language on this build; /en/* is now the real English site and is handled
+# by the SPA fallback below, not redirected away.
 [[redirects]]
   from = "/sv/*"
   to = "/"

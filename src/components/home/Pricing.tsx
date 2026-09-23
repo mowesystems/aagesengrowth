@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import SectionHead from '@/components/ui/SectionHead';
 import Reveal from '@/components/ui/Reveal';
+import { Link } from 'react-router-dom';
 import { useInView } from '@/hooks/useInView';
 import { homeAnchors } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
@@ -13,7 +14,7 @@ import { HERO_SCAN_ID } from '@/components/home/Hero';
  * answer to the question the reader has by now, not a detail to be softened.
  */
 const Pricing: React.FC = () => {
-  const { t, price } = useLocale();
+  const { t, price, path } = useLocale();
   const p = t.pricing;
   const { ref, inView } = useInView<HTMLElement>({ threshold: 0.4 });
 
@@ -47,14 +48,23 @@ const Pricing: React.FC = () => {
               <p className="mt-8 text-[0.85rem] text-muted">{p.vat}</p>
               <p className="mt-1 text-[0.85rem] text-muted">{p.binding}</p>
 
-              <a
-                href={`#${HERO_SCAN_ID}`}
-                onClick={() => track('primary_cta_clicked', { source: 'pricing', cta: 'scan' })}
-                className="btn btn-primary btn-lg mt-10 w-full sm:w-auto"
-              >
-                {p.cta}
-                <ArrowRight size={16} aria-hidden="true" />
-              </a>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <a
+                  href={`#${HERO_SCAN_ID}`}
+                  onClick={() => track('primary_cta_clicked', { source: 'pricing', cta: 'scan' })}
+                  className="btn btn-primary btn-lg w-full sm:w-auto"
+                >
+                  {p.cta}
+                  <ArrowRight size={16} aria-hidden="true" />
+                </a>
+                <Link
+                  to={path('booking')}
+                  onClick={() => track('primary_cta_clicked', { source: 'pricing', cta: 'book_afklaring' })}
+                  className="btn btn-outline btn-lg w-full sm:w-auto"
+                >
+                  {p.secondaryCta}
+                </Link>
+              </div>
               <p className="h-serif mt-6 text-[1.15rem] leading-snug text-ink">{p.microcopy}</p>
             </div>
 

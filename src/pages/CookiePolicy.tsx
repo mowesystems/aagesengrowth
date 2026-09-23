@@ -8,15 +8,14 @@ import { useLocale } from '@/i18n/useLocale';
 
 /** Lets a visitor withdraw consent, which is the half of consent that is easy to forget. */
 const ConsentReset: React.FC = () => {
+  const { t } = useLocale();
+  const l = t.legal;
   const [done, setDone] = useState(false);
 
   return (
     <div className="border-l-2 border-brand bg-paper-3 p-6 sm:p-7">
-      <p className="meta">Ændr dit valg</p>
-      <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted">
-        Dit samtykke er gemt lokalt i din browser. Du kan trække det tilbage her, hvorefter banneret
-        vises igen.
-      </p>
+      <p className="meta">{l.changeChoice}</p>
+      <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted">{l.changeChoiceBody}</p>
       <button
         type="button"
         onClick={() => {
@@ -25,40 +24,38 @@ const ConsentReset: React.FC = () => {
         }}
         className="btn btn-outline mt-5"
       >
-        Nulstil cookievalg
+        {l.resetButton}
       </button>
       <p aria-live="polite" className="mt-3 text-xs text-muted">
-        {done ? 'Dit valg er nulstillet. Banneret vises igen nederst på siden.' : ''}
+        {done ? l.resetDone : ''}
       </p>
     </div>
   );
 };
 
 const CookiePolicy: React.FC = () => {
-  const { path } = useLocale();
+  const { t, path } = useLocale();
+  const l = t.legal;
 
   const contactLine = company.email ? (
     <a href={`mailto:${company.email}`} className="link-inline">
       {company.email}
     </a>
   ) : (
-    <Link to={path('review')} className="link-inline">
-      kontaktformularen
+    <Link to={path('booking')} className="link-inline">
+      {l.contactFormFallback}
     </Link>
   );
 
   return (
     <>
-      <SEOHead
-        title="Cookiepolitik"
-        description="Hvilke cookies Aagesen Growth ApS bruger, hvad de gør, og hvordan du ændrer eller trækker dit samtykke tilbage."
-      />
+      <SEOHead title={l.cookiesTitle} description={l.cookiesDescription} />
 
       <LegalPage
-        eyebrow="Juridisk"
-        title="Cookiepolitik"
-        lead="Hvad der sættes, hvornår — og hvordan du ombestemmer dig."
-        notice="Denne tekst er en skabelon og skal gennemgås af en jurist inden lancering."
+        eyebrow={l.eyebrow}
+        title={l.cookiesTitle}
+        lead={l.cookiesLead}
+        notice={l.templateNotice}
         footer={<ConsentReset />}
         sections={[
           {

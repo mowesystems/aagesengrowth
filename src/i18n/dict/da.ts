@@ -16,7 +16,7 @@ const da = {
     pricing: 'Pris',
     faq: 'FAQ',
     work: 'Projekter',
-    review: 'Growth Review',
+    booking: 'Book en afklaring',
   },
 
   header: {
@@ -25,6 +25,8 @@ const da = {
     close: 'Luk',
     skip: 'Spring til indhold',
     nav: 'Hovedmenu',
+    language: 'Sprog',
+    switchTo: 'Switch to English',
   },
 
   cta: {
@@ -33,7 +35,7 @@ const da = {
     scanMobile: 'Growth Scan',
     how: 'Se hvordan det virker',
     fullReview: 'Få den fulde gennemgang',
-    bookReview: 'Book en Growth Review',
+    bookAfklaring: 'Book en afklaring',
     back: 'Tilbage',
     backToWork: 'Tilbage til projekter',
     viewCase: 'Se hele casen',
@@ -45,7 +47,7 @@ const da = {
   hero: {
     eyebrow: 'Growth Engine · Til servicevirksomheder',
     lines: ['Flere kunder.', 'Færre tabte leads.'],
-    lead: 'Growth Engine hjælper servicevirksomheder med at blive fundet på Google og AI – og følger automatisk op på potentielle kunder.',
+    lead: 'Growth Engine finder de steder i jeres digitale kunderejse, hvor I potentielt går glip af kunder — og hjælper med at prioritere og forbedre dem løbende.',
     /** Labels on the signal visualisation. Short: they sit on a live diagram. */
     sources: ['Google', 'ChatGPT', 'Google Maps', 'AI-søgning', 'Perplexity'],
     core: 'Growth Engine',
@@ -63,6 +65,7 @@ const da = {
     micro: 'Gratis · Ingen kortoplysninger · Ca. 60 sek.',
     invalid: 'Skriv en webadresse, fx dinvirksomhed.dk',
     running: 'Scanner',
+    talkInstead: 'Vil I hellere tale sammen med det samme?',
     /** The sequence. Each line is shown while that stage runs. */
     steps: [
       { key: 'connect', label: 'Forbinder til website' },
@@ -108,6 +111,8 @@ const da = {
         'Det sker fx ved bot-beskyttelse eller en langsom server. Send adressen, så kører vi scanningen manuelt og sender resultatet.',
       unreachableCta: 'Send til manuel scanning',
       timestamp: 'Scannet',
+      manualRequested: 'Manuel scanning ønsket',
+      networkError: 'Scanningen kunne ikke gennemføres.',
     },
 
     /** The lead capture that turns a scan into a booked review. */
@@ -142,7 +147,7 @@ const da = {
   problem: {
     eyebrow: 'Problemet',
     heading: 'Du kan miste kunden, før du ved, den findes.',
-    lead: 'Vækst lækker to steder. Begge er usynlige i regnskabet, fordi kunden aldrig blev til en henvendelse — eller blev det og forsvandt.',
+    lead: 'Vækst lækker i den digitale kunderejse — ofte flere steder på samme tid. Begge eksempler herunder er usynlige i regnskabet, fordi kunden aldrig blev til en henvendelse, eller blev det og forsvandt.',
     leaks: [
       {
         index: '01',
@@ -173,40 +178,39 @@ const da = {
   // ------------------------------------------------------------------ engine
   engine: {
     eyebrow: 'Growth Engine',
-    heading: 'Ét system. Fra søgning til kunde.',
-    lead: 'Ikke fire ydelser. Ét sammenhængende system, der finder, fanger og følger op — og måler det hele ét sted.',
+    heading: 'Ét system. Fra kunderejse til vækst.',
+    lead: 'Growth Engine finder de steder i jeres digitale kunderejse, hvor I potentielt går glip af kunder — og hjælper med at prioritere og forbedre dem løbende. Vi analyserer, hvordan I bliver fundet, hvordan potentielle kunder bevæger sig gennem jeres website, og hvor der opstår friktion mellem interesse og henvendelse.',
     stages: [
-      { key: 'discover', label: 'Discover', da: 'Bliv fundet' },
-      { key: 'analyze', label: 'Analyze', da: 'Find hullerne' },
-      { key: 'improve', label: 'Improve', da: 'Ret det vigtigste' },
-      { key: 'capture', label: 'Capture', da: 'Fang henvendelsen' },
-      { key: 'followup', label: 'Follow up', da: 'Følg op automatisk' },
-      { key: 'measure', label: 'Measure', da: 'Mål alt ét sted' },
+      { key: 'identify', label: 'Identify', description: 'Find hvor kunder går tabt' },
+      { key: 'prioritize', label: 'Prioritize', description: 'Prioritér det vigtigste' },
+      { key: 'improve', label: 'Improve', description: 'Forbedr de rigtige steder' },
+      { key: 'measure', label: 'Measure', description: 'Mål den reelle effekt' },
+      { key: 'repeat', label: 'Repeat', description: 'Gentag løbende' },
     ],
     modules: [
       {
         key: 'visibility',
         index: '01',
-        title: 'Visibility',
-        body: 'Følger de søgninger, der betyder noget for jer — på Google og i AI-svar — og viser, hvor I bliver valgt fra.',
+        title: 'Synlighed',
+        body: 'Hvordan I bliver fundet i dag — på Google, i lokal søgning og i AI-svar er eksempler på, hvad der undersøges. Ét udsnit af kunderejsen, ikke hele historien.',
       },
       {
-        key: 'optimization',
+        key: 'journey',
         index: '02',
-        title: 'Optimization',
-        body: 'Finder og prioriterer de ændringer, der med størst sandsynlighed flytter synlighed og konvertering. Tre ad gangen.',
+        title: 'Kunderejse & konvertering',
+        body: 'Hvor på jeres website mister I interesserede besøgende, før de bliver til en henvendelse?',
       },
       {
-        key: 'recovery',
+        key: 'actions',
         index: '03',
-        title: 'Lead Recovery',
-        body: 'Svarer hurtigt, samler ubesvarede henvendelser op og følger op automatisk, indtil der er et svar.',
+        title: 'Growth Actions',
+        body: 'De vigtigste muligheder bliver prioriteret som konkrete handlinger, så der hele tiden arbejdes på det, der batter mest.',
       },
       {
-        key: 'reporting',
+        key: 'measurement',
         index: '04',
-        title: 'Reporting',
-        body: 'Synlighed, muligheder og leads i ét overblik. Ingen rapporter, der skal læses — kun tal, der skal handles på.',
+        title: 'Måling',
+        body: 'Fremskridt følges løbende, så I kan se, om ændringerne rykker noget — og justere, hvis de ikke gør.',
       },
     ],
   },
@@ -234,6 +238,7 @@ const da = {
       you: 'Jer',
       competitor: 'Konkurrent',
     },
+    trendLabel: '12 uger',
     actions: {
       heading: 'Growth Actions',
       status: { done: 'Udført', active: 'I gang', next: 'Næste' },
@@ -291,6 +296,8 @@ const da = {
       { title: 'Anmeldelser og tillid', body: 'Giver jeres profil kunden grund til at vælge jer?' },
       { title: 'Konkurrentposition', body: 'Hvem vises, hvor I ikke gør?' },
     ],
+    orTalk: 'Eller spring scanningen over og',
+    orTalkCta: 'book en afklaring',
   },
 
   // -------------------------------------------------------------------- how
@@ -298,10 +305,10 @@ const da = {
     eyebrow: 'Sådan virker det',
     heading: 'I skal ikke blive marketingfolk. Vi driver systemet.',
     steps: [
-      { index: '01', title: 'Scan', body: 'Vi analyserer jeres nuværende vækstsystem: synlighed, konvertering, lead-flow og konkurrenter.' },
-      { index: '02', title: 'Installér', body: 'Growth Engine kobles på jeres website, telefon og Google Business-profil. Typisk inden for to uger.' },
+      { index: '01', title: 'Scan', body: 'Vi analyserer jeres nuværende digitale kunderejse: synlighed, konvertering, lead-flow og konkurrenter.' },
+      { index: '02', title: 'Prioritér', body: 'Vi peger på de steder, hvor I potentielt går glip af kunder, og prioriterer dem efter forventet effekt.' },
       { index: '03', title: 'Forbedr', body: 'De vækstmuligheder med størst værdi bliver udført først. Tre prioriterede handlinger om måneden.' },
-      { index: '04', title: 'Kør', body: 'Synlighed og opfølgning overvåges og forbedres løbende. I ser det hele i ét dashboard.' },
+      { index: '04', title: 'Mål & gentag', body: 'Fremskridt følges løbende, og de næste prioriteringer justeres efter, hvad der faktisk virker.' },
     ],
   },
 
@@ -318,9 +325,10 @@ const da = {
     binding: 'Ingen binding ud over løbende måned + 30 dage.',
     includedHeading: 'Det får I',
     included: [
-      'Overvågning af Google- og AI-synlighed',
+      'Løbende identifikation af vækstmuligheder',
       'Månedlig Growth Scan',
       '3 prioriterede Growth Actions om måneden',
+      'Overvågning af Google- og AI-synlighed',
       'Automatisk svar på nye henvendelser',
       'Opsamling af ubesvarede leads',
       'Opfølgningssekvenser',
@@ -330,6 +338,7 @@ const da = {
     ],
     microcopy: 'Bygget til virksomheder, hvor én ekstra kunde kan betale for systemet.',
     cta: 'Kør gratis Growth Scan',
+    secondaryCta: 'Book en afklaring',
   },
 
   // ------------------------------------------------------- founder program
@@ -345,6 +354,24 @@ const da = {
     conditions: ['Maks. 3 virksomheder', 'Samme system, samme drift', 'Herefter normal pris'],
     cta: 'Ansøg via Growth Scan',
     ariaLabel: 'Founder Program: begrænset lanceringstilbud',
+  },
+
+  // ------------------------------------------------------------- choose path
+  /** The two ways to get started, shown once the offer and the price are known. */
+  choose: {
+    eyebrow: 'Kom i gang',
+    heading: 'To veje ind. I vælger selv.',
+    lead: 'En Growth Scan viser jer, hvor der er potentiale. En afklaring er en direkte samtale om jeres forretning. Ingen af delene forpligter jer til noget.',
+    scan: {
+      title: 'Gratis Growth Scan',
+      body: 'Skriv jeres website, og se på under et minut, hvor der er størst potentiale — helt uden at tale med nogen først.',
+      cta: 'Kør gratis Growth Scan',
+    },
+    talk: {
+      title: 'Book en afklaring',
+      body: 'Tal direkte med os om jeres forretning, og om Growth Engine giver mening for jer. Ingen salgssekvens.',
+      cta: 'Book en afklaring',
+    },
   },
 
   // -------------------------------------------------------------------- fit
@@ -375,15 +402,15 @@ const da = {
     items: [
       {
         q: 'Hvad er Growth Engine helt præcist?',
-        a: 'Et løbende system, der gør jer mere synlige på Google og i AI-svar, fanger henvendelser hurtigere og følger op automatisk — målt i ét dashboard. Vi driver det. I får kunderne.',
+        a: 'Growth Engine finder de steder i jeres digitale kunderejse, hvor I potentielt går glip af kunder, og hjælper med at prioritere og forbedre dem løbende. Vi analyserer, hvordan I bliver fundet, hvordan besøgende bevæger sig gennem jeres website, og hvor der opstår friktion mellem interesse og henvendelse — og prioriterer de vigtigste muligheder som konkrete Growth Actions.',
       },
       {
         q: 'Er det SEO?',
-        a: 'SEO er en del af det, men ikke hele det. Synlighed på Google er én indgang. AI-svar, lead-indfangning og opfølgning er de tre andre, og de mangler i de fleste SEO-aftaler.',
+        a: 'Google-synlighed er en af de ting, vi kan analysere og forbedre, men Growth Engine er ikke en SEO-pakke. Det er et løbende system, der ser på hele kunderejsen — fra synlighed til website-konvertering til opfølgning — og prioriterer, hvad der batter mest.',
       },
       {
         q: 'Er Google Ads inkluderet?',
-        a: 'Nej. Growth Engine arbejder med den synlighed og de leads, I har og kan få uden annoncebudget. Annoncering kan lægges ovenpå, hvis tallene viser, at det giver mening.',
+        a: 'Nej. Growth Engine arbejder med den synlighed og de leads, I har og kan få uden annoncebudget. Annoncering kan lægges ovenpå, hvis en analyse viser, at det giver mening.',
       },
       {
         q: 'Virker det med vores nuværende website?',
@@ -395,19 +422,23 @@ const da = {
       },
       {
         q: 'Hvad er AI-synlighed?',
-        a: 'Om ChatGPT, Google AI-oversigter og lignende nævner og anbefaler jer, når nogen spørger efter en leverandør i jeres område. Det kræver andet og mere end klassisk SEO.',
+        a: 'Om ChatGPT, Google AI-oversigter og lignende nævner og anbefaler jer, når nogen spørger efter en leverandør i jeres område. Det er ét af de områder, Growth Engine kan overvåge og forbedre — ikke hele produktet.',
       },
       {
         q: 'Hvor hurtigt kan det installeres?',
-        a: 'Typisk inden for to uger fra aftale. Scanningen og den første handlingsplan er klar, før vi kobler noget på.',
+        a: 'Typisk inden for to uger fra aftale. Scanningen og den første prioriterede plan er klar, før vi kobler noget på.',
       },
       {
         q: 'Kan I garantere flere kunder?',
-        a: 'Nej, og det bør ingen. Vi kan garantere, at synlighed, svartid og opfølgning bliver målt og forbedret hver måned — og at I kan se det i tallene.',
+        a: 'Nej, og det bør ingen. Vi sælger processen og implementeringen — ikke et garanteret resultat. Vi kan garantere, at de vigtigste muligheder i jeres kunderejse bliver identificeret, prioriteret og forbedret løbende, og at I kan se det i tallene.',
       },
       {
         q: 'Hvad sker der efter Growth Scan?',
         a: 'I får det foreløbige resultat med det samme. Beder I om den fulde gennemgang, får I en 30 minutters Growth Review med søgeord, AI-svar, konkurrenter og en prioriteret plan — uden forpligtelse.',
+      },
+      {
+        q: 'Kan jeg tale med jer uden først at lave en Growth Scan?',
+        a: 'Ja. Book en afklaring, og vi taler direkte om jeres forretning, og om Growth Engine er relevant for jer. En Growth Scan er en hjælp til at forstå potentialet — den er ikke en forudsætning for at komme i kontakt.',
       },
       {
         q: 'Er der binding?',
@@ -418,41 +449,49 @@ const da = {
 
   // ------------------------------------------------------------- final cta
   final: {
-    eyebrow: 'Gratis Growth Scan',
-    heading: 'Se, hvad der holder jeres vækst tilbage.',
-    lead: 'Skriv webadressen. Resten klarer scanningen.',
+    eyebrow: 'Kom i gang',
+    heading: 'Klar til at se, hvor din virksomhed har potentiale?',
+    lead: 'Skriv webadressen og få jeres foreløbige resultat med det samme — eller book en samtale direkte.',
+    primary: 'Få din gratis Growth Scan',
+    secondary: 'Book en afklaring',
+    reassure: 'Ingen binding. Ingen salgssekvens.',
   },
 
   // ----------------------------------------------------------------- footer
   footer: {
     description:
-      'Growth Engine: synlighed på Google og AI, hurtigere svar og automatisk opfølgning — for servicevirksomheder, der vil have flere kunder og færre tabte leads.',
+      'Growth Engine finder de steder, hvor I potentielt går glip af kunder i jeres digitale kunderejse — og hjælper med at prioritere og forbedre dem løbende.',
     productHeading: 'Growth Engine',
     companyHeading: 'Virksomhed',
+    contactHeading: 'Kontakt',
     privacy: 'Privatlivspolitik',
     cookies: 'Cookiepolitik',
     cvr: 'CVR',
     rights: 'Alle rettigheder forbeholdes.',
-    poweredBy: 'Growth Engine drives af MOWE — Aagesen Growths egen platform.',
   },
 
   // ------------------------------------------------------------------ pages
   pages: {
-    review: {
-      title: 'Book en Growth Review',
+    booking: {
+      title: 'Book en afklaring',
       description:
-        'Book en gratis Growth Review: 30 minutters gennemgang af jeres Google- og AI-synlighed, lead-flow og konkurrenter — med en prioriteret handlingsplan.',
-      heading: 'Book en Growth Review',
-      lead: 'En 30 minutters gennemgang af, hvor I taber kunder — og hvad der skal rettes først. Gratis og uden forpligtelse.',
-      agendaHeading: 'Det gennemgår vi',
+        'Book en gratis, uforpligtende afklaring med Aagesen Growth om jeres digitale kunderejse, og om Growth Engine giver mening for jer.',
+      heading: 'Book en afklaring',
+      lead: 'En direkte samtale om jeres forretning — ikke et salgsopkald. Gratis og uden forpligtelse.',
+      agendaHeading: 'Det taler vi om',
       agenda: [
-        'Søgninger, hvor konkurrenter vises, og I ikke gør',
-        'Hvad ChatGPT og AI-søgning svarer om jeres marked',
-        'Hvad der sker med en henvendelse i dag — fra formular til svar',
-        'Tre prioriterede handlinger med størst forventet effekt',
+        'Jeres nuværende digitale kunderejse — hvor findes I, og hvordan konverterer sitet',
+        'Hvor I potentielt går glip af kunder, og hvad der ville batte mest at rette først',
+        'Om Growth Engine er relevant for jer lige nu',
+        'Hvad et samarbejde konkret ville indebære',
       ],
       noneHeading: 'Det sker ikke',
-      none: ['Ingen salgssekvens', 'Ingen automatiske opkald', 'Oplysningerne bruges kun til gennemgangen'],
+      none: ['Ingen salgssekvens', 'Ingen automatiske opkald', 'Oplysningerne bruges kun til samtalen'],
+      embedNote: 'Vælg et tidspunkt, der passer jer.',
+      embedFallbackLink: 'Åbn kalenderen i nyt vindue',
+      fallbackHeading: 'Kalenderbooking er på vej.',
+      fallbackBody:
+        'Skriv jeres oplysninger, så finder vi en tid sammen. I hører fra os inden for én arbejdsdag.',
     },
     work: {
       title: 'Projekter',
@@ -474,7 +513,37 @@ const da = {
       lead: 'Siden her findes ikke — eller den er flyttet. Prøv forsiden.',
       cta: 'Til forsiden',
     },
-    legalNotice: '',
+  },
+
+  // -------------------------------------------------------------------- legal
+  /**
+   * The privacy and cookie pages. Only the shell (title, eyebrow, lead, the
+   * "note" label and the consent-reset controls) lives here. The section
+   * headings and body paragraphs are written once, directly in Danish, in
+   * Privacy.tsx and CookiePolicy.tsx — a legal text should not be machine-
+   * translated, and a bilingual heading over a Danish paragraph would be
+   * worse than an honest, clearly-marked single-language document. English
+   * readers get a banner (`legalNotice`) saying the Danish text governs.
+   */
+  legal: {
+    eyebrow: 'Juridisk',
+    noticeLabel: 'Bemærk',
+    governingNotice: '',
+    contactFormFallback: 'kontaktformularen',
+    privacyTitle: 'Privatlivspolitik',
+    privacyDescription:
+      'Sådan behandler Aagesen Growth ApS personoplysninger fra kontaktformularen, i overensstemmelse med GDPR.',
+    privacyLead: 'Hvilke oplysninger vi modtager, hvad de bruges til, og hvad I kan kræve.',
+    cookiesTitle: 'Cookiepolitik',
+    cookiesDescription:
+      'Hvilke cookies Aagesen Growth ApS bruger, hvad de gør, og hvordan du ændrer eller trækker dit samtykke tilbage.',
+    cookiesLead: 'Hvad der sættes, hvornår — og hvordan du ombestemmer dig.',
+    templateNotice: 'Denne tekst er en skabelon og skal gennemgås af en jurist inden lancering.',
+    changeChoice: 'Ændr dit valg',
+    changeChoiceBody:
+      'Dit samtykke er gemt lokalt i din browser. Du kan trække det tilbage her, hvorefter banneret vises igen.',
+    resetButton: 'Nulstil cookievalg',
+    resetDone: 'Dit valg er nulstillet. Banneret vises igen nederst på siden.',
   },
 
   cookies: {
@@ -488,7 +557,7 @@ const da = {
   meta: {
     homeTitle: 'Growth Engine — flere kunder, færre tabte leads | Aagesen Growth',
     homeDescription:
-      'Growth Engine hjælper servicevirksomheder med at blive fundet på Google og AI – og følger automatisk op på potentielle kunder. Kør en gratis Growth Scan på 60 sekunder.',
+      'Growth Engine finder de steder i jeres digitale kunderejse, hvor I potentielt går glip af kunder — og hjælper med at prioritere og forbedre dem løbende. Kør en gratis Growth Scan, eller book en afklaring.',
   },
 
   work: {
@@ -594,57 +663,6 @@ const da = {
           photoDeli: {
             alt: 'Focaccia med prosciutto di Parma, tomat og rucola fra Plus Eins Deli.',
             caption: 'Deli',
-          },
-        } as Record<string, { alt: string; caption: string }>,
-      },
-      'mowe-systems': {
-        kind: 'SaaS · AI-synlighed',
-        disciplines: ['Brand', 'Produkt', 'Website', 'SEO', 'GEO'],
-        summary:
-          'Fra kompleks softwareidé til et produkt, man kan forstå på tredive sekunder — og en platform, der kan vokse.',
-        strapline: 'En ny kategori, forklaret på tredive sekunder.',
-        challenge:
-          'MOWE Systems er en AI visibility-platform. Den slags produkt er svært at sælge, fordi kategorien er ny: folk skal først forstå, at problemet findes, før de kan se værdien af løsningen. Teknisk kompleksitet skulle formidles uden at blive utilgængelig.',
-        sections: [
-          {
-            heading: 'Positionering først',
-            body: 'Før der blev skrevet en linje kode til websitet, blev det afklaret, hvad produktet er, hvem det er for, og hvilket problem det løser i et sprog en beslutningstager kan bruge. Positioneringen blev fundamentet for både produktstruktur og kommunikation.',
-          },
-          {
-            heading: 'Produkt og website som ét',
-            body: 'Websitet og produktets egen struktur blev udviklet i sammenhæng, så måden produktet forklares på, matcher måden det faktisk fungerer på. Det gør både onboarding og salg lettere, fordi der ikke er et spring mellem løfte og virkelighed.',
-          },
-          {
-            heading: 'Synlighed i en ny kategori',
-            body: 'SEO og GEO blev bygget ind fra start. Når kategorien er ny, er der få etablerede søgninger at kæmpe om — til gengæld er der en reel mulighed for at blive den kilde, både søgemaskiner og AI-assistenter trækker på.',
-          },
-        ],
-        delivered: [
-          'Brand og positionering',
-          'Website og produktkommunikation',
-          'Produktarkitektur og konverteringsstruktur',
-          'SEO- og GEO-strategi',
-          'Teknisk fundament for platformen',
-        ],
-        demonstrates:
-          'At teknisk dybde og enkel kommunikation ikke er modsætninger. Det svære er at gøre det komplekse forståeligt uden at gøre det forkert.',
-        proofLine: 'Positionering · produktarkitektur · website · synlighed',
-        period: '',
-        disclosure:
-          'MOWE Systems er skabt og udviklet af samme person, der står bag Aagesen Growth.',
-        media: {
-          desktop: {
-            alt: 'Forsiden af mowesystems.com med overskriften Get Found Before Your Competitors og analyseformularen.',
-            caption: '',
-          },
-          mobile: { alt: 'Forsiden af mowesystems.com vist på mobil.', caption: '' },
-          screenProduct: {
-            alt: 'Produktsektionen på mowesystems.com, der stiller synlighed før og efter op mod hinanden.',
-            caption: 'Før og efter',
-          },
-          screenSteps: {
-            alt: 'Sektionen på mowesystems.com, der forklarer produktet i tre trin.',
-            caption: 'Produktet i tre trin',
           },
         } as Record<string, { alt: string; caption: string }>,
       },

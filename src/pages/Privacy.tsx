@@ -8,35 +8,34 @@ import { useLocale } from '@/i18n/useLocale';
 /**
  * Privacy policy.
  *
- * The body stays Danish in every locale — see the note in LegalPage. Only the
- * page's own title/description and the contact link follow the reading
- * language.
+ * The section headings and body stay Danish in every locale — see the note
+ * on `t.legal` in the dictionary. Only the page shell (title, eyebrow, lead,
+ * the "note" label and the contact fallback word) follows the reading
+ * language, and non-Danish readers see a banner naming which version governs.
  */
 const Privacy: React.FC = () => {
-  const { path } = useLocale();
+  const { t, path } = useLocale();
+  const l = t.legal;
 
   const contactLine = company.email ? (
     <a href={`mailto:${company.email}`} className="link-inline">
       {company.email}
     </a>
   ) : (
-    <Link to={path('review')} className="link-inline">
-      kontaktformularen
+    <Link to={path('booking')} className="link-inline">
+      {l.contactFormFallback}
     </Link>
   );
 
   return (
     <>
-      <SEOHead
-        title="Privatlivspolitik"
-        description="Sådan behandler Aagesen Growth ApS personoplysninger fra kontaktformularen, i overensstemmelse med GDPR."
-      />
+      <SEOHead title={l.privacyTitle} description={l.privacyDescription} />
 
       <LegalPage
-        eyebrow="Juridisk"
-        title="Privatlivspolitik"
-        lead="Hvilke oplysninger vi modtager, hvad de bruges til, og hvad I kan kræve."
-        notice="Denne tekst er en skabelon og skal gennemgås af en jurist inden lancering."
+        eyebrow={l.eyebrow}
+        title={l.privacyTitle}
+        lead={l.privacyLead}
+        notice={l.templateNotice}
         sections={[
           {
             heading: 'Dataansvarlig',

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import MaskedLines from '@/components/ui/MaskedLines';
 import GrowthScan from '@/components/scan/GrowthScan';
 import SignalField from '@/components/growth/SignalField';
@@ -21,7 +22,7 @@ export const HERO_SCAN_ID = homeAnchors.scan;
  * and hands the reader the visual language every section after it uses.
  */
 const Hero: React.FC = () => {
-  const { t } = useLocale();
+  const { t, path } = useLocale();
   const scan = useScan();
   const scanActive = scan.status !== 'idle' && scan.anchorId === HERO_SCAN_ID;
 
@@ -72,14 +73,15 @@ const Hero: React.FC = () => {
         </div>
 
         {!scanActive && (
-          <a
-            href={`#${homeAnchors.engine}`}
-            className="animate-rise link-line mt-8 text-[0.82rem] text-muted"
-            style={{ animationDelay: '700ms' }}
-          >
-            {t.cta.how}
-            <ArrowDown size={14} aria-hidden="true" />
-          </a>
+          <div className="animate-rise mt-8 flex flex-wrap items-center gap-x-6 gap-y-2" style={{ animationDelay: '700ms' }}>
+            <a href={`#${homeAnchors.engine}`} className="link-line text-[0.82rem] text-muted">
+              {t.cta.how}
+              <ArrowDown size={14} aria-hidden="true" />
+            </a>
+            <Link to={path('booking')} className="link-line text-[0.82rem] text-muted">
+              {t.scan.talkInstead}
+            </Link>
+          </div>
         )}
       </div>
 

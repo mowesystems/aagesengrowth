@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SectionHead from '@/components/ui/SectionHead';
 import Reveal from '@/components/ui/Reveal';
 import GrowthScan from '@/components/scan/GrowthScan';
@@ -11,7 +12,7 @@ export const SECTION_SCAN_ID = 'growth-scan-analyse';
  * cobalt-tinted ground so it reads as the page's second peak.
  */
 const ScanSection: React.FC = () => {
-  const { t } = useLocale();
+  const { t, path } = useLocale();
   const s = t.scanSection;
 
   return (
@@ -38,6 +39,15 @@ const ScanSection: React.FC = () => {
 
         <Reveal className="mt-10 lg:mt-14" delay={100}>
           <GrowthScan source="section" id={SECTION_SCAN_ID} size="lg" />
+        </Reveal>
+
+        <Reveal className="mt-5" delay={140}>
+          <p className="text-[0.85rem] text-muted">
+            {s.orTalk}{' '}
+            <Link to={path('booking')} className="link-line inline-flex text-[0.85rem]">
+              {s.orTalkCta}
+            </Link>
+          </p>
         </Reveal>
       </div>
     </section>

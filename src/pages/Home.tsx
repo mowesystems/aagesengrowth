@@ -9,6 +9,7 @@ import ScanSection from '@/components/home/ScanSection';
 import HowItWorks from '@/components/home/HowItWorks';
 import Pricing from '@/components/home/Pricing';
 import FounderProgram from '@/components/home/FounderProgram';
+import ChoosePath from '@/components/home/ChoosePath';
 import Fit from '@/components/home/Fit';
 import FAQ from '@/components/home/FAQ';
 import FinalScan from '@/components/home/FinalScan';
@@ -40,14 +41,13 @@ const Home: React.FC = () => {
         knowsLanguage: Object.values(localeMeta).map((entry) => entry.htmlLang),
         ...(company.email ? { email: company.email } : {}),
         ...(company.phone ? { telephone: company.phone } : {}),
-        parentOrganization: { '@type': 'Organization', name: 'MOWE Systems ApS' },
       },
       {
         '@context': 'https://schema.org',
         '@type': 'Service',
         '@id': `${company.domain}/#growth-engine`,
         name: 'Growth Engine',
-        serviceType: 'Lokal synlighed, AI-synlighed og lead-opfølgning for servicevirksomheder',
+        serviceType: 'Identifikation og løbende forbedring af den digitale kunderejse for servicevirksomheder',
         provider: { '@id': `${company.domain}/#organization` },
         areaServed: 'DK',
         audience: { '@type': 'BusinessAudience', name: 'Danske servicevirksomheder (varmepumper, solceller, tag, vinduer, el, VVS, renovering)' },
@@ -93,6 +93,7 @@ const Home: React.FC = () => {
         <HowItWorks />
         <Pricing />
         <FounderProgram />
+        <ChoosePath />
         <Fit />
         <FAQ />
       </div>

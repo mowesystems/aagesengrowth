@@ -5,6 +5,7 @@ import company from '@/config/company';
 import BrandLogo from '@/components/BrandLogo';
 import { homeAnchors } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
+import LanguageSwitcher from '@/components/layout/LanguageSwitcher';
 
 const Footer: React.FC = () => {
   const { t, path } = useLocale();
@@ -29,7 +30,6 @@ const Footer: React.FC = () => {
               <BrandLogo size="lg" light />
             </Link>
             <p className="mt-7 max-w-sm text-sm leading-relaxed text-muted-lit">{t.footer.description}</p>
-            <p className="mt-4 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted-lit/80">{t.footer.poweredBy}</p>
             {hasSocial && (
               <div className="mt-7 flex gap-2">
                 {company.linkedinUrl && (
@@ -63,8 +63,8 @@ const Footer: React.FC = () => {
             <h2 className="meta-lit">{t.footer.companyHeading}</h2>
             <ul className="mt-5 space-y-1">
               <li>
-                <Link to={path('review')} className="inline-flex min-h-9 items-center text-sm text-muted-lit transition-colors hover:text-paper">
-                  {t.nav.review}
+                <Link to={path('booking')} className="inline-flex min-h-9 items-center text-sm text-muted-lit transition-colors hover:text-paper">
+                  {t.nav.booking}
                 </Link>
               </li>
               <li>
@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="lg:col-span-2">
-            <h2 className="meta-lit">Kontakt</h2>
+            <h2 className="meta-lit">{t.footer.contactHeading}</h2>
             {hasContact ? (
               <ul className="mt-5 space-y-1">
                 {company.email && (
@@ -98,8 +98,8 @@ const Footer: React.FC = () => {
               </ul>
             ) : (
               <p className="mt-5">
-                <Link to={path('review')} className="link-line link-line-lit">
-                  {t.cta.bookReview}
+                <Link to={path('booking')} className="link-line link-line-lit">
+                  {t.cta.bookAfklaring}
                 </Link>
               </p>
             )}
@@ -123,6 +123,7 @@ const Footer: React.FC = () => {
             <Link to={path('cookies')} className="inline-flex min-h-9 items-center text-xs text-muted-lit transition-colors hover:text-paper">
               {t.footer.cookies}
             </Link>
+            <LanguageSwitcher light />
           </div>
         </div>
       </div>
