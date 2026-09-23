@@ -11,8 +11,11 @@ import { DEFAULT_SITE_URL } from '@/config/site';
 
 const env = import.meta.env;
 
-/** The one address confirmed for public use until a general inbox exists. */
-const DEFAULT_CONTACT_EMAIL = 'marius@aagesengrowth.dk';
+/** The confirmed public inbox. */
+const DEFAULT_CONTACT_EMAIL = 'Kontakt@aagesengrowth.dk';
+
+/** Confirmed by Marius on 23 Sep 2026. */
+const DEFAULT_CVR = '46728068';
 
 const company = {
   brandName: 'Aagesen Growth',
@@ -24,10 +27,7 @@ const company = {
   // is a real line to answer it.
   phone: env.VITE_CONTACT_PHONE || '',
   address: env.VITE_COMPANY_ADDRESS || '',
-  // Not yet verified — see VITE_COMPANY_CVR in .env.example. Left blank
-  // rather than guessed: the footer and privacy page simply omit the row
-  // until a real, confirmed number is supplied.
-  cvr: env.VITE_COMPANY_CVR || '',
+  cvr: env.VITE_COMPANY_CVR || DEFAULT_CVR,
 
   // --- Social --------------------------------------------------------------
   linkedinUrl: env.VITE_LINKEDIN_URL || '',
