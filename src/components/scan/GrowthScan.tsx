@@ -32,7 +32,7 @@ const GrowthScan: React.FC<GrowthScanProps> = ({ source, id, size = 'md', framed
     return (
       <div id={id} className={`scroll-mt-28 ${className}`}>
         <a href={`#${scan.anchorId}`} className="link-line text-[0.95rem]">
-          {scan.status === 'running' ? `${t.scan.running} ${scan.domain}…` : `${t.scan.result.scoreLabel} · ${scan.domain}`}
+          {scan.status === 'running' ? `${t.scan.running} ${scan.domain}…` : `${t.scan.result.eyebrow} · ${scan.domain}`}
           <ArrowUpRight size={15} aria-hidden="true" />
         </a>
       </div>

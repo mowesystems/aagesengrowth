@@ -4,77 +4,88 @@ import { useScan } from '@/components/scan/ScanContext';
 import { prefersReducedMotion } from '@/lib/motion';
 import { useLocale } from '@/i18n/useLocale';
 
-type StepState = 'idle' | 'running' | 'done' | 'queued';
+type StepState = 'idle' | 'running' | 'done';
 
-/**
- * Steps whose real answer needs search data end as "full review". The
- * sequence currently lists only stages the scan actually performs, so this
- * is empty; it stays so a queued stage can be added honestly later.
- */
-const QUEUED = new Set<string>();
-
-/** Minimum time each stage is shown, in ms. The whole run is ~6.5 seconds. */
-const DURATIONS: Record<string, number> = {
-  connect: 900,
-  capture: 1300,
-  trust: 1100,
-  technical: 1100,
-  website: 1200,
-  opportunities: 900,
+/** Minimum time each stage is shown, in ms. */
+const MIN_MS: Record<string, number> = {
+  open: 900,
+  pages: 600,
+  contact: 450,
+  google: 450,
+  gbp: 450,
+  followup: 450,
+  report: 300,
 };
+
+const STAGE_RANK: Record<string, number> = { queued: 0, open: 1, pages: 2, analyse: 3, report: 4, files: 5, done: 6 };
 
 /**
  * The scanning sequence.
  *
  * A precision readout, not a loading spinner: a ring that fills with
- * progress, a rotating sweep, and a ledger of stages with elapsed time.
- * Stages that cannot be answered from the website alone finish as "queued
- * for the full review" rather than pretending to have measured something.
- * When the request fails, the sequence stops at the current stage.
+ * progress and a ledger of stages. It follows the real scan: the first two
+ * stages wait for the browser to have opened the site and its subpages
+ * (with the actual page count), and the last waits for the report. When the
+ * scan fails, the sequence stops at the current stage.
  */
 const ScanSequence: React.FC = () => {
   const { t } = useLocale();
-  const { domain, error, finishSequence, sequenceDone } = useScan();
+  const { domain, error, finishSequence, sequenceDone, progress: backend, result } = useScan();
   const steps = t.scan.steps;
   const [index, setIndex] = React.useState(0);
   const [elapsed, setElapsed] = React.useState(0);
+  const [minDone, setMinDone] = React.useState(false);
   const startRef = React.useRef(performance.now());
   const stopped = Boolean(error);
+  const rank = STAGE_RANK[backend?.stage ?? 'queued'] ?? 0;
+  const reportReady = Boolean(result?.report);
+
+  const gateOpen = (key: string) => {
+    if (key === 'open') return rank >= STAGE_RANK.pages;
+    if (key === 'pages') return rank >= STAGE_RANK.analyse || reportReady;
+    if (key === 'report') return reportReady;
+    return true;
+  };
+
+  // Each stage runs for at least its minimum time, then waits for its gate.
+  React.useEffect(() => {
+    setMinDone(false);
+    if (index >= steps.length) return;
+    const key = steps[index].key;
+    const timer = window.setTimeout(() => setMinDone(true), prefersReducedMotion() ? 150 : MIN_MS[key] ?? 500);
+    return () => window.clearTimeout(timer);
+  }, [index, steps]);
 
   React.useEffect(() => {
     if (sequenceDone) return;
-    if (stopped) {
+    if (stopped || index >= steps.length) {
       finishSequence();
       return;
     }
-    if (index >= steps.length) {
-      finishSequence();
-      return;
-    }
-    const reduced = prefersReducedMotion();
-    const key = steps[index].key;
-    const timer = window.setTimeout(
-      () => setIndex((i) => i + 1),
-      reduced ? 250 : DURATIONS[key] ?? 1000
-    );
-    return () => window.clearTimeout(timer);
-  }, [index, steps, stopped, sequenceDone, finishSequence]);
+    if (minDone && gateOpen(steps[index].key)) setIndex((i) => i + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [minDone, index, rank, reportReady, stopped, sequenceDone, finishSequence, steps]);
 
   React.useEffect(() => {
     const timer = window.setInterval(() => setElapsed(performance.now() - startRef.current), 100);
     return () => window.clearInterval(timer);
   }, []);
 
-  const progress = Math.min(1, index / steps.length);
+  const pagesFraction =
+    steps[index]?.key === 'pages' && backend && backend.pagesPlanned > 0 ? backend.pagesDone / backend.pagesPlanned : 0;
+  const progress = Math.min(1, (index + pagesFraction * 0.9) / steps.length);
   const percent = Math.round(progress * 100);
   const radius = 46;
   const circumference = 2 * Math.PI * radius;
 
-  const stateOf = (i: number, key: string): StepState => {
-    if (i < index) return QUEUED.has(key) ? 'queued' : 'done';
+  const stateOf = (i: number): StepState => {
+    if (i < index) return 'done';
     if (i === index && !stopped) return 'running';
     return 'idle';
   };
+
+  const labelOf = (key: string, label: string) =>
+    key === 'pages' && backend && backend.pagesPlanned > 0 ? `${label} (${Math.min(backend.pagesDone, backend.pagesPlanned)}/${backend.pagesPlanned})` : label;
 
   return (
     <div className="grid gap-8 md:grid-cols-12 md:gap-10" aria-live="polite" aria-busy="true">
@@ -153,7 +164,7 @@ const ScanSequence: React.FC = () => {
       {/* ---------------------------------------------------------- ledger */}
       <ol className="md:col-span-7">
         {steps.map((step, i) => {
-          const state = stateOf(i, step.key);
+          const state = stateOf(i);
           const failed = stopped && i === index;
           return (
             <li
@@ -171,9 +182,7 @@ const ScanSequence: React.FC = () => {
                 className={`flex h-5 w-5 shrink-0 items-center justify-center border ${
                   state === 'done'
                     ? 'border-brand bg-brand text-paper-2'
-                    : state === 'queued'
-                      ? 'border-dashed border-ink/40 text-ink'
-                      : failed
+                    : failed
                         ? 'border-critical text-critical'
                         : 'border-ink/25'
                 }`}
@@ -182,16 +191,14 @@ const ScanSequence: React.FC = () => {
                 {state === 'running' && (
                   <span className="blink h-1.5 w-1.5 rounded-full bg-brand" />
                 )}
-                {state === 'queued' && <span className="h-1.5 w-1.5 rounded-full bg-ink/40" />}
                 {failed && <span className="text-[0.7rem] font-bold leading-none">×</span>}
               </span>
               <span className="flex-1 text-[0.95rem] font-medium leading-snug">
-                {step.label}
+                {labelOf(step.key, step.label)}
                 {state === 'running' && <span className="blink">…</span>}
               </span>
               <span className="shrink-0 font-mono text-[0.56rem] uppercase tracking-[0.16em] text-muted">
                 {state === 'done' && t.scan.stepStatus.done}
-                {state === 'queued' && t.scan.stepStatus.queued}
                 {state === 'running' && t.scan.stepStatus.running}
               </span>
             </li>

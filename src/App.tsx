@@ -23,6 +23,7 @@ const CaseDetail = lazy(() => import('@/pages/CaseDetail'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const CookiePolicy = lazy(() => import('@/pages/CookiePolicy'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
+const InternalScans = lazy(() => import('@/pages/InternalScans'));
 
 const RouteFallback = () => <div className="min-h-[80svh]" aria-hidden="true" />;
 
@@ -65,6 +66,9 @@ const App: React.FC = () => (
             <main>
               <Routes>
                 {localeRoutes}
+                {/* Internal Growth Scan view: Danish only, token-protected, never linked or indexed. */}
+                <Route path="/intern/scans" element={<InternalScans />} />
+                <Route path="/intern/scans/:id" element={<InternalScans />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

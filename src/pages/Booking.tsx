@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { ArrowUpRight, Check, Minus } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import PageHero from '@/components/PageHero';
@@ -21,6 +22,11 @@ const Booking: React.FC = () => {
   const { t, path } = useLocale();
   const r = t.pages.booking;
   const hasCalendar = Boolean(company.bookingUrl);
+  // Arriving from a Growth Scan report: carry the scan along, so the request
+  // is linked to the report it came from. Only a well-formed id and URL pass.
+  const params = new URLSearchParams(useLocation().search);
+  const scanId = /^[0-9a-f-]{36}$/.test(params.get('scan') ?? '') ? params.get('scan')! : '';
+  const scanUrl = /^https?:\/\/[^\s]{3,200}$/.test(params.get('site') ?? '') ? params.get('site')! : '';
 
   React.useEffect(() => {
     track('primary_cta_clicked', { source: 'booking-page', cta: 'view', hasCalendar });
@@ -93,13 +99,15 @@ const Booking: React.FC = () => {
                   </div>
                   <div id={anchors.callback} className="instrument mt-6 scroll-mt-24 p-6 sm:p-8 lg:p-10">
                     <p className="meta-brand">{r.orCallback}</p>
-                    <CallbackForm source="booking" idPrefix="booking-callback" className="mt-5" />
+                    <CallbackForm source={scanId ? 'booking:scan' : 'booking'} scanId={scanId} scanUrl={scanUrl} idPrefix="booking-callback" className="mt-5" />
                   </div>
                 </>
               ) : (
                 <div id={anchors.callback} className="instrument scroll-mt-24 p-6 sm:p-8 lg:p-10">
                   <CallbackForm
-                    source="booking"
+                    source={scanId ? 'booking:scan' : 'booking'}
+                    scanId={scanId}
+                    scanUrl={scanUrl}
                     idPrefix="booking-callback"
                     heading={t.callback.heading}
                     body={t.callback.body}

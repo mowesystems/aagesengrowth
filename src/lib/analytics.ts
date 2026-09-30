@@ -15,6 +15,7 @@ export type AnalyticsEvent =
   | 'growth_scan_started'
   | 'growth_scan_completed'
   | 'growth_scan_failed'
+  | 'growth_scan_saved'
   | 'growth_scan_lead_submitted'
   | 'growth_review_booked'
   | 'pricing_viewed'

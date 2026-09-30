@@ -3,10 +3,14 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  # 22: the Chromium package the Growth Scan runs in requires it.
+  NODE_VERSION = "22"
 
 [functions]
   node_bundler = "esbuild"
+  # Shipped as node_modules rather than bundled: puppeteer resolves files at
+  # runtime, and chromium-min downloads its browser into /tmp on a cold start.
+  external_node_modules = ["puppeteer-core", "@sparticuz/chromium-min"]
 
 # netlify dev must know this is a Vite app, or module scripts get the SPA rewrite.
 [dev]
@@ -83,6 +87,12 @@
 # filename, and the fonts and media are replaced by new filenames when they
 # change, so both can be cached for a year.
 # -----------------------------------------------------------------------------
+# The internal scan view: never indexed, never framed.
+[[headers]]
+  for = "/intern/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 [[headers]]
   for = "/assets/*"
   [headers.values]

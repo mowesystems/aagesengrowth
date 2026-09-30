@@ -61,66 +61,50 @@ const en: Dictionary = {
 
   // --------------------------------------------------------------- the scan
   scan: {
-    label: "Your company's website",
-    placeholder: 'https://yourcompany.com',
-    cta: 'Run a free Growth Scan',
-    micro: 'Free · No card details · About 30 sec.',
-    invalid: 'Enter a web address, e.g. yourcompany.com',
+    label: 'Your website',
+    placeholder: 'https://yourbusiness.com',
+    cta: 'Run free Growth Scan',
+    micro: 'Free · No card required · About 30 sec.',
+    invalid: 'Enter a web address, e.g. yourbusiness.com',
     running: 'Scanning',
     talkInstead: 'Book a discovery call',
     steps: [
-      { key: 'connect', label: 'Connecting to website' },
-      { key: 'capture', label: 'Checking contact paths and lead capture' },
-      { key: 'trust', label: 'Checking trust signals' },
-      { key: 'technical', label: 'Checking technical foundation' },
-      { key: 'website', label: 'Assessing the website as a whole' },
-      { key: 'opportunities', label: 'Collecting opportunities' },
+      { key: 'open', label: 'Opening the website in a browser' },
+      { key: 'pages', label: 'Reviewing subpages' },
+      { key: 'contact', label: 'Contact and booking' },
+      { key: 'google', label: 'Google visibility' },
+      { key: 'gbp', label: 'Reviews and Google profile' },
+      { key: 'followup', label: 'Follow-up' },
+      { key: 'report', label: 'Putting the report together' },
     ],
-    stepStatus: { done: 'Measured', queued: 'Full review', running: 'Running' },
+    stepStatus: { done: 'Reviewed', running: 'In progress' },
 
     result: {
-      eyebrow: 'Growth Scan · Preliminary result',
-      scoreLabel: 'Growth Score',
-      preliminary: 'Preliminary',
-      basis: 'Based on {n} measured signals from your website.',
-      pendingBasis:
-        'Google visibility and AI visibility need search data. They are not part of the automatic scan, but of the full review.',
-      dimensions: {
-        google: 'Google visibility',
-        ai: 'AI visibility',
-        capture: 'Lead capture',
-        trust: 'Trust and reviews',
-        website: 'Technical foundation',
+      eyebrow: 'Growth Scan',
+      areas: {
+        website: 'Website',
+        google: 'Google',
+        gbp: 'Reviews & Google profile',
+        contact: 'Contact & booking',
+        followup: 'Follow-up',
       },
-      clientRendered:
-        'The site is built with JavaScript, so content like phone numbers, forms and reviews cannot be measured from the raw HTML. They are measured in the full review.',
-      pending: 'Full review',
-      measured: 'Measured',
-      findingsHeading: 'We found {n} opportunities for improvement',
-      severities: { critical: 'Critical', opportunity: 'Opportunity', quickwin: 'Quick win' },
-      severityPlural: { critical: 'Critical', opportunity: 'Opportunities', quickwin: 'Quick wins' },
-      lockedHeading: '{n} items in the full review',
-      lockedBody:
-        'The rest, including keywords, AI answers, competitors and a prioritised plan, is done manually in the full review.',
-      unlockCta: 'Get the full review',
+      recommendation: 'Our recommendation',
+      cta: 'Book a conversation about Growth Engine',
+      websiteCta: 'See website packages',
+      notSeen: "What we can't see from the outside",
+      save: 'Save the report',
+      savePdf: 'Save as PDF',
+      saveImage: 'Save as image',
+      preparing: 'Preparing …',
+      privacyNote: "The report is for you only. It's based on publicly available information and isn't shared with anyone else.",
       rescan: 'Scan another website',
-      unreachableHeading: "We couldn't reach the website automatically.",
+      unreachableHeading: "We couldn't see the website properly on our own.",
       unreachableBody:
-        'This happens with bot protection or a slow server. Send us the address and we will run the scan manually and send you the result.',
-      unreachableCta: 'Send for manual scan',
+        "This can happen with bot protection, a login page or a slow server. Rather than guess, we'll run the scan by hand and send you the result.",
+      unreachableCta: 'Send for a manual scan',
       timestamp: 'Scanned',
       manualRequested: 'Manual scan requested',
       networkError: 'The scan could not be completed.',
-    },
-
-    website: {
-      eyebrow: 'The website',
-      heading: 'Your website is limiting your growth',
-      lead: 'The scan found several issues with the website itself that make it harder for visitors to choose you and get in touch. This is what we actually observed:',
-      advice:
-        'When the website is the bottleneck, building a new foundation often makes more sense than patching the old one. We offer three fixed-price website packages.',
-      primary: 'See website packages',
-      secondary: 'Request a callback',
     },
 
     lead: {
@@ -217,7 +201,7 @@ const en: Dictionary = {
     scan: {
       eyebrow: 'Free Growth Scan',
       heading: 'Find out where your business is losing potential.',
-      lead: 'The scan reads your website and checks contact paths, trust signals and the technical foundation. You get a preliminary result straight away.',
+      lead: 'The scan opens your website in a real browser and shows the most important opportunities for more enquiries. You get the report straight away.',
     },
     paths: {
       eyebrow: 'Get started',
@@ -225,7 +209,7 @@ const en: Dictionary = {
       scan: {
         label: '01 · On your own',
         title: 'Free Growth Scan',
-        body: 'Enter your web address and see a preliminary result straight away. No commitment.',
+        body: 'Enter your web address and get a short report with the most important opportunities straight away. No commitment.',
         cta: 'Run a free Growth Scan',
       },
       talk: {
@@ -523,7 +507,7 @@ const en: Dictionary = {
       'growth can justify an investment',
     ],
     industriesLabel: 'Typically',
-    industries: ['Heat pumps', 'Solar', 'Roofing', 'Windows', 'Electrical', 'Plumbing', 'Renovation'],
+    industries: ['Carpentry', 'Roofing', 'Windows and doors', 'Plumbing', 'Masonry', 'Painting', 'Renovation'],
     notHeading: 'Not the right match if:',
     notItems: [
       'the business is brand new with no demand',
@@ -550,7 +534,7 @@ const en: Dictionary = {
       {
         id: 'website',
         q: 'Do we need a new website?',
-        a: 'Not necessarily. Most improvements can be made on the website you have. If the Growth Scan shows that the website itself is the biggest bottleneck, for example because it is hard to use on mobile or lacks clear contact paths, we recommend one of our website packages. That is a separate, fixed-price service.',
+        a: 'Not necessarily. Most improvements can be made on the website you have. If the Growth Scan shows that the website itself is in the way, for example because it is not built for phones, we recommend one of our website packages. Smaller improvements we make on the website you already have. That is a separate, fixed-price service.',
       },
       {
         id: 'automation',
@@ -565,7 +549,7 @@ const en: Dictionary = {
       {
         id: 'after-scan',
         q: 'What happens after the Growth Scan?',
-        a: 'You get a preliminary result straight away. If you want to go further, we review the result with you and look at what the scan cannot measure automatically, such as keywords, AI answers and competitors. Then you decide whether to continue. There is no automated sales sequence.',
+        a: 'You get a short report straight away, which you can save as a PDF or an image. If you want to go further, we go through it with you and look at what the scan cannot see from the outside: Google rankings, your Google profile and what happens after an enquiry. Then you decide whether to continue. There is no automated sales sequence.',
       },
       {
         id: 'binding',
@@ -599,23 +583,24 @@ const en: Dictionary = {
   scanPage: {
     title: 'Free Growth Scan',
     description:
-      'Run a free Growth Scan of your website. See straight away where you may be losing potential customers in contact paths, trust and technical foundation.',
+      'Run a free Growth Scan of your website. We open it in a real browser and show the most important opportunities for more enquiries, in plain language.',
     eyebrow: 'Free Growth Scan',
-    heading: 'Find out where you are losing potential.',
-    lead: 'Enter your web address. The scan is the diagnosis: it shows where the gaps are, and whether the website itself is in the way.',
-    measuredHeading: 'Measured automatically',
+    heading: 'Find out where you are losing enquiries.',
+    lead: 'Enter your web address. In under a minute you get a short report with the most important opportunities and one concrete next step.',
+    measuredHeading: 'What the scan reviews',
     measured: [
-      { title: 'Lead capture', body: 'Clickable phone number, form, contact paths and clear calls to action.' },
-      { title: 'Trust', body: 'Reviews, company details, Google profile and structured data.' },
-      { title: 'Technical foundation', body: 'Mobile view, response time, titles, indexing and sitemap.' },
-      { title: 'The website as a whole', body: 'Whether the website itself limits conversion, and why.' },
+      { title: 'The website as a customer sees it', body: 'The homepage and up to six subpages, opened in a real browser on mobile and desktop.' },
+      { title: 'Contact and booking', body: 'How easy it is to call, write or book, and what a customer sees on the first screen.' },
+      { title: 'Google visibility', body: 'Whether the pages are set up to be found: titles, local keywords and indexing.' },
+      { title: 'Reviews and Google profile', body: 'Whether the website shows reviews and points to your Google profile.' },
+      { title: 'Follow-up', body: 'What customers are told about when they will hear back.' },
     ],
-    reviewHeading: 'In the full review',
-    review: ['Google visibility and keywords', 'AI visibility', 'Competitors', 'Prioritised plan'],
+    reviewHeading: 'Needs access',
+    review: ['Rankings in Google searches', 'Your Google Business Profile', 'What happens after an enquiry'],
     afterHeading: 'After the scan',
     after: [
-      { title: 'Preliminary result', body: 'You see the result straight away on the page.' },
-      { title: 'Full review', body: 'If you want more, we go through it manually with you.' },
+      { title: 'A short report', body: 'You see the result straight away and can save it as a PDF or an image.' },
+      { title: 'A conversation, if you want one', body: "We go through the report, and what the scan can't see, with you." },
       { title: 'You decide', body: 'Growth Engine, a new website or nothing. Your call.' },
     ],
     faq: { eyebrow: 'Questions', heading: 'About the scan.' },

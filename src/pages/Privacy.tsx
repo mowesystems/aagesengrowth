@@ -70,6 +70,19 @@ const Privacy: React.FC = () => {
             ),
           },
           {
+            heading: 'Growth Scan',
+            body: (
+              <p>
+                Når du kører en Growth Scan, gemmer vi webadressen og resultatet af scanningen, så rapporten kan vises
+                og gemmes som PDF eller billede. Scanningen bygger kun på offentligt tilgængelige oplysninger på det
+                website, der scannes, og der gemmes ingen personoplysninger om dig sammen med den. Rapporten kan kun
+                åbnes via det unikke link, din browser får, og vises ikke offentligt. For at forhindre misbrug tæller vi
+                antallet af scanninger pr. netværk i en time; IP-adressen gemmes kun i envejskrypteret form. Skriv til
+                os, hvis en rapport skal slettes.
+              </p>
+            ),
+          },
+          {
             heading: 'Opbevaring',
             body: (
               <p>

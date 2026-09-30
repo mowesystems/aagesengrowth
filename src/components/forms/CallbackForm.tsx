@@ -19,6 +19,8 @@ interface CallbackFormProps {
   source: string;
   /** The scanned URL, when the form was opened from a Growth Scan result. */
   scanUrl?: string;
+  /** The Growth Scan id, so the request links to its internal report. */
+  scanId?: string;
   /** Rendered above the fields. */
   heading?: string;
   body?: string;
@@ -44,6 +46,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 const CallbackForm: React.FC<CallbackFormProps> = ({
   source,
   scanUrl = '',
+  scanId = '',
   heading,
   body,
   tone = 'paper',
@@ -178,6 +181,7 @@ const CallbackForm: React.FC<CallbackFormProps> = ({
       <input type="hidden" name="form-name" value={CALLBACK_FORM_NAME} />
       <input type="hidden" name="source" value={source} />
       <input type="hidden" name="scan-url" value={scanUrl} />
+      <input type="hidden" name="scan-id" value={scanId} />
       <p hidden>
         <label>
           Bot field <input name="bot-field" tabIndex={-1} autoComplete="off" />

@@ -74,67 +74,45 @@ const da = {
     invalid: 'Skriv en webadresse, fx dinvirksomhed.dk',
     running: 'Scanner',
     talkInstead: 'Book en afklaring',
-    /** The sequence. Only stages the scan actually performs. */
+    /** The sequence. Only what the scan actually does. */
     steps: [
-      { key: 'connect', label: 'Forbinder til website' },
-      { key: 'capture', label: 'Tjekker kontaktveje og lead-indfangning' },
-      { key: 'trust', label: 'Tjekker tillidssignaler' },
-      { key: 'technical', label: 'Tjekker teknisk fundament' },
-      { key: 'website', label: 'Vurderer websitet som helhed' },
-      { key: 'opportunities', label: 'Samler vækstmuligheder' },
+      { key: 'open', label: 'Åbner websitet i en browser' },
+      { key: 'pages', label: 'Gennemgår undersider' },
+      { key: 'contact', label: 'Kontakt og booking' },
+      { key: 'google', label: 'Google-synlighed' },
+      { key: 'gbp', label: 'Anmeldelser og Google-profil' },
+      { key: 'followup', label: 'Opfølgning' },
+      { key: 'report', label: 'Samler rapporten' },
     ],
-    stepStatus: { done: 'Målt', queued: 'Fuld gennemgang', running: 'Kører' },
+    stepStatus: { done: 'Gennemgået', running: 'I gang' },
 
     result: {
-      eyebrow: 'Growth Scan · Foreløbigt resultat',
-      scoreLabel: 'Growth Score',
-      preliminary: 'Foreløbig',
-      /** {n} is replaced with the number of measured signals. */
-      basis: 'Baseret på {n} målte signaler fra jeres website.',
-      pendingBasis:
-        'Google-synlighed og AI-synlighed kræver søgedata. De indgår ikke i den automatiske scanning, men i den fulde gennemgang.',
-      dimensions: {
-        google: 'Google-synlighed',
-        ai: 'AI-synlighed',
-        capture: 'Lead-indfangning',
-        trust: 'Tillid og anmeldelser',
-        website: 'Teknisk fundament',
+      eyebrow: 'Growth Scan',
+      areas: {
+        website: 'Website',
+        google: 'Google',
+        gbp: 'Anmeldelser og Google-profil',
+        contact: 'Kontakt og booking',
+        followup: 'Opfølgning',
       },
-      clientRendered:
-        'Websitet er bygget med JavaScript, så indhold som telefonnummer, formularer og anmeldelser kan ikke måles fra den rå HTML. De måles i den fulde gennemgang.',
-      pending: 'Fuld gennemgang',
-      measured: 'Målt',
-      findingsHeading: 'Vi fandt {n} forbedringsmuligheder',
-      severities: { critical: 'Kritisk', opportunity: 'Mulighed', quickwin: 'Quick win' },
-      severityPlural: { critical: 'Kritiske', opportunity: 'Muligheder', quickwin: 'Quick wins' },
-      lockedHeading: '{n} punkter i den fulde gennemgang',
-      lockedBody:
-        'Resten af gennemgangen, herunder søgeord, AI-svar, konkurrenter og en prioriteret plan, laves manuelt i den fulde gennemgang.',
-      unlockCta: 'Få den fulde gennemgang',
+      recommendation: 'Vores anbefaling',
+      cta: 'Book en samtale om Growth Engine',
+      websiteCta: 'Se website-pakker',
+      notSeen: 'Det kan vi ikke se udefra',
+      save: 'Gem rapporten',
+      savePdf: 'Gem som PDF',
+      saveImage: 'Gem som billede',
+      preparing: 'Gør klar …',
+      privacyNote: 'Rapporten er kun til jer. Den bygger på offentligt tilgængelige oplysninger og bliver ikke delt med andre.',
       rescan: 'Scan et andet website',
-      /** Shown when the site could not be reached. The lead path stays open. */
-      unreachableHeading: 'Vi kunne ikke nå websitet automatisk.',
+      /** Shown when the site could not be seen properly. The lead path stays open. */
+      unreachableHeading: 'Vi kunne ikke se websitet ordentligt automatisk.',
       unreachableBody:
-        'Det sker fx ved bot-beskyttelse eller en langsom server. Send adressen, så kører vi scanningen manuelt og sender resultatet.',
+        'Det sker fx ved bot-beskyttelse, en login-side eller en langsom server. I stedet for at gætte kører vi scanningen manuelt og sender jer resultatet.',
       unreachableCta: 'Send til manuel scanning',
       timestamp: 'Scannet',
       manualRequested: 'Manuel scanning ønsket',
       networkError: 'Scanningen kunne ikke gennemføres.',
-    },
-
-    /**
-     * The website verdict. Shown only when the scan finds that the site
-     * itself materially limits conversion, and only with the reasons it
-     * actually observed.
-     */
-    website: {
-      eyebrow: 'Websitet',
-      heading: 'Dit website begrænser jeres vækst',
-      lead: 'Scanningen fandt flere forhold ved selve websitet, som gør det sværere for besøgende at vælge jer og tage kontakt. Her er det, vi konkret observerede:',
-      advice:
-        'Når websitet er flaskehalsen, giver det ofte mere mening at bygge et nyt fundament end at lappe på det gamle. Vi har tre website-pakker til fast pris.',
-      primary: 'Se website-pakker',
-      secondary: 'Bliv ringet op',
     },
 
     /** The lead capture that turns a scan into a full review. */
@@ -232,7 +210,7 @@ const da = {
     scan: {
       eyebrow: 'Gratis Growth Scan',
       heading: 'Find ud af, hvor din virksomhed taber potentiale.',
-      lead: 'Scanningen læser jeres website og tjekker kontaktveje, tillidssignaler og det tekniske fundament. I får et foreløbigt resultat med det samme.',
+      lead: 'Scanningen åbner jeres website i en rigtig browser og viser de vigtigste muligheder for flere henvendelser. Rapporten får I med det samme.',
     },
     paths: {
       eyebrow: 'Kom i gang',
@@ -240,7 +218,7 @@ const da = {
       scan: {
         label: '01 · Selv først',
         title: 'Gratis Growth Scan',
-        body: 'Skriv jeres webadresse og se et foreløbigt resultat med det samme. Ingen binding.',
+        body: 'Skriv jeres webadresse og få en kort rapport med de vigtigste muligheder med det samme. Ingen binding.',
         cta: 'Kør gratis Growth Scan',
       },
       talk: {
@@ -540,7 +518,7 @@ const da = {
       'vækst kan retfærdiggøre en investering',
     ],
     industriesLabel: 'Typisk',
-    industries: ['Varmepumper', 'Solceller', 'Tag', 'Vinduer', 'El', 'VVS', 'Renovering'],
+    industries: ['Tømrer', 'Tag', 'Vinduer og døre', 'VVS', 'Murer', 'Maler', 'Renovering'],
     notHeading: 'Ikke det rigtige match, hvis:',
     notItems: [
       'virksomheden er helt ny og uden efterspørgsel',
@@ -567,7 +545,7 @@ const da = {
       {
         id: 'website',
         q: 'Skal vi have nyt website?',
-        a: 'Ikke nødvendigvis. De fleste forbedringer kan laves på det website, I har. Viser Growth Scan, at websitet selv er den største flaskehals, fx fordi det er svært at bruge på mobil eller mangler tydelige kontaktveje, anbefaler vi en af vores website-pakker. Det er en separat ydelse til fast pris.',
+        a: 'Ikke nødvendigvis. De fleste forbedringer kan laves på det website, I har. Viser Growth Scan, at websitet selv står i vejen, fx fordi det ikke er tilpasset mobiltelefoner, anbefaler vi en af vores website-pakker. Små forbedringer løser vi på det website, I har. Det er en separat ydelse til fast pris.',
       },
       {
         id: 'automation',
@@ -582,7 +560,7 @@ const da = {
       {
         id: 'after-scan',
         q: 'Hvad sker der efter Growth Scan?',
-        a: 'I får et foreløbigt resultat med det samme. Vil I videre, gennemgår vi resultatet sammen med jer og ser på det, scanningen ikke kan måle automatisk, fx søgeord, AI-svar og konkurrenter. Derefter beslutter I selv, om I vil gå videre. Der kommer ingen automatisk salgssekvens.',
+        a: 'I får en kort rapport med det samme, som I kan gemme som PDF eller billede. Vil I videre, gennemgår vi den sammen med jer og ser på det, scanningen ikke kan se udefra: placeringer på Google, jeres Google-profil og hvad der sker efter en henvendelse. Derefter beslutter I selv, om I vil gå videre. Der kommer ingen automatisk salgssekvens.',
       },
       {
         id: 'binding',
@@ -616,23 +594,24 @@ const da = {
   scanPage: {
     title: 'Gratis Growth Scan',
     description:
-      'Kør en gratis Growth Scan af jeres website. Se med det samme, hvor I kan miste potentielle kunder i kontaktveje, tillid og teknisk fundament.',
+      'Kør en gratis Growth Scan af jeres website. Vi åbner det i en rigtig browser og viser de vigtigste muligheder for flere henvendelser, på almindeligt dansk.',
     eyebrow: 'Gratis Growth Scan',
-    heading: 'Find ud af, hvor I taber potentiale.',
-    lead: 'Skriv jeres webadresse. Scanningen er diagnosen: den viser, hvor der er huller, og om websitet selv står i vejen.',
-    measuredHeading: 'Måles automatisk',
+    heading: 'Find ud af, hvor I taber henvendelser.',
+    lead: 'Skriv jeres webadresse. På under et minut får I en kort rapport med de vigtigste muligheder og ét konkret næste skridt.',
+    measuredHeading: 'Det gennemgår scanningen',
     measured: [
-      { title: 'Lead-indfangning', body: 'Klikbart telefonnummer, formular, kontaktveje og tydelige opfordringer.' },
-      { title: 'Tillid', body: 'Anmeldelser, virksomhedsoplysninger, Google-profil og struktureret data.' },
-      { title: 'Teknisk fundament', body: 'Mobilvisning, svartid, titler, indeksering og sitemap.' },
-      { title: 'Websitet som helhed', body: 'Om websitet selv begrænser konverteringen, og hvorfor.' },
+      { title: 'Websitet, som kunden ser det', body: 'Forsiden og op til seks undersider, åbnet i en rigtig browser på mobil og computer.' },
+      { title: 'Kontakt og booking', body: 'Hvor let det er at ringe, skrive eller booke, og hvad kunden ser på den første skærm.' },
+      { title: 'Google-synlighed', body: 'Om siderne er sat op til at blive fundet: titler, lokale søgeord og indeksering.' },
+      { title: 'Anmeldelser og Google-profil', body: 'Om websitet viser anmeldelser og viser vej til jeres Google-profil.' },
+      { title: 'Opfølgning', body: 'Hvad kunden får at vide om, hvornår de hører fra jer.' },
     ],
-    reviewHeading: 'I den fulde gennemgang',
-    review: ['Google-synlighed og søgeord', 'AI-synlighed', 'Konkurrenter', 'Prioriteret plan'],
+    reviewHeading: 'Kræver adgang',
+    review: ['Placeringer i Google-søgninger', 'Jeres Google Business-profil', 'Hvad der sker efter en henvendelse'],
     afterHeading: 'Efter scanningen',
     after: [
-      { title: 'Foreløbigt resultat', body: 'I ser resultatet med det samme på siden.' },
-      { title: 'Fuld gennemgang', body: 'Vil I have mere, gennemgår vi det manuelt sammen med jer.' },
+      { title: 'En kort rapport', body: 'I ser resultatet med det samme og kan gemme det som PDF eller billede.' },
+      { title: 'En samtale, hvis I vil', body: 'Vi gennemgår rapporten og det, scanningen ikke kan se, sammen med jer.' },
       { title: 'I beslutter', body: 'Growth Engine, et nyt website eller ingenting. Det er jeres valg.' },
     ],
     faq: { eyebrow: 'Spørgsmål', heading: 'Om scanningen.' },
