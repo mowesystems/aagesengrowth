@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F7F6F2" />
-    <title>Growth Engine — flere kunder, færre tabte leads | Aagesen Growth</title>
+    <title>Growth Engine: find hvor I taber kunder | Aagesen Growth</title>
     <meta
       name="description"
-      content="Growth Engine hjælper servicevirksomheder med at blive fundet på Google og AI – og følger automatisk op på potentielle kunder. Kør en gratis Growth Scan på 60 sekunder."
+      content="Growth Engine finder de steder i jeres digitale kunderejse, hvor potentielle kunder går tabt, og forbedrer det, der betyder mest. Kør en gratis Growth Scan, eller book en afklaring."
     />
     <link rel="canonical" href="https://aagesengrowth.com/" />
 
@@ -25,10 +25,10 @@
     <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:site_name" content="Aagesen Growth" />
     <meta property="og:url" content="https://aagesengrowth.com/" />
-    <meta property="og:title" content="Growth Engine — flere kunder, færre tabte leads" />
+    <meta property="og:title" content="Growth Engine: find hvor I taber kunder" />
     <meta
       property="og:description"
-      content="Bliv fundet på Google og AI, og følg automatisk op på potentielle kunder. Kør en gratis Growth Scan på 60 sekunder."
+      content="Find de steder i jeres digitale kunderejse, hvor potentielle kunder går tabt. Kør en gratis Growth Scan."
     />
     <meta property="og:image" content="https://aagesengrowth.com/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -36,10 +36,10 @@
     <meta property="og:image:alt" content="Aagesen Growth — Growth Engine. Flere kunder. Færre tabte leads." />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Growth Engine — flere kunder, færre tabte leads" />
+    <meta name="twitter:title" content="Growth Engine: find hvor I taber kunder" />
     <meta
       name="twitter:description"
-      content="Bliv fundet på Google og AI, og følg automatisk op på potentielle kunder. Kør en gratis Growth Scan på 60 sekunder."
+      content="Find de steder i jeres digitale kunderejse, hvor potentielle kunder går tabt. Kør en gratis Growth Scan."
     />
     <meta name="twitter:image" content="https://aagesengrowth.com/og-image.jpg" />
 
@@ -67,7 +67,7 @@
             "legalName": "Aagesen Growth ApS",
             "url": "https://aagesengrowth.com",
             "logo": "https://aagesengrowth.com/brand/aagesen-growth.png",
-            "description": "Growth Engine: synlighed på Google og AI, hurtigere svar og automatisk opfølgning for danske servicevirksomheder.",
+            "description": "Growth Engine finder og forbedrer de steder i den digitale kunderejse, hvor danske servicevirksomheder taber potentielle kunder.",
             "areaServed": "DK",
             "knowsLanguage": ["da", "en"]
           },
@@ -75,7 +75,7 @@
             "@type": "Service",
             "@id": "https://aagesengrowth.com/#growth-engine",
             "name": "Growth Engine",
-            "serviceType": "Lokal synlighed, AI-synlighed og lead-opfølgning for servicevirksomheder",
+            "serviceType": "Identifikation og løbende forbedring af den digitale kunderejse for servicevirksomheder",
             "provider": { "@id": "https://aagesengrowth.com/#organization" },
             "areaServed": "DK",
             "offers": {
@@ -89,7 +89,7 @@
                 "unitText": "MONTH",
                 "valueAddedTaxIncluded": false
               },
-              "url": "https://aagesengrowth.com/#pris"
+              "url": "https://aagesengrowth.com/pris"
             }
           }
         ]
@@ -117,6 +117,27 @@
       <input name="scan-id" />
       <input name="scan-score" />
       <textarea name="scan-summary"></textarea>
+    </form>
+
+    <!--
+      "Bliv ringet op" (components/forms/CallbackForm.tsx). Same rule: the
+      field names here and in the component must match. Netlify emails each
+      submission to kontakt@aagesengrowth.dk via a form notification, and the
+      `subject` field becomes the email subject.
+    -->
+    <form name="callback" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="callback" />
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="company" />
+      <input name="phone" />
+      <input name="email" />
+      <textarea name="message"></textarea>
+      <input name="source" />
+      <input name="page" />
+      <input name="scan-url" />
+      <input name="submitted-at" />
+      <input name="subject" />
     </form>
 
     <div id="root"></div>

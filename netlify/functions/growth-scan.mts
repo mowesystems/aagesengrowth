@@ -32,6 +32,22 @@ interface Signal {
   value?: string | number | boolean | null;
 }
 
+/** One observed reason the website itself holds conversion back. */
+interface WebsiteReason {
+  key: string;
+  /** Structural problems are the ones a new site fixes and a patch rarely does. */
+  structural: boolean;
+  title: string;
+  evidence: string;
+}
+
+interface WebsiteAssessment {
+  /** True when the website itself is judged to materially limit conversion. */
+  limitsGrowth: boolean;
+  /** Only issues that were actually detected. Empty when nothing was found. */
+  reasons: WebsiteReason[];
+}
+
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_BYTES = 1_500_000;
 const USER_AGENT =
@@ -173,6 +189,7 @@ const jsonLdTypes = (html: string): string[] => {
 interface Analysis {
   signals: Signal[];
   findings: Finding[];
+  website: WebsiteAssessment;
   leadCaptureScore: number | null;
   trustScore: number | null;
   websiteScore: number;
@@ -225,7 +242,10 @@ const analyse = (
   // measurable rather than as missing.
   const visibleChars = text.replace(/\s/g, '').length;
   const hasMountPoint = /<div\b[^>]*id\s*=\s*["'](root|app|__next|__nuxt|svelte)["'][^>]*>\s*<\/div>/i.test(clean);
-  const clientRendered = visibleChars < 400 && (hasMountPoint || anchors.length < 3);
+  // Table/font/center markup is hand-written HTML, never an app shell, even
+  // when the page carries very little text.
+  const legacyMarkup = /<(font|center|table)\b/i.test(clean);
+  const clientRendered = visibleChars < 400 && !legacyMarkup && (hasMountPoint || anchors.length < 3);
 
   const signals: Signal[] = [
     { key: 'https', label: 'HTTPS', ok: https },
@@ -352,7 +372,103 @@ const analyse = (
   if (!ogTitle)
     add({ id: 'og', severity: 'quickwin', dimension: 'website', title: 'Ingen Open Graph-data', body: 'Uden det ser links til jer tomme ud, når de deles i beskeder og på sociale medier.' });
 
-  return { signals, findings, leadCaptureScore, trustScore, websiteScore, clientRendered };
+  // ------------------------------------------------ is the website the problem?
+  //
+  // Growth Scan recommends a new website only when the site itself is the
+  // bottleneck. Every reason below is an observation from this fetch, with
+  // the evidence that triggered it, and a reason is only listed when it was
+  // actually detected. Content-level checks are skipped for client-rendered
+  // sites, where the raw HTML says nothing about them.
+  const reasons: WebsiteReason[] = [];
+  const reason = (r: WebsiteReason) => reasons.push(r);
+
+  // Mobile: no viewport, or a viewport pinned to a desktop width.
+  const fixedWidth = viewport.match(/width\s*=\s*(\d{3,4})/i);
+  if (!viewport)
+    reason({ key: 'mobile', structural: true, title: 'Siden er ikke bygget til mobil', evidence: 'Ingen viewport-indstilling, så siden vises som en formindsket desktopside på telefoner' });
+  else if (fixedWidth && Number(fixedWidth[1]) >= 600)
+    reason({ key: 'mobile', structural: true, title: 'Siden er ikke bygget til mobil', evidence: `Viewport er låst til ${fixedWidth[1]} px bredde` });
+
+  // Outdated presentation: markup and markers that belong to an older web.
+  const legacy: string[] = [];
+  const tables = clean.match(/<table\b[^>]*>/gi) ?? [];
+  const layoutTables = tables.filter((tag) => /\b(width|cellpadding|cellspacing|bgcolor|border)\s*=/i.test(tag)).length;
+  if (layoutTables >= 2) legacy.push(`${layoutTables} tabeller brugt til layout`);
+  if (/<font\b/i.test(clean)) legacy.push('<font>-tags');
+  if (/<center\b/i.test(clean)) legacy.push('<center>-tags');
+  if (/<marquee\b/i.test(clean)) legacy.push('<marquee>-tags');
+  if (/<frameset\b|<frame\b/i.test(clean)) legacy.push('frames');
+  if (/\.swf\b|application\/x-shockwave-flash/i.test(html)) legacy.push('Flash-indhold');
+  const jquery = html.match(/jquery[.-]?(1\.\d+(\.\d+)?)(\.min)?\.js/i);
+  if (jquery) legacy.push(`jQuery ${jquery[1]}`);
+  const thisYear = new Date().getUTCFullYear();
+  const copyrightYears = [...text.matchAll(/(?:©|&copy;|copyright)[^0-9]{0,12}((?:19|20)\d{2})(?:\s*[-–]\s*((?:19|20)\d{2}))?/gi)]
+    .map((m) => Number(m[2] ?? m[1]));
+  const latestCopyright = copyrightYears.length ? Math.max(...copyrightYears) : null;
+  if (latestCopyright !== null && latestCopyright <= thisYear - 3) legacy.push(`copyright-år ${latestCopyright}`);
+  if (legacy.length > 0)
+    reason({ key: 'outdated', structural: true, title: 'Websitet bærer tydelige tegn på at være forældet', evidence: `Fundet: ${legacy.join(', ')}` });
+
+  // Performance.
+  if (timing.ttfbMs > 1500 || timing.totalMs > 4000)
+    reason({ key: 'slow', structural: true, title: 'Websitet er langsomt', evidence: `${timing.ttfbMs} ms til første byte, ${timing.totalMs} ms til hele forsiden` });
+
+  if (!https)
+    reason({ key: 'https', structural: true, title: 'Websitet kører ikke på HTTPS', evidence: 'Browseren markerer siden som ikke sikker' });
+
+  // Internal navigation: count distinct internal pages the homepage links to.
+  const internalPaths = new Set<string>();
+  for (const href of hrefs) {
+    if (!href || href.startsWith('#') || /^(mailto|tel|javascript):/.test(href)) continue;
+    try {
+      const target = new URL(href, finalUrl);
+      if (target.hostname.replace(/^www\./, '') !== finalUrl.hostname.replace(/^www\./, '')) continue;
+      if (/\.(pdf|jpe?g|png|gif|webp|svg|zip|docx?)$/i.test(target.pathname)) continue;
+      const path = target.pathname.replace(/\/$/, '') || '/';
+      if (path !== '/') internalPaths.add(path);
+    } catch {
+      /* unparsable href */
+    }
+  }
+
+  if (!clientRendered) {
+    if (telLinks === 0 && forms === 0)
+      reason({ key: 'capture', structural: true, title: 'Svag lead-indfangning', evidence: 'Hverken klikbart telefonnummer eller formular på forsiden' });
+
+    if (!ctaWords && !contactLink)
+      reason({ key: 'cta', structural: false, title: 'Ingen tydelig opfordring til handling', evidence: 'Forsiden nævner hverken tilbud, booking, "ring" eller kontakt' });
+
+    if (!(clean.match(/<nav\b/i)) && internalPaths.size < 3)
+      reason({ key: 'navigation', structural: false, title: 'Navigationen er svær at finde', evidence: `Ingen <nav>-menu og kun ${internalPaths.size} ${internalPaths.size === 1 ? 'internt link' : 'interne links'} på forsiden` });
+    else if (internalPaths.size > 120)
+      reason({ key: 'navigation', structural: false, title: 'Navigationen er uoverskuelig', evidence: `${internalPaths.size} forskellige interne links fra forsiden` });
+
+    if (internalPaths.size < 4)
+      reason({ key: 'structure', structural: false, title: 'Ydelserne har ikke egne sider', evidence: internalPaths.size === 0 ? 'Forsiden linker ikke til nogen undersider' : `Forsiden linker kun til ${internalPaths.size} ${internalPaths.size === 1 ? 'underside' : 'undersider'}` });
+
+    if (!reviewSignal && !cvr && !hasLocalBusiness)
+      reason({ key: 'trust', structural: false, title: 'Svage tillidssignaler', evidence: 'Ingen anmeldelser, intet CVR og ingen struktureret virksomhedsdata på forsiden' });
+  }
+
+  const seoMissing = [
+    title.length < 15 || title.length > 70 ? 'sidetitel' : '',
+    description.length < 50 ? 'metabeskrivelse' : '',
+    h1Count !== 1 ? 'én H1' : '',
+    !canonical ? 'canonical' : '',
+    !extras.sitemap ? 'sitemap.xml' : '',
+  ].filter(Boolean);
+  if (seoMissing.length >= 3)
+    reason({ key: 'seo', structural: false, title: 'Tekniske SEO-basics mangler', evidence: `Mangler eller er forkert: ${seoMissing.join(', ')}` });
+
+  // The verdict. One structural problem plus two more issues, or four issues
+  // of any kind, means the site itself is the bottleneck rather than a
+  // detail on it.
+  const structuralCount = reasons.filter((r) => r.structural).length;
+  const limitsGrowth = (structuralCount >= 1 && reasons.length >= 3) || reasons.length >= 4 || structuralCount >= 2;
+
+  signals.push({ key: 'websiteLimits', label: 'Websitet begrænser konvertering', ok: !limitsGrowth, value: reasons.map((r) => r.key).join(', ') || null });
+
+  return { signals, findings, website: { limitsGrowth, reasons }, leadCaptureScore, trustScore, websiteScore, clientRendered };
 };
 
 // ----------------------------------------------------------------- handler
@@ -406,7 +522,7 @@ export default async (request: Request, _context: Context) => {
     exists(`${finalUrl.origin}/robots.txt`),
   ]);
 
-  const { signals, findings, leadCaptureScore, trustScore, websiteScore, clientRendered } = analyse(
+  const { signals, findings, website, leadCaptureScore, trustScore, websiteScore, clientRendered } = analyse(
     html,
     finalUrl,
     { ttfbMs, totalMs },
@@ -445,6 +561,7 @@ export default async (request: Request, _context: Context) => {
     signals,
     competitors: [],
     findings,
+    website,
     criticalIssues: findings.filter((f) => f.severity === 'critical'),
     opportunities: findings.filter((f) => f.severity === 'opportunity'),
     quickWins: findings.filter((f) => f.severity === 'quickwin'),

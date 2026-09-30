@@ -62,7 +62,11 @@ const sitemap = (): Plugin => ({
   generateBundle() {
     const priority: Record<string, string> = {
       home: '1.0',
-      booking: '0.9',
+      scan: '0.9',
+      pricing: '0.9',
+      how: '0.8',
+      booking: '0.8',
+      faq: '0.6',
       work: '0.6',
       privacy: '0.3',
       cookies: '0.3',

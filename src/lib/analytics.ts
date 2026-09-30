@@ -19,7 +19,9 @@ export type AnalyticsEvent =
   | 'growth_review_booked'
   | 'pricing_viewed'
   | 'founder_program_clicked'
-  | 'primary_cta_clicked';
+  | 'primary_cta_clicked'
+  | 'callback_requested'
+  | 'website_packages_clicked';
 
 export type AnalyticsProps = Record<string, string | number | boolean | null | undefined>;
 

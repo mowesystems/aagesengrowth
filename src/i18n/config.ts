@@ -26,13 +26,16 @@ export const localeMeta: Record<
  *
  * Translating the slug rather than only the prefix is the point: `/en/pricing`
  * is a page an English speaker can read the address of, and it is what search
- * engines expect from a localised site. `home` carries the whole Growth
- * Engine argument, including pricing and FAQ as anchored sections. `booking`
- * is the direct "book a discovery call" page; `work` is the case index.
+ * engines expect from a localised site. The homepage is a short landing page;
+ * the explanation, the prices, the scan and the FAQ each have their own page.
  */
 export const routeSlugs = {
   home: { da: '', en: '' },
-  booking: { da: 'book-en-afklaring', en: 'book-a-discovery-call' },
+  how: { da: 'saadan-virker-det', en: 'how-it-works' },
+  pricing: { da: 'pris', en: 'pricing' },
+  scan: { da: 'growth-scan', en: 'growth-scan' },
+  booking: { da: 'book', en: 'book' },
+  faq: { da: 'faq', en: 'faq' },
   work: { da: 'projekter', en: 'projects' },
   privacy: { da: 'privatlivspolitik', en: 'privacy-policy' },
   cookies: { da: 'cookiepolitik', en: 'cookie-policy' },
@@ -40,12 +43,16 @@ export const routeSlugs = {
 
 export type RouteKey = keyof typeof routeSlugs;
 
-/** Anchored sections on the homepage, in page order. */
-export const homeAnchors = {
+/** Anchors other pages link into. */
+export const anchors = {
+  /** The scanner in the homepage hero. */
   scan: 'growth-scan',
-  engine: 'growth-engine',
-  pricing: 'pris',
-  faq: 'faq',
+  /** The website packages on the pricing page. */
+  websites: 'websites',
+  /** The Founder Program on the pricing page. */
+  founder: 'founder-program',
+  /** The callback form, wherever it sits. */
+  callback: 'bliv-ringet-op',
 } as const;
 
 /** The prefix a locale's URLs carry. Danish carries none. */

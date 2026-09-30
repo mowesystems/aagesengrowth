@@ -1,16 +1,16 @@
 import React from 'react';
-import { ArrowDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MaskedLines from '@/components/ui/MaskedLines';
 import GrowthScan from '@/components/scan/GrowthScan';
 import SignalField from '@/components/growth/SignalField';
 import { useScan } from '@/components/scan/ScanContext';
 import founderProgram from '@/config/founderProgram';
-import { homeAnchors } from '@/i18n/config';
+import { anchors } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import { track } from '@/lib/analytics';
 
-export const HERO_SCAN_ID = homeAnchors.scan;
+export const HERO_SCAN_ID = anchors.scan;
 
 /**
  * The hero.
@@ -37,14 +37,14 @@ const Hero: React.FC = () => {
             <div className="animate-rise flex flex-wrap items-center gap-x-5 gap-y-2">
               <p className="meta-brand">{t.hero.eyebrow}</p>
               {founderProgram.enabled && (
-                <a
-                  href={`#${homeAnchors.pricing}`}
+                <Link
+                  to={`${path('pricing')}#${anchors.founder}`}
                   onClick={() => track('founder_program_clicked', { placement: 'hero' })}
                   className="chip chip-opportunity min-h-7 transition-colors hover:bg-brand hover:text-paper-2"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
                   {t.founder.eyebrow} · {founderProgram.seats} {t.founder.seatsLabel}
-                </a>
+                </Link>
               )}
             </div>
 
@@ -73,13 +73,17 @@ const Hero: React.FC = () => {
         </div>
 
         {!scanActive && (
-          <div className="animate-rise mt-8 flex flex-wrap items-center gap-x-6 gap-y-2" style={{ animationDelay: '700ms' }}>
-            <a href={`#${homeAnchors.engine}`} className="link-line text-[0.82rem] text-muted">
+          <div className="animate-rise mt-6 flex flex-wrap items-center gap-x-6 gap-y-3" style={{ animationDelay: '700ms' }}>
+            <Link
+              to={path('booking')}
+              onClick={() => track('primary_cta_clicked', { source: 'hero', cta: 'book_afklaring' })}
+              className="btn btn-outline"
+            >
+              {t.cta.bookAfklaring}
+              <ArrowRight size={15} aria-hidden="true" />
+            </Link>
+            <Link to={path('how')} className="link-line text-[0.82rem] text-muted">
               {t.cta.how}
-              <ArrowDown size={14} aria-hidden="true" />
-            </a>
-            <Link to={path('booking')} className="link-line text-[0.82rem] text-muted">
-              {t.scan.talkInstead}
             </Link>
           </div>
         )}

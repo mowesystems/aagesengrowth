@@ -6,18 +6,21 @@ import { useLocale } from '@/i18n/useLocale';
 
 type StepState = 'idle' | 'running' | 'done' | 'queued';
 
-/** Steps whose real answer needs search data: they end as "full review". */
-const QUEUED = new Set(['google', 'ai', 'competitors']);
+/**
+ * Steps whose real answer needs search data end as "full review". The
+ * sequence currently lists only stages the scan actually performs, so this
+ * is empty; it stays so a queued stage can be added honestly later.
+ */
+const QUEUED = new Set<string>();
 
-/** Minimum time each stage is shown, in ms. The whole run is ~8 seconds. */
+/** Minimum time each stage is shown, in ms. The whole run is ~6.5 seconds. */
 const DURATIONS: Record<string, number> = {
   connect: 900,
-  google: 1400,
-  ai: 1300,
   capture: 1300,
   trust: 1100,
-  competitors: 1200,
-  opportunities: 1000,
+  technical: 1100,
+  website: 1200,
+  opportunities: 900,
 };
 
 /**

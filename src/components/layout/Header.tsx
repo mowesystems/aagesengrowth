@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import BrandLogo from '@/components/BrandLogo';
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher';
-import { homeAnchors } from '@/i18n/config';
+import { anchors, type RouteKey } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import { track } from '@/lib/analytics';
 
@@ -11,13 +11,27 @@ const FOCUSABLE =
   'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 /**
- * The header: mark, four anchors, one call to action.
+ * The header: mark, four page links, booking, one call to action.
  *
- * The CTA points at the hero scanner rather than a contact page. It is
- * always visible on desktop; on phones it appears once the hero's own
- * scanner has scrolled away, so there is never a second scan button in the
- * first viewport and never a missing one after it.
+ * Every item is a real page, not a scroll target. The scan CTA jumps to the
+ * hero scanner on the homepage and goes to the Growth Scan page everywhere
+ * else. On phones it appears once the hero's own scanner has scrolled away,
+ * so there is never a second scan button in the first viewport.
  */
+/** A hash on the current page stays an anchor; a route goes through the router. */
+const ScanLink: React.FC<
+  React.PropsWithChildren<{ href: string; onClick?: () => void; className?: string } & React.AriaAttributes & { tabIndex?: number }>
+> = ({ href, children, ...rest }) =>
+  href.startsWith('#') ? (
+    <a href={href} {...rest}>
+      {children}
+    </a>
+  ) : (
+    <Link to={href} {...rest}>
+      {children}
+    </Link>
+  );
+
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -30,14 +44,15 @@ const Header: React.FC = () => {
   const close = useCallback(() => setMenuOpen(false), []);
   const home = path('home');
   const isHome = location.pathname === home;
-  const anchor = (id: string) => (isHome ? `#${id}` : `${home}#${id}`);
 
-  const nav = [
-    { label: t.nav.engine, href: anchor(homeAnchors.engine) },
-    { label: t.nav.pricing, href: anchor(homeAnchors.pricing) },
-    { label: t.nav.faq, href: anchor(homeAnchors.faq) },
+  const nav: { key: RouteKey; label: string }[] = [
+    { key: 'home', label: t.nav.engine },
+    { key: 'how', label: t.nav.how },
+    { key: 'pricing', label: t.nav.pricing },
+    { key: 'faq', label: t.nav.faq },
   ];
-  const scanHref = anchor(homeAnchors.scan);
+  const scanHref = isHome ? `#${anchors.scan}` : path('scan');
+  const isCurrent = (key: RouteKey) => location.pathname === path(key);
 
   useEffect(() => {
     close();
@@ -112,7 +127,7 @@ const Header: React.FC = () => {
         }`}
       >
         <div className="frame">
-          <div className="flex h-[4.2rem] items-center justify-between gap-6 lg:h-[5.25rem]">
+          <div className="flex h-[4.2rem] items-center justify-between gap-4 lg:h-[5.25rem] xl:gap-6">
             <Link to={home} className="-ml-1 flex min-h-11 items-center px-1" aria-label={t.header.home}>
               <BrandLogo size="sm" className="lg:hidden" />
               <BrandLogo size="md" className="hidden lg:block" />
@@ -120,21 +135,26 @@ const Header: React.FC = () => {
 
             <nav className="hidden items-center gap-1 lg:flex" aria-label={t.header.nav}>
               {nav.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="group relative inline-flex min-h-11 items-center px-4 font-sans text-[0.88rem] font-medium text-muted transition-colors hover:text-ink"
+                <Link
+                  key={link.key}
+                  to={path(link.key)}
+                  aria-current={isCurrent(link.key) ? 'page' : undefined}
+                  className={`group relative inline-flex min-h-11 items-center px-2.5 font-sans text-[0.88rem] font-medium xl:px-4 transition-colors hover:text-ink ${
+                    isCurrent(link.key) ? 'text-ink' : 'text-muted'
+                  }`}
                 >
                   {link.label}
                   <span
                     aria-hidden="true"
-                    className="absolute bottom-[0.7rem] left-4 h-px w-0 bg-brand transition-[width] duration-300 ease-entrance group-hover:w-[calc(100%-2rem)]"
+                    className={`absolute bottom-[0.7rem] left-2.5 h-px bg-brand transition-[width] duration-300 ease-entrance group-hover:w-[calc(100%-1.25rem)] xl:left-4 xl:group-hover:w-[calc(100%-2rem)] ${
+                      isCurrent(link.key) ? 'w-[calc(100%-1.25rem)] xl:w-[calc(100%-2rem)]' : 'w-0'
+                    }`}
                   />
-                </a>
+                </Link>
               ))}
             </nav>
 
-            <div className="hidden items-center gap-5 lg:flex">
+            <div className="hidden items-center gap-4 lg:flex xl:gap-5">
               <Link
                 to={path('booking')}
                 onClick={() => track('primary_cta_clicked', { source: 'header:desktop', cta: 'book_afklaring' })}
@@ -142,17 +162,17 @@ const Header: React.FC = () => {
               >
                 {t.cta.bookAfklaring}
               </Link>
-              <a href={scanHref} onClick={() => onScanClick('desktop')} className="btn btn-primary px-6">
+              <ScanLink href={scanHref} onClick={() => onScanClick('desktop')} className="btn btn-primary px-5 xl:px-6">
                 {t.cta.scanShort}
                 <ArrowRight size={15} aria-hidden="true" />
-              </a>
+              </ScanLink>
               <span aria-hidden="true" className="h-4 w-px bg-ink/15" />
               <LanguageSwitcher />
             </div>
 
             <div className="flex items-center gap-2 lg:hidden">
               <LanguageSwitcher className="mr-1" />
-              <a
+              <ScanLink
                 href={scanHref}
                 onClick={() => onScanClick('mobile')}
                 className={`btn btn-primary min-h-10 whitespace-nowrap px-4 text-[0.8rem] transition-[opacity,transform] duration-300 ${
@@ -162,7 +182,7 @@ const Header: React.FC = () => {
                 tabIndex={pastHero || !isHome ? 0 : -1}
               >
                 {t.cta.scanMobile}
-              </a>
+              </ScanLink>
               <button
                 ref={toggleRef}
                 type="button"
@@ -195,28 +215,26 @@ const Header: React.FC = () => {
           <div className="grid-lines pointer-events-none absolute inset-0" aria-hidden="true" />
           <nav aria-label={t.header.menu} className="frame relative flex-1 pt-8">
             <ul className="rule">
-              {[...nav, { label: t.nav.booking, href: path('booking') }].map((link, index) => (
-                <li key={link.href} className="rule-row">
-                  {link.href.startsWith('/') && !link.href.includes('#') ? (
-                    <Link to={link.href} className="flex min-h-[3.8rem] items-baseline gap-5 py-2 font-sans text-[2.1rem] font-semibold leading-none tracking-[-0.03em] text-ink">
-                      <span className="index-mark opacity-60">{String(index + 1).padStart(2, '0')}</span>
-                      {link.label}
-                    </Link>
-                  ) : (
-                    <a href={link.href} onClick={close} className="flex min-h-[3.8rem] items-baseline gap-5 py-2 font-sans text-[2.1rem] font-semibold leading-none tracking-[-0.03em] text-ink">
-                      <span className="index-mark opacity-60">{String(index + 1).padStart(2, '0')}</span>
-                      {link.label}
-                    </a>
-                  )}
+              {[...nav, { key: 'booking' as RouteKey, label: t.nav.booking }].map((link, index) => (
+                <li key={link.key} className="rule-row">
+                  <Link
+                    to={path(link.key)}
+                    onClick={close}
+                    aria-current={isCurrent(link.key) ? 'page' : undefined}
+                    className="flex min-h-[3.8rem] items-baseline gap-5 py-2 font-sans text-[2.1rem] font-semibold leading-none tracking-[-0.03em] text-ink"
+                  >
+                    <span className="index-mark opacity-60">{String(index + 1).padStart(2, '0')}</span>
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
           <div className="frame relative mt-10 space-y-3">
-            <a href={scanHref} onClick={() => { close(); onScanClick('menu'); }} className="btn btn-primary btn-lg w-full">
+            <ScanLink href={scanHref} onClick={() => { close(); onScanClick('menu'); }} className="btn btn-primary btn-lg w-full">
               {t.cta.scan}
               <ArrowRight size={16} aria-hidden="true" />
-            </a>
+            </ScanLink>
             <Link
               to={path('booking')}
               onClick={() => { close(); track('primary_cta_clicked', { source: 'header:menu', cta: 'book_afklaring' }); }}

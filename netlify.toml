@@ -16,44 +16,50 @@
 # -----------------------------------------------------------------------------
 # Retired URLs.
 #
-# The site is now one Growth Engine landing page plus a review page. Every
-# address that used to exist 301s to the section or page that replaced it, so
-# no indexed link 404s. These must stay above the SPA fallback: Netlify takes
-# the first matching rule.
+# The site is a short landing page plus dedicated pages for how it works,
+# pricing, the Growth Scan, booking and FAQ. Every address that used to exist
+# 301s to the page that replaced it, so no indexed link 404s. These must stay
+# above the SPA fallback: Netlify takes the first matching rule.
 # -----------------------------------------------------------------------------
 [[redirects]]
   from = "/priser"
-  to = "/#pris"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/faq"
-  to = "/#faq"
+  to = "/pris"
   status = 301
   force = true
 
 [[redirects]]
   from = "/kontakt"
-  to = "/book-en-afklaring"
+  to = "/book"
   status = 301
   force = true
 
 [[redirects]]
   from = "/book-moede"
-  to = "/book-en-afklaring"
+  to = "/book"
   status = 301
   force = true
 
 [[redirects]]
   from = "/growth-review"
-  to = "/book-en-afklaring"
+  to = "/book"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/book-en-afklaring"
+  to = "/book"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/book-a-discovery-call"
+  to = "/en/book"
   status = 301
   force = true
 
 [[redirects]]
   from = "/ydelser"
-  to = "/#growth-engine"
+  to = "/saadan-virker-det"
   status = 301
   force = true
 
@@ -64,8 +70,8 @@
   force = true
 
 # The Swedish version of the old agency site never existed as a real
-# language on this build; /en/* is now the real English site and is handled
-# by the SPA fallback below, not redirected away.
+# language on this build; /en/* is the real English site and is handled by
+# the SPA fallback below, not redirected away.
 [[redirects]]
   from = "/sv/*"
   to = "/"

@@ -4,7 +4,7 @@ import { normaliseUrl, ScanFailure, startScan } from '@/lib/growthScan/client';
 import type { GrowthScanError, GrowthScanResult } from '@/lib/growthScan/types';
 import { useLocale } from '@/i18n/useLocale';
 
-export type ScanSource = 'hero' | 'section' | 'final' | 'header' | 'founder' | 'other';
+export type ScanSource = 'hero' | 'section' | 'page' | 'header' | 'founder' | 'other';
 
 export type ScanStatus = 'idle' | 'running' | 'done' | 'error';
 
@@ -53,8 +53,8 @@ const ScanContext = React.createContext<ScanApi>({
 /**
  * One scan per page.
  *
- * The scanner appears three times on the homepage (hero, dedicated section,
- * closing). They share this state, so a scan started in the hero is the scan,
+ * The scanner appears twice on the homepage (hero and the scan section) and
+ * once on the Growth Scan page. They share this state, so a scan started in the hero is the scan,
  * and the other two instances point at it rather than offering to run a
  * second one. The API call and the visual sequence run in parallel; the
  * result is shown only when both are finished, so a fast response never

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Mail, Phone } from 'lucide-react';
 import company from '@/config/company';
 import BrandLogo from '@/components/BrandLogo';
-import { homeAnchors } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher';
 
@@ -14,10 +13,11 @@ const Footer: React.FC = () => {
   const home = path('home');
 
   const productLinks = [
-    { label: t.nav.engine, href: `${home}#${homeAnchors.engine}` },
-    { label: t.nav.pricing, href: `${home}#${homeAnchors.pricing}` },
-    { label: t.nav.faq, href: `${home}#${homeAnchors.faq}` },
-    { label: t.cta.scanShort, href: `${home}#${homeAnchors.scan}` },
+    { label: t.nav.engine, href: home },
+    { label: t.nav.how, href: path('how') },
+    { label: t.nav.pricing, href: path('pricing') },
+    { label: t.nav.faq, href: path('faq') },
+    { label: t.cta.scanShort, href: path('scan') },
   ];
 
   return (
@@ -32,12 +32,12 @@ const Footer: React.FC = () => {
             {hasSocial && (
               <div className="mt-7 flex gap-2">
                 {company.linkedinUrl && (
-                  <a href={company.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Aagesen Growth — LinkedIn" className="inline-flex min-h-11 min-w-11 items-center justify-center border border-paper/15 text-paper transition-colors hover:border-brand-lit hover:text-brand-lit">
+                  <a href={company.linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Aagesen Growth på LinkedIn" className="inline-flex min-h-11 min-w-11 items-center justify-center border border-paper/15 text-paper transition-colors hover:border-brand-lit hover:text-brand-lit">
                     <Linkedin size={16} aria-hidden="true" />
                   </a>
                 )}
                 {company.instagramUrl && (
-                  <a href={company.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Aagesen Growth — Instagram" className="inline-flex min-h-11 min-w-11 items-center justify-center border border-paper/15 text-paper transition-colors hover:border-brand-lit hover:text-brand-lit">
+                  <a href={company.instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Aagesen Growth på Instagram" className="inline-flex min-h-11 min-w-11 items-center justify-center border border-paper/15 text-paper transition-colors hover:border-brand-lit hover:text-brand-lit">
                     <Instagram size={16} aria-hidden="true" />
                   </a>
                 )}
@@ -50,9 +50,9 @@ const Footer: React.FC = () => {
             <ul className="mt-5 space-y-1">
               {productLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="inline-flex min-h-9 items-center text-sm text-muted-lit transition-colors hover:text-paper">
+                  <Link to={link.href} className="inline-flex min-h-9 items-center text-sm text-muted-lit transition-colors hover:text-paper">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -81,8 +81,8 @@ const Footer: React.FC = () => {
                 {company.email && (
                   <li>
                     <a href={`mailto:${company.email}`} className="inline-flex min-h-9 items-center gap-2.5 text-sm text-muted-lit transition-colors hover:text-paper">
-                      <Mail size={14} aria-hidden="true" />
-                      {company.email}
+                      <Mail size={14} aria-hidden="true" className="shrink-0" />
+                      <span className="break-all">{company.email}</span>
                     </a>
                   </li>
                 )}

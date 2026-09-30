@@ -13,6 +13,10 @@ import { localePath, locales, type RouteKey } from '@/i18n/config';
  * The homepage ships in the entry chunk because it is what nearly every visit
  * lands on and it carries the LCP. Everything else is split out.
  */
+const HowItWorks = lazy(() => import('@/pages/HowItWorks'));
+const Pricing = lazy(() => import('@/pages/Pricing'));
+const ScanPage = lazy(() => import('@/pages/ScanPage'));
+const FAQPage = lazy(() => import('@/pages/FAQPage'));
 const Booking = lazy(() => import('@/pages/Booking'));
 const Work = lazy(() => import('@/pages/Work'));
 const CaseDetail = lazy(() => import('@/pages/CaseDetail'));
@@ -24,7 +28,11 @@ const RouteFallback = () => <div className="min-h-[80svh]" aria-hidden="true" />
 
 const pageFor: Record<RouteKey, React.ReactNode> = {
   home: <Home />,
+  how: <HowItWorks />,
+  pricing: <Pricing />,
+  scan: <ScanPage />,
   booking: <Booking />,
+  faq: <FAQPage />,
   work: <Work />,
   privacy: <Privacy />,
   cookies: <CookiePolicy />,

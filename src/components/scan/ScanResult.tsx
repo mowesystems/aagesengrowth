@@ -3,6 +3,8 @@ import { ArrowRight, Lock, RotateCcw } from 'lucide-react';
 import { useScan } from '@/components/scan/ScanContext';
 import ScoreRing from '@/components/scan/ScoreRing';
 import LeadForm from '@/components/scan/LeadForm';
+import WebsiteVerdict from '@/components/scan/WebsiteVerdict';
+import CallbackForm from '@/components/forms/CallbackForm';
 import { useInView } from '@/hooks/useInView';
 import { useLocale } from '@/i18n/useLocale';
 import type { ScanDimension, ScanFinding, Severity } from '@/lib/growthScan/types';
@@ -50,6 +52,7 @@ const ScanResult: React.FC = () => {
   const { result, domain, source, founder, reset } = useScan();
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.05 });
   const [unlocking, setUnlocking] = React.useState(false);
+  const [calling, setCalling] = React.useState(false);
   const formRef = React.useRef<HTMLDivElement>(null);
   const r = t.scan.result;
 
@@ -67,7 +70,7 @@ const ScanResult: React.FC = () => {
   const measuredCount = result.signals.length;
   const shown = result.findings.slice(0, 3);
   const hidden = result.findings.slice(3);
-  const lockedCount = hidden.length + result.pending.length + 1; // + competitor analysis
+  const lockedCount = hidden.length + result.pending.length + 1; // + competitors, in the full review
   const counts = {
     critical: result.criticalIssues.length,
     opportunity: result.opportunities.length,
@@ -91,7 +94,10 @@ const ScanResult: React.FC = () => {
 
   const context = {
     'scan-score': String(result.overallScore),
-    'scan-summary': result.findings.map((f) => `[${f.severity}] ${f.title}`).join('\n'),
+    'scan-summary': [
+      ...result.findings.map((f) => `[${f.severity}] ${f.title}`),
+      ...(result.website?.limitsGrowth ? [`[website] ${t.scan.website.heading}: ${result.website.reasons.map((r) => r.title).join('; ')}`] : []),
+    ].join('\n'),
     'scan-id': result.scanId,
     founder: founder ? 'yes' : 'no',
   };
@@ -167,6 +173,11 @@ const ScanResult: React.FC = () => {
         </ul>
       </div>
 
+      {/* ----------------------------------------------- website verdict */}
+      {result.website && (
+        <WebsiteVerdict assessment={result.website} scanUrl={result.finalUrl} source={source} />
+      )}
+
       {/* ------------------------------------------------------ findings */}
       <div className="mt-12">
         <div className="flex flex-wrap items-end justify-between gap-4">
@@ -226,6 +237,28 @@ const ScanResult: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* ------------------------------------------------ callback path */}
+      {!result.website?.limitsGrowth && !unlocking && (
+        <div className="mt-8">
+          {!calling ? (
+            <button type="button" onClick={() => setCalling(true)} className="link-line text-[0.88rem]">
+              {t.cta.callback}
+              <ArrowRight size={14} aria-hidden="true" />
+            </button>
+          ) : (
+            <div className="animate-rise border-t pt-8" style={{ borderColor: 'var(--line)' }}>
+              <CallbackForm
+                source={`scan-result:${source}`}
+                scanUrl={result.finalUrl}
+                idPrefix={`scan-cb-${source}`}
+                heading={t.callback.heading}
+                body={t.callback.body}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* ------------------------------------------------------- lead form */}
       {unlocking && (

@@ -39,6 +39,24 @@ export interface ScanSignal {
   value?: string | number | boolean | null;
 }
 
+/** One observed reason the website itself holds conversion back. */
+export interface WebsiteReason {
+  key: string;
+  structural: boolean;
+  title: string;
+  evidence: string;
+}
+
+/**
+ * Whether the website itself is the bottleneck. `reasons` only ever holds
+ * issues the scan actually detected. Optional so an older backend that does
+ * not send it still type-checks and simply shows no website card.
+ */
+export interface WebsiteAssessment {
+  limitsGrowth: boolean;
+  reasons: WebsiteReason[];
+}
+
 export interface GrowthScanResult {
   scanId: string;
   domain: string;
@@ -67,6 +85,7 @@ export interface GrowthScanResult {
   competitors: ScanCompetitor[];
 
   findings: ScanFinding[];
+  website?: WebsiteAssessment;
   criticalIssues: ScanFinding[];
   opportunities: ScanFinding[];
   quickWins: ScanFinding[];

@@ -1,26 +1,23 @@
 import React from 'react';
 import SEOHead from '@/components/SEOHead';
-import Hero from '@/components/home/Hero';
-import Problem from '@/components/home/Problem';
-import Engine from '@/components/home/Engine';
-import ScanSection from '@/components/home/ScanSection';
-import FounderProgram from '@/components/home/FounderProgram';
-import Fit from '@/components/home/Fit';
-import FAQ from '@/components/home/FAQ';
-import FinalScan from '@/components/home/FinalScan';
+import Hero, { HERO_SCAN_ID } from '@/components/home/Hero';
+import HomeProblem from '@/components/home/HomeProblem';
+import HomeEngine from '@/components/home/HomeEngine';
+import HomeScan from '@/components/home/HomeScan';
+import TwoPaths from '@/components/home/TwoPaths';
 import Spine from '@/components/growth/Spine';
 import company from '@/config/company';
 import { useLocale } from '@/i18n/useLocale';
-import { homeAnchors, localeMeta } from '@/i18n/config';
+import { localeMeta } from '@/i18n/config';
 
 /**
- * The homepage is the whole argument, in eight moves: the hero, the problem,
- * how Growth Engine works (with the dashboard embedded rather than given its
- * own section), the free scan, the Founder offer and its pricing, who it's
- * for, a short FAQ, and the close.
+ * The homepage has one job: make the problem and the idea clear, then get
+ * the visitor to run a Growth Scan or book a conversation. Five moves: hero,
+ * problem, what Growth Engine is, the scan, two ways in. Everything that
+ * explains the system in depth lives on its own page.
  */
 const Home: React.FC = () => {
-  const { t } = useLocale();
+  const { t, path } = useLocale();
 
   const schema = React.useMemo(
     () => [
@@ -46,8 +43,7 @@ const Home: React.FC = () => {
         serviceType: 'Identifikation og løbende forbedring af den digitale kunderejse for servicevirksomheder',
         provider: { '@id': `${company.domain}/#organization` },
         areaServed: 'DK',
-        audience: { '@type': 'BusinessAudience', name: 'Danske servicevirksomheder (varmepumper, solceller, tag, vinduer, el, VVS, renovering)' },
-        description: t.engine.lead,
+        description: t.home.engine.lead,
         offers: {
           '@type': 'Offer',
           priceCurrency: 'DKK',
@@ -59,20 +55,11 @@ const Home: React.FC = () => {
             unitText: 'MONTH',
             valueAddedTaxIncluded: false,
           },
-          url: `${company.domain}/#${homeAnchors.pricing}`,
+          url: `${company.domain}${path('pricing')}`,
         },
       },
-      {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: t.faq.items.map((entry) => ({
-          '@type': 'Question',
-          name: entry.q,
-          acceptedAnswer: { '@type': 'Answer', text: entry.a },
-        })),
-      },
     ],
-    [t]
+    [t, path]
   );
 
   return (
@@ -81,14 +68,11 @@ const Home: React.FC = () => {
       <Hero />
       <div className="relative">
         <Spine />
-        <Problem />
-        <Engine />
-        <ScanSection />
-        <FounderProgram />
-        <Fit />
-        <FAQ />
+        <HomeProblem />
+        <HomeEngine />
+        <HomeScan />
       </div>
-      <FinalScan />
+      <TwoPaths source="home" scanHref={`#${HERO_SCAN_ID}`} />
     </>
   );
 };
