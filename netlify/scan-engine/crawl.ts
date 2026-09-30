@@ -110,13 +110,25 @@ async function scrollThrough(page: Page) {
     .catch(() => undefined);
 }
 
-async function openPage(
-  browser: Browser,
-  url: string,
-  viewport: typeof MOBILE,
-  kind: PageKind,
-  linkText = ''
-): Promise<CrawledPage> {
+const TRANSIENT = /detached|context was destroyed|Target closed|Session closed|frame was detached|navigat/i;
+
+async function readPage(page: Page) {
+  await page
+    .waitForFunction('document.body && document.body.innerText && document.body.innerText.length > 40', { timeout: 4000 })
+    .catch(() => undefined);
+  await new Promise((r) => setTimeout(r, 700));
+  if (await dismissConsent(page)) {
+    // Some consent tools reload the page after a choice; let that finish.
+    await page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 2500 }).catch(() => undefined);
+    await page
+      .waitForFunction('document.body && document.body.innerText && document.body.innerText.length > 40', { timeout: 4000 })
+      .catch(() => undefined);
+  }
+  await scrollThrough(page);
+  return (await page.evaluate(EXTRACT_SCRIPT)) as PageFacts;
+}
+
+async function openOnce(browser: Browser, url: string, viewport: typeof MOBILE) {
   const page = await browser.newPage();
   try {
     await page.setViewport(viewport);
@@ -124,35 +136,48 @@ async function openPage(
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'da-DK,da;q=0.9,en;q=0.7' });
     await page.setRequestInterception(true);
     page.on('request', (req) => {
-      const type = req.resourceType();
-      if (type === 'media') return void req.abort().catch(() => undefined);
+      if (req.resourceType() === 'media') return void req.abort().catch(() => undefined);
       void req.continue().catch(() => undefined);
     });
-    const response = await page.goto(url, { waitUntil: 'networkidle2', timeout: NAV_TIMEOUT }).catch(async (error: Error) => {
+    const response = await page.goto(url, { waitUntil: 'networkidle2', timeout: NAV_TIMEOUT }).catch((error: Error) => {
       // A page that never goes quiet (analytics, chat) still rendered; read what is there.
       if (/timeout/i.test(error.message)) return null;
       throw error;
     });
-    await page
-      .waitForFunction('document.body && document.body.innerText && document.body.innerText.length > 40', { timeout: 4000 })
-      .catch(() => undefined);
-    await new Promise((r) => setTimeout(r, 700));
-    await dismissConsent(page);
-    await scrollThrough(page);
-    const facts = (await page.evaluate(EXTRACT_SCRIPT)) as PageFacts;
-    return {
-      url,
-      finalUrl: page.url(),
-      kind,
-      status: response ? response.status() : 200,
-      linkText,
-      facts,
-    };
-  } catch (error) {
-    return { url, finalUrl: url, kind, status: 0, linkText, facts: null, error: (error as Error).message.slice(0, 200) };
+    let facts: PageFacts;
+    try {
+      facts = await readPage(page);
+    } catch (error) {
+      if (!TRANSIENT.test((error as Error).message)) throw error;
+      // The page navigated under us (a redirect or a consent reload): read the page it became.
+      await new Promise((r) => setTimeout(r, 1500));
+      facts = await readPage(page);
+    }
+    return { finalUrl: page.url(), status: response ? response.status() : 200, facts };
   } finally {
     await page.close().catch(() => undefined);
   }
+}
+
+async function openPage(
+  browser: Browser,
+  url: string,
+  viewport: typeof MOBILE,
+  kind: PageKind,
+  linkText = ''
+): Promise<CrawledPage> {
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const { finalUrl, status, facts } = await openOnce(browser, url, viewport);
+      return { url, finalUrl, kind, status, linkText, facts };
+    } catch (error) {
+      const message = (error as Error).message;
+      if (attempt === 2 || !TRANSIENT.test(message)) {
+        return { url, finalUrl: url, kind, status: 0, linkText, facts: null, error: message.slice(0, 200) };
+      }
+    }
+  }
+  return { url, finalUrl: url, kind, status: 0, linkText, facts: null, error: 'unreachable' };
 }
 
 /** Picks which discovered pages to open: one of each useful kind, then the rest of the menu. */
