@@ -50,7 +50,9 @@ export interface CrawlResult {
 const MOBILE = { width: 390, height: 844, deviceScaleFactor: 1, isMobile: true, hasTouch: true };
 const DESKTOP = { width: 1366, height: 800, deviceScaleFactor: 1, isMobile: false, hasTouch: false };
 const MAX_SUBPAGES = 6;
-const NAV_TIMEOUT = 20000;
+// A page that never goes network-quiet (chat, analytics) is read once it has
+// rendered; waiting longer only delays the report.
+const NAV_TIMEOUT = 11000;
 
 const KIND_RULES: [PageKind, RegExp][] = [
   ['legal', /(privatliv|privacy|cookie|persondata|gdpr|handelsbetingelser|betingelser|terms|vilkår|salgsbetingelser)/i],

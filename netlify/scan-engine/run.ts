@@ -29,7 +29,7 @@ export async function runScan(
     browser,
     target,
     (done, planned) => void onProgress({ stage: 'pages', pagesDone: done, pagesPlanned: planned }),
-    started + 40000
+    started + 26000
   );
   if (!result.home.facts) throw new ScanUnreachable(result.home.error || 'The homepage could not be opened');
   if (result.home.status >= 400 && result.home.facts.textLength < 200) {
