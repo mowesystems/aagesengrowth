@@ -55,7 +55,17 @@ export default async (req: Request, _context: Context) => {
     // Documents in the language the scan was started in, after the report
     // is already visible, so the visitor never waits for them.
     const base = origin && /^https?:\/\//.test(origin) ? origin : 'https://aagesengrowth.com';
-    const docs = await renderDocuments(browser, out.report[record.locale], record.locale, out.domain, base);
+    const render = (b: NonNullable<typeof browser>) => renderDocuments(b, out.report[record.locale], record.locale, out.domain, base);
+    let docs;
+    try {
+      docs = await render(browser);
+    } catch {
+      // A heavy site can leave the scan's browser out of memory; the
+      // documents only need a fresh one.
+      await browser.close().catch(() => undefined);
+      browser = await launchBrowser();
+      docs = await render(browser);
+    }
     await store().set(`file/${id}.pdf`, docs.pdf.buffer as ArrayBuffer);
     await store().set(`file/${id}.png`, docs.png.buffer as ArrayBuffer);
     record = { ...record, progress: { ...record.progress, stage: 'done' }, files: { pdf: true, png: true } };

@@ -657,7 +657,9 @@ export function evaluate(crawl: CrawlResult, domain: string): { findings: Findin
       task: 'Ret eller omdiriger døde links.',
     });
   }
-  const failed = crawl.pages.filter((p) => !p.facts || p.status >= 400).length;
+  // Only pages the server itself answers with an error. A page our browser
+  // could not render in time says nothing about the website.
+  const failed = crawl.pages.filter((p) => p.status >= 400).length;
   if (crawl.pages.length >= 2 && failed / crawl.pages.length >= 0.5) {
     websiteReasons.push({ da: 'mange af siderne virker ikke', en: "many of the pages don't work", internal: `${failed}/${crawl.pages.length} undersider fejlede` });
   }
