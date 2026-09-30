@@ -34,7 +34,6 @@ const Header: React.FC = () => {
 
   const nav = [
     { label: t.nav.engine, href: anchor(homeAnchors.engine) },
-    { label: t.nav.how, href: anchor(homeAnchors.how) },
     { label: t.nav.pricing, href: anchor(homeAnchors.pricing) },
     { label: t.nav.faq, href: anchor(homeAnchors.faq) },
   ];

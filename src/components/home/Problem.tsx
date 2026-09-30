@@ -18,15 +18,15 @@ const Problem: React.FC = () => {
           <span id="problem-heading">{t.problem.heading}</span>
         </SectionHead>
 
-        <div className="mt-14 grid gap-10 lg:mt-18 lg:grid-cols-12 lg:gap-x-10">
+        <div className="mt-14 grid gap-10 lg:mt-18 lg:grid-cols-12 lg:gap-x-8">
           {t.problem.leaks.map((leak, i) => (
-            <Reveal key={leak.index} delay={i * 110} className="lg:col-span-6">
+            <Reveal key={leak.index} delay={i * 110} className="lg:col-span-4">
               <article className="rule pt-6">
                 <div className="flex items-baseline gap-4">
                   <span className="index-mark">{leak.index}</span>
                   <h3 className="font-sans text-title font-semibold">{leak.title}</h3>
                 </div>
-                <p className="mt-4 max-w-measure text-[0.98rem] leading-relaxed text-muted">{leak.body}</p>
+                <p className="mt-4 max-w-measure text-[0.95rem] leading-relaxed text-muted">{leak.body}</p>
                 <ul className="mt-6 flex flex-wrap gap-2" aria-label={leak.title}>
                   {leak.items.map((item) => (
                     <li key={item} className="chip chip-pending min-h-7 normal-case tracking-[0.04em] text-ink">

@@ -11,7 +11,7 @@ const Fit: React.FC = () => {
   return (
     <section className="py-22 lg:py-30" aria-labelledby="fit-heading">
       <div className="frame">
-        <SectionHead eyebrow={f.eyebrow} index="09">
+        <SectionHead eyebrow={f.eyebrow} index="05">
           <span id="fit-heading">{f.heading}</span>
         </SectionHead>
 

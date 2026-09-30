@@ -1,16 +1,17 @@
 import React from 'react';
 import SectionHead from '@/components/ui/SectionHead';
 import Reveal from '@/components/ui/Reveal';
+import ProductUI from '@/components/home/ProductUI';
 import { useInView } from '@/hooks/useInView';
 import { homeAnchors } from '@/i18n/config';
 import { useLocale } from '@/i18n/useLocale';
 
 /**
- * Growth Engine as a system.
- *
- * Six stages on one line with a signal running through them, then the four
- * modules that do the work. The stages are the product's spine; the modules
- * hang off it. Neither is a card grid of services.
+ * How Growth Engine works: the five-step pipeline, then the dashboard that
+ * shows what the resulting overview looks like. One section, not three —
+ * the process and the product are the same idea seen from two angles, so
+ * they no longer get three separate sections (process, modules, dashboard)
+ * to say it.
  */
 const Engine: React.FC = () => {
   const { t } = useLocale();
@@ -62,22 +63,10 @@ const Engine: React.FC = () => {
           </div>
         </div>
 
-        {/* ------------------------------------------------------- modules */}
-        <div className="mt-16 grid gap-px border lg:mt-22 lg:grid-cols-4" style={{ borderColor: 'var(--line)', backgroundColor: 'var(--line)' }}>
-          {t.engine.modules.map((module, i) => (
-            <Reveal key={module.key} delay={i * 90} className="bg-paper">
-              <article className="group relative h-full p-6 transition-colors duration-500 hover:bg-paper-2 sm:p-8">
-                <span aria-hidden="true" className="absolute left-0 top-0 h-0 w-px bg-brand transition-[height] duration-500 ease-entrance group-hover:h-full" />
-                <div className="flex items-baseline justify-between">
-                  <span className="index-mark">{module.index}</span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-brand" aria-hidden="true" />
-                </div>
-                <h3 className="mt-8 font-sans text-title font-semibold">{module.title}</h3>
-                <p className="mt-3 text-[0.92rem] leading-relaxed text-muted">{module.body}</p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        {/* ----------------------------------------------------- dashboard */}
+        <Reveal className="mt-16 lg:mt-22" delay={100}>
+          <ProductUI />
+        </Reveal>
       </div>
     </section>
   );

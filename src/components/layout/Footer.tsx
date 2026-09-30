@@ -15,7 +15,6 @@ const Footer: React.FC = () => {
 
   const productLinks = [
     { label: t.nav.engine, href: `${home}#${homeAnchors.engine}` },
-    { label: t.nav.how, href: `${home}#${homeAnchors.how}` },
     { label: t.nav.pricing, href: `${home}#${homeAnchors.pricing}` },
     { label: t.nav.faq, href: `${home}#${homeAnchors.faq}` },
     { label: t.cta.scanShort, href: `${home}#${homeAnchors.scan}` },

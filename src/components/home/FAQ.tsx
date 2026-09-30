@@ -13,7 +13,7 @@ const FAQ: React.FC = () => {
       <div className="frame">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-10">
           <div className="lg:col-span-4">
-            <SectionHead eyebrow={t.faq.eyebrow} index="10">
+            <SectionHead eyebrow={t.faq.eyebrow} index="06">
               <span id="faq-heading">{t.faq.heading}</span>
             </SectionHead>
           </div>

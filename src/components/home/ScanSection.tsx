@@ -19,7 +19,7 @@ const ScanSection: React.FC = () => {
     <section className="relative overflow-hidden bg-brand-tint/60 py-22 lg:py-30" aria-labelledby="scan-heading">
       <div className="grid-lines pointer-events-none absolute inset-0 opacity-80" aria-hidden="true" />
       <div className="frame relative">
-        <SectionHead eyebrow={s.eyebrow} index="05" lead={s.lead}>
+        <SectionHead eyebrow={s.eyebrow} index="03" lead={s.lead}>
           <span id="scan-heading">{s.heading}</span>
         </SectionHead>
 

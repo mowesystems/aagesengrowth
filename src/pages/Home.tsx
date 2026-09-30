@@ -3,13 +3,8 @@ import SEOHead from '@/components/SEOHead';
 import Hero from '@/components/home/Hero';
 import Problem from '@/components/home/Problem';
 import Engine from '@/components/home/Engine';
-import ProductUI from '@/components/home/ProductUI';
-import BeforeAfter from '@/components/home/BeforeAfter';
 import ScanSection from '@/components/home/ScanSection';
-import HowItWorks from '@/components/home/HowItWorks';
-import Pricing from '@/components/home/Pricing';
 import FounderProgram from '@/components/home/FounderProgram';
-import ChoosePath from '@/components/home/ChoosePath';
 import Fit from '@/components/home/Fit';
 import FAQ from '@/components/home/FAQ';
 import FinalScan from '@/components/home/FinalScan';
@@ -19,9 +14,10 @@ import { useLocale } from '@/i18n/useLocale';
 import { homeAnchors, localeMeta } from '@/i18n/config';
 
 /**
- * The homepage is the whole argument: what this is, why it matters, what the
- * system is, what it looks like, the difference it makes, the scan, how it
- * runs, what it costs, who it is for, the objections, and the scan again.
+ * The homepage is the whole argument, in eight moves: the hero, the problem,
+ * how Growth Engine works (with the dashboard embedded rather than given its
+ * own section), the free scan, the Founder offer and its pricing, who it's
+ * for, a short FAQ, and the close.
  */
 const Home: React.FC = () => {
   const { t } = useLocale();
@@ -87,13 +83,8 @@ const Home: React.FC = () => {
         <Spine />
         <Problem />
         <Engine />
-        <ProductUI />
-        <BeforeAfter />
         <ScanSection />
-        <HowItWorks />
-        <Pricing />
         <FounderProgram />
-        <ChoosePath />
         <Fit />
         <FAQ />
       </div>

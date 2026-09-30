@@ -12,7 +12,6 @@ const da = {
   // ------------------------------------------------------------------ chrome
   nav: {
     engine: 'Growth Engine',
-    how: 'Sådan virker det',
     pricing: 'Pris',
     faq: 'FAQ',
     work: 'Projekter',
@@ -47,7 +46,7 @@ const da = {
   hero: {
     eyebrow: 'Growth Engine · Til servicevirksomheder',
     lines: ['Flere kunder.', 'Færre tabte leads.'],
-    lead: 'Growth Engine finder de steder i jeres digitale kunderejse, hvor I potentielt går glip af kunder — og hjælper med at prioritere og forbedre dem løbende.',
+    lead: 'Growth Engine analyserer jeres digitale kunderejse, finder hvor potentiale går tabt, og prioriterer de forbedringer, der kan gøre størst forskel.',
     /** Labels on the signal visualisation. Short: they sit on a live diagram. */
     sources: ['Google', 'ChatGPT', 'Google Maps', 'AI-søgning', 'Perplexity'],
     core: 'Growth Engine',
@@ -146,20 +145,26 @@ const da = {
   // ----------------------------------------------------------------- problem
   problem: {
     eyebrow: 'Problemet',
-    heading: 'Du kan miste kunden, før du ved, den findes.',
-    lead: 'Vækst lækker i den digitale kunderejse — ofte flere steder på samme tid. Begge eksempler herunder er usynlige i regnskabet, fordi kunden aldrig blev til en henvendelse, eller blev det og forsvandt.',
+    heading: 'Du kan miste kunder, før du ved, de findes.',
+    lead: 'Potentielle kunder går tabt tre steder i den digitale kunderejse — ofte uden at det nogensinde vises i regnskabet.',
     leaks: [
       {
         index: '01',
-        title: 'De finder dig ikke',
-        body: 'Kunden søger — på Google, i Maps, i ChatGPT. Hvis svaret er en konkurrent, er valget truffet, før du var med.',
-        items: ['Google', 'ChatGPT', 'AI-søgning', 'Lokal søgning', 'Konkurrenter'],
+        title: 'Bliv fundet',
+        body: 'Potentielle kunder finder jer måske aldrig — på Google, i Maps eller i AI-søgning.',
+        items: ['Google', 'Google Maps', 'AI-søgning'],
       },
       {
         index: '02',
-        title: 'Du fanger dem ikke',
-        body: 'Kunden henvender sig — og venter. Et ubesvaret opkald, en formular uden svar, et tilbud uden opfølgning. Leadet er tabt uden at nogen ser det.',
-        items: ['Ubesvarede opkald', 'Langsomt svar', 'Ingen opfølgning', 'Glemte tilbud', 'Gamle leads'],
+        title: 'Bliv valgt',
+        body: 'Besøgende kan forlade websitet igen, uden at henvende sig.',
+        items: ['Uklart tilbud', 'Svær kontaktvej', 'Intet tydeligt næste skridt'],
+      },
+      {
+        index: '03',
+        title: 'Bliv fulgt op',
+        body: 'Henvendelser kan miste momentum, før de når at blive kunder.',
+        items: ['Ubesvarede opkald', 'Langsomt svar', 'Ingen opfølgning'],
       },
     ],
     diagram: {
@@ -178,48 +183,20 @@ const da = {
   // ------------------------------------------------------------------ engine
   engine: {
     eyebrow: 'Growth Engine',
-    heading: 'Ét system. Fra kunderejse til vækst.',
-    lead: 'Growth Engine finder de steder i jeres digitale kunderejse, hvor I potentielt går glip af kunder — og hjælper med at prioritere og forbedre dem løbende. Vi analyserer, hvordan I bliver fundet, hvordan potentielle kunder bevæger sig gennem jeres website, og hvor der opstår friktion mellem interesse og henvendelse.',
+    heading: 'Sådan virker Growth Engine.',
+    lead: 'Ikke en fast standardpakke. Vi analyserer, prioriterer og implementerer det, der faktisk flytter noget i jeres kunderejse.',
     stages: [
-      { key: 'identify', label: 'Identify', description: 'Find hvor kunder går tabt' },
-      { key: 'prioritize', label: 'Prioritize', description: 'Prioritér det vigtigste' },
-      { key: 'improve', label: 'Improve', description: 'Forbedr de rigtige steder' },
-      { key: 'measure', label: 'Measure', description: 'Mål den reelle effekt' },
-      { key: 'repeat', label: 'Repeat', description: 'Gentag løbende' },
-    ],
-    modules: [
-      {
-        key: 'visibility',
-        index: '01',
-        title: 'Synlighed',
-        body: 'Hvordan I bliver fundet i dag — på Google, i lokal søgning og i AI-svar er eksempler på, hvad der undersøges. Ét udsnit af kunderejsen, ikke hele historien.',
-      },
-      {
-        key: 'journey',
-        index: '02',
-        title: 'Kunderejse & konvertering',
-        body: 'Hvor på jeres website mister I interesserede besøgende, før de bliver til en henvendelse?',
-      },
-      {
-        key: 'actions',
-        index: '03',
-        title: 'Growth Actions',
-        body: 'De vigtigste muligheder bliver prioriteret som konkrete handlinger, så der hele tiden arbejdes på det, der batter mest.',
-      },
-      {
-        key: 'measurement',
-        index: '04',
-        title: 'Måling',
-        body: 'Fremskridt følges løbende, så I kan se, om ændringerne rykker noget — og justere, hvis de ikke gør.',
-      },
+      { key: 'analyze', label: 'Analysér', description: 'Vi analyserer jeres digitale kunderejse.' },
+      { key: 'prioritize', label: 'Prioritér', description: 'Vi finder de muligheder med størst potentiale.' },
+      { key: 'improve', label: 'Forbedr', description: 'De vigtigste Growth Actions implementeres.' },
+      { key: 'measure', label: 'Mål', description: 'Vi følger effekten af ændringerne.' },
+      { key: 'repeat', label: 'Gentag', description: 'Nye muligheder prioriteres løbende.' },
     ],
   },
 
   // ----------------------------------------------------------------- product
   product: {
-    eyebrow: 'Growth Engine · Dashboard',
-    heading: 'Alt, der driver vækst. Ét overblik.',
-    lead: 'Sådan ser systemet ud for jer. Tallene her er eksempler på, hvad dashboardet viser — ikke målte resultater.',
+    caption: 'Sådan kan overblikket se ud, når Growth Engine er koblet på. Eksempeldata — ikke målte resultater.',
     note: 'Eksempeldata',
     period: 'Seneste 30 dage',
     metrics: {
@@ -258,31 +235,6 @@ const da = {
     },
   },
 
-  // ------------------------------------------------------------ before/after
-  beforeAfter: {
-    eyebrow: 'Driftsforskellen',
-    heading: 'Samme henvendelse. To forløb.',
-    before: {
-      label: 'Før',
-      flows: [
-        ['Lead kommer ind', 'venter', 'intet svar', 'glemt'],
-        ['Kunden søger', 'konkurrent vises', 'kunde tabt'],
-      ],
-    },
-    after: {
-      label: 'Med Growth Engine',
-      flow: [
-        'Søgning',
-        'Virksomhed fundet',
-        'Lead fanget',
-        'Svar med det samme',
-        'Opfølgning',
-        'Aftale',
-        'Målbart resultat',
-      ],
-    },
-  },
-
   // ------------------------------------------------------------ scan section
   scanSection: {
     eyebrow: 'Gratis Growth Scan',
@@ -300,22 +252,8 @@ const da = {
     orTalkCta: 'book en afklaring',
   },
 
-  // -------------------------------------------------------------------- how
-  how: {
-    eyebrow: 'Sådan virker det',
-    heading: 'I skal ikke blive marketingfolk. Vi driver systemet.',
-    steps: [
-      { index: '01', title: 'Scan', body: 'Vi analyserer jeres nuværende digitale kunderejse: synlighed, konvertering, lead-flow og konkurrenter.' },
-      { index: '02', title: 'Prioritér', body: 'Vi peger på de steder, hvor I potentielt går glip af kunder, og prioriterer dem efter forventet effekt.' },
-      { index: '03', title: 'Forbedr', body: 'De vækstmuligheder med størst værdi bliver udført først. Tre prioriterede handlinger om måneden.' },
-      { index: '04', title: 'Mål & gentag', body: 'Fremskridt følges løbende, og de næste prioriteringer justeres efter, hvad der faktisk virker.' },
-    ],
-  },
-
   // ---------------------------------------------------------------- pricing
   pricing: {
-    eyebrow: 'Pris',
-    heading: 'Én pris. Hele systemet.',
     name: 'Growth Engine',
     setup: 7500,
     monthly: 5995,
@@ -323,55 +261,35 @@ const da = {
     monthlyLabel: '/ måned',
     vat: 'Priser ekskl. moms',
     binding: 'Ingen binding ud over løbende måned + 30 dage.',
-    includedHeading: 'Det får I',
-    included: [
-      'Løbende identifikation af vækstmuligheder',
-      'Månedlig Growth Scan',
-      '3 prioriterede Growth Actions om måneden',
-      'Overvågning af Google- og AI-synlighed',
-      'Automatisk svar på nye henvendelser',
-      'Opsamling af ubesvarede leads',
-      'Opfølgningssekvenser',
-      'Anmeldelsesflow',
-      'Growth-dashboard',
-      'Månedlig rapportering',
-    ],
-    microcopy: 'Bygget til virksomheder, hvor én ekstra kunde kan betale for systemet.',
-    cta: 'Kør gratis Growth Scan',
-    secondaryCta: 'Book en afklaring',
   },
 
   // ------------------------------------------------------- founder program
   founder: {
     eyebrow: 'Founder Program',
-    heading: 'Vi udvælger de første tre virksomheder til Growth Engine.',
-    body: 'Tre pladser til virksomheder, der vil være med fra starten og give ærlig feedback, mens systemet bliver bygget færdigt omkring dem.',
+    heading: 'Vær med til at forme Growth Engine.',
+    lead: 'Vi udvælger de første virksomheder, som vil arbejde tæt sammen med os om Growth Engine.',
+    body: 'Vi analyserer jeres kunderejse, prioriterer de største muligheder og implementerer de Growth Actions, der giver mening for netop jeres virksomhed. Til gengæld beder vi om løbende feedback og mulighed for at dokumentere resultaterne som case, hvis samarbejdet skaber målbar værdi.',
     setup: 2995,
     monthly: 3995,
     duration: 'i 3 måneder',
     seatsLabel: 'pladser',
     seats: 3,
-    conditions: ['Maks. 3 virksomheder', 'Samme system, samme drift', 'Herefter normal pris'],
-    cta: 'Ansøg via Growth Scan',
+    conditions: ['Maks. 3 virksomheder', 'Løbende feedback undervejs', 'Herefter normalpris'],
+    cta: 'Kør gratis Growth Scan',
+    secondaryCta: 'Book en afklaring',
     ariaLabel: 'Founder Program: begrænset lanceringstilbud',
-  },
-
-  // ------------------------------------------------------------- choose path
-  /** The two ways to get started, shown once the offer and the price are known. */
-  choose: {
-    eyebrow: 'Kom i gang',
-    heading: 'To veje ind. I vælger selv.',
-    lead: 'En Growth Scan viser jer, hvor der er potentiale. En afklaring er en direkte samtale om jeres forretning. Ingen af delene forpligter jer til noget.',
-    scan: {
-      title: 'Gratis Growth Scan',
-      body: 'Skriv jeres website, og se på under et minut, hvor der er størst potentiale — helt uden at tale med nogen først.',
-      cta: 'Kør gratis Growth Scan',
-    },
-    talk: {
-      title: 'Book en afklaring',
-      body: 'Tal direkte med os om jeres forretning, og om Growth Engine giver mening for jer. Ingen salgssekvens.',
-      cta: 'Book en afklaring',
-    },
+    afterHeading: 'Efter Founder-perioden',
+    afterBody: 'Samarbejdet fortsætter til Growth Engines normale pris. Ingen overraskelser.',
+    includedHeading: 'Det arbejder vi med',
+    included: [
+      'Løbende analyse af kunderejsen',
+      'Google- og AI-synlighed',
+      'Månedlig Growth Scan',
+      'Prioriterede Growth Actions',
+      'Implementering af relevante Growth Actions',
+      'Måling og rapportering',
+    ],
+    microcopy: 'Bygget til virksomheder, hvor én ekstra kunde kan betale for systemet.',
   },
 
   // -------------------------------------------------------------------- fit
@@ -381,7 +299,6 @@ const da = {
     forItems: [
       'kunderne har en reel ordre- eller livstidsværdi',
       'henvendelser kommer via website og telefon',
-      'lokal søgning betyder noget for salget',
       'forretningen allerede fungerer og har efterspørgsel',
       'vækst kan retfærdiggøre en investering',
     ],
@@ -402,43 +319,23 @@ const da = {
     items: [
       {
         q: 'Hvad er Growth Engine helt præcist?',
-        a: 'Growth Engine finder de steder i jeres digitale kunderejse, hvor I potentielt går glip af kunder, og hjælper med at prioritere og forbedre dem løbende. Vi analyserer, hvordan I bliver fundet, hvordan besøgende bevæger sig gennem jeres website, og hvor der opstår friktion mellem interesse og henvendelse — og prioriterer de vigtigste muligheder som konkrete Growth Actions.',
+        a: 'Growth Engine analyserer jeres digitale kunderejse, finder hvor I potentielt går glip af kunder, og prioriterer de forbedringer med størst potentiale. De vigtigste muligheder implementeres som Growth Actions, og effekten måles løbende.',
       },
       {
-        q: 'Er det SEO?',
-        a: 'Google-synlighed er en af de ting, vi kan analysere og forbedre, men Growth Engine er ikke en SEO-pakke. Det er et løbende system, der ser på hele kunderejsen — fra synlighed til website-konvertering til opfølgning — og prioriterer, hvad der batter mest.',
+        q: 'Hvad får vi konkret?',
+        a: 'En løbende analyse af jeres kunderejse, herunder Google- og AI-synlighed, en månedlig Growth Scan, prioriterede Growth Actions, implementering af de aktioner der giver mening for jer, samt måling og rapportering.',
       },
       {
-        q: 'Er Google Ads inkluderet?',
-        a: 'Nej. Growth Engine arbejder med den synlighed og de leads, I har og kan få uden annoncebudget. Annoncering kan lægges ovenpå, hvis en analyse viser, at det giver mening.',
-      },
-      {
-        q: 'Virker det med vores nuværende website?',
-        a: 'Ja. Growth Engine kobles på det website, I har. Er der ændringer, der giver stor effekt, indgår de i de månedlige Growth Actions.',
-      },
-      {
-        q: 'Skal vi have et nyt CRM?',
-        a: 'Nej. Lead-opsamling og opfølgning kører i Growth Engine. Bruger I allerede et system, kan leads sendes videre dertil.',
-      },
-      {
-        q: 'Hvad er AI-synlighed?',
-        a: 'Om ChatGPT, Google AI-oversigter og lignende nævner og anbefaler jer, når nogen spørger efter en leverandør i jeres område. Det er ét af de områder, Growth Engine kan overvåge og forbedre — ikke hele produktet.',
-      },
-      {
-        q: 'Hvor hurtigt kan det installeres?',
-        a: 'Typisk inden for to uger fra aftale. Scanningen og den første prioriterede plan er klar, før vi kobler noget på.',
+        q: 'Er Growth Engine et færdigt softwaresystem?',
+        a: 'Growth Engine består i dag af vores analyse- og prioriteringssystem kombineret med implementering af Growth Actions. I Founder-fasen udvikler og standardiserer vi de løsninger, der viser sig at skabe værdi på tværs af virksomheder. Det betyder, at løsningen tilpasses jeres konkrete kunderejse frem for at tvinge jer ind i en fast standardpakke.',
       },
       {
         q: 'Kan I garantere flere kunder?',
         a: 'Nej, og det bør ingen. Vi sælger processen og implementeringen — ikke et garanteret resultat. Vi kan garantere, at de vigtigste muligheder i jeres kunderejse bliver identificeret, prioriteret og forbedret løbende, og at I kan se det i tallene.',
       },
       {
-        q: 'Hvad sker der efter Growth Scan?',
-        a: 'I får det foreløbige resultat med det samme. Beder I om den fulde gennemgang, får I en 30 minutters Growth Review med søgeord, AI-svar, konkurrenter og en prioriteret plan — uden forpligtelse.',
-      },
-      {
-        q: 'Kan jeg tale med jer uden først at lave en Growth Scan?',
-        a: 'Ja. Book en afklaring, og vi taler direkte om jeres forretning, og om Growth Engine er relevant for jer. En Growth Scan er en hjælp til at forstå potentialet — den er ikke en forudsætning for at komme i kontakt.',
+        q: 'Hvad er Founder Programmet?',
+        a: 'De første tre virksomheder får Growth Engine til en introduktionspris i tre måneder, mod at give løbende feedback og mulighed for at dokumentere resultaterne som case, hvis samarbejdet skaber målbar værdi. Herefter fortsætter samarbejdet til den normale pris — det er aftalt fra start.',
       },
       {
         q: 'Er der binding?',

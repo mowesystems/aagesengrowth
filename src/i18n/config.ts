@@ -44,9 +44,7 @@ export type RouteKey = keyof typeof routeSlugs;
 export const homeAnchors = {
   scan: 'growth-scan',
   engine: 'growth-engine',
-  how: 'saadan-virker-det',
   pricing: 'pris',
-  choose: 'kom-i-gang',
   faq: 'faq',
 } as const;
 

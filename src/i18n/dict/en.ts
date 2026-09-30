@@ -13,7 +13,6 @@ const en: Dictionary = {
   // ------------------------------------------------------------------ chrome
   nav: {
     engine: 'Growth Engine',
-    how: 'How it works',
     pricing: 'Pricing',
     faq: 'FAQ',
     work: 'Projects',
@@ -48,7 +47,7 @@ const en: Dictionary = {
   hero: {
     eyebrow: 'Growth Engine · For service businesses',
     lines: ['More customers.', 'Fewer lost leads.'],
-    lead: 'Growth Engine identifies where your digital customer journey may be losing potential customers — and helps prioritize and improve those areas continuously.',
+    lead: 'Growth Engine analyses your digital customer journey, finds where potential is being lost, and prioritizes the improvements that can make the biggest difference.',
     sources: ['Google', 'ChatGPT', 'Google Maps', 'AI search', 'Perplexity'],
     core: 'Growth Engine',
     outputs: ['Lead', 'Follow-up', 'Customer'],
@@ -141,20 +140,26 @@ const en: Dictionary = {
   // ----------------------------------------------------------------- problem
   problem: {
     eyebrow: 'The problem',
-    heading: 'You can lose the customer before you know they exist.',
-    lead: 'Growth leaks in the digital customer journey — often in more than one place at once. Both examples below are invisible in the numbers, because the customer never became an enquiry, or did and then disappeared.',
+    heading: 'You can lose customers before you know they exist.',
+    lead: 'Potential customers get lost in three places in the digital customer journey — often without it ever showing up in the numbers.',
     leaks: [
       {
         index: '01',
-        title: "They don't find you",
-        body: 'The customer searches — on Google, in Maps, in ChatGPT. If the answer is a competitor, the choice is made before you were even in the running.',
-        items: ['Google', 'ChatGPT', 'AI search', 'Local search', 'Competitors'],
+        title: 'Get found',
+        body: 'Potential customers may never discover you — on Google, in Maps or in AI search.',
+        items: ['Google', 'Google Maps', 'AI search'],
       },
       {
         index: '02',
-        title: "You don't capture them",
-        body: 'The customer reaches out — and waits. A missed call, an unanswered form, a quote with no follow-up. The lead is lost without anyone noticing.',
-        items: ['Missed calls', 'Slow response', 'No follow-up', 'Forgotten quotes', 'Old leads'],
+        title: 'Get chosen',
+        body: 'Visitors can leave your website again without reaching out.',
+        items: ['Unclear offer', 'Hard to contact', 'No clear next step'],
+      },
+      {
+        index: '03',
+        title: 'Get followed up',
+        body: 'Enquiries can lose momentum before they become customers.',
+        items: ['Missed calls', 'Slow response', 'No follow-up'],
       },
     ],
     diagram: {
@@ -173,48 +178,20 @@ const en: Dictionary = {
   // ------------------------------------------------------------------ engine
   engine: {
     eyebrow: 'Growth Engine',
-    heading: 'One system. From customer journey to growth.',
-    lead: 'Growth Engine identifies where your digital customer journey may be losing potential customers — and helps prioritize and improve those areas continuously. We analyse how you get discovered, how potential customers move through your website, and where friction appears between interest and enquiry.',
+    heading: 'How Growth Engine works.',
+    lead: "Not a fixed package. We analyse, prioritize and implement what actually moves the needle in your customer journey.",
     stages: [
-      { key: 'identify', label: 'Identify', description: 'Find where customers are lost' },
-      { key: 'prioritize', label: 'Prioritize', description: 'Prioritize what matters most' },
-      { key: 'improve', label: 'Improve', description: 'Improve the right places' },
-      { key: 'measure', label: 'Measure', description: 'Measure the real impact' },
-      { key: 'repeat', label: 'Repeat', description: 'Repeat, continuously' },
-    ],
-    modules: [
-      {
-        key: 'visibility',
-        index: '01',
-        title: 'Visibility',
-        body: 'How you get discovered today — on Google, in local search and in AI answers are examples of what gets examined. One part of the customer journey, not the whole story.',
-      },
-      {
-        key: 'journey',
-        index: '02',
-        title: 'Customer journey & conversion',
-        body: 'Where on your website do interested visitors drop off before they become an enquiry?',
-      },
-      {
-        key: 'actions',
-        index: '03',
-        title: 'Growth Actions',
-        body: 'The most important opportunities are prioritized as concrete actions, so work always stays focused on what matters most.',
-      },
-      {
-        key: 'measurement',
-        index: '04',
-        title: 'Measurement',
-        body: 'Progress is tracked continuously, so you can see whether changes are moving the needle — and adjust when they aren’t.',
-      },
+      { key: 'analyze', label: 'Analyse', description: 'We analyse your digital customer journey.' },
+      { key: 'prioritize', label: 'Prioritize', description: 'We find the opportunities with the greatest potential.' },
+      { key: 'improve', label: 'Improve', description: 'The most important Growth Actions are implemented.' },
+      { key: 'measure', label: 'Measure', description: 'We track the impact of the changes.' },
+      { key: 'repeat', label: 'Repeat', description: 'New opportunities are prioritized continuously.' },
     ],
   },
 
   // ----------------------------------------------------------------- product
   product: {
-    eyebrow: 'Growth Engine · Dashboard',
-    heading: 'Everything that drives growth. One overview.',
-    lead: "This is what the system looks like for you. The numbers here are examples of what the dashboard shows — not measured results.",
+    caption: "This is what the overview can look like once Growth Engine is connected. Example data — not measured results.",
     note: 'Example data',
     period: 'Last 30 days',
     metrics: {
@@ -253,31 +230,6 @@ const en: Dictionary = {
     },
   },
 
-  // ------------------------------------------------------------ before/after
-  beforeAfter: {
-    eyebrow: 'The operating difference',
-    heading: 'Same enquiry. Two outcomes.',
-    before: {
-      label: 'Before',
-      flows: [
-        ['Lead comes in', 'waits', 'no response', 'forgotten'],
-        ['Customer searches', 'competitor shown', 'customer lost'],
-      ],
-    },
-    after: {
-      label: 'With Growth Engine',
-      flow: [
-        'Search',
-        'Business found',
-        'Lead captured',
-        'Immediate response',
-        'Follow-up',
-        'Appointment',
-        'Measurable result',
-      ],
-    },
-  },
-
   // ------------------------------------------------------------ scan section
   scanSection: {
     eyebrow: 'Free Growth Scan',
@@ -295,22 +247,8 @@ const en: Dictionary = {
     orTalkCta: 'book a discovery call',
   },
 
-  // -------------------------------------------------------------------- how
-  how: {
-    eyebrow: 'How it works',
-    heading: "You don't become marketers. We run the system.",
-    steps: [
-      { index: '01', title: 'Scan', body: 'We analyse your current digital customer journey: visibility, conversion, lead flow and competitors.' },
-      { index: '02', title: 'Prioritize', body: 'We point to where you may be losing potential customers, and prioritize by expected impact.' },
-      { index: '03', title: 'Improve', body: 'The growth opportunities with the greatest value are actioned first. Three prioritized actions a month.' },
-      { index: '04', title: 'Measure & repeat', body: 'Progress is tracked continuously, and the next priorities are adjusted based on what is actually working.' },
-    ],
-  },
-
   // ---------------------------------------------------------------- pricing
   pricing: {
-    eyebrow: 'Pricing',
-    heading: 'One price. The whole system.',
     name: 'Growth Engine',
     setup: 7500,
     monthly: 5995,
@@ -318,54 +256,35 @@ const en: Dictionary = {
     monthlyLabel: '/ month',
     vat: 'Prices exclude VAT',
     binding: 'No commitment beyond the current month + 30 days.',
-    includedHeading: "What's included",
-    included: [
-      'Ongoing identification of growth opportunities',
-      'Monthly Growth Scan',
-      '3 prioritized Growth Actions a month',
-      'Google and AI visibility monitoring',
-      'Automatic response to new enquiries',
-      'Missed-lead recovery',
-      'Follow-up sequences',
-      'Review flow',
-      'Growth dashboard',
-      'Monthly reporting',
-    ],
-    microcopy: 'Built for businesses where one extra customer can pay for the system.',
-    cta: 'Get your free Growth Scan',
-    secondaryCta: 'Book a discovery call',
   },
 
   // ------------------------------------------------------- founder program
   founder: {
     eyebrow: 'Founder Program',
-    heading: 'We are selecting the first three businesses for Growth Engine.',
-    body: 'Three places for businesses who want to be there from the start and give honest feedback while the system is finished around them.',
+    heading: 'Help shape Growth Engine.',
+    lead: 'We are selecting the first businesses to work closely with us on Growth Engine.',
+    body: "We analyse your customer journey, prioritize the biggest opportunities, and implement the Growth Actions that make sense for your business. In return, we ask for ongoing feedback and the option to document the results as a case study, if the partnership creates measurable value.",
     setup: 2995,
     monthly: 3995,
     duration: 'for 3 months',
     seatsLabel: 'seats',
     seats: 3,
-    conditions: ['Max. 3 businesses', 'Same system, same operation', 'Standard price afterwards'],
-    cta: 'Apply via Growth Scan',
+    conditions: ['Max. 3 businesses', 'Ongoing feedback along the way', 'Standard price afterwards'],
+    cta: 'Get your free Growth Scan',
+    secondaryCta: 'Book a discovery call',
     ariaLabel: 'Founder Program: limited launch offer',
-  },
-
-  // ------------------------------------------------------------- choose path
-  choose: {
-    eyebrow: 'Get started',
-    heading: 'Two ways in. You choose.',
-    lead: "A Growth Scan shows you where the potential is. A discovery call is a direct conversation about your business. Neither commits you to anything.",
-    scan: {
-      title: 'Free Growth Scan',
-      body: 'Enter your website and see where the biggest potential is in under a minute — no conversation required first.',
-      cta: 'Get your free Growth Scan',
-    },
-    talk: {
-      title: 'Book a discovery call',
-      body: "Talk directly with us about your business, and whether Growth Engine makes sense for you. No sales sequence.",
-      cta: 'Book a discovery call',
-    },
+    afterHeading: 'After the Founder period',
+    afterBody: 'The partnership continues at Growth Engine’s standard price. No surprises.',
+    includedHeading: 'What we work on',
+    included: [
+      'Ongoing analysis of the customer journey',
+      'Google and AI visibility',
+      'Monthly Growth Scan',
+      'Prioritized Growth Actions',
+      'Implementation of the relevant Growth Actions',
+      'Measurement and reporting',
+    ],
+    microcopy: 'Built for businesses where one extra customer can pay for the system.',
   },
 
   // -------------------------------------------------------------------- fit
@@ -375,7 +294,6 @@ const en: Dictionary = {
     forItems: [
       'customers have a meaningful order or lifetime value',
       'enquiries come in via website and phone',
-      'local search matters for sales',
       'the business is already running and has demand',
       'growth can justify the investment',
     ],
@@ -396,43 +314,23 @@ const en: Dictionary = {
     items: [
       {
         q: 'What exactly is Growth Engine?',
-        a: 'Growth Engine identifies where your digital customer journey may be losing potential customers, and helps prioritize and improve those areas continuously. We analyse how you get discovered, how visitors move through your website, and where friction appears between interest and enquiry — and prioritize the most important opportunities as concrete Growth Actions.',
+        a: "Growth Engine analyses your digital customer journey, finds where you may be losing potential customers, and prioritizes the improvements with the greatest potential. The most important opportunities are implemented as Growth Actions, and the impact is measured continuously.",
       },
       {
-        q: 'Is this SEO?',
-        a: "Google visibility is one of the things we can analyse and improve, but Growth Engine isn't an SEO package. It's an ongoing system that looks at the whole customer journey — from visibility to website conversion to follow-up — and prioritizes what matters most.",
+        q: 'What do we actually get?',
+        a: 'An ongoing analysis of your customer journey, including Google and AI visibility, a monthly Growth Scan, prioritized Growth Actions, implementation of the actions that make sense for you, and measurement and reporting.',
       },
       {
-        q: 'Is Google Ads included?',
-        a: "No. Growth Engine works with the visibility and leads you have and can get without an ad budget. Advertising can be added on top if an analysis shows it makes sense.",
-      },
-      {
-        q: 'Does it work with our current website?',
-        a: 'Yes. Growth Engine connects to the website you already have. Changes with a large expected impact are included in the monthly Growth Actions.',
-      },
-      {
-        q: 'Do we need a new CRM?',
-        a: 'No. Lead capture and follow-up run inside Growth Engine. If you already use a system, leads can be forwarded there.',
-      },
-      {
-        q: 'What is AI visibility?',
-        a: 'Whether ChatGPT, Google AI Overviews and similar mention and recommend you when someone asks for a provider in your area. It is one of the areas Growth Engine can monitor and improve — not the whole product.',
-      },
-      {
-        q: 'How quickly can it be installed?',
-        a: 'Typically within two weeks of agreement. The scan and the first prioritized plan are ready before anything is connected.',
+        q: 'Is Growth Engine a finished software system?',
+        a: "Growth Engine today consists of our analysis and prioritization system combined with the implementation of Growth Actions. During the Founder phase, we develop and standardize the solutions that prove to create value across businesses. That means the solution is tailored to your specific customer journey, rather than forcing you into a fixed standard package.",
       },
       {
         q: 'Can you guarantee more customers?',
         a: "No, and no one should. We sell the process and the implementation — not a guaranteed outcome. We can guarantee that the most important opportunities in your customer journey are identified, prioritized and improved continuously, and that you can see it in the numbers.",
       },
       {
-        q: 'What happens after the Growth Scan?',
-        a: 'You get the preliminary result immediately. If you request the full review, you get a 30-minute Growth Review with search terms, AI answers, competitors and a prioritized plan — with no obligation.',
-      },
-      {
-        q: 'Can I talk to you without doing a Growth Scan first?',
-        a: "Yes. Book a discovery call, and we'll talk directly about your business and whether Growth Engine is relevant for you. A Growth Scan helps you understand the potential — it isn't a requirement for getting in touch.",
+        q: 'What is the Founder Program?',
+        a: "The first three businesses get Growth Engine at an introductory price for three months, in exchange for ongoing feedback and the option to document the results as a case study, if the partnership creates measurable value. After that, the partnership continues at the standard price — agreed from the start.",
       },
       {
         q: 'Is there a minimum term?',

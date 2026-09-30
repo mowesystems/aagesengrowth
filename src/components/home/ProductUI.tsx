@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowUpRight, Check, Phone, MessageSquare, CalendarCheck } from 'lucide-react';
-import SectionHead from '@/components/ui/SectionHead';
 import ScoreRing from '@/components/scan/ScoreRing';
 import { useInView } from '@/hooks/useInView';
 import { useCountUp } from '@/hooks/useCountUp';
@@ -82,9 +81,10 @@ const Sparkline: React.FC<{ points: number[]; active: boolean }> = ({ points, ac
 };
 
 /**
- * Growth Engine's interface, built as real components on a dark ground.
- * Everything animates once when the section arrives: the score fills, the
- * counters count, the bars grow, the sparkline draws.
+ * Growth Engine's interface, built as real components — a dark device
+ * frame embedded inside the "how it works" section rather than a full
+ * section of its own. Everything animates once it arrives: the score
+ * fills, the counters count, the bars grow, the sparkline draws.
  */
 const ProductUI: React.FC = () => {
   const { t } = useLocale();
@@ -93,17 +93,8 @@ const ProductUI: React.FC = () => {
   const feedIcon = { lead: MessageSquare, recovered: Phone, booked: CalendarCheck } as const;
 
   return (
-    <section className="on-dark relative overflow-hidden py-22 lg:py-30" aria-labelledby="product-heading">
-      <div className="ambient-lit pointer-events-none absolute inset-0" aria-hidden="true" />
-      <div className="grid-lines-lit pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
-
-      <div className="frame relative">
-        <SectionHead eyebrow={p.eyebrow} index="03" lead={p.lead}>
-          <span id="product-heading">{p.heading}</span>
-        </SectionHead>
-
-        <div ref={ref} className={`mt-14 lg:mt-18 ${inView ? 'is-visible' : ''}`}>
-          <div className="instrument-lit instrument overflow-hidden">
+    <div ref={ref} className={`on-dark ${inView ? 'is-visible' : ''}`}>
+      <div className="instrument-lit instrument overflow-hidden">
             {/* --------------------------------------------------- top bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-paper/10 px-5 py-3 sm:px-7">
               <div className="flex items-center gap-3">
@@ -214,10 +205,9 @@ const ProductUI: React.FC = () => {
                 </ol>
               </div>
             </div>
-          </div>
-        </div>
       </div>
-    </section>
+      <p className="mt-5 max-w-measure text-[0.85rem] leading-relaxed text-muted">{p.caption}</p>
+    </div>
   );
 };
 
