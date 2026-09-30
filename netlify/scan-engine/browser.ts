@@ -26,7 +26,7 @@ export const launchBrowser = async (): Promise<Browser> => {
     const { default: chromium } = await import('@sparticuz/chromium-min');
     chromium.setGraphicsMode = false;
     return puppeteer.launch({
-      args: [...chromium.args, '--lang=da-DK'],
+      args: [...chromium.args, '--lang=da-DK', '--disable-extensions', '--mute-audio', '--disable-background-networking', '--js-flags=--max-old-space-size=384'],
       executablePath: await chromium.executablePath(PACK_URL),
       headless: true,
       defaultViewport: null,

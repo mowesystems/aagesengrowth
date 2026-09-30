@@ -110,6 +110,14 @@ async function scrollThrough(page: Page) {
     .catch(() => undefined);
 }
 
+/**
+ * Third-party requests that cost memory and time but tell the scan nothing it
+ * cannot read from the tag itself: analytics, ads, video and map embeds. The
+ * <script>/<iframe> elements stay in the page, so detection by src still works.
+ */
+const HEAVY_THIRD_PARTY =
+  /(googletagmanager\.com|google-analytics\.com|analytics\.google\.com|doubleclick\.net|googlesyndication|googleadservices|connect\.facebook\.net|facebook\.com\/tr|hotjar|clarity\.ms|snap\.licdn\.com|analytics\.tiktok|bat\.bing\.com|youtube\.com\/embed|youtube-nocookie|player\.vimeo|google\.[a-z.]+\/maps\/embed|maps\.googleapis|leadinfo|cookiebot\.com\/.*uc\.js\?cbid=skip)/i;
+
 const TRANSIENT = /detached|context was destroyed|Target closed|Session closed|frame was detached|navigat/i;
 
 async function readPage(page: Page) {
@@ -124,8 +132,29 @@ async function readPage(page: Page) {
       .waitForFunction('document.body && document.body.innerText && document.body.innerText.length > 40', { timeout: 4000 })
       .catch(() => undefined);
   }
+  await waitForStableContent(page);
   await scrollThrough(page);
   return (await page.evaluate(EXTRACT_SCRIPT)) as PageFacts;
+}
+
+/**
+ * Waits until the page has stopped changing: the amount of visible text and
+ * links is the same on three reads in a row (or 5 s have passed). A consent
+ * banner's own text is enough to pass a simple "has text" check, so reading
+ * the page before this can miss the real content and report it as missing.
+ */
+async function waitForStableContent(page: Page) {
+  let last = '';
+  let same = 0;
+  const until = Date.now() + 5000;
+  while (Date.now() < until && same < 2) {
+    const now = (await page
+      .evaluate('(document.body ? document.body.innerText.length : 0) + ":" + document.links.length')
+      .catch(() => '')) as string;
+    same = now && now === last ? same + 1 : 0;
+    last = now;
+    await new Promise((r) => setTimeout(r, 350));
+  }
 }
 
 async function openOnce(browser: Browser, url: string, viewport: typeof MOBILE) {
@@ -136,7 +165,7 @@ async function openOnce(browser: Browser, url: string, viewport: typeof MOBILE) 
     await page.setExtraHTTPHeaders({ 'Accept-Language': 'da-DK,da;q=0.9,en;q=0.7' });
     await page.setRequestInterception(true);
     page.on('request', (req) => {
-      if (req.resourceType() === 'media') return void req.abort().catch(() => undefined);
+      if (req.resourceType() === 'media' || HEAVY_THIRD_PARTY.test(req.url())) return void req.abort().catch(() => undefined);
       void req.continue().catch(() => undefined);
     });
     const response = await page.goto(url, { waitUntil: 'networkidle2', timeout: NAV_TIMEOUT }).catch((error: Error) => {
@@ -203,16 +232,20 @@ export async function crawl(
   browser: Browser,
   target: URL,
   onProgress: (done: number, planned: number) => void,
-  deadline: number
+  deadline: number,
+  maxSubpages = MAX_SUBPAGES
 ): Promise<CrawlResult> {
   const origin = target.origin;
-  const [raw, robotsRes, sitemapRes, home, homeDesktop] = await Promise.all([
+  // Plain HTTP checks run alongside; browser pages one at a time for the
+  // homepage, to stay inside the function's memory.
+  const plain = Promise.all([
     fetchText(target.toString()),
     fetchText(`${origin}/robots.txt`, 5000),
     fetchText(`${origin}/sitemap.xml`, 5000),
-    openPage(browser, target.toString(), MOBILE, 'home'),
-    openPage(browser, target.toString(), DESKTOP, 'home'),
   ]);
+  const home = await openPage(browser, target.toString(), MOBILE, 'home');
+  const homeDesktop = home.facts ? await openPage(browser, home.finalUrl, DESKTOP, 'home') : home;
+  const [raw, robotsRes, sitemapRes] = await plain;
 
   const finalHome = new URL(home.finalUrl || target.toString());
   const seen = new Set<string>();
@@ -239,7 +272,7 @@ export async function crawl(
     discovered.push({ url: u.toString(), kind: classify(u, link.text), text: link.text });
   }
 
-  const chosen = choosePages(discovered);
+  const chosen = choosePages(discovered).slice(0, maxSubpages);
   const pages: CrawledPage[] = [];
   let done = 0;
   onProgress(done, chosen.length);
@@ -253,7 +286,7 @@ export async function crawl(
       onProgress(done, chosen.length);
     }
   };
-  await Promise.all([worker(), worker(), worker()]);
+  await Promise.all([worker(), worker()]);
 
   // Internal links that answer with an error, checked over plain HTTP. A
   // client-rendered site answers 200 for everything, so this only catches

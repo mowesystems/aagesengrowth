@@ -26,7 +26,18 @@ export default async (req: Request, _context: Context) => {
   let browser: Awaited<ReturnType<typeof launchBrowser>> | null = null;
   try {
     browser = await launchBrowser();
-    const out = await runScan(browser, new URL(record.url), progress);
+    let out;
+    try {
+      out = await runScan(browser, new URL(record.url), progress);
+    } catch (error) {
+      // The browser itself died (usually memory on a heavy site): start a
+      // fresh one and try once more with fewer subpages.
+      if (!/Connection closed|Target closed|Protocol error|disconnected|Session closed/i.test((error as Error).message)) throw error;
+      await browser.close().catch(() => undefined);
+      browser = await launchBrowser();
+      out = await runScan(browser, new URL(record.url), progress, 3);
+      out.internal.notes.push('Browseren blev genstartet undervejs; scanningen kørte med færre undersider.');
+    }
     record = {
       ...record,
       status: 'done',

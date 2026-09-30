@@ -21,7 +21,8 @@ export class ScanUnreachable extends Error {}
 export async function runScan(
   browser: Browser,
   target: URL,
-  onProgress: (p: ScanProgress) => void | Promise<void>
+  onProgress: (p: ScanProgress) => void | Promise<void>,
+  maxSubpages?: number
 ): Promise<ScanOutput> {
   const started = Date.now();
   await onProgress({ stage: 'open', pagesDone: 0, pagesPlanned: 0 });
@@ -29,7 +30,8 @@ export async function runScan(
     browser,
     target,
     (done, planned) => void onProgress({ stage: 'pages', pagesDone: done, pagesPlanned: planned }),
-    started + 20000
+    started + 20000,
+    maxSubpages
   );
   if (!result.home.facts) throw new ScanUnreachable(result.home.error || 'The homepage could not be opened');
   if (result.home.status >= 400 && result.home.facts.textLength < 200) {

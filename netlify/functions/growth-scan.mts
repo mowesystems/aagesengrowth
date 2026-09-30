@@ -45,8 +45,15 @@ export default async (req: Request, context: Context) => {
         },
       });
     }
-    const record = await getRecord(id);
-    return record ? json(toPublic(record)) : fail('not_found', 'Unknown scan.', 404);
+    let record = await getRecord(id);
+    if (!record) return fail('not_found', 'Unknown scan.', 404);
+    // A scan whose function died never writes its own error. Past four
+    // minutes, say so instead of leaving the visitor waiting.
+    if ((record.status === 'queued' || record.status === 'running') && Date.now() - Date.parse(record.createdAt) > 4 * 60_000) {
+      record = { ...record, status: 'error', error: { error: 'timeout', message: 'The scan did not finish.', domain: record.domain } };
+      await putRecord(record);
+    }
+    return json(toPublic(record));
   }
 
   if (req.method !== 'POST') return fail('method_not_allowed', 'Use POST.', 405);
