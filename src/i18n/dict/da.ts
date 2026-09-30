@@ -600,7 +600,7 @@ const da = {
     lead: 'Skriv jeres webadresse. På under et minut får I en kort rapport med de vigtigste muligheder og ét konkret næste skridt.',
     measuredHeading: 'Det gennemgår scanningen',
     measured: [
-      { title: 'Websitet, som kunden ser det', body: 'Forsiden og op til seks undersider, åbnet i en rigtig browser på mobil og computer.' },
+      { title: 'Websitet, som kunden ser det', body: 'Forsiden og op til fem undersider, åbnet i en rigtig browser på mobil og computer.' },
       { title: 'Kontakt og booking', body: 'Hvor let det er at ringe, skrive eller booke, og hvad kunden ser på den første skærm.' },
       { title: 'Google-synlighed', body: 'Om siderne er sat op til at blive fundet: titler, lokale søgeord og indeksering.' },
       { title: 'Anmeldelser og Google-profil', body: 'Om websitet viser anmeldelser og viser vej til jeres Google-profil.' },

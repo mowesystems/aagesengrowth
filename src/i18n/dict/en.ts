@@ -589,7 +589,7 @@ const en: Dictionary = {
     lead: 'Enter your web address. In under a minute you get a short report with the most important opportunities and one concrete next step.',
     measuredHeading: 'What the scan reviews',
     measured: [
-      { title: 'The website as a customer sees it', body: 'The homepage and up to six subpages, opened in a real browser on mobile and desktop.' },
+      { title: 'The website as a customer sees it', body: 'The homepage and up to five subpages, opened in a real browser on mobile and desktop.' },
       { title: 'Contact and booking', body: 'How easy it is to call, write or book, and what a customer sees on the first screen.' },
       { title: 'Google visibility', body: 'Whether the pages are set up to be found: titles, local keywords and indexing.' },
       { title: 'Reviews and Google profile', body: 'Whether the website shows reviews and points to your Google profile.' },
