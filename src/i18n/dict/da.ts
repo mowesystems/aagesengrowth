@@ -16,6 +16,7 @@ const da = {
   // ------------------------------------------------------------------ chrome
   nav: {
     engine: 'Growth Engine',
+    websites: 'Hjemmesider',
     how: 'Sådan virker det',
     pricing: 'Pris',
     faq: 'FAQ',
@@ -42,6 +43,8 @@ const da = {
     bookAfklaring: 'Book en afklaring',
     callback: 'Bliv ringet op',
     seeWebsites: 'Se website-pakker',
+    seeWebsitesPage: 'Se hjemmesider og priser',
+    seeCase: 'Se casen',
     seePricing: 'Se priser',
     allFaq: 'Se alle spørgsmål',
     back: 'Tilbage',
@@ -583,6 +586,26 @@ const da = {
         a: 'Growth Engine er et løbende forløb, hvor vi forbedrer kunderejsen måned for måned. Et website er et afgrænset projekt til fast pris. Nogle virksomheder har brug for det ene, nogle for begge.',
       },
       {
+        id: 'website-price',
+        q: 'Hvad koster en ny hjemmeside?',
+        a: 'Hos Aagesen Growth koster en ny hjemmeside 9.995 kr. (Start), 14.995 kr. (Growth) eller 24.995 kr. (Custom), alle ekskl. moms. Prisen afhænger af antal sider, funktioner og hvor meget indhold, der skal laves. Prisen er fast og aftales skriftligt, før arbejdet går i gang.',
+      },
+      {
+        id: 'website-time',
+        q: 'Hvor lang tid tager det at få en ny hjemmeside?',
+        a: 'Det afhænger af omfanget, og af hvor hurtigt tekster og billeder er klar. Vi aftaler tidsplanen sammen med tilbuddet, så I ved, hvornår siden går live.',
+      },
+      {
+        id: 'website-google',
+        q: 'Bliver den nye hjemmeside fundet på Google?',
+        a: 'Alle hjemmesider bliver sat op med egne titler og beskrivelser pr. side, sitemap og en struktur, Google kan læse. Vi kan ikke garantere placeringer, men siden er bygget til at kunne findes. Vil I mere synlighed, kan hjemmesiden kombineres med Growth Engine.',
+      },
+      {
+        id: 'website-content',
+        q: 'Skal vi selv skrive teksterne?',
+        a: 'Nej, ikke nødvendigvis. Har I tekster og billeder klar, bruger vi dem. Ellers skriver vi teksterne sammen med jer ud fra en samtale om jeres virksomhed og jeres kunder.',
+      },
+      {
         id: 'founder',
         q: 'Hvad er Founder Programmet?',
         a: 'De første tre virksomheder får Growth Engine til en introduktionspris i tre måneder. De får samme kerneproces, men arbejder tættere sammen med os under implementeringen og giver feedback, der former, hvilke løsninger der bliver til faste moduler. Herefter fortsætter samarbejdet til normalpris. Det er aftalt fra start.',
@@ -632,7 +655,7 @@ const da = {
   // ----------------------------------------------------------------- footer
   footer: {
     description:
-      'Growth Engine finder de steder i jeres digitale kunderejse, hvor potentielle kunder går tabt, og forbedrer dem løbende.',
+      'Growth Engine finder de steder i jeres digitale kunderejse, hvor potentielle kunder går tabt, og forbedrer dem løbende. Vi bygger også nye hjemmesider til fast pris.',
     productHeading: 'Growth Engine',
     companyHeading: 'Virksomhed',
     contactHeading: 'Kontakt',
@@ -640,6 +663,79 @@ const da = {
     cookies: 'Cookiepolitik',
     cvr: 'CVR',
     rights: 'Alle rettigheder forbeholdes.',
+  },
+
+  // ----------------------------------------------------------- websites page
+  websitesPage: {
+    title: 'Ny hjemmeside til fast pris fra 9.995 kr. | Aagesen Growth',
+    description:
+      'Få en ny hjemmeside til fast pris: 9.995, 14.995 eller 24.995 kr. ekskl. moms. Mobilvenlig, hurtig og bygget til Google og henvendelser. Se The Jivers-casen.',
+    eyebrow: 'Hjemmesider',
+    heading: 'Ny hjemmeside til fast pris.',
+    lead: 'Vi designer og bygger hjemmesider til små og mellemstore virksomheder. Hurtige, mobilvenlige og sat op, så I kan findes på Google og få henvendelser. I kender prisen, før vi går i gang.',
+    priceFromLabel: 'Fra',
+    priceFromNote: 'fast pris · ekskl. moms',
+    heroCta: 'Bliv ringet op',
+    heroSecondary: 'Se priserne',
+    caseSection: {
+      eyebrow: 'Seneste hjemmeside',
+      heading: 'The Jivers. En hjemmeside med samme energi som bandet.',
+      body: 'Swingbandet The Jivers fik en ny hjemmeside med bookingformular, lydklip, der afspilles som vinylplader, livevideo og en engelsk version. Bygget til at arrangører hurtigt kan høre bandet og sende en forespørgsel.',
+      points: ['Bookingformular med spamfilter', 'Lydklip og livevideo', 'Dansk og engelsk version', 'Teknisk SEO og hosting'],
+      cta: 'Se hele casen',
+      visit: 'Besøg jivers.dk',
+    },
+    cost: {
+      eyebrow: 'Pris',
+      heading: 'Hvad koster en ny hjemmeside?',
+      lead: 'En ny hjemmeside hos os koster 9.995, 14.995 eller 24.995 kr. ekskl. moms. Hvilken pakke I lander i, afhænger især af tre ting.',
+      factors: [
+        { title: 'Antal sider', body: 'En hjemmeside med forside, ydelser, om jer og kontakt er hurtigere at lave end en med en side til hver ydelse.' },
+        { title: 'Funktioner', body: 'Booking, betaling, integrationer og automatisering tager mere tid end en almindelig kontaktformular.' },
+        { title: 'Indhold', body: 'Har I tekster og billeder klar, går det hurtigere. Ellers skriver vi teksterne sammen med jer.' },
+      ],
+    },
+    packages: {
+      eyebrow: 'Pakker',
+      heading: 'Tre pakker. Fast pris.',
+    },
+    included: {
+      eyebrow: 'Altid med',
+      heading: 'Det får I med i alle pakker.',
+      items: [
+        'Design, der passer til jeres virksomhed',
+        'Mobilvenlig og hurtig hjemmeside',
+        'Kontakt- eller bookingformular',
+        'Egen titel og beskrivelse på hver side',
+        'Sitemap og opsætning til Google',
+        'Opsætning af analytics',
+        'Sikker forbindelse (https)',
+        'Hjælp til at gå live',
+      ],
+    },
+    process: {
+      eyebrow: 'Forløbet',
+      heading: 'Sådan får I en ny hjemmeside.',
+      steps: [
+        { title: 'Afklaring', body: 'En kort samtale om jeres virksomhed, jeres kunder og hvad hjemmesiden skal kunne. Gratis og uforpligtende.' },
+        { title: 'Tilbud til fast pris', body: 'I får et skriftligt tilbud med pris, omfang og tidsplan, før arbejdet går i gang.' },
+        { title: 'Design og udvikling', body: 'Vi designer og bygger siden og viser jer den undervejs, så I kan nå at ændre retning.' },
+        { title: 'Lancering', body: 'Siden går live med titler, sitemap og analytics sat op, så Google kan finde den fra første dag.' },
+      ],
+    },
+    callback: {
+      eyebrow: 'Ny hjemmeside?',
+      heading: 'Bliv ringet op.',
+      lead: 'Skriv jeres nummer, så ringer vi og tager en snak om, hvad I har brug for, og hvilken pakke der passer. Eller book en afklaring.',
+    },
+    faq: { eyebrow: 'Spørgsmål', heading: 'Om nye hjemmesider.' },
+    teaser: {
+      eyebrow: 'Hjemmesider',
+      heading: 'Skal I have en ny hjemmeside?',
+      body: 'Vi bygger også nye hjemmesider til fast pris fra 9.995 kr. ekskl. moms. Hurtige, mobilvenlige og sat op til Google. Se fx den nye hjemmeside til swingbandet The Jivers.',
+      cta: 'Se hjemmesider og priser',
+      caseCta: 'Se The Jivers-casen',
+    },
   },
 
   // ------------------------------------------------------------------ pages
@@ -665,9 +761,9 @@ const da = {
     },
     work: {
       title: 'Projekter',
-      description: 'Udvalgte projekter fra Aagesen Growth. Websites og digitale systemer bygget for rigtige virksomheder.',
+      description: 'Hjemmesider bygget af Aagesen Growth. Se den nye hjemmeside til swingbandet The Jivers, med booking, lydklip og video.',
       heading: 'Projekter',
-      lead: 'Udvalgt arbejde fra tiden før Growth Engine. Websites og digitale systemer for rigtige virksomheder.',
+      lead: 'Hjemmesider og digitale løsninger, vi har designet og bygget for rigtige kunder.',
       allLabel: 'Alle projekter',
       disciplinesLabel: 'Discipliner',
       deliveredLabel: 'Leveret',
@@ -686,9 +782,9 @@ const da = {
   },
 
   meta: {
-    homeTitle: 'Growth Engine: find hvor I taber kunder | Aagesen Growth',
+    homeTitle: 'Growth Engine og ny hjemmeside til fast pris | Aagesen Growth',
     homeDescription:
-      'Growth Engine finder de steder i jeres digitale kunderejse, hvor potentielle kunder går tabt, og forbedrer det, der betyder mest. Kør en gratis Growth Scan, eller book en afklaring.',
+      'Aagesen Growth finder de steder, hvor I taber kunder, og bygger nye hjemmesider til fast pris fra 9.995 kr. Kør en gratis Growth Scan, eller book en afklaring.',
   },
 
   // -------------------------------------------------------------------- legal
@@ -732,107 +828,59 @@ const da = {
 
   work: {
     cases: {
-      'plus-eins': {
-        kind: 'Boutique · Salumeria · Deli · Rørvig',
-        disciplines: ['Website', 'SEO', 'GEO', 'Meta Ads', 'Strategi'],
+      jivers: {
+        kind: 'Swingband · Hjemmeside · Booking',
+        disciplines: ['Hjemmeside', 'Design', 'Booking', 'SEO', 'Hosting'],
         summary:
-          'Et digitalt fundament for en fysisk boutique, der skulle være lige så tydelig online som i butikken.',
-        strapline: 'Fra fysisk koncept til sammenhængende digitalt brand.',
+          'En ny hjemmeside til et syv mand stort swingband, bygget til at arrangører hurtigt kan høre bandet og booke det til fest og firmafest.',
+        strapline: 'En hjemmeside med samme energi som bandet.',
         challenge:
-          'Plus Eins havde en stærk fysisk identitet, men den digitale tilstedeværelse fortalte ikke den samme historie. Der manglede ét sted, hvor brandet, sortimentet og butikkens tone hang sammen — og et fundament, der kunne bære den videre udvikling.',
+          'The Jivers spiller jump ’n’ jive og swing til fester i hele Danmark. Bandet havde brug for ét sted, hvor en arrangør hurtigt kan høre, se og mærke, hvad de får, og sende en bookingforespørgsel uden at skulle ringe rundt.',
         sections: [
           {
-            heading: 'Tilgang',
-            body: 'Arbejdet startede med strukturen frem for designet. Hvad skal en besøgende kunne finde ud af, og i hvilken rækkefølge? Først derefter blev det visuelle lagt ovenpå, så designet understøtter indholdet i stedet for at konkurrere med det.',
+            heading: 'Design',
+            body: 'Udtrykket kommer fra bandets egen verden: plakater fra 40’erne og 50’erne, sepiatonede fotos og et logo farvelagt i sidens palet. Siden skal føles som bandet, ikke som en skabelon.',
           },
           {
-            heading: 'Det byggede vi',
-            body: 'Et website, der samler brandet, sortimentet og butikkens praktiske oplysninger ét sted. Sideopbygningen er lavet, så nye kategorier og koncepter kan komme til uden at strukturen skal laves om — hvilket blev afgørende, da Deli-konceptet kom til.',
+            heading: 'Lyd og video',
+            body: 'Arrangører vil høre et band, før de booker det. Derfor kan lydklip afspilles direkte på siden som vinylplader, der drejer, mens nummeret spiller, og bandet kan ses live i video.',
           },
           {
-            heading: 'Løbende arbejde',
-            body: 'Samarbejdet er fortsat efter lancering med indhold, visuel kommunikation, sociale medier og den løbende marketingretning. Prioriteringen justeres efter, hvad butikken har brug for i den enkelte periode.',
+            heading: 'Booking',
+            body: 'Bookingformularen kræver kun navn og e-mail. Resten er valgfrit, så det er let at sende en forespørgsel. Henvendelser går direkte til de to bandmedlemmer, der svarer, og er beskyttet mod spam.',
+          },
+          {
+            heading: 'Teknik og Google',
+            body: 'Siden er bygget uden tunge frameworks, så den indlæses hurtigt, også på mobil. Billeder leveres i moderne formater, og hver side har sin egen titel og beskrivelse, sitemap og en engelsk version, så den kan findes på Google.',
           },
         ],
         delivered: [
-          'Website med udbygningsvenlig struktur',
-          'Digital brandretning',
-          'Indhold og visuel kommunikation',
-          'Sociale medier og kampagner',
-          'SEO og GEO',
-          'Forberedelse til webshop',
+          'Design og opbygning af hele hjemmesiden',
+          'Syv sider til Google, herunder en engelsk version',
+          'Bookingformular med spamfilter',
+          'Lydafspiller formet som vinylplader',
+          'Livevideo og fotogalleri',
+          'Teknisk SEO: titler, sitemap og sprogversioner',
+          'Hosting og drift',
         ],
         demonstrates:
-          'At et website skal bygges til det, der kommer bagefter. Strukturen holdt, da et helt nyt koncept skulle ind.',
-        proofLine: 'Website · brandsystem · løbende vækstsamarbejde',
-        period: 'Løbende samarbejde',
+          'At en hjemmeside kan have masser af personlighed og stadig være hurtig, nem at finde på Google og bygget til at skabe henvendelser.',
+        proofLine: 'Hjemmeside · booking · lyd og video',
+        period: '',
         disclosure: '',
         media: {
           desktop: {
-            alt: 'Forsiden af pluseins.dk på desktop med det fuldbredde hero-billede fra gårdhaven.',
+            alt: 'Forsiden af jivers.dk på desktop med The Jivers-logoet, overskriften om swingband til fest og et foto af bandet på en havnemole.',
             caption: '',
           },
-          mobile: { alt: 'Forsiden af pluseins.dk på mobil med navigation og hero-billede.', caption: '' },
-          photoBoutique: {
-            alt: 'Plus Eins boutique udefra med parasoller, instruktørstole og kurve på terrassen.',
-            caption: 'Boutique',
+          mobile: { alt: 'Forsiden af jivers.dk på mobil med bandfoto og overskrift.', caption: '' },
+          screenRecords: {
+            alt: 'Lydklip på jivers.dk vist som fire vinylplader med pickup-arme og numrenes titler.',
+            caption: 'Lydklip som vinylplader',
           },
-          photoSalumeria: {
-            alt: 'Salumeria-disken hos Plus Eins med spegepølser, oste og delikatesser.',
-            caption: 'Salumeria',
-          },
-          photoExterior: {
-            alt: 'Plus Eins-bygningen i Rørvig set udefra i aftenlys med lys i vinduerne.',
-            caption: 'Butikken',
-          },
-          screenBoutique: {
-            alt: 'Boutique-siden på pluseins.dk med redaktionel opsætning af billede og tekst.',
-            caption: 'Boutique',
-          },
-          screenSalumeria: {
-            alt: 'Salumeria-siden på pluseins.dk med samme sideskabelon som de øvrige koncepter.',
-            caption: 'Salumeria',
-          },
-        } as Record<string, { alt: string; caption: string }>,
-      },
-      'plus-eins-deli': {
-        kind: 'Konceptlancering',
-        disciplines: ['Konceptlancering', 'Indhold', 'Meta Ads'],
-        summary:
-          'Lanceringen af et nyt deli-koncept under et eksisterende brand — uden at fortynde det brand, det voksede ud af.',
-        strapline: 'Et nyt koncept inde i et etableret brand.',
-        challenge:
-          'Deli-konceptet skulle introduceres som noget nyt og selvstændigt, men stadig høre tydeligt til Plus Eins. For meget adskillelse, og det ville føles som en fremmed forretning. For lidt, og det ville forsvinde i det eksisterende.',
-        sections: [
-          {
-            heading: 'Tilgang',
-            body: 'Konceptet blev behandlet som en udvidelse af brandet, ikke som et sidespor. Samme visuelle grundtone, men et eget spor i strukturen, så Deli kan kommunikeres selvstændigt uden at bryde helheden.',
-          },
-          {
-            heading: 'Lanceringen',
-            body: 'Selve introduktionen blev kørt digitalt gennem website, indhold og sociale medier med en samlet retning frem for spredte opslag. Det digitale fundament var på plads, før kommunikationen gik i luften — ikke omvendt.',
-          },
-        ],
-        delivered: [
-          'Digital lancering af konceptet',
-          'Indhold og visuel kommunikation',
-          'Integration i den eksisterende sidestruktur',
-          'Kampagner og løbende synlighed',
-        ],
-        demonstrates:
-          'At en lancering er et struktur- og timingproblem lige så meget som et designproblem.',
-        proofLine: 'Konceptside · lanceringsindhold · kampagner',
-        period: 'Løbende samarbejde',
-        disclosure: 'Del af det løbende samarbejde med Plus Eins.',
-        media: {
-          desktop: {
-            alt: 'Deli-siden på pluseins.dk med overskriften Deli ved siden af et stort billede af en focaccia.',
-            caption: '',
-          },
-          mobile: { alt: 'Deli-siden på pluseins.dk vist på mobil.', caption: '' },
-          photoDeli: {
-            alt: 'Focaccia med prosciutto di Parma, tomat og rucola fra Plus Eins Deli.',
-            caption: 'Deli',
+          screenBooking: {
+            alt: 'Bookingsiden på jivers.dk med formularen Bookingforespørgsel.',
+            caption: 'Bookingformular',
           },
         } as Record<string, { alt: string; caption: string }>,
       },

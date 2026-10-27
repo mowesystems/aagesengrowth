@@ -48,7 +48,7 @@ const CaseDetail: React.FC = () => {
   return (
     <>
       <SEOHead
-        title={`${item.client} — ${copy?.strapline ?? ''}`.trim()}
+        title={`${item.client}: ${(copy?.strapline ?? '').replace(/\.$/, '')} | Aagesen Growth`}
         description={copy?.summary ?? ''}
         schema={schema}
       />
@@ -269,25 +269,41 @@ const CaseDetail: React.FC = () => {
       <section className="py-18 lg:py-22">
         <div className="frame">
           <div className="rule flex flex-col gap-6 pt-10 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="meta">{t.pages.work.nextLabel}</p>
-              <Link
-                to={path('work', next.slug)}
-                className="group mt-4 inline-flex items-baseline gap-4"
-              >
-                <span className="h-section transition-colors group-hover:text-brand">
-                  {next.client}
-                </span>
-                <ArrowRight
-                  size={18}
-                  aria-hidden="true"
-                  className="self-center text-brand transition-transform duration-300 group-hover:translate-x-1"
-                />
-              </Link>
-            </div>
+            {next.id !== item.id ? (
+              <div>
+                <p className="meta">{t.pages.work.nextLabel}</p>
+                <Link
+                  to={path('work', next.slug)}
+                  className="group mt-4 inline-flex items-baseline gap-4"
+                >
+                  <span className="h-section transition-colors group-hover:text-brand">
+                    {next.client}
+                  </span>
+                  <ArrowRight
+                    size={18}
+                    aria-hidden="true"
+                    className="self-center text-brand transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <p className="meta">{t.websitesPage.eyebrow}</p>
+                <Link to={path('websites')} className="group mt-4 inline-flex items-baseline gap-4">
+                  <span className="h-section transition-colors group-hover:text-brand">
+                    {t.websitesPage.teaser.heading}
+                  </span>
+                  <ArrowRight
+                    size={18}
+                    aria-hidden="true"
+                    className="self-center text-brand transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </Link>
+              </div>
+            )}
 
-            <Button to={path('booking')} size="lg">
-              {t.pages.work.similarCta}
+            <Button to={path('websites')} size="lg">
+              {t.cta.seeWebsitesPage}
               <ArrowRight size={16} aria-hidden="true" />
             </Button>
           </div>

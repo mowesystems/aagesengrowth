@@ -47,6 +47,7 @@ const Header: React.FC = () => {
 
   const nav: { key: RouteKey; label: string }[] = [
     { key: 'home', label: t.nav.engine },
+    { key: 'websites', label: t.nav.websites },
     { key: 'how', label: t.nav.how },
     { key: 'pricing', label: t.nav.pricing },
     { key: 'faq', label: t.nav.faq },

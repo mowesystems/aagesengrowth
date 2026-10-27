@@ -12,6 +12,7 @@ const en: Dictionary = {
   // ------------------------------------------------------------------ chrome
   nav: {
     engine: 'Growth Engine',
+    websites: 'Websites',
     how: 'How it works',
     pricing: 'Pricing',
     faq: 'FAQ',
@@ -38,6 +39,8 @@ const en: Dictionary = {
     bookAfklaring: 'Book a discovery call',
     callback: 'Request a callback',
     seeWebsites: 'See website packages',
+    seeWebsitesPage: 'See websites and prices',
+    seeCase: 'See the case',
     seePricing: 'See pricing',
     allFaq: 'See all questions',
     back: 'Back',
@@ -572,6 +575,26 @@ const en: Dictionary = {
         a: 'Growth Engine is an ongoing process where we improve the customer journey month by month. A website is a defined project at a fixed price. Some businesses need one, some need both.',
       },
       {
+        id: 'website-price',
+        q: 'How much does a new website cost?',
+        a: 'At Aagesen Growth a new website costs DKK 9,995 (Start), DKK 14,995 (Growth) or DKK 24,995 (Custom), all excluding VAT. The price depends on the number of pages, the features and how much content needs to be created. It is fixed and agreed in writing before work starts.',
+      },
+      {
+        id: 'website-time',
+        q: 'How long does a new website take?',
+        a: 'It depends on the scope, and on how quickly copy and images are ready. We agree the timeline together with the quote, so you know when the site goes live.',
+      },
+      {
+        id: 'website-google',
+        q: 'Will the new website be found on Google?',
+        a: 'Every website is set up with its own title and description per page, a sitemap and a structure Google can read. We cannot guarantee rankings, but the site is built to be found. For more visibility, the website can be combined with Growth Engine.',
+      },
+      {
+        id: 'website-content',
+        q: 'Do we have to write the copy ourselves?',
+        a: 'Not necessarily. If you have copy and images ready, we use them. Otherwise we write the copy with you, based on a conversation about your business and your customers.',
+      },
+      {
         id: 'founder',
         q: 'What is the Founder Program?',
         a: 'The first three businesses get Growth Engine at an introductory price for three months. They get the same core process, but work more closely with us during implementation and give feedback that shapes which solutions become standard modules. After that the collaboration continues at the standard price, agreed from the start.',
@@ -621,7 +644,7 @@ const en: Dictionary = {
   // ----------------------------------------------------------------- footer
   footer: {
     description:
-      'Growth Engine finds the places in your digital customer journey where potential customers are lost, and improves them continuously.',
+      'Growth Engine finds the places in your digital customer journey where potential customers are lost, and improves them continuously. We also build new websites at a fixed price.',
     productHeading: 'Growth Engine',
     companyHeading: 'Company',
     contactHeading: 'Contact',
@@ -629,6 +652,79 @@ const en: Dictionary = {
     cookies: 'Cookie Policy',
     cvr: 'CVR',
     rights: 'All rights reserved.',
+  },
+
+  // ----------------------------------------------------------- websites page
+  websitesPage: {
+    title: 'New website at a fixed price from DKK 9,995 | Aagesen Growth',
+    description:
+      'Get a new website at a fixed price: DKK 9,995, 14,995 or 24,995 excl. VAT. Mobile friendly, fast and built for Google and enquiries. See The Jivers case.',
+    eyebrow: 'Websites',
+    heading: 'A new website at a fixed price.',
+    lead: 'We design and build websites for small and medium-sized businesses. Fast, mobile friendly and set up so you can be found on Google and get enquiries. You know the price before we start.',
+    priceFromLabel: 'From',
+    priceFromNote: 'fixed price · excl. VAT',
+    heroCta: 'Get a call back',
+    heroSecondary: 'See the prices',
+    caseSection: {
+      eyebrow: 'Latest website',
+      heading: 'The Jivers. A website with the same energy as the band.',
+      body: 'The swing band The Jivers got a new website with a booking form, audio clips that play as spinning vinyl records, live video and an English version. Built so event organisers can hear the band quickly and send an enquiry.',
+      points: ['Booking form with spam filter', 'Audio clips and live video', 'Danish and English version', 'Technical SEO and hosting'],
+      cta: 'See the full case',
+      visit: 'Visit jivers.dk',
+    },
+    cost: {
+      eyebrow: 'Price',
+      heading: 'How much does a new website cost?',
+      lead: 'A new website with us costs DKK 9,995, 14,995 or 24,995 excl. VAT. Which package fits depends mainly on three things.',
+      factors: [
+        { title: 'Number of pages', body: 'A website with a front page, services, about and contact is quicker to build than one with a page for every service.' },
+        { title: 'Features', body: 'Booking, payments, integrations and automation take more time than a standard contact form.' },
+        { title: 'Content', body: 'If your copy and images are ready, it goes faster. Otherwise we write the copy with you.' },
+      ],
+    },
+    packages: {
+      eyebrow: 'Packages',
+      heading: 'Three packages. Fixed price.',
+    },
+    included: {
+      eyebrow: 'Always included',
+      heading: 'What every package includes.',
+      items: [
+        'A design that fits your business',
+        'Mobile friendly, fast website',
+        'Contact or booking form',
+        'Its own title and description on every page',
+        'Sitemap and Google setup',
+        'Analytics setup',
+        'Secure connection (https)',
+        'Help going live',
+      ],
+    },
+    process: {
+      eyebrow: 'The process',
+      heading: 'How you get a new website.',
+      steps: [
+        { title: 'Discovery', body: 'A short conversation about your business, your customers and what the website needs to do. Free and without obligation.' },
+        { title: 'Fixed-price quote', body: 'You get a written quote with price, scope and timeline before work starts.' },
+        { title: 'Design and build', body: 'We design and build the site and show it to you along the way, so you can change direction in time.' },
+        { title: 'Launch', body: 'The site goes live with titles, sitemap and analytics set up, so Google can find it from day one.' },
+      ],
+    },
+    callback: {
+      eyebrow: 'New website?',
+      heading: 'Get a call back.',
+      lead: 'Leave your number and we will call you to talk about what you need and which package fits. Or book a discovery call.',
+    },
+    faq: { eyebrow: 'Questions', heading: 'About new websites.' },
+    teaser: {
+      eyebrow: 'Websites',
+      heading: 'Need a new website?',
+      body: 'We also build new websites at a fixed price from DKK 9,995 excl. VAT. Fast, mobile friendly and set up for Google. See for example the new website for the swing band The Jivers.',
+      cta: 'See websites and prices',
+      caseCta: 'See The Jivers case',
+    },
   },
 
   // ------------------------------------------------------------------ pages
@@ -654,9 +750,9 @@ const en: Dictionary = {
     },
     work: {
       title: 'Projects',
-      description: 'Selected projects from Aagesen Growth. Websites and digital systems built for real businesses.',
+      description: 'Websites built by Aagesen Growth. See the new website for the swing band The Jivers, with booking, audio clips and video.',
       heading: 'Projects',
-      lead: 'Selected work from before Growth Engine. Websites and digital systems for real businesses.',
+      lead: 'Websites and digital solutions we have designed and built for real clients.',
       allLabel: 'All projects',
       disciplinesLabel: 'Disciplines',
       deliveredLabel: 'Delivered',
@@ -675,9 +771,9 @@ const en: Dictionary = {
   },
 
   meta: {
-    homeTitle: 'Growth Engine: find where you lose customers | Aagesen Growth',
+    homeTitle: 'Growth Engine and new websites at a fixed price | Aagesen Growth',
     homeDescription:
-      'Growth Engine finds the places in your digital customer journey where potential customers are lost, and improves what matters most. Run a free Growth Scan, or book a discovery call.',
+      'Aagesen Growth finds where you lose customers and builds new websites at a fixed price from DKK 9,995. Run a free Growth Scan, or book a discovery call.',
   },
 
   // -------------------------------------------------------------------- legal
@@ -712,113 +808,64 @@ const en: Dictionary = {
 
   // ------------------------------------------------------------------- work
   /**
-   * Only the two real cases stay — MOWE Systems was removed from the public
-   * site (see the master cleanup task). The Danish version is the source of
-   * record for `id`/`slug`/media keys; this only supplies the English prose.
+   * The Danish version is the source of record for `id`/`slug`/media keys;
+   * this only supplies the English prose.
    */
   work: {
     cases: {
-      'plus-eins': {
-        kind: 'Boutique · Salumeria · Deli · Rørvig, Denmark',
-        disciplines: ['Website', 'SEO', 'GEO', 'Meta Ads', 'Strategy'],
+      jivers: {
+        kind: 'Swing band · Website · Booking',
+        disciplines: ['Website', 'Design', 'Booking', 'SEO', 'Hosting'],
         summary:
-          'A digital foundation for a physical boutique that needed to be as clear online as it is in the store.',
-        strapline: 'From a physical concept to a coherent digital brand.',
+          'A new website for a seven-piece swing band, built so event organisers can hear the band quickly and book it for parties and company events.',
+        strapline: 'A website with the same energy as the band.',
         challenge:
-          'Plus Eins had a strong physical identity, but its digital presence told a different story. There was no single place where the brand, the range and the store’s tone came together — and no foundation that could carry future growth.',
+          'The Jivers play jump ’n’ jive and swing at parties across Denmark. The band needed one place where an organiser can quickly hear, see and feel what they get, and send a booking enquiry without phoning around.',
         sections: [
           {
-            heading: 'Approach',
-            body: 'The work started with structure rather than design. What does a visitor need to be able to find out, and in what order? Only then was the visual layer added, so the design supports the content instead of competing with it.',
+            heading: 'Design',
+            body: 'The look comes from the band’s own world: posters from the 1940s and 50s, sepia photos and a logo coloured in the site’s palette. The site should feel like the band, not like a template.',
           },
           {
-            heading: 'What we built',
-            body: 'A website that brings the brand, the range and the store’s practical information together in one place. The page structure was built so new categories and concepts could be added without reworking it — which mattered when the Deli concept arrived.',
+            heading: 'Audio and video',
+            body: 'Organisers want to hear a band before they book it. So audio clips play right on the page as vinyl records that spin while the song plays, and the band can be seen live on video.',
           },
           {
-            heading: 'Ongoing work',
-            body: 'The collaboration has continued past launch with content, visual communication, social media and ongoing marketing direction. Priorities are adjusted to what the store needs in a given period.',
+            heading: 'Booking',
+            body: 'The booking form only requires a name and an email. The rest is optional, so sending an enquiry is easy. Enquiries go straight to the two band members who reply, and are protected against spam.',
+          },
+          {
+            heading: 'Tech and Google',
+            body: 'The site is built without heavy frameworks, so it loads fast, also on mobile. Images are served in modern formats, and every page has its own title and description, a sitemap and an English version, so it can be found on Google.',
           },
         ],
         delivered: [
-          'Website with an extensible structure',
-          'Digital brand direction',
-          'Content and visual communication',
-          'Social media and campaigns',
-          'SEO and GEO',
-          'Webshop preparation',
+          'Design and build of the whole website',
+          'Seven indexable pages, including an English version',
+          'Booking form with spam filter',
+          'Audio player shaped as vinyl records',
+          'Live video and photo gallery',
+          'Technical SEO: titles, sitemap and language versions',
+          'Hosting and maintenance',
         ],
         demonstrates:
-          'That a website should be built for what comes next. The structure held up when an entirely new concept needed to be added.',
-        proofLine: 'Website · brand system · ongoing growth partnership',
-        period: 'Ongoing partnership',
+          'That a website can have plenty of personality and still be fast, easy to find on Google and built to generate enquiries.',
+        proofLine: 'Website · booking · audio and video',
+        period: '',
         disclosure: '',
         media: {
           desktop: {
-            alt: 'The pluseins.dk homepage on desktop with the full-width hero image from the courtyard.',
+            alt: 'The jivers.dk front page on desktop with The Jivers logo, the headline about a swing band for parties and a photo of the band on a harbour pier.',
             caption: '',
           },
-          mobile: { alt: 'The pluseins.dk homepage on mobile with navigation and hero image.', caption: '' },
-          photoBoutique: {
-            alt: 'Plus Eins boutique exterior with parasols, director’s chairs and baskets on the terrace.',
-            caption: 'Boutique',
+          mobile: { alt: 'The jivers.dk front page on mobile with band photo and headline.', caption: '' },
+          screenRecords: {
+            alt: 'Audio clips on jivers.dk shown as four vinyl records with tonearms and song titles.',
+            caption: 'Audio clips as vinyl records',
           },
-          photoSalumeria: {
-            alt: 'The salumeria counter at Plus Eins with cured meats, cheeses and delicatessen goods.',
-            caption: 'Salumeria',
-          },
-          photoExterior: {
-            alt: 'The Plus Eins building in Rørvig seen from outside in evening light with lit windows.',
-            caption: 'The store',
-          },
-          screenBoutique: {
-            alt: 'The Boutique page on pluseins.dk with an editorial layout of image and text.',
-            caption: 'Boutique',
-          },
-          screenSalumeria: {
-            alt: 'The Salumeria page on pluseins.dk using the same page template as the other concepts.',
-            caption: 'Salumeria',
-          },
-        } as Record<string, { alt: string; caption: string }>,
-      },
-      'plus-eins-deli': {
-        kind: 'Concept launch',
-        disciplines: ['Concept launch', 'Content', 'Meta Ads'],
-        summary:
-          'Launching a new deli concept under an existing brand — without diluting the brand it grew out of.',
-        strapline: 'A new concept inside an established brand.',
-        challenge:
-          'The Deli concept needed to be introduced as something new and distinct, while still clearly belonging to Plus Eins. Too much separation and it would feel like an unrelated business; too little and it would disappear into the existing one.',
-        sections: [
-          {
-            heading: 'Approach',
-            body: 'The concept was treated as an extension of the brand, not a side project. Same visual foundation, but its own track within the structure, so Deli could be communicated on its own terms without breaking the whole.',
-          },
-          {
-            heading: 'The launch',
-            body: 'The introduction itself ran digitally through the website, content and social media with one coordinated direction rather than scattered posts. The digital foundation was in place before the communication went live — not the other way around.',
-          },
-        ],
-        delivered: [
-          'Digital launch of the concept',
-          'Content and visual communication',
-          'Integration into the existing page structure',
-          'Campaigns and ongoing visibility',
-        ],
-        demonstrates:
-          'That a launch is a structure and timing problem just as much as a design problem.',
-        proofLine: 'Concept page · launch content · campaigns',
-        period: 'Ongoing partnership',
-        disclosure: 'Part of the ongoing partnership with Plus Eins.',
-        media: {
-          desktop: {
-            alt: 'The Deli page on pluseins.dk with the heading Deli next to a large image of a focaccia.',
-            caption: '',
-          },
-          mobile: { alt: 'The Deli page on pluseins.dk shown on mobile.', caption: '' },
-          photoDeli: {
-            alt: 'Focaccia with prosciutto di Parma, tomato and rocket from Plus Eins Deli.',
-            caption: 'Deli',
+          screenBooking: {
+            alt: 'The booking page on jivers.dk with the booking enquiry form.',
+            caption: 'Booking form',
           },
         } as Record<string, { alt: string; caption: string }>,
       },

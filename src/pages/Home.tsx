@@ -5,6 +5,7 @@ import HomeProblem from '@/components/home/HomeProblem';
 import HomeEngine from '@/components/home/HomeEngine';
 import HomeScan from '@/components/home/HomeScan';
 import TwoPaths from '@/components/home/TwoPaths';
+import HomeWebsites from '@/components/home/HomeWebsites';
 import Spine from '@/components/growth/Spine';
 import company from '@/config/company';
 import { useLocale } from '@/i18n/useLocale';
@@ -72,6 +73,7 @@ const Home: React.FC = () => {
         <HomeEngine />
         <HomeScan />
       </div>
+      <HomeWebsites />
       <TwoPaths source="home" scanHref={`#${HERO_SCAN_ID}`} />
     </>
   );
