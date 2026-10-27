@@ -5,64 +5,81 @@ import Footer from '@/components/layout/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import CookieBanner from '@/components/ui/CookieBanner';
 import Home from '@/pages/Home';
+import { LocaleProvider } from '@/i18n/LocaleContext';
+import { ScanProvider } from '@/components/scan/ScanContext';
+import { localePath, locales, type RouteKey } from '@/i18n/config';
 
 /*
- * The homepage ships in the entry chunk because it is what most first visits
- * land on and it carries the LCP. Everything else is split out, so a visitor
- * who never opens the pricing page never downloads it.
+ * The homepage ships in the entry chunk because it is what nearly every visit
+ * lands on and it carries the LCP. Everything else is split out.
  */
-const Services = lazy(() => import('@/pages/Services'));
+const HowItWorks = lazy(() => import('@/pages/HowItWorks'));
+const Websites = lazy(() => import('@/pages/Websites'));
 const Pricing = lazy(() => import('@/pages/Pricing'));
-const Cases = lazy(() => import('@/pages/Cases'));
-const CaseDetail = lazy(() => import('@/pages/CaseDetail'));
-const About = lazy(() => import('@/pages/About'));
-const Contact = lazy(() => import('@/pages/Contact'));
-const Book = lazy(() => import('@/pages/Book'));
+const ScanPage = lazy(() => import('@/pages/ScanPage'));
 const FAQPage = lazy(() => import('@/pages/FAQPage'));
+const Booking = lazy(() => import('@/pages/Booking'));
+const Work = lazy(() => import('@/pages/Work'));
+const CaseDetail = lazy(() => import('@/pages/CaseDetail'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const CookiePolicy = lazy(() => import('@/pages/CookiePolicy'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
+const InternalScans = lazy(() => import('@/pages/InternalScans'));
 
-/** Holds roughly a screen open while a route chunk arrives. */
 const RouteFallback = () => <div className="min-h-[80svh]" aria-hidden="true" />;
 
+const pageFor: Record<RouteKey, React.ReactNode> = {
+  home: <Home />,
+  websites: <Websites />,
+  how: <HowItWorks />,
+  pricing: <Pricing />,
+  scan: <ScanPage />,
+  booking: <Booking />,
+  faq: <FAQPage />,
+  work: <Work />,
+  privacy: <Privacy />,
+  cookies: <CookiePolicy />,
+};
+
+const localeRoutes = locales.flatMap((locale) => {
+  const keys = Object.keys(pageFor) as RouteKey[];
+  return keys.flatMap((key) => {
+    const path = localePath(locale, key);
+    const routes = [<Route key={`${locale}-${key}`} path={path} element={pageFor[key]} />];
+    if (key === 'work') {
+      routes.push(<Route key={`${locale}-case`} path={`${path}/:slug`} element={<CaseDetail />} />);
+    }
+    return routes;
+  });
+});
+
 /*
- * The footer sits inside the same Suspense boundary as the routes on purpose.
- * With it outside, a lazy route paints in two steps — fallback plus footer,
- * then the real page — and the footer visibly jumps down the screen. That
- * measured 0.25 CLS on every split route. Suspending both together means the
- * page below the header paints exactly once.
- *
- * `id="main"` lives on the wrapper rather than on <main> so the skip link has a
- * target even during that first frame.
+ * The footer sits inside the same Suspense boundary as the routes so a lazy
+ * route paints once, not in two steps with the footer jumping (0.25 CLS).
  */
 const App: React.FC = () => (
   <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-    <ScrollToTop />
-    <Header />
-    <div id="main">
-      <Suspense fallback={<RouteFallback />}>
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/ydelser" element={<Services />} />
-            <Route path="/priser" element={<Pricing />} />
-            <Route path="/projekter" element={<Cases />} />
-            <Route path="/projekter/:slug" element={<CaseDetail />} />
-            <Route path="/om" element={<About />} />
-            <Route path="/kontakt" element={<Contact />} />
-            <Route path="/book-moede" element={<Book />} />
-            <Route path="/faq" element={<FAQPage />} />
-            <Route path="/privatlivspolitik" element={<Privacy />} />
-            <Route path="/cookiepolitik" element={<CookiePolicy />} />
-            {/* Renders a real 404 instead of silently serving the homepage. */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </Suspense>
-    </div>
-    <CookieBanner />
+    <LocaleProvider>
+      <ScanProvider>
+        <ScrollToTop />
+        <Header />
+        <div id="main">
+          <Suspense fallback={<RouteFallback />}>
+            <main>
+              <Routes>
+                {localeRoutes}
+                {/* Internal Growth Scan view: Danish only, token-protected, never linked or indexed. */}
+                <Route path="/intern/scans" element={<InternalScans />} />
+                <Route path="/intern/scans/:id" element={<InternalScans />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </Suspense>
+        </div>
+        <CookieBanner />
+      </ScanProvider>
+    </LocaleProvider>
   </BrowserRouter>
 );
 

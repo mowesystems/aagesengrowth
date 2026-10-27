@@ -4,6 +4,8 @@ import ResponsiveImage from '@/components/media/ResponsiveImage';
 
 interface CaseMediaFrameProps {
   image: CaseImage;
+  alt: string;
+  caption?: string;
   sizes: string;
   priority?: boolean;
   className?: string;
@@ -20,6 +22,8 @@ interface CaseMediaFrameProps {
    * aspect would leave a hole in the row.
    */
   fill?: boolean;
+  /** Renders the chrome for an ink ground. */
+  light?: boolean;
 }
 
 /**
@@ -38,19 +42,31 @@ interface CaseMediaFrameProps {
  */
 const CaseMediaFrame: React.FC<CaseMediaFrameProps> = ({
   image,
+  alt,
+  caption,
   sizes,
   priority = false,
   className = '',
   showCaption = false,
   ratio,
   fill = false,
+  light = false,
 }) => {
   const boxStyle = fill ? undefined : { aspectRatio: String(ratio ?? image.ratio) };
   const boxClass = fill ? 'min-h-0 flex-1 overflow-hidden' : 'overflow-hidden';
 
+  const edge = light ? 'border-paper/15' : 'border-ink/12';
+  const bar = light ? 'border-paper/10 bg-ink-3/70' : 'border-ink/10 bg-paper';
+  const dot = light ? 'bg-paper/20' : 'bg-ink/15';
+  const surface = light ? 'bg-ink-2' : 'bg-paper-2';
+  const barText = light
+    ? 'border-paper/10 bg-ink/60 text-muted-lit'
+    : 'border-ink/10 bg-paper-2 text-muted';
+
   const picture = (objectPosition: string) => (
     <ResponsiveImage
       image={image}
+      alt={alt}
       sizes={sizes}
       priority={priority}
       className={`media-zoom h-full w-full object-cover ${objectPosition}`}
@@ -60,23 +76,18 @@ const CaseMediaFrame: React.FC<CaseMediaFrameProps> = ({
   const media =
     image.kind === 'browser' ? (
       <div
-        className={`flex flex-col overflow-hidden border border-paper/15 bg-ink-2 ${
-          fill ? 'h-full' : ''
-        }`}
+        className={`flex flex-col overflow-hidden border ${edge} ${surface} ${fill ? 'h-full' : ''}`}
       >
-        {/* Chrome. Decorative: the alt text on the screenshot already says
-            which page this is. */}
-        <div
-          className="flex shrink-0 items-center gap-2 border-b border-paper/10 bg-ink-3/70 px-3.5 py-2.5"
-          aria-hidden="true"
-        >
+        <div className={`flex shrink-0 items-center gap-2 border-b px-3.5 py-2.5 ${bar}`} aria-hidden="true">
           <span className="flex gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-paper/20" />
-            <span className="h-2 w-2 rounded-full bg-paper/20" />
-            <span className="h-2 w-2 rounded-full bg-paper/20" />
+            <span className={`h-2 w-2 rounded-full ${dot}`} />
+            <span className={`h-2 w-2 rounded-full ${dot}`} />
+            <span className={`h-2 w-2 rounded-full ${dot}`} />
           </span>
           {image.chrome && (
-            <span className="ml-2 hidden flex-1 truncate border border-paper/10 bg-ink/60 px-2.5 py-1 font-mono text-[0.58rem] tracking-[0.08em] text-muted sm:block">
+            <span
+              className={`ml-2 hidden flex-1 truncate border px-2.5 py-1 font-mono text-[0.58rem] tracking-[0.08em] sm:block ${barText}`}
+            >
               {image.chrome}
             </span>
           )}
@@ -87,9 +98,7 @@ const CaseMediaFrame: React.FC<CaseMediaFrameProps> = ({
       </div>
     ) : image.kind === 'phone' ? (
       <div
-        className={`flex flex-col overflow-hidden border border-paper/20 bg-ink-2 p-1.5 ${
-          fill ? 'h-full' : ''
-        }`}
+        className={`flex flex-col overflow-hidden border ${edge} ${surface} p-1.5 ${fill ? 'h-full' : ''}`}
       >
         <div className={boxClass} style={boxStyle}>
           {picture('object-top')}
@@ -101,14 +110,14 @@ const CaseMediaFrame: React.FC<CaseMediaFrameProps> = ({
       </div>
     );
 
-  if (!showCaption || !image.caption) {
+  if (!showCaption || !caption) {
     return <div className={`${fill ? 'h-full' : ''} ${className}`}>{media}</div>;
   }
 
   return (
     <figure className={className}>
       {media}
-      <figcaption className="meta mt-3">{image.caption}</figcaption>
+      <figcaption className={`mt-3 ${light ? 'meta-lit' : 'meta'}`}>{caption}</figcaption>
     </figure>
   );
 };

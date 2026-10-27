@@ -1,20 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import company from '@/config/company';
 
-type Variant = 'primary' | 'invert' | 'outline' | 'outline-invert';
+type Variant = 'primary' | 'outline' | 'lit' | 'outline-lit';
 type Size = 'md' | 'lg';
 
 interface ButtonProps {
   variant?: Variant;
   size?: Size;
   href?: string;
-  /**
-   * Points at the configured booking calendar. When none is configured it falls
-   * back to the contact page rather than to an empty booking page — otherwise
-   * every booking CTA on the site is a dead end until the calendar is set up.
-   */
-  booking?: boolean;
   to?: string;
   children: React.ReactNode;
   className?: string;
@@ -26,16 +19,23 @@ interface ButtonProps {
 
 const variantClass: Record<Variant, string> = {
   primary: 'btn-primary',
-  invert: 'btn-invert',
   outline: 'btn-outline',
-  'outline-invert': 'btn-outline-invert',
+  lit: 'btn-lit',
+  'outline-lit': 'btn-outline-lit',
 };
 
+/**
+ * The one button.
+ *
+ * `primary` and `outline` are for paper grounds; `lit` and `outline-lit` are
+ * their counterparts on ink. Renders an anchor for external links, a router
+ * Link for internal ones, and a real <button> otherwise — so a submit control
+ * is never a div and an in-app link never causes a full reload.
+ */
 const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
   size = 'md',
   href,
-  booking,
   to,
   children,
   className = '',
@@ -45,27 +45,6 @@ const Button: React.FC<ButtonProps> = ({
   'aria-label': ariaLabel,
 }) => {
   const classes = `btn ${variantClass[variant]} ${size === 'lg' ? 'btn-lg' : ''} ${className}`;
-
-  if (booking) {
-    if (company.bookingUrl) {
-      return (
-        <a
-          href={company.bookingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={classes}
-          aria-label={ariaLabel}
-        >
-          {children}
-        </a>
-      );
-    }
-    return (
-      <Link to="/kontakt" className={classes} onClick={onClick} aria-label={ariaLabel}>
-        {children}
-      </Link>
-    );
-  }
 
   if (to) {
     return (

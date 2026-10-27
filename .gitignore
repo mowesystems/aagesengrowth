@@ -21,3 +21,9 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Netlify CLI link state — machine-local, never committed
+.netlify
+
+# Local launch config for the desktop app
+.claude

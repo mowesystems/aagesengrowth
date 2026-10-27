@@ -1,52 +1,51 @@
 import React from 'react';
 
 interface BrandLogoProps {
-  /** Render for paper backgrounds. */
+  /** Use the reversed-out mark, for ink grounds. */
   light?: boolean;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
 
 /**
- * The Aagesen Growth wordmark, set in live type.
+ * The Aagesen Growth wordmark.
  *
- * Not an image: the alternative in this repository is a 1536x1024 PNG of the
- * logo photographed on a grey wall, which costs 2 MB and renders as a smudge in
- * a 140px header slot. As type it stays crisp at any size, inherits
- * currentColor, and costs nothing beyond fonts the page already loads.
+ * The real mark, not a reconstruction: AAGESEN set in a display serif over
+ * GROWTH, flanked by the two blue rules. It ships as an 800px-wide asset
+ * (WebP with a PNG fallback) trimmed to the artwork's own bounding box, in two
+ * colourways cut from the same original — ink glyphs with the logo's blue for
+ * paper grounds, paper glyphs with a lifted blue for ink grounds. Nothing
+ * about the drawing is altered.
  *
- * The lockup is horizontal — display serif, hairline, mono — so it reads as a
- * mark rather than as a stacked logotype trying to be one.
+ * The mark is decorative here: every place it is used sits inside a link or a
+ * heading that already carries the accessible name, so a second copy of
+ * "Aagesen Growth" would just be read out twice.
  */
-const sizes = {
-  sm: { word: 'text-[1.05rem]', sub: 'text-[0.5rem]', rule: 'h-3.5', gap: 'gap-2' },
-  md: { word: 'text-[1.3rem]', sub: 'text-[0.56rem]', rule: 'h-4', gap: 'gap-2.5' },
-  lg: { word: 'text-[1.75rem]', sub: 'text-[0.66rem]', rule: 'h-5', gap: 'gap-3' },
-};
+const RATIO = 800 / 152;
+
+const heights = { sm: 24, md: 30, lg: 38 };
 
 const BrandLogo: React.FC<BrandLogoProps> = ({ light = false, size = 'md', className = '' }) => {
-  const s = sizes[size];
+  const height = heights[size];
+  const src = light ? '/brand/aagesen-growth-light' : '/brand/aagesen-growth';
 
   return (
-    <span
-      className={`inline-flex items-center ${s.gap} ${light ? 'text-ink' : 'text-paper'} ${className}`}
-      aria-hidden="true"
-    >
-      {/*
-        The trailing space is load-bearing. Without it the lockup's text content
-        reads "AagesenGrowth", which no longer matches the link's accessible
-        name and trips axe's label-content-name-mismatch rule. Trailing
-        whitespace at the end of a line box is dropped, so it costs no width.
-      */}
-      <span className={`font-display leading-none tracking-[-0.01em] ${s.word}`}>{'Aagesen '}</span>
-      <span className={`w-px ${s.rule} bg-current opacity-30`} />
-      <span
-        className={`font-mono font-medium uppercase leading-none ${s.sub}`}
-        style={{ letterSpacing: '0.26em' }}
-      >
-        Growth
-      </span>
-    </span>
+    <picture>
+      <source type="image/webp" srcSet={`${src}.webp`} />
+      <img
+        src={`${src}.png`}
+        alt=""
+        aria-hidden="true"
+        width={Math.round(height * RATIO)}
+        height={height}
+        // The header mark is in the first viewport on every route, so it is
+        // never lazy — a late logo is the most visible kind of layout jitter.
+        loading="eager"
+        decoding="sync"
+        style={{ height, width: 'auto' }}
+        className={`block ${className}`}
+      />
+    </picture>
   );
 };
 

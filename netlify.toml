@@ -2,10 +2,151 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  # 22: the Chromium package the Growth Scan runs in requires it.
+  NODE_VERSION = "22"
+
+[functions]
+  node_bundler = "esbuild"
+  # Shipped as node_modules rather than bundled: puppeteer resolves files at
+  # runtime, and chromium-min downloads its browser into /tmp on a cold start.
+  external_node_modules = ["puppeteer-core", "@sparticuz/chromium-min"]
+
+# netlify dev must know this is a Vite app, or module scripts get the SPA rewrite.
+[dev]
+  framework = "vite"
+  targetPort = 5173
+
+# -----------------------------------------------------------------------------
+# Retired URLs.
+#
+# The site is a short landing page plus dedicated pages for how it works,
+# pricing, the Growth Scan, booking and FAQ. Every address that used to exist
+# 301s to the page that replaced it, so no indexed link 404s. These must stay
+# above the SPA fallback: Netlify takes the first matching rule.
+# -----------------------------------------------------------------------------
+[[redirects]]
+  from = "/priser"
+  to = "/pris"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/kontakt"
+  to = "/book"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/book-moede"
+  to = "/book"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/growth-review"
+  to = "/book"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/book-en-afklaring"
+  to = "/book"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/book-a-discovery-call"
+  to = "/en/book"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ydelser"
+  to = "/saadan-virker-det"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/om"
+  to = "/"
+  status = 301
+  force = true
+
+# Plus Eins is no longer shown as a case. Its old case pages point to the
+# project index instead of returning a 404.
+[[redirects]]
+  from = "/projekter/plus-eins"
+  to = "/projekter"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/projekter/plus-eins-deli"
+  to = "/projekter"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/projects/plus-eins"
+  to = "/en/projects"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/projects/plus-eins-deli"
+  to = "/en/projects"
+  status = 301
+  force = true
+
+# The Swedish version of the old agency site never existed as a real
+# language on this build; /en/* is the real English site and is handled by
+# the SPA fallback below, not redirected away.
+[[redirects]]
+  from = "/sv/*"
+  to = "/"
+  status = 301
+  force = true
+
+# -----------------------------------------------------------------------------
+# Long-lived assets. Everything under /assets carries a content hash in its
+# filename, and the fonts and media are replaced by new filenames when they
+# change, so both can be cached for a year.
+# -----------------------------------------------------------------------------
+# The internal scan view: never indexed, never framed.
+[[headers]]
+  for = "/intern/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# -----------------------------------------------------------------------------
+# SPA fallback. Last, so every rule above wins over it. The Growth Scan
+# function declares its own path (/api/growth-scan) and is matched before this.
+# -----------------------------------------------------------------------------
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build.environment]
-  NODE_VERSION = "20"

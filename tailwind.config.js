@@ -4,48 +4,65 @@ export default {
   theme: {
     extend: {
       colors: {
-        // --- Ground -----------------------------------------------------------
-        // Near black, not navy. The site sits at the bottom of the value range so
-        // that a single lit edge or a photograph reads as an event.
-        ink: '#050608',
-        'ink-2': '#0B0D12',
-        'ink-3': '#131722',
+        // --- Ink ---------------------------------------------------------
+        // The navy-black the wordmark is drawn in. Body copy on paper, and the
+        // ground of the dark sections. Not a neutral grey: it carries the blue.
+        ink: '#0B1220',
+        'ink-2': '#111A2C',
+        'ink-3': '#1B2740',
 
-        // --- Editorial off-white ----------------------------------------------
-        paper: '#F2EFE8',
+        // --- Paper -------------------------------------------------------
+        // The warm off-white the live site already runs on.
+        paper: '#F7F6F2',
         'paper-2': '#FFFFFF',
+        'paper-3': '#EFEDE6',
 
-        // Body copy on ink — 7.9:1
-        muted: '#9EA3AA',
-        // Body copy on paper — 6.4:1
-        'muted-ink': '#565E68',
+        // --- Brand blue --------------------------------------------------
+        // Descended from the two rules in the wordmark (#0447F8). `brand` is
+        // the one that carries buttons and links on paper — 5.8:1 on paper,
+        // 6.3:1 white-on-blue. `lit` is its counterpart on ink — 5.9:1.
+        brand: '#1B4FE8',
+        'brand-deep': '#0F35B0',
+        'brand-lit': '#5B8CFF',
+        'brand-tint': '#EDF2FF',
+        'brand-rule': '#0447F8',
 
-        // --- Iridescent accents ------------------------------------------------
-        // Used as light moving across glass: a few large words, selected rules,
-        // hover states, metric accents. Never a background wash on a card.
-        lime: '#B8FF45',
-        cyan: '#5EEBFF',
-        violet: '#7657FF',
-        magenta: '#FF4FD8',
-        // The one accent that is safe as small text on paper — 6.9:1
-        'accent-ink': '#4B2ED6',
+        // Body copy on paper — 5.5:1. Body copy on ink — 7.7:1.
+        muted: '#5A6478',
+        'muted-lit': '#9AA6BF',
+
+        // --- Signal states ---------------------------------------------
+        // Used sparingly, on findings and status only. Never as decoration.
+        critical: '#B3261E',
+        'critical-tint': '#FBEDEC',
+        amber: '#B4690E',
+        'amber-tint': '#FBF3E6',
+        good: '#137A4B',
+        'good-tint': '#E9F6EF',
       },
       fontFamily: {
+        // Instrument Serif is the wordmark's own species — it carries the
+        // editorial moments. Inter Tight (variable, one file) carries the
+        // oversized statements and all UI. Plex Mono carries indices.
         display: ['Instrument Serif', 'Times New Roman', 'serif'],
         sans: ['Inter Tight', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         mono: ['IBM Plex Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       fontSize: {
-        // ~9.4vw lands at 100–144px across desktop widths, 48px floor on phones.
-        hero: ['clamp(3rem, 9.4vw, 9.5rem)', { lineHeight: '0.86', letterSpacing: '-0.035em' }],
-        statement: ['clamp(2.5rem, 6.4vw, 6rem)', { lineHeight: '0.9', letterSpacing: '-0.03em' }],
-        display: ['clamp(2.25rem, 5vw, 4.5rem)', { lineHeight: '0.94', letterSpacing: '-0.028em' }],
-        section: ['clamp(1.9rem, 3.6vw, 3.25rem)', { lineHeight: '0.98', letterSpacing: '-0.024em' }],
-        title: ['clamp(1.35rem, 2.1vw, 1.95rem)', { lineHeight: '1.06', letterSpacing: '-0.018em' }],
-        lead: ['clamp(1.0625rem, 1.25vw, 1.1875rem)', { lineHeight: '1.6' }],
+        // Sized against the column each one lives in, not against the
+        // viewport alone: the hero sits in a six-column slot beside the
+        // mockups, so 6.4vw is what fills it — 10vw overflowed it onto four
+        // lines. The clamps hold a 44px floor on a 360px phone.
+        hero: ['clamp(2.75rem, 6.4vw, 6.25rem)', { lineHeight: '0.9', letterSpacing: '-0.035em' }],
+        statement: ['clamp(2.25rem, 5.4vw, 5rem)', { lineHeight: '0.94', letterSpacing: '-0.032em' }],
+        display: ['clamp(1.95rem, 4.1vw, 3.5rem)', { lineHeight: '0.98', letterSpacing: '-0.028em' }],
+        section: ['clamp(1.6rem, 2.9vw, 2.4rem)', { lineHeight: '1.02', letterSpacing: '-0.022em' }],
+        title: ['clamp(1.2rem, 1.7vw, 1.5rem)', { lineHeight: '1.14', letterSpacing: '-0.015em' }],
+        lead: ['clamp(1.0625rem, 1.15vw, 1.1875rem)', { lineHeight: '1.58' }],
+        price: ['clamp(1.9rem, 3.2vw, 2.75rem)', { lineHeight: '1', letterSpacing: '-0.028em' }],
       },
-      spacing: { 18: '4.5rem', 22: '5.5rem', 26: '6.5rem', 30: '7.5rem', 38: '9.5rem' },
-      maxWidth: { frame: '90rem', prose: '64ch', measure: '52ch' },
+      spacing: { 18: '4.5rem', 22: '5.5rem', 26: '6.5rem', 30: '7.5rem', 38: '9.5rem', 46: '11.5rem' },
+      maxWidth: { frame: '92rem', prose: '66ch', measure: '52ch' },
       transitionTimingFunction: {
         smooth: 'cubic-bezier(0.4, 0, 0.2, 1)',
         entrance: 'cubic-bezier(0.16, 0.84, 0.44, 1)',
@@ -53,6 +70,11 @@ export default {
       // The consent card sits above the header but below the mobile menu: when
       // someone has just opened the menu, that is the thing they asked for.
       zIndex: { header: '60', consent: '65', menu: '70' },
+      boxShadow: {
+        panel: '0 1px 2px rgba(11, 18, 32, 0.04), 0 24px 60px -36px rgba(11, 18, 32, 0.28)',
+        'panel-lit': '0 1px 0 rgba(247, 246, 242, 0.06) inset, 0 30px 80px -40px rgba(0, 0, 0, 0.7)',
+        glow: '0 0 0 4px rgba(27, 79, 232, 0.14), 0 18px 50px -20px rgba(27, 79, 232, 0.45)',
+      },
     },
   },
   plugins: [],
