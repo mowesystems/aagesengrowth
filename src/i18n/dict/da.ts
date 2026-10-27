@@ -57,8 +57,8 @@ const da = {
   // -------------------------------------------------------------------- hero
   hero: {
     eyebrow: 'Growth Engine · Til servicevirksomheder',
-    lines: ['Find hvor I taber kunder.', 'Ret det, der betyder mest.'],
-    lead: 'Growth Engine finder de steder i jeres digitale kunderejse, hvor potentielle kunder går tabt, og forbedrer først det, der har størst kommerciel betydning.',
+    lines: ['Flere kunder.', 'Færre tabte leads.'],
+    lead: 'Growth Engine finder de steder i jeres digitale kunderejse, hvor I potentielt går glip af kunder, og hjælper med at prioritere og forbedre dem løbende.',
     /** Labels on the signal visualisation. Short: they sit on a live diagram. */
     sources: ['Google', 'ChatGPT', 'Google Maps', 'AI-søgning', 'Perplexity'],
     core: 'Growth Engine',

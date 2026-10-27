@@ -53,8 +53,8 @@ const en: Dictionary = {
   // -------------------------------------------------------------------- hero
   hero: {
     eyebrow: 'Growth Engine · For service businesses',
-    lines: ['Find where you lose customers.', 'Fix what matters most.'],
-    lead: 'Growth Engine finds the places in your digital customer journey where potential customers are lost, and improves the ones with the greatest commercial impact first.',
+    lines: ['More customers.', 'Fewer lost leads.'],
+    lead: 'Growth Engine finds the places in your digital customer journey where you may be missing out on customers, and helps you prioritise and improve them continuously.',
     sources: ['Google', 'ChatGPT', 'Google Maps', 'AI search', 'Perplexity'],
     core: 'Growth Engine',
     outputs: ['Enquiry', 'Follow-up', 'Customer'],
