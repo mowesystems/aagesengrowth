@@ -73,6 +73,32 @@
   status = 301
   force = true
 
+# Plus Eins is no longer shown as a case. Its old case pages point to the
+# project index instead of returning a 404.
+[[redirects]]
+  from = "/projekter/plus-eins"
+  to = "/projekter"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/projekter/plus-eins-deli"
+  to = "/projekter"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/projects/plus-eins"
+  to = "/en/projects"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/en/projects/plus-eins-deli"
+  to = "/en/projects"
+  status = 301
+  force = true
+
 # The Swedish version of the old agency site never existed as a real
 # language on this build; /en/* is the real English site and is handled by
 # the SPA fallback below, not redirected away.

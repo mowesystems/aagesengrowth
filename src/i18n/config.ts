@@ -31,6 +31,7 @@ export const localeMeta: Record<
  */
 export const routeSlugs = {
   home: { da: '', en: '' },
+  websites: { da: 'ny-hjemmeside', en: 'new-website' },
   how: { da: 'saadan-virker-det', en: 'how-it-works' },
   pricing: { da: 'pris', en: 'pricing' },
   scan: { da: 'growth-scan', en: 'growth-scan' },
