@@ -53,8 +53,8 @@ const Privacy: React.FC = () => {
               <>
                 <p>Når I udfylder kontaktformularen, behandler vi:</p>
                 <ul className="space-y-1.5">
-                  <li>Navn, virksomhed, e-mail og eventuel hjemmesideadresse</li>
-                  <li>Beskeden og det valgte ydelsesområde</li>
+                  <li>Navn, virksomhed, e-mail, telefonnummer og eventuel hjemmesideadresse</li>
+                  <li>Beskeden, oplyst behov, tidshorisont, budget og det valgte ydelsesområde</li>
                 </ul>
               </>
             ),
@@ -70,12 +70,16 @@ const Privacy: React.FC = () => {
             ),
           },
           {
+            heading: 'Håndtering af henvendelser',
+            body: <p>En henvendelse gemmes i vores interne leadsystem. Vi gemmer den side og eventuelle kampagneoplysninger, du indsender henvendelsen fra, så vi kan forstå konteksten. Vi prioriterer opfølgningen ud fra de behov, den tidshorisont og det budget, du selv oplyser. Vurderingen gennemgås af et menneske og bruges ikke til automatisk at afvise henvendelser. Ved driftsproblemer opbevares en kopi i en privat leveringskø, indtil henvendelsen kan overføres. Når du sender en henvendelse fra en Growth Scan, knyttes det indsendte rapport-id til henvendelsen.</p>,
+          },
+          {
             heading: 'Growth Scan',
             body: (
               <p>
                 Når du kører en Growth Scan, gemmer vi webadressen og resultatet af scanningen, så rapporten kan vises
                 og gemmes som PDF eller billede. Scanningen bygger kun på offentligt tilgængelige oplysninger på det
-                website, der scannes, og der gemmes ingen personoplysninger om dig sammen med den. Rapporten kan kun
+                website, der scannes, og scanningen alene gemmer ingen personoplysninger om dig. Hvis du efterfølgende beder os kontakte dig, kan rapporten knyttes til din henvendelse. Rapporten kan kun
                 åbnes via det unikke link, din browser får, og vises ikke offentligt. For at forhindre misbrug tæller vi
                 antallet af scanninger pr. netværk i en time; IP-adressen gemmes kun i envejskrypteret form. Skriv til
                 os, hvis en rapport skal slettes.
