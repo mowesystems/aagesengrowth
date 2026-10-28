@@ -6,6 +6,7 @@
  */
 import type { Config, Context } from '@netlify/functions';
 import { timingSafeEqual } from 'node:crypto';
+import {retryScanDelivery} from '../scan-engine/sync';
 import { getRecord, listRecords } from '../scan-engine/store';
 
 const json = (body: unknown, status = 200) =>
@@ -24,6 +25,8 @@ const authorised = (req: Request) => {
 export default async (req: Request, context: Context) => {
   if (!process.env.SCAN_ADMIN_TOKEN) return json({ error: 'not_configured' }, 503);
   if (!authorised(req)) return json({ error: 'unauthorised' }, 401);
+  if(req.method==='POST')return json(await retryScanDelivery(context));
+  if(req.method!=='GET')return json({error:'method_not_allowed'},405);
   const { id } = context.params as { id?: string };
   if (id) {
     const record = await getRecord(id);

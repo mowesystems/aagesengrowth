@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
-    "typecheck:functions": "tsc --noEmit --allowImportingTsExtensions --module ESNext --moduleResolution bundler --target ES2022 --types node --skipLibCheck netlify/functions/lead-capture.mts netlify/functions/lead-delivery.mts"
+    "typecheck:functions": "tsc --noEmit --allowImportingTsExtensions --module ESNext --moduleResolution bundler --target ES2022 --types node --skipLibCheck netlify/functions/lead-capture.mts netlify/functions/lead-delivery.mts netlify/functions/scan-delivery.mts netlify/functions/growth-scan.mts netlify/functions/growth-scan-run-background.mts"
   },
   "dependencies": {
     "@netlify/blobs": "^11.1.2",

@@ -66,7 +66,7 @@ const GrowthScan: React.FC<GrowthScanProps> = ({ source, id, size = 'md', framed
             )}
             <LeadForm
               website={scan.url}
-              context={{ 'scan-summary': `${t.scan.result.manualRequested}: ${scan.error?.error ?? 'error'}`, founder: scan.founder ? 'yes' : 'no' }}
+              context={{ 'scan-id':scan.result?.id??'', 'scan-summary': `${t.scan.result.manualRequested}: ${scan.error?.error ?? 'error'}`, founder: scan.founder ? 'yes' : 'no' }}
               event="growth_scan_lead_submitted"
               source={`scan-manual:${source}`}
               submitLabel={t.scan.result.unreachableCta}
