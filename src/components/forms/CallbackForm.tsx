@@ -1,3 +1,5 @@
+import { captureLead } from '@/lib/leadCapture';
+import { LeadIntentFields } from '@/components/forms/LeadIntentFields';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { AlertCircle, ArrowRight, CheckCircle, Loader } from 'lucide-react';
@@ -57,6 +59,7 @@ const CallbackForm: React.FC<CallbackFormProps> = ({
   const { t } = useLocale();
   const copy = t.callback;
   const location = useLocation();
+  const [intakeId] = React.useState(() => crypto.randomUUID());
   const [status, setStatus] = React.useState<Status>('idle');
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const formRef = React.useRef<HTMLFormElement>(null);
@@ -101,16 +104,7 @@ const CallbackForm: React.FC<CallbackFormProps> = ({
 
     setStatus('loading');
     try {
-      const params = new URLSearchParams();
-      data.forEach((value, key) => {
-        if (typeof value === 'string') params.append(key, value);
-      });
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString(),
-      });
-      if (!response.ok) throw new Error(String(response.status));
+      await captureLead(data, intakeId);
       setStatus('success');
       track('callback_requested', { source, fromScan: Boolean(scanUrl) });
     } catch {
@@ -214,6 +208,11 @@ const CallbackForm: React.FC<CallbackFormProps> = ({
           />
         </div>
       </div>
+
+      <div className={lit ? '[&_.field-label]:text-paper [&_.text-muted]:text-muted-lit' : ''}>
+        <LeadIntentFields idPrefix={idPrefix} />
+      </div>
+      <input type="hidden" name="preferred_channel" value="phone" />
 
       {status === 'error' && (
         <div ref={feedbackRef} tabIndex={-1} role="alert" className="mt-5 border border-critical/40 bg-critical-tint p-4">

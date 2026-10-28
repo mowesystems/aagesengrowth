@@ -1,3 +1,5 @@
+import { captureLead } from '@/lib/leadCapture';
+import { LeadIntentFields } from '@/components/forms/LeadIntentFields';
 import React from 'react';
 import { AlertCircle, ArrowRight, CheckCircle, Loader } from 'lucide-react';
 import { track, type AnalyticsEvent } from '@/lib/analytics';
@@ -49,6 +51,7 @@ const LeadForm: React.FC<LeadFormProps> = ({
 }) => {
   const { t } = useLocale();
   const copy = t.scan.lead;
+  const [intakeId] = React.useState(() => crypto.randomUUID());
   const [status, setStatus] = React.useState<Status>('idle');
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const formRef = React.useRef<HTMLFormElement>(null);
@@ -80,16 +83,7 @@ const LeadForm: React.FC<LeadFormProps> = ({
     if (!validate(data)) return;
     setStatus('loading');
     try {
-      const params = new URLSearchParams();
-      data.forEach((value, key) => {
-        if (typeof value === 'string') params.append(key, value);
-      });
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString(),
-      });
-      if (!response.ok) throw new Error(String(response.status));
+      await captureLead(data, intakeId);
       setStatus('success');
       track(event, { source, founder: context.founder === 'yes' });
     } catch {
@@ -189,6 +183,8 @@ const LeadForm: React.FC<LeadFormProps> = ({
         )}
       </div>
       {website && <input type="hidden" name="website" value={website} />}
+
+      <LeadIntentFields idPrefix={idPrefix} />
 
       {status === 'error' && (
         <div
