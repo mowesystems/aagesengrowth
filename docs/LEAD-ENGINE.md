@@ -43,3 +43,20 @@ and follow the website's retention policy for concluded enquiries.
 failed delivery and destination restrictions. `npm run typecheck:functions`
 checks both lead functions. The admin repository has the SQL migration, brand
 isolation tests and operating instructions.
+
+
+## Growth Scan delivery to admin
+
+Every queued, running, completed or failed scan is forwarded server-side through
+`ingest_growth_scan` using the existing brand intake secret. The scanner keeps its
+original Blob record before attempting delivery. `scan-delivery` retries changed
+or undelivered reports every ten minutes, including reports from before the
+integration. A digest prevents unchanged report deliveries; database receipts
+provide idempotency and prevent stale state from replacing a completed report.
+Deploy previews never deliver into production.
+
+The existing authenticated scan-admin endpoint accepts POST to retry the same
+bounded delivery batch (20 records maximum). It uses SCAN_ADMIN_TOKEN and creates
+no new scan or paid AI request. Run it again if pending remains true. No key is
+exposed in browser code. Contact forms carry the public scan id so admin can link
+the enquiry to its report in either arrival order.

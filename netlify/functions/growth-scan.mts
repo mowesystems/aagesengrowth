@@ -12,6 +12,7 @@
 import type { Config, Context } from '@netlify/functions';
 import type { ScanLocale, ScanRecord } from '../../src/lib/growthScan/types';
 import { parseTarget, resolvesPublic } from '../scan-engine/net';
+import { syncScan } from '../scan-engine/sync';
 import { allowScan, getRecord, indexRecord, putRecord, store, toPublic } from '../scan-engine/store';
 
 const json = (body: unknown, status = 200) =>
@@ -52,6 +53,7 @@ export default async (req: Request, context: Context) => {
     if ((record.status === 'queued' || record.status === 'running') && Date.now() - Date.parse(record.createdAt) > 4 * 60_000) {
       record = { ...record, status: 'error', error: { error: 'timeout', message: 'The scan did not finish.', domain: record.domain } };
       await putRecord(record);
+      await syncScan(record,context.deploy.context==='production');
     }
     return json(toPublic(record));
   }
@@ -85,6 +87,7 @@ export default async (req: Request, context: Context) => {
   };
   await putRecord(record);
   await indexRecord(record);
+  await syncScan(record,context.deploy.context==='production');
 
   const origin = new URL(req.url).origin;
   const trigger = await fetch(`${origin}/.netlify/functions/growth-scan-run-background`, {

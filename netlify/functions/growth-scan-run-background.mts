@@ -8,6 +8,7 @@ import type { ScanProgress, ScanRecord } from '../../src/lib/growthScan/types';
 import { launchBrowser } from '../scan-engine/browser';
 import { renderDocuments } from '../scan-engine/documents';
 import { runScan, ScanUnreachable } from '../scan-engine/run';
+import { syncScan } from '../scan-engine/sync';
 import { getRecord, putRecord, store } from '../scan-engine/store';
 
 export default async (req: Request, _context: Context) => {
@@ -18,6 +19,7 @@ export default async (req: Request, _context: Context) => {
 
   let record: ScanRecord = { ...queued, status: 'running' };
   await putRecord(record);
+  await syncScan(record,_context.deploy.context==='production');
   const progress = async (p: ScanProgress) => {
     record = { ...record, progress: p };
     await putRecord(record).catch(() => undefined);
@@ -51,6 +53,7 @@ export default async (req: Request, _context: Context) => {
       files: { pdf: false, png: false },
     };
     await putRecord(record);
+  await syncScan(record,_context.deploy.context==='production');
 
     // Documents in the language the scan was started in, after the report
     // is already visible, so the visitor never waits for them.
@@ -70,6 +73,7 @@ export default async (req: Request, _context: Context) => {
     await store().set(`file/${id}.png`, docs.png.buffer as ArrayBuffer);
     record = { ...record, progress: { ...record.progress, stage: 'done' }, files: { pdf: true, png: true } };
     await putRecord(record);
+  await syncScan(record,_context.deploy.context==='production');
   } catch (error) {
     const unreachable = error instanceof ScanUnreachable;
     const message = (error as Error).message?.slice(0, 300) || 'Unknown error';
@@ -86,5 +90,6 @@ export default async (req: Request, _context: Context) => {
     }
   } finally {
     await browser?.close().catch(() => undefined);
+    const latest=await getRecord(id);if(latest)await syncScan(latest,_context.deploy.context==='production');
   }
 };
