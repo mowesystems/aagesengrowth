@@ -78,7 +78,7 @@ const Field: React.FC<{
     <circle
       key={key}
       r={r}
-      className="signal fill-brand"
+      className="signal fill-pink"
       style={{ offsetPath: `path('${d}')`, ['--delay' as string]: `${delay}s`, ['--dur' as string]: `${dur}s` }}
     />
   );
@@ -192,12 +192,12 @@ const Field: React.FC<{
           <g key={`out-${i}`}>
             {isLast ? (
               <>
-                <circle cx={o.x} cy={o.y} r="10" className="node-pulse" fill="#1B4FE8" />
-                <circle cx={o.x} cy={o.y} r="9" fill="#1B4FE8" />
+                <circle cx={o.x} cy={o.y} r="10" className="node-pulse" fill="#FD91CC" />
+                <circle cx={o.x} cy={o.y} r="9" fill="#FD91CC" />
                 <path
                   d={`M${o.x - 4} ${o.y} l3 3 l5.5 -6`}
                   fill="none"
-                  stroke="#FFFFFF"
+                  stroke="#0B1220"
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"

@@ -124,7 +124,7 @@ const Header: React.FC = () => {
 
       <header
         className={`fixed inset-x-0 top-0 z-header border-b transition-colors duration-300 ${
-          scrolled ? 'border-ink/10 bg-paper/85 backdrop-blur-xl' : 'border-transparent bg-transparent'
+          scrolled ? 'border-paper/15 bg-brand shadow-[0_10px_30px_-18px_rgba(11,18,32,0.45)]' : 'border-transparent bg-brand'
         }`}
       >
         <div className="frame">
@@ -140,14 +140,14 @@ const Header: React.FC = () => {
                   key={link.key}
                   to={path(link.key)}
                   aria-current={isCurrent(link.key) ? 'page' : undefined}
-                  className={`group relative inline-flex min-h-11 items-center px-2.5 font-sans text-[0.88rem] font-medium xl:px-4 transition-colors hover:text-ink ${
-                    isCurrent(link.key) ? 'text-ink' : 'text-muted'
+                  className={`group relative inline-flex min-h-11 items-center px-2.5 font-sans text-[0.88rem] font-medium xl:px-4 transition-colors hover:text-paper-2 ${
+                    isCurrent(link.key) ? 'text-paper-2' : 'text-paper-2/80'
                   }`}
                 >
                   {link.label}
                   <span
                     aria-hidden="true"
-                    className={`absolute bottom-[0.7rem] left-2.5 h-px bg-brand transition-[width] duration-300 ease-entrance group-hover:w-[calc(100%-1.25rem)] xl:left-4 xl:group-hover:w-[calc(100%-2rem)] ${
+                    className={`absolute bottom-[0.7rem] left-2.5 h-px bg-pink transition-[width] duration-300 ease-entrance group-hover:w-[calc(100%-1.25rem)] xl:left-4 xl:group-hover:w-[calc(100%-2rem)] ${
                       isCurrent(link.key) ? 'w-[calc(100%-1.25rem)] xl:w-[calc(100%-2rem)]' : 'w-0'
                     }`}
                   />
@@ -159,7 +159,7 @@ const Header: React.FC = () => {
               <Link
                 to={path('booking')}
                 onClick={() => track('primary_cta_clicked', { source: 'header:desktop', cta: 'book_afklaring' })}
-                className="link-line text-[0.88rem] text-muted"
+                className="link-line link-line-lit text-[0.88rem] text-paper-2/80"
               >
                 {t.cta.bookAfklaring}
               </Link>
@@ -167,12 +167,12 @@ const Header: React.FC = () => {
                 {t.cta.scanShort}
                 <ArrowRight size={15} aria-hidden="true" />
               </ScanLink>
-              <span aria-hidden="true" className="h-4 w-px bg-ink/15" />
-              <LanguageSwitcher />
+              <span aria-hidden="true" className="h-4 w-px bg-paper/25" />
+              <LanguageSwitcher light />
             </div>
 
             <div className="flex items-center gap-2 lg:hidden">
-              <LanguageSwitcher className="mr-1" />
+              <LanguageSwitcher light className="mr-1" />
               <ScanLink
                 href={scanHref}
                 onClick={() => onScanClick('mobile')}
@@ -187,7 +187,7 @@ const Header: React.FC = () => {
               <button
                 ref={toggleRef}
                 type="button"
-                className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center gap-2.5 px-2 text-ink"
+                className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center gap-2.5 px-2 text-paper-2"
                 onClick={() => setMenuOpen((open) => !open)}
                 aria-expanded={menuOpen}
                 aria-controls="mobile-menu"

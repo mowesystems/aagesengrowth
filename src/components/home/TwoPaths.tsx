@@ -35,7 +35,7 @@ const TwoPaths: React.FC<TwoPathsProps> = ({ source, scanHref }) => {
         <p className="font-mono text-[0.62rem] uppercase tracking-[0.18em] text-muted-lit">{c.label}</p>
         <h3 className="mt-5 font-sans text-[1.7rem] font-semibold leading-tight tracking-[-0.03em] text-paper sm:text-[2rem]">{c.title}</h3>
         <p className="mt-3 max-w-measure text-[0.95rem] leading-relaxed text-muted-lit">{c.body}</p>
-        <span className={`btn ${primary ? 'btn-lit' : 'btn-outline-lit'} btn-lg mt-8 w-full sm:w-auto`}>
+        <span className={`btn ${primary ? 'btn-primary' : 'btn-outline-lit'} btn-lg mt-8 w-full sm:w-auto`}>
           {c.cta}
           <ArrowRight size={16} aria-hidden="true" />
         </span>
