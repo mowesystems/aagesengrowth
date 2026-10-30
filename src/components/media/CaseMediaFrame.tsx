@@ -60,7 +60,7 @@ const CaseMediaFrame: React.FC<CaseMediaFrameProps> = ({
   const dot = light ? 'bg-paper/20' : 'bg-ink/15';
   const surface = light ? 'bg-ink-2' : 'bg-paper-2';
   const barText = light
-    ? 'border-paper/10 bg-ink/60 text-muted-lit'
+    ? 'border-paper/15 bg-paper/10 text-muted-lit'
     : 'border-ink/10 bg-paper-2 text-muted';
 
   const picture = (objectPosition: string) => (

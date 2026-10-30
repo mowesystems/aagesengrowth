@@ -40,7 +40,7 @@ const Hero: React.FC = () => {
                 <Link
                   to={`${path('pricing')}#${anchors.founder}`}
                   onClick={() => track('founder_program_clicked', { placement: 'hero' })}
-                  className="chip chip-opportunity min-h-7 transition-colors hover:bg-brand hover:text-paper-2"
+                  className="chip chip-pink min-h-7 transition-colors hover:bg-pink hover:text-ink"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
                   {t.founder.eyebrow} · {founderProgram.seats} {t.founder.seatsLabel}

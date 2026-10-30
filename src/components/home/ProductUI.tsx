@@ -70,12 +70,12 @@ const Sparkline: React.FC<{ points: number[]; active: boolean }> = ({ points, ac
     <svg viewBox={`0 0 ${W} ${H}`} className={`h-16 w-full ${active ? 'is-visible' : ''}`} aria-hidden="true">
       <defs>
         <linearGradient id="spark" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#5B8CFF" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#5B8CFF" stopOpacity="0" />
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path d={`${d} L${W} ${H} L0 ${H} Z`} fill="url(#spark)" opacity={active ? 1 : 0} style={{ transition: 'opacity 1.2s ease 0.6s' }} />
-      <path d={d} pathLength={1} fill="none" stroke="#5B8CFF" strokeWidth="1.5" className="draw" />
+      <path d={d} pathLength={1} fill="none" stroke="#FFFFFF" strokeWidth="1.5" className="draw" />
     </svg>
   );
 };
@@ -143,7 +143,7 @@ const ProductUI: React.FC = () => {
                     return (
                       <li
                         key={item.text}
-                        className="flex items-center gap-3 border border-paper/10 bg-ink px-3 py-2.5 transition-opacity duration-700"
+                        className="flex items-center gap-3 border border-paper/15 bg-paper/10 px-3 py-2.5 transition-opacity duration-700"
                         style={{ opacity: inView ? 1 : 0, transitionDelay: `${700 + i * 160}ms` }}
                       >
                         <span className="flex h-7 w-7 shrink-0 items-center justify-center border border-paper/15 text-brand-lit">

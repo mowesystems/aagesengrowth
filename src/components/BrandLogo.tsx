@@ -21,13 +21,15 @@ interface BrandLogoProps {
  * heading that already carries the accessible name, so a second copy of
  * "Aagesen Growth" would just be read out twice.
  */
-const RATIO = 800 / 152;
+const RATIO = 800 / 151;
 
 const heights = { sm: 24, md: 30, lg: 38 };
 
-const BrandLogo: React.FC<BrandLogoProps> = ({ light = false, size = 'md', className = '' }) => {
+const BrandLogo: React.FC<BrandLogoProps> = ({ size = 'md', className = '' }) => {
   const height = heights[size];
-  const src = light ? '/brand/aagesen-growth-light' : '/brand/aagesen-growth';
+  // The header and footer are both #1B4FE8, so the mark is the A-Growth
+  // blue logo's white artwork on that blue: header and logo read as one.
+  const src = '/brand/a-growth-white';
 
   return (
     <picture>

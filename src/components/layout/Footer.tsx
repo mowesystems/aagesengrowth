@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="on-dark border-t border-paper/10 bg-ink-2">
+    <footer className="on-dark border-t border-paper/20">
       <div className="frame">
         <div className="grid grid-cols-2 gap-x-8 gap-y-12 py-14 lg:grid-cols-12 lg:py-18">
           <div className="col-span-2 lg:col-span-5">

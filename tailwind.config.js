@@ -8,14 +8,15 @@ export default {
         // The navy-black the wordmark is drawn in. Body copy on paper, and the
         // ground of the dark sections. Not a neutral grey: it carries the blue.
         ink: '#0B1220',
-        'ink-2': '#111A2C',
-        'ink-3': '#1B2740',
+        // Panels inside blue sections: tints of the brand blue, never navy.
+        'ink-2': '#2B5BEA',
+        'ink-3': '#3D69EE',
 
         // --- Paper -------------------------------------------------------
         // The warm off-white the live site already runs on.
-        paper: '#F7F6F2',
+        paper: '#FFFFFF',
         'paper-2': '#FFFFFF',
-        'paper-3': '#EFEDE6',
+        'paper-3': '#F3F6FF',
 
         // --- Brand blue --------------------------------------------------
         // Descended from the two rules in the wordmark (#0447F8). `brand` is
@@ -23,13 +24,21 @@ export default {
         // 6.3:1 white-on-blue. `lit` is its counterpart on ink — 5.9:1.
         brand: '#1B4FE8',
         'brand-deep': '#0F35B0',
-        'brand-lit': '#5B8CFF',
+        // On blue grounds the accent is the pink, so every lit state is pink.
+        'brand-lit': '#FD91CC',
+
+        // --- Accent: bubblegum pink -------------------------------------
+        // The one unexpected colour. Never text on white (2.1:1); ink on pink
+        // is 9.0:1, pink against the blue is 3.0:1 for marks and borders.
+        pink: '#FD91CC',
+        'pink-tint': '#FFEAF5',
         'brand-tint': '#EDF2FF',
         'brand-rule': '#0447F8',
 
         // Body copy on paper — 5.5:1. Body copy on ink — 7.7:1.
         muted: '#5A6478',
-        'muted-lit': '#9AA6BF',
+        // Quiet text on the blue sections, 5.2:1 on #1B4FE8.
+        'muted-lit': '#E1E8FF',
 
         // --- Signal states ---------------------------------------------
         // Used sparingly, on findings and status only. Never as decoration.
