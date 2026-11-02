@@ -31,5 +31,7 @@ export interface CaseCopy {
   period: string;
   /** Empty when there is nothing to disclose. */
   disclosure: string;
+  /** A short tag such as "Launching soon". Empty for finished projects. */
+  status: string;
   media: Record<string, CaseCopyMedia>;
 }

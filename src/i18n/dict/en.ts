@@ -750,9 +750,9 @@ const en: Dictionary = {
     },
     work: {
       title: 'Projects',
-      description: 'Websites built by Aagesen Growth. See the new website for the swing band The Jivers, with booking, audio clips and video.',
+      description: 'Websites and software built by Aagesen Growth. See the new website for the swing band The Jivers and MOWE, software for visibility on Google and in AI, launching soon.',
       heading: 'Projects',
-      lead: 'Websites and digital solutions we have designed and built for real clients.',
+      lead: 'Websites, software and digital solutions we have designed and built.',
       allLabel: 'All projects',
       disciplinesLabel: 'Disciplines',
       deliveredLabel: 'Delivered',
@@ -853,6 +853,7 @@ const en: Dictionary = {
         proofLine: 'Website · booking · audio and video',
         period: '',
         disclosure: '',
+        status: '',
         media: {
           desktop: {
             alt: 'The jivers.dk front page on desktop with The Jivers logo, the headline about a swing band for parties and a photo of the band on a harbour pier.',
@@ -866,6 +867,74 @@ const en: Dictionary = {
           screenBooking: {
             alt: 'The booking page on jivers.dk with the booking enquiry form.',
             caption: 'Booking form',
+          },
+        } as Record<string, { alt: string; caption: string }>,
+      },
+      mowe: {
+        kind: 'Software · Product development · Website',
+        disciplines: ['Product development', 'Software', 'AI', 'Website', 'Launch'],
+        summary:
+          'A new software product that makes business websites visible on Google and in answers from ChatGPT, Claude, Gemini and Perplexity. We developed the product and built the website it launches on.',
+        strapline: 'Software that helps businesses get recommended by AI.',
+        challenge:
+          'More customers no longer ask Google but ChatGPT who to call, and AI usually names only two or three businesses. SEO agencies are expensive, often require long contracts and rarely cover AI search. MOWE had to do the work with one button: find the problems, fix them safely and be able to undo all of it.',
+        sections: [
+          {
+            heading: 'The product',
+            body: 'MOWE is an agent that reads every page of a website the way Google and AI do, and prioritises what costs customers. With one press it fixes titles, descriptions, structured data and answers to customers’ questions. The design is not touched.',
+          },
+          {
+            heading: 'Control and undo',
+            body: 'Nothing goes live until the customer presses the button, and every change is saved, so the site can be put back with one click. That was a requirement from the start: a business has to be able to trust software that changes its website.',
+          },
+          {
+            heading: 'Integrations',
+            body: 'MOWE connects to WordPress, Shopify, Wix, Webflow and websites on GitHub. If a site runs on something else, the customer gets the fixes as a ready list for their developer.',
+          },
+          {
+            heading: 'Free check',
+            body: 'A free check without login gives a score for visibility on Google (SEO) and in AI (GEO) and the most important problems in about a minute. It is the way into the product and already runs on mowesystems.com.',
+          },
+          {
+            heading: 'The website',
+            body: 'The launch site is built as one continuous story: an animated front page, a scroll story where the agent’s four steps play out in an app window, a comparison with an agency, pricing and FAQ. In English and Danish.',
+          },
+          {
+            heading: 'Launch',
+            body: 'The product is in the final stages before launch. Plans and pricing are in place: a free check and subscriptions from €99 a month with no contract.',
+          },
+        ],
+        delivered: [
+          'Product idea, positioning and name',
+          'Development of the MOWE agent',
+          'Free SEO and GEO check without login',
+          'Integrations with WordPress, Shopify, Wix, Webflow and GitHub',
+          'One-click undo for every change',
+          'Launch website in English and Danish',
+          'Plans and pricing',
+        ],
+        demonstrates:
+          'That we don’t only build websites, but also the product behind them: from idea and software to website and launch.',
+        proofLine: 'Software · AI visibility · website',
+        period: '',
+        disclosure: 'The numbers in the screenshots are examples from mowesystems.com, not measured results.',
+        status: 'Launching soon',
+        media: {
+          desktop: {
+            alt: 'The mowesystems.com front page on desktop with the headline Get recommended by Gemini, a field to check a website and cards with example SEO and GEO scores.',
+            caption: '',
+          },
+          mobile: {
+            alt: 'The mowesystems.com front page on mobile with headline, check field and a ChatGPT answer recommending the business.',
+            caption: '',
+          },
+          screenAgent: {
+            alt: 'The MOWE agent’s app window in the Scan step, with pages of a website flagged for problems such as missing structured data and a weak title.',
+            caption: 'The agent scans every page',
+          },
+          screenPricing: {
+            alt: 'The pricing section on mowesystems.com with four plans: Free check, Start, Growth and Partner.',
+            caption: 'Plans and pricing',
           },
         } as Record<string, { alt: string; caption: string }>,
       },

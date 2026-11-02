@@ -761,9 +761,9 @@ const da = {
     },
     work: {
       title: 'Projekter',
-      description: 'Hjemmesider bygget af Aagesen Growth. Se den nye hjemmeside til swingbandet The Jivers, med booking, lydklip og video.',
+      description: 'Hjemmesider og software bygget af Aagesen Growth. Se den nye hjemmeside til swingbandet The Jivers og MOWE, software til synlighed på Google og i AI, der lanceres snart.',
       heading: 'Projekter',
-      lead: 'Hjemmesider og digitale løsninger, vi har designet og bygget for rigtige kunder.',
+      lead: 'Hjemmesider, software og digitale løsninger, vi har designet og bygget.',
       allLabel: 'Alle projekter',
       disciplinesLabel: 'Discipliner',
       deliveredLabel: 'Leveret',
@@ -868,6 +868,7 @@ const da = {
         proofLine: 'Hjemmeside · booking · lyd og video',
         period: '',
         disclosure: '',
+        status: '',
         media: {
           desktop: {
             alt: 'Forsiden af jivers.dk på desktop med The Jivers-logoet, overskriften om swingband til fest og et foto af bandet på en havnemole.',
@@ -881,6 +882,74 @@ const da = {
           screenBooking: {
             alt: 'Bookingsiden på jivers.dk med formularen Bookingforespørgsel.',
             caption: 'Bookingformular',
+          },
+        } as Record<string, { alt: string; caption: string }>,
+      },
+      mowe: {
+        kind: 'Software · Produktudvikling · Hjemmeside',
+        disciplines: ['Produktudvikling', 'Software', 'AI', 'Hjemmeside', 'Lancering'],
+        summary:
+          'Et nyt softwareprodukt, der gør virksomheders hjemmesider synlige på Google og i svar fra ChatGPT, Claude, Gemini og Perplexity. Vi har udviklet produktet og bygget hjemmesiden, det lanceres på.',
+        strapline: 'Software, der hjælper virksomheder med at blive anbefalet af AI.',
+        challenge:
+          'Flere kunder spørger ikke længere Google, men ChatGPT, hvem de skal ringe til, og AI nævner typisk kun to eller tre virksomheder. SEO-bureauer er dyre, kræver ofte lange bindinger og dækker sjældent AI-søgning. MOWE skulle gøre arbejdet med én knap: finde problemerne, rette dem sikkert og kunne fortryde det hele.',
+        sections: [
+          {
+            heading: 'Produktet',
+            body: 'MOWE er en agent, der læser hver side på en hjemmeside, sådan som Google og AI gør, og prioriterer det, der koster kunder. Med ét tryk retter den titler, beskrivelser, strukturerede data og svar på kundernes spørgsmål. Designet bliver ikke rørt.',
+          },
+          {
+            heading: 'Kontrol og fortryd',
+            body: 'Intet går live, før kunden trykker på knappen, og hver ændring gemmes, så siden kan sættes tilbage med ét klik. Det var et krav fra starten: en virksomhed skal kunne stole på software, der ændrer i dens hjemmeside.',
+          },
+          {
+            heading: 'Integrationer',
+            body: 'MOWE forbinder til WordPress, Shopify, Wix, Webflow og hjemmesider på GitHub. Kører siden på noget andet, får kunden rettelserne som en færdig liste til sin udvikler.',
+          },
+          {
+            heading: 'Gratis tjek',
+            body: 'Et gratis tjek uden login giver en score for synlighed på Google (SEO) og i AI (GEO) og de vigtigste problemer på omkring et minut. Det er indgangen til produktet og kører allerede på mowesystems.com.',
+          },
+          {
+            heading: 'Hjemmesiden',
+            body: 'Lanceringssiden er bygget som ét sammenhængende forløb: en animeret forside, en scrollhistorie, hvor agentens fire trin vises i et programvindue, en sammenligning med et bureau, priser og FAQ. På engelsk og dansk.',
+          },
+          {
+            heading: 'Lancering',
+            body: 'Produktet er i de sidste faser før lancering. Pakker og priser er på plads: et gratis tjek og abonnementer fra 99 € om måneden uden binding.',
+          },
+        ],
+        delivered: [
+          'Produktidé, positionering og navn',
+          'Udvikling af MOWE-agenten',
+          'Gratis SEO- og GEO-tjek uden login',
+          'Integrationer til WordPress, Shopify, Wix, Webflow og GitHub',
+          'Fortryd med ét klik for hver ændring',
+          'Lanceringshjemmeside på dansk og engelsk',
+          'Pakker og priser',
+        ],
+        demonstrates:
+          'At vi ikke kun bygger hjemmesider, men også selve produktet bag: fra idé og software til hjemmeside og lancering.',
+        proofLine: 'Software · AI-synlighed · hjemmeside',
+        period: '',
+        disclosure: 'Tallene i skærmbillederne er eksempler fra mowesystems.com, ikke målte resultater.',
+        status: 'Lanceres snart',
+        media: {
+          desktop: {
+            alt: 'Forsiden af mowesystems.com på desktop med overskriften Get recommended by Gemini, et felt til at tjekke sin hjemmeside og kort med eksempler på SEO- og GEO-score.',
+            caption: '',
+          },
+          mobile: {
+            alt: 'Forsiden af mowesystems.com på mobil med overskrift, tjekfelt og et ChatGPT-svar, der anbefaler virksomheden.',
+            caption: '',
+          },
+          screenAgent: {
+            alt: 'MOWE-agentens programvindue i trinnet Scan, hvor sider på en hjemmeside er markeret med problemer som manglende strukturerede data og svag titel.',
+            caption: 'Agenten scanner hver side',
+          },
+          screenPricing: {
+            alt: 'Prissiden på mowesystems.com med fire pakker: Free check, Start, Growth og Partner.',
+            caption: 'Pakker og priser',
           },
         } as Record<string, { alt: string; caption: string }>,
       },
