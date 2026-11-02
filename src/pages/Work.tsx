@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/ui/Reveal';
+import StatusTag from '@/components/ui/StatusTag';
 import CaseMediaFrame from '@/components/media/CaseMediaFrame';
 import company from '@/config/company';
 import cases from '@/data/cases';
@@ -80,7 +81,10 @@ const Work: React.FC = () => {
                       <div
                         className={`lg:col-span-5 ${flipped ? 'lg:order-1 lg:col-start-1 lg:row-start-1' : ''}`}
                       >
-                        <p className="index-mark">{String(index + 1).padStart(2, '0')}</p>
+                        <div className="flex items-center gap-4">
+                          <p className="index-mark">{String(index + 1).padStart(2, '0')}</p>
+                          <StatusTag label={copy?.status} />
+                        </div>
                         <h2 className="h-section mt-4 transition-colors group-hover:text-brand">
                           {item.client}
                         </h2>

@@ -133,6 +133,51 @@ export const cases: CaseItem[] = [
       ],
     },
   },
+  {
+    id: 'mowe',
+    slug: 'mowe',
+    client: 'MOWE',
+    logoPath: '/brand/mowe.png',
+    logoScale: 1,
+    logoPosition: '50% 50%',
+    url: 'https://mowesystems.com',
+    metrics: [],
+    media: {
+      desktop: {
+        base: '/media/mowe-web-desktop',
+        chrome: 'mowesystems.com',
+        widths: [768, 1200, 1800],
+        ratio: 1.6,
+        kind: 'browser',
+        mediaKey: 'desktop',
+      },
+      mobile: {
+        base: '/media/mowe-web-mobile',
+        widths: [360, 540, 780],
+        ratio: 390 / 844,
+        kind: 'phone',
+        mediaKey: 'mobile',
+      },
+      screens: [
+        {
+          base: '/media/mowe-web-agent',
+          chrome: 'mowesystems.com/#product',
+          widths: [768, 1200, 1800],
+          ratio: 1.6,
+          kind: 'browser',
+          mediaKey: 'screenAgent',
+        },
+        {
+          base: '/media/mowe-web-pricing',
+          chrome: 'mowesystems.com/#pricing',
+          widths: [768, 1200, 1800],
+          ratio: 1.6,
+          kind: 'browser',
+          mediaKey: 'screenPricing',
+        },
+      ],
+    },
+  },
 ];
 
 export const getCaseBySlug = (slug: string) => cases.find((item) => item.slug === slug);

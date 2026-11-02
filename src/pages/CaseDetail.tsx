@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import Reveal from '@/components/ui/Reveal';
 import Button from '@/components/ui/Button';
+import StatusTag from '@/components/ui/StatusTag';
 import CaseMediaFrame from '@/components/media/CaseMediaFrame';
 import company from '@/config/company';
 import cases, { getCaseBySlug, verifiedMetrics, usableTestimonial } from '@/data/cases';
@@ -67,7 +68,10 @@ const CaseDetail: React.FC = () => {
 
           <div className="mt-8 grid gap-x-12 gap-y-8 lg:grid-cols-12 lg:items-end">
             <Reveal className="lg:col-span-7">
-              <p className="meta-brand">{copy?.kind}</p>
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                <p className="meta-brand">{copy?.kind}</p>
+                <StatusTag label={copy?.status} />
+              </div>
               <h1 className="h-statement mt-6">{item.client}</h1>
               <p className="h-serif mt-5 text-title text-muted">{copy?.strapline}</p>
             </Reveal>
