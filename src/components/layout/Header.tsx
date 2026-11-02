@@ -48,12 +48,16 @@ const Header: React.FC = () => {
   const nav: { key: RouteKey; label: string }[] = [
     { key: 'home', label: t.nav.engine },
     { key: 'websites', label: t.nav.websites },
+    { key: 'work', label: t.nav.work },
     { key: 'how', label: t.nav.how },
     { key: 'pricing', label: t.nav.pricing },
     { key: 'faq', label: t.nav.faq },
   ];
   const scanHref = isHome ? `#${anchors.scan}` : path('scan');
-  const isCurrent = (key: RouteKey) => location.pathname === path(key);
+  // A case page sits under the work index, so it keeps "Projects" marked.
+  const isCurrent = (key: RouteKey) =>
+    location.pathname === path(key) ||
+    (key === 'work' && location.pathname.startsWith(`${path('work')}/`));
 
   useEffect(() => {
     close();
@@ -128,42 +132,42 @@ const Header: React.FC = () => {
         }`}
       >
         <div className="frame">
-          <div className="flex h-[4.2rem] items-center justify-between gap-4 lg:h-[5.25rem] xl:gap-6">
-            <Link to={home} className="-ml-1 flex min-h-11 items-center px-1" aria-label={t.header.home}>
+          <div className="flex h-[4.2rem] items-center justify-between gap-4 lg:h-[5.25rem] 2xl:gap-6">
+            <Link to={home} className="-ml-1 flex min-h-11 shrink-0 items-center px-1" aria-label={t.header.home}>
               <BrandLogo size="sm" className="lg:hidden" />
               <BrandLogo size="md" className="hidden lg:block" />
             </Link>
 
-            <nav className="hidden items-center gap-1 lg:flex" aria-label={t.header.nav}>
+            <nav className="hidden items-center gap-1 xl:flex" aria-label={t.header.nav}>
               {nav.map((link) => (
                 <Link
                   key={link.key}
                   to={path(link.key)}
                   aria-current={isCurrent(link.key) ? 'page' : undefined}
-                  className={`group relative inline-flex min-h-11 items-center px-2.5 font-sans text-[0.88rem] font-medium xl:px-4 transition-colors hover:text-paper-2 ${
+                  className={`group relative inline-flex min-h-11 items-center whitespace-nowrap px-2.5 font-sans text-[0.88rem] font-medium 2xl:px-4 transition-colors hover:text-paper-2 ${
                     isCurrent(link.key) ? 'text-paper-2' : 'text-paper-2/80'
                   }`}
                 >
                   {link.label}
                   <span
                     aria-hidden="true"
-                    className={`absolute bottom-[0.7rem] left-2.5 h-px bg-pink transition-[width] duration-300 ease-entrance group-hover:w-[calc(100%-1.25rem)] xl:left-4 xl:group-hover:w-[calc(100%-2rem)] ${
-                      isCurrent(link.key) ? 'w-[calc(100%-1.25rem)] xl:w-[calc(100%-2rem)]' : 'w-0'
+                    className={`absolute bottom-[0.7rem] left-2.5 h-px bg-pink transition-[width] duration-300 ease-entrance group-hover:w-[calc(100%-1.25rem)] 2xl:left-4 2xl:group-hover:w-[calc(100%-2rem)] ${
+                      isCurrent(link.key) ? 'w-[calc(100%-1.25rem)] 2xl:w-[calc(100%-2rem)]' : 'w-0'
                     }`}
                   />
                 </Link>
               ))}
             </nav>
 
-            <div className="hidden items-center gap-4 lg:flex xl:gap-5">
+            <div className="hidden shrink-0 items-center gap-4 xl:flex 2xl:gap-5">
               <Link
                 to={path('booking')}
                 onClick={() => track('primary_cta_clicked', { source: 'header:desktop', cta: 'book_afklaring' })}
-                className="link-line link-line-lit text-[0.88rem] text-paper-2/80"
+                className="link-line link-line-lit whitespace-nowrap text-[0.88rem] text-paper-2/80"
               >
                 {t.cta.bookAfklaring}
               </Link>
-              <ScanLink href={scanHref} onClick={() => onScanClick('desktop')} className="btn btn-primary px-5 xl:px-6">
+              <ScanLink href={scanHref} onClick={() => onScanClick('desktop')} className="btn btn-primary whitespace-nowrap px-5 2xl:px-6">
                 {t.cta.scanShort}
                 <ArrowRight size={15} aria-hidden="true" />
               </ScanLink>
@@ -171,7 +175,7 @@ const Header: React.FC = () => {
               <LanguageSwitcher light />
             </div>
 
-            <div className="flex items-center gap-2 lg:hidden">
+            <div className="flex items-center gap-2 xl:hidden">
               <LanguageSwitcher light className="mr-1" />
               <ScanLink
                 href={scanHref}
@@ -211,7 +215,7 @@ const Header: React.FC = () => {
           role="dialog"
           aria-modal="true"
           aria-label={t.header.menu}
-          className="animate-fade-in fixed inset-0 z-menu flex flex-col overflow-y-auto bg-paper pb-10 pt-[4.2rem] lg:hidden"
+          className="animate-fade-in fixed inset-0 z-menu flex flex-col overflow-y-auto bg-paper pb-10 pt-[4.2rem] lg:pt-[5.25rem] xl:hidden"
         >
           <div className="grid-lines pointer-events-none absolute inset-0" aria-hidden="true" />
           <nav aria-label={t.header.menu} className="frame relative flex-1 pt-8">
