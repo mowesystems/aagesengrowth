@@ -658,7 +658,7 @@ const en: Dictionary = {
   websitesPage: {
     title: 'New website at a fixed price from DKK 9,995 | Aagesen Growth',
     description:
-      'Get a new website at a fixed price: DKK 9,995, 14,995 or 24,995 excl. VAT. Mobile friendly, fast and built for Google and enquiries. See The Jivers case.',
+      'Get a new website at a fixed price: DKK 9,995, 14,995 or 24,995 excl. VAT. Mobile friendly, fast and built for Google and enquiries. See the Makulay Siargao case.',
     eyebrow: 'Websites',
     heading: 'A new website at a fixed price.',
     lead: 'We design and build websites for small and medium-sized businesses. Fast, mobile friendly and set up so you can be found on Google and get enquiries. You know the price before we start.',
@@ -668,11 +668,11 @@ const en: Dictionary = {
     heroSecondary: 'See the prices',
     caseSection: {
       eyebrow: 'Latest website',
-      heading: 'The Jivers. A website with the same energy as the band.',
-      body: 'The swing band The Jivers got a new website with a booking form, audio clips that play as spinning vinyl records, live video and an English version. Built so event organisers can hear the band quickly and send an enquiry.',
-      points: ['Booking form with spam filter', 'Audio clips and live video', 'Danish and English version', 'Technical SEO and hosting'],
+      heading: 'Makulay Siargao. Luxury villas on a small island in the Pacific.',
+      body: 'Two private beachfront villas on Siargao in the Philippines got a website that feels like a luxury hotel: cinematic walkthroughs of each villa, more than 630 reviews and booking that sends guests straight to Airbnb with their dates filled in.',
+      points: ['Cinematic walkthrough of each villa', 'Booking straight to Airbnb', 'Reviews and photo galleries', 'SEO, GEO and hosting'],
       cta: 'See the full case',
-      visit: 'Visit jivers.dk',
+      visit: 'Visit makulaysiargaovillas.com',
     },
     cost: {
       eyebrow: 'Price',
@@ -721,9 +721,9 @@ const en: Dictionary = {
     teaser: {
       eyebrow: 'Websites',
       heading: 'Need a new website?',
-      body: 'We also build new websites at a fixed price from DKK 9,995 excl. VAT. Fast, mobile friendly and set up for Google. See for example the new website for the swing band The Jivers.',
+      body: 'We also build new websites at a fixed price from DKK 9,995 excl. VAT. Fast, mobile friendly and set up for Google. See for example the new website for the Makulay Siargao luxury villas in the Philippines.',
       cta: 'See websites and prices',
-      caseCta: 'See The Jivers case',
+      caseCta: 'See the Makulay Siargao case',
     },
   },
 
@@ -750,7 +750,7 @@ const en: Dictionary = {
     },
     work: {
       title: 'Projects',
-      description: 'Websites and software built by Aagesen Growth. See the new website for the swing band The Jivers and MOWE, software for visibility on Google and in AI, launching soon.',
+      description: 'Websites and software built by Aagesen Growth. See the new websites for the Makulay Siargao luxury villas and the swing band The Jivers, and MOWE, software for visibility on Google and in AI, launching soon.',
       heading: 'Projects',
       lead: 'Websites, software and digital solutions we have designed and built.',
       allLabel: 'All projects',
@@ -813,6 +813,74 @@ const en: Dictionary = {
    */
   work: {
     cases: {
+      makulay: {
+        kind: 'Luxury villas · Website · Booking',
+        disciplines: ['Website', 'Design', 'Booking', 'SEO and GEO', 'Hosting'],
+        summary:
+          'A new website for two private luxury beachfront villas on Siargao, a small island in the Philippines facing the Pacific. Built so guests can see inside the villas and go straight to booking.',
+        strapline: 'The website where you walk through the villa before you book.',
+        challenge:
+          'Makulay Siargao rents out two private villas on a beach facing the Pacific, on the quiet side of Siargao Island. Guests only found them on Airbnb, where the photos sit in a grid among thousands of other places. The villas needed a home of their own online that shows how special they are and still keeps booking easy.',
+        sections: [
+          {
+            heading: 'Design',
+            body: 'The site is built like a luxury hotel: large photos, calm typography and a sky blue taken from the villas’ own logo and Instagram. It has to sell an experience, not a night’s stay.',
+          },
+          {
+            heading: 'Walkthroughs as film',
+            body: 'Each villa has a cinematic walkthrough that takes guests from arrival on the beach through the bedroom, bathroom and terrace to the sunset. Visitors can jump to any room at any time.',
+          },
+          {
+            heading: 'Booking',
+            body: 'Guests pick a villa, dates and number of people on the site and go straight to the right Airbnb listing with everything filled in. Payment and messages happen on Airbnb, so the owners don’t have to run a booking system.',
+          },
+          {
+            heading: 'Reviews and photos',
+            body: 'More than 630 reviews averaging 4.8 come from Airbnb and are quoted word for word. Professional photos of both villas replaced the old phone pictures in walkthroughs and galleries.',
+          },
+          {
+            heading: 'Google and AI',
+            body: 'Every page has structured data about the villas, reviews and questions, and an llms.txt describes the place to AI search engines. The site is built without heavy frameworks and loads fast, even on mobile on an island with patchy internet.',
+          },
+          {
+            heading: 'Launch',
+            body: 'The site now runs on the villas’ own domain, makulaysiargaovillas.com, in place of their old WordPress site. The domain was moved without touching their email.',
+          },
+        ],
+        delivered: [
+          'Design and build of the whole website',
+          'Seven pages, including one per villa and a Siargao guide',
+          'Cinematic walkthrough of each villa',
+          'Booking with dates straight to Airbnb',
+          'Reviews and photo galleries',
+          'SEO and GEO: structured data, sitemap and llms.txt',
+          'Domain move, hosting and maintenance',
+        ],
+        demonstrates:
+          'That a small business can have a website that feels like a luxury hotel, without an expensive booking system, and that is built to be found on both Google and in AI.',
+        proofLine: 'Website · cinematic walkthrough · booking',
+        period: '',
+        disclosure: '',
+        status: '',
+        media: {
+          desktop: {
+            alt: 'The makulaysiargaovillas.com front page on desktop with the headline Where the island ends, and the Pacific begins over a photo of palms and sea.',
+            caption: '',
+          },
+          mobile: {
+            alt: 'The makulaysiargaovillas.com front page on mobile with headline, buttons to the villas and Airbnb, and a 4.8 rating.',
+            caption: '',
+          },
+          screenWalkthroughs: {
+            alt: 'The Step inside before you arrive section with a film button for each villa and photos of the beach and the bedroom.',
+            caption: 'A cinematic walkthrough of each villa',
+          },
+          screenBooking: {
+            alt: 'The booking section on a villa page with the Check availability box, dates, number of guests and the See prices on Airbnb button.',
+            caption: 'Booking straight to Airbnb',
+          },
+        } as Record<string, { alt: string; caption: string }>,
+      },
       jivers: {
         kind: 'Swing band · Website · Booking',
         disciplines: ['Website', 'Design', 'Booking', 'SEO', 'Hosting'],

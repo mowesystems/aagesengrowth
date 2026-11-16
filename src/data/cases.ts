@@ -88,6 +88,52 @@ export interface CaseItem {
 
 export const cases: CaseItem[] = [
   {
+    id: 'makulay',
+    slug: 'makulay-siargao',
+    client: 'Makulay Siargao',
+    logoPath: '/brand/aagesen-growth.png',
+    logoScale: 1,
+    logoPosition: '50% 50%',
+    url: 'https://makulaysiargaovillas.com',
+    featured: true,
+    metrics: [],
+    media: {
+      desktop: {
+        base: '/media/makulay-web-desktop',
+        chrome: 'makulaysiargaovillas.com',
+        widths: [768, 1200, 1800],
+        ratio: 1.6,
+        kind: 'browser',
+        mediaKey: 'desktop',
+      },
+      mobile: {
+        base: '/media/makulay-web-mobile',
+        widths: [360, 540, 780],
+        ratio: 390 / 844,
+        kind: 'phone',
+        mediaKey: 'mobile',
+      },
+      screens: [
+        {
+          base: '/media/makulay-web-walkthroughs',
+          chrome: 'makulaysiargaovillas.com/#walkthroughs',
+          widths: [768, 1200, 1800],
+          ratio: 1.6,
+          kind: 'browser',
+          mediaKey: 'screenWalkthroughs',
+        },
+        {
+          base: '/media/makulay-web-booking',
+          chrome: 'makulaysiargaovillas.com/villas/deluxe-point-villa',
+          widths: [768, 1200, 1800],
+          ratio: 1.6,
+          kind: 'browser',
+          mediaKey: 'screenBooking',
+        },
+      ],
+    },
+  },
+  {
     id: 'jivers',
     slug: 'the-jivers',
     client: 'The Jivers',
@@ -95,7 +141,6 @@ export const cases: CaseItem[] = [
     logoScale: 1,
     logoPosition: '50% 50%',
     url: 'https://jivers.dk',
-    featured: true,
     metrics: [],
     media: {
       desktop: {

@@ -669,7 +669,7 @@ const da = {
   websitesPage: {
     title: 'Ny hjemmeside til fast pris fra 9.995 kr. | Aagesen Growth',
     description:
-      'Få en ny hjemmeside til fast pris: 9.995, 14.995 eller 24.995 kr. ekskl. moms. Mobilvenlig, hurtig og bygget til Google og henvendelser. Se The Jivers-casen.',
+      'Få en ny hjemmeside til fast pris: 9.995, 14.995 eller 24.995 kr. ekskl. moms. Mobilvenlig, hurtig og bygget til Google og henvendelser. Se Makulay Siargao-casen.',
     eyebrow: 'Hjemmesider',
     heading: 'Ny hjemmeside til fast pris.',
     lead: 'Vi designer og bygger hjemmesider til små og mellemstore virksomheder. Hurtige, mobilvenlige og sat op, så I kan findes på Google og få henvendelser. I kender prisen, før vi går i gang.',
@@ -679,11 +679,11 @@ const da = {
     heroSecondary: 'Se priserne',
     caseSection: {
       eyebrow: 'Seneste hjemmeside',
-      heading: 'The Jivers. En hjemmeside med samme energi som bandet.',
-      body: 'Swingbandet The Jivers fik en ny hjemmeside med bookingformular, lydklip, der afspilles som vinylplader, livevideo og en engelsk version. Bygget til at arrangører hurtigt kan høre bandet og sende en forespørgsel.',
-      points: ['Bookingformular med spamfilter', 'Lydklip og livevideo', 'Dansk og engelsk version', 'Teknisk SEO og hosting'],
+      heading: 'Makulay Siargao. Luksusvillaer på en lille ø i Stillehavet.',
+      body: 'To private villaer ved stranden på Siargao i Filippinerne fik en hjemmeside, der føles som et luksushotel: filmiske gennemgange af hver villa, over 630 anmeldelser og booking, der sender gæsten direkte til Airbnb med datoerne udfyldt.',
+      points: ['Filmisk gennemgang af hver villa', 'Booking direkte til Airbnb', 'Anmeldelser og fotogallerier', 'SEO, GEO og hosting'],
       cta: 'Se hele casen',
-      visit: 'Besøg jivers.dk',
+      visit: 'Besøg makulaysiargaovillas.com',
     },
     cost: {
       eyebrow: 'Pris',
@@ -732,9 +732,9 @@ const da = {
     teaser: {
       eyebrow: 'Hjemmesider',
       heading: 'Skal I have en ny hjemmeside?',
-      body: 'Vi bygger også nye hjemmesider til fast pris fra 9.995 kr. ekskl. moms. Hurtige, mobilvenlige og sat op til Google. Se fx den nye hjemmeside til swingbandet The Jivers.',
+      body: 'Vi bygger også nye hjemmesider til fast pris fra 9.995 kr. ekskl. moms. Hurtige, mobilvenlige og sat op til Google. Se fx den nye hjemmeside til luksusvillaerne Makulay Siargao i Filippinerne.',
       cta: 'Se hjemmesider og priser',
-      caseCta: 'Se The Jivers-casen',
+      caseCta: 'Se Makulay Siargao-casen',
     },
   },
 
@@ -761,7 +761,7 @@ const da = {
     },
     work: {
       title: 'Projekter',
-      description: 'Hjemmesider og software bygget af Aagesen Growth. Se den nye hjemmeside til swingbandet The Jivers og MOWE, software til synlighed på Google og i AI, der lanceres snart.',
+      description: 'Hjemmesider og software bygget af Aagesen Growth. Se de nye hjemmesider til luksusvillaerne Makulay Siargao og swingbandet The Jivers og MOWE, software til synlighed på Google og i AI, der lanceres snart.',
       heading: 'Projekter',
       lead: 'Hjemmesider, software og digitale løsninger, vi har designet og bygget.',
       allLabel: 'Alle projekter',
@@ -828,6 +828,74 @@ const da = {
 
   work: {
     cases: {
+      makulay: {
+        kind: 'Luksusvillaer · Hjemmeside · Booking',
+        disciplines: ['Hjemmeside', 'Design', 'Booking', 'SEO og GEO', 'Hosting'],
+        summary:
+          'En ny hjemmeside til to private luksusvillaer ved stranden på Siargao, en lille ø i Filippinerne ud mod Stillehavet. Bygget til at gæster kan se villaerne indefra og gå direkte til booking.',
+        strapline: 'Hjemmesiden, hvor man går rundt i villaen, før man booker.',
+        challenge:
+          'Makulay Siargao udlejer to private villaer på en strand ud mod Stillehavet, på den stille side af øen Siargao. Gæsterne fandt dem kun via Airbnb, hvor billederne står i et gitter mellem tusind andre steder. Villaerne skulle have deres eget sted på nettet, der viser, hvor specielle de er, og som stadig gør booking let.',
+        sections: [
+          {
+            heading: 'Design',
+            body: 'Siden er bygget som et luksushotel: store fotos, rolig typografi og en himmelblå farve hentet fra stedets eget logo og Instagram. Udtrykket skal sælge en oplevelse, ikke en overnatning.',
+          },
+          {
+            heading: 'Gennemgang som film',
+            body: 'Hver villa har en filmisk gennemgang, der tager gæsten fra ankomsten på stranden gennem soveværelse, badeværelse og terrasse til solnedgangen. Man kan hoppe til et bestemt rum når som helst.',
+          },
+          {
+            heading: 'Booking',
+            body: 'Gæsten vælger villa, datoer og antal personer på siden og sendes direkte til det rigtige Airbnb-opslag med det hele udfyldt. Betaling og beskeder sker på Airbnb, så ejerne ikke skal drive et bookingsystem.',
+          },
+          {
+            heading: 'Anmeldelser og fotos',
+            body: 'Over 630 anmeldelser med et snit på 4,8 er hentet fra Airbnb og vist ordret. Professionelle fotos af begge villaer erstattede de gamle mobilbilleder i gennemgange og gallerier.',
+          },
+          {
+            heading: 'Google og AI',
+            body: 'Hver side har strukturerede data om villaerne, anmeldelser og spørgsmål, og en llms.txt beskriver stedet til AI-søgemaskiner. Siden er bygget uden tunge frameworks og indlæses hurtigt, også på mobil på en ø med svingende net.',
+          },
+          {
+            heading: 'Lancering',
+            body: 'Siden kører nu på villaernes eget domæne, makulaysiargaovillas.com, i stedet for deres gamle WordPress-side. Domænet blev flyttet uden at røre ved deres e-mail.',
+          },
+        ],
+        delivered: [
+          'Design og opbygning af hele hjemmesiden',
+          'Syv sider, herunder en side til hver villa og en guide til Siargao',
+          'Filmisk gennemgang af hver villa',
+          'Booking med datoer direkte til Airbnb',
+          'Anmeldelser og fotogallerier',
+          'SEO og GEO: strukturerede data, sitemap og llms.txt',
+          'Flytning af domænet, hosting og drift',
+        ],
+        demonstrates:
+          'At en lille virksomhed kan få en hjemmeside, der føles som et luksushotel, uden et dyrt bookingsystem, og som er bygget til at blive fundet på både Google og i AI.',
+        proofLine: 'Hjemmeside · filmisk gennemgang · booking',
+        period: '',
+        disclosure: '',
+        status: '',
+        media: {
+          desktop: {
+            alt: 'Forsiden af makulaysiargaovillas.com på desktop med overskriften Where the island ends, and the Pacific begins over et foto af palmer og hav.',
+            caption: '',
+          },
+          mobile: {
+            alt: 'Forsiden af makulaysiargaovillas.com på mobil med overskrift, knapper til villaerne og Airbnb og en vurdering på 4,8.',
+            caption: '',
+          },
+          screenWalkthroughs: {
+            alt: 'Afsnittet Step inside before you arrive med knapper til en film for hver villa og fotos fra stranden og soveværelset.',
+            caption: 'Filmisk gennemgang af hver villa',
+          },
+          screenBooking: {
+            alt: 'Bookingafsnittet på villasiden med feltet Check availability, datoer, antal gæster og knappen See prices on Airbnb.',
+            caption: 'Booking direkte til Airbnb',
+          },
+        } as Record<string, { alt: string; caption: string }>,
+      },
       jivers: {
         kind: 'Swingband · Hjemmeside · Booking',
         disciplines: ['Hjemmeside', 'Design', 'Booking', 'SEO', 'Hosting'],
